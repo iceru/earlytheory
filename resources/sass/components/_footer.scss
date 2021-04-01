@@ -1,0 +1,32 @@
+.footer {
+    // position: fixed;
+    // left: 0;
+    // bottom: 0;
+    // width: 100%;
+
+    .to-top {
+        color: white;
+        background-color: $primary;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-info {
+        .link {
+            color: $grey;
+
+            > div {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .social {
+            i {
+                color: $grey;
+                margin-left: 0.5rem;
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
