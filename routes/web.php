@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,9 @@ use App\Http\Controllers\IndexController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
+Route::get('/article-detail', [ArticleController::class, 'show'])->name('article-detail');
 
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){

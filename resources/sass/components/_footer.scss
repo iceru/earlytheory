@@ -14,17 +14,19 @@
 
     .footer-info {
         .link {
-            color: $grey;
-
-            > div {
+            div {
                 margin-bottom: 0.5rem;
+
+                a {
+                    color: $grey;
+                }
             }
         }
 
         .social {
             i {
                 color: $grey;
-                margin-left: 0.5rem;
+                margin-left: 0.75rem;
                 font-size: 1.5rem;
             }
         }

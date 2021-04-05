@@ -32,7 +32,7 @@
 
 
         <!-- Page Content -->
-        <main class="row py-4">
+        <main class="row py-2">
             {{ $slot }}
 
         </main >

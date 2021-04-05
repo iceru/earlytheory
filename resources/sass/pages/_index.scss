@@ -1,15 +1,8 @@
 .index {
-    .sliders {
-        width: 100%;
-        border-radius: 10px;
-    }
-
     .products {
-
         .product-item-container {
-
             .product-image {
-                margin-bottom: .5rem;
+                margin-bottom: 0.5rem;
 
                 img {
                     width: 100%;
@@ -26,11 +19,11 @@
                 border-radius: 5px;
 
                 .product-title {
-                    font-family: 'Skylar Sans';
+                    font-family: "Skylar Sans";
                     font-size: 1.5rem;
                 }
                 .product-price {
-                    font-family: 'Apercu mono';
+                    font-family: "Apercu mono";
                     margin-bottom: 6px;
                 }
                 .product-desc {
@@ -38,5 +31,15 @@
                 }
             }
         }
+    }
+}
+
+.sliders {
+    width: 100%;
+    border-radius: 10px;
+    // height: 25vh;
+
+    img {
+        width: 100%;
     }
 }
