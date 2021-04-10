@@ -10846,7 +10846,6 @@ a {
 .button {
   padding: 8px 16px;
   border-radius: 5px;
-  margin: 1rem 0;
   display: flex;
   text-decoration: none;
   justify-content: center;
@@ -10857,9 +10856,10 @@ a {
   background-color: #4A2984;
   color: white;
   transition: 0.2s all ease-in;
+  border: 1px solid #4A2984;
 }
 .button.primary:hover {
-  background-color: white;
+  background-color: #e7e7e7;
   color: #4A2984;
   transition: 0.2s all ease-in;
 }
@@ -11000,6 +11000,22 @@ a {
   font-family: "Skylar Sans";
   font-size: 28px;
 }
+@media (min-width: 992px) {
+  .article-detail .article-image {
+    border-radius: 20px;
+    height: 60vh;
+  }
+  .article-detail .article-image .title {
+    width: 100%;
+    padding-left: 5%;
+    padding-bottom: 60px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .article-detail .article-image .title h2, .article-detail .article-image .title .h2 {
+    font-size: 2rem;
+  }
+}
 .article-detail .article-body {
   position: relative;
   padding: 30px 30px 10px 30px;
@@ -11007,6 +11023,15 @@ a {
   margin-top: -60px;
   z-index: 4;
   background-color: #e7e7e7;
+}
+@media (min-width: 992px) {
+  .article-detail .article-body {
+    border-radius: 20px;
+    margin: auto;
+    margin-top: -30px;
+    border: 1px solid #c4c4c4;
+    width: 90%;
+  }
 }
 .article-detail .article-body .writer-info {
   display: flex;
@@ -11024,6 +11049,72 @@ a {
 }
 .article-detail .article-body .article-text {
   margin-top: 1rem;
+}
+
+.auth-card {
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+}
+
+.logo-login a img {
+  width: 50vw;
+}
+
+.cart .title-page {
+  margin-bottom: 2rem;
+}
+.cart .products .product-item-container {
+  padding: 12px;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  margin-bottom: 1rem !important;
+}
+.cart .products .product-item-container:last-child {
+  margin-bottom: 2rem !important;
+}
+.cart .products .product-item-container .product-image {
+  padding: 0;
+}
+.cart .products .product-item-container .product-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.cart .products .product-item-container .product-item {
+  color: #4A2984;
+}
+.cart .products .product-item-container .product-item .product-title {
+  font-family: "Skylar Sans";
+  font-size: 1.5rem;
+}
+.cart .products .product-item-container .product-item .product-price {
+  font-family: "Apercu mono";
+  margin-bottom: 6px;
+}
+.cart .products .product-item-container .product-item .qty-spinner {
+  width: 70px;
+  justify-content: space-between;
+}
+@media (min-width: 992px) {
+  .cart .products .product-item-container .product-item .qty-spinner {
+    width: 100px;
+  }
+}
+.cart .cart-summary {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #c4c4c4;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding: 24px;
+  align-items: center;
+  border-bottom: none;
+}
+.cart .cart-summary .total-price .text {
+  font-weight: bold;
+}
+.cart .cart-summary .total-price .price {
+  font-family: "Apercu Mono";
 }
 
 .index .products .product-item-container .product-image {
@@ -11055,19 +11146,14 @@ a {
 
 .sliders {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 .sliders img {
   width: 100%;
-}
-
-.auth-card {
-  border: 1px solid #c4c4c4;
-  border-radius: 10px;
-}
-
-.logo-login a img {
-  width: 50vw;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 
 .footer .to-top {
@@ -11080,6 +11166,9 @@ a {
 .footer .footer-info .link div {
   margin-bottom: 0.5rem;
 }
+.footer .footer-info .link div:last-child {
+  margin-bottom: 0;
+}
 .footer .footer-info .link div a {
   color: #828282;
 }
@@ -11088,12 +11177,50 @@ a {
   margin-left: 0.75rem;
   font-size: 1.5rem;
 }
+.footer .footer-subs .text-subs {
+  font-weight: 600;
+}
+.footer .footer-logo img {
+  width: 20vh;
+}
+.footer .footer-copyright p {
+  color: #828282;
+}
 
-.navbar .logo img {
+.navbar-mobile {
+  padding: 1rem;
+}
+.navbar-mobile .logo img {
   width: 6rem;
 }
-.navbar .hamburger {
+.navbar-mobile .hamburger {
   cursor: pointer;
+  padding: 0;
+}
+.navbar-mobile .cart-icon {
+  padding: 0;
+}
+@media (min-width: 992px) {
+  .navbar-mobile .cart-icon {
+    padding: 0;
+  }
+}
+
+.navbar {
+  padding-top: 0;
+  padding-bottom: 1rem;
+}
+.navbar .logo-lg img {
+  width: 14vh;
+}
+.navbar .nav-links {
+  display: flex;
+  justify-content: space-around;
+}
+.navbar .nav-links a {
+  color: black;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .sidebar {

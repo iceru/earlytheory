@@ -1,4 +1,6 @@
-.navbar {
+.navbar-mobile {
+    padding: 1rem;
+
     .logo {
         img {
             width: 6rem;
@@ -7,6 +9,35 @@
 
     .hamburger {
         cursor: pointer;
+        padding: 0;
+    }
+
+    .cart-icon {
+        @include breakpoint(large){
+            padding: 0;
+        }
+        padding: 0;
+    }
+}
+
+.navbar {
+    padding-top: 0;
+    padding-bottom: 1rem;
+
+    .logo-lg {
+        img {
+            width: 14vh;
+        }
+    }
+
+    .nav-links {
+        display:flex;
+        justify-content: space-around;
+        a {
+            color: black;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
     }
 }
 

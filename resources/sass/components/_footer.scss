@@ -17,6 +17,10 @@
             div {
                 margin-bottom: 0.5rem;
 
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
                 a {
                     color: $grey;
                 }
@@ -29,6 +33,24 @@
                 margin-left: 0.75rem;
                 font-size: 1.5rem;
             }
+        }
+    }
+
+    .footer-subs {
+        .text-subs {
+            font-weight: 600;
+        }
+    }
+
+    .footer-logo {
+        img {
+            width: 20vh;
+        }
+    }
+
+    .footer-copyright {
+        p {
+            color: $grey;
         }
     }
 }

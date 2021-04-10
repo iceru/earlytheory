@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="col-12 g-0 article-detail">
+    <div class="col-12 g-0 pb-4 article-detail">
         <div class="article-image" style="background-image: url('/images/SWOT.png')">
             <div class="share">
                 <i class="fas fa-share    "></i>

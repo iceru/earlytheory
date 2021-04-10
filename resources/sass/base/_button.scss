@@ -1,7 +1,6 @@
 .button {
     padding: 8px 16px;
     border-radius: 5px;
-    margin: 1rem 0;
     display: flex;
     text-decoration: none;
     justify-content: center;
@@ -12,9 +11,10 @@
         background-color: $primary;
         color: white;
         transition: .2s all ease-in;
+        border: 1px solid $primary;
 
         &:hover {
-            background-color: white;
+            background-color: $background;
             color: $primary;
             transition: .2s all ease-in;
         }

@@ -19,7 +19,7 @@
                     <p class="product-price">idr 75,000</p>
                     <p class="product-desc">Menjawab 1 Pertanyaan atas permasalahan hidupmu [Love, work, etc.]</p>
                 </div>
-                <a href="" class="button primary">Add To Cart</a>
+                <a href="" class="button primary my-3">Add To Cart</a>
             </div>
             <div class="product-item-container col-6 col-md-3">
                 <div class="product-image">
@@ -30,7 +30,7 @@
                     <p class="product-price">idr 75,000</p>
                     <p class="product-desc">Menjawab 1 Pertanyaan atas permasalahan hidupmu [Love, work, etc.]</p>
                 </div>
-                <a href="" class="button primary">Add To Cart</a>
+                <a href="" class="button primary my-3">Add To Cart</a>
             </div>
         </div>
     </div>
