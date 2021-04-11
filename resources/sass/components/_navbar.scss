@@ -37,6 +37,15 @@
             color: black;
             font-size: 1rem;
             text-transform: uppercase;
+
+            &:hover {
+                color: $primary;
+            }
+
+            &.active {
+                color: $primary;
+                font-weight: 600;
+            }
         }
     }
 }

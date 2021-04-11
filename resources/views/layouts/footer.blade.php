@@ -18,20 +18,23 @@
             </div>
         </div>
     </div>
-    <div class="footer-subs col-12 mb-4">
-        <p class="text-uppercase text-subs primary-color">Subscribe untuk promo terbaru!</p>
-        <div class="form-group d-flex">
-          <input type="text"
-            class="form-control me-2" name="" id="" aria-describedby="helpId" placeholder="">
-            <button class="button primary m-0">Subscribe</button>
+    
+    <div class="footer-subs-logo row align-items-center pe-0">
+        <div class="footer-subs col-12 col-lg-6 mb-4 order-lg-2">
+            <p class="text-uppercase text-subs primary-color">Subscribe untuk promo terbaru!</p>
+            <div class="form-group d-flex">
+            <input type="text"
+                class="form-control me-2" name="" id="" aria-describedby="helpId" placeholder="">
+                <button class="button primary m-0">Subscribe</button>
+            </div>
+        </div>
+
+        <div class="footer-logo col-12 col-lg-6 mb-4 pe-0 order-lg-1">
+            <img src="/images/MainLogo.png" alt="">
         </div>
     </div>
 
-    <div class="footer-logo mb-4 text-center">
-        <img src="/images/MainLogo.png" alt="">
-    </div>
-
-    <div class="footer-copyright mb-3">
+    <div class="footer-copyright col-12 mb-3">
         <p class="text-center">Copyrights Reserved. Early Theory 2021</p>
     </div>
 </div>

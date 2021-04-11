@@ -43,8 +43,18 @@
     }
 
     .footer-logo {
+        text-align: center;
+        
         img {
             width: 20vh;
+        }
+
+        @include breakpoint(large){
+            text-align: left;
+
+            img {
+                width: 25vh;
+            }
         }
     }
 

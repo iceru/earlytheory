@@ -4,19 +4,22 @@
             <div class="col-12 title-page text-center primary-color">
                 <h1>MY CART</h1>
             </div>
-            <div class="col-12 col-lg-6 product-cart ">
+            <div class="col-lg-6">
                 <div class="d-flex justify-content-end mb-3">
                     <button class="button primary align-items-center">
                         <span class="me-2 ">Remove All</span> <i class="fas fa-trash"></i>
                     </button>
                 </div>
+            </div>
+            <div class="col-lg-6"></div>
+            <div class="col-12 col-lg-6 product-cart ">
 
                 <div class="products">
                     <div class="product-item-container row m-0">
-                        <div class="col-4 product-image">
+                        <div class="col-4 col-lg-3 product-image">
                             <img src="/images/PROBLEMSOLVER.png" alt="">
                         </div>
-                        <div class="col-8 product-item">
+                        <div class="col-8 col-lg-9 product-item">
                             <h4 class="product-title">Mencari Jodoh</h4>
                             <p class="product-price">idr 150.000</p>
                             <div class="qty-spinner d-flex">
@@ -31,10 +34,10 @@
                         </div>
                     </div>
                     <div class="product-item-container row m-0">
-                        <div class="col-4 product-image">
+                        <div class="col-4 col-lg-3 product-image">
                             <img src="/images/PROBLEMSOLVER.png" alt="">
                         </div>
-                        <div class="col-8 product-item">
+                        <div class="col-8 col-lg-9 product-item">
                             <h4 class="product-title">Mencari Jodoh</h4>
                             <p class="product-price">idr 150.000</p>
                             <div class="qty-spinner d-flex">

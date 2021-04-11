@@ -1,0 +1,119 @@
+.checkout {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    .title-page {
+        font-size: 1.25rem;
+        color: $primary;
+        text-align: center;
+        margin-bottom: 1.5rem
+    }
+
+    .indicator {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        align-items: center;
+
+        .circle {
+            content: '';
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: $secondary;
+            opacity: 20%;
+
+            &.active {
+                opacity: 100%;
+                background-color: $primary;
+            }
+        }
+
+        .line {
+            content: '';
+            width: 50px;
+            height: 6px;
+            background-color: $background-secondary;
+        }
+    }
+
+    .products {
+        .product-item-container {
+            padding: 12px;
+            border: 1px solid $background-secondary;
+            border-radius: 20px;
+            margin: 0;
+            margin-bottom: 1rem;
+
+            &:last-child {
+                margin-bottom: 1.5rem;
+            }
+
+            .product-title, .product-price {
+                text-align: center;
+                color: $primary;
+                
+            }
+
+            .product-title {
+                h4 {
+                    font-family: "Skylar Sans";
+                    font-size: 1.5rem;
+                }
+            }
+            .product-price {
+                font-family: "Apercu mono";
+                margin-bottom: .5rem;
+            }
+
+            .product-image {
+                img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 5px;
+                }
+            }
+
+            .product-question {
+                p {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+        }
+
+        textarea {
+            width: 100%;
+            padding: 6px;
+        }
+    }
+
+    .payment-method {
+        .payment-method-container {
+            margin: 0;
+            margin-bottom: 1rem;
+        }
+        .type {
+            text-align: center;
+            padding-bottom: .5rem;
+            border-bottom: 1px solid $background-secondary;
+
+            p {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            &.active {
+                border-bottom: 1px solid $primary;
+
+                p {
+                    color: $primary;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

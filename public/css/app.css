@@ -11072,6 +11072,11 @@ a {
 .cart .products .product-item-container:last-child {
   margin-bottom: 2rem !important;
 }
+@media (min-width: 992px) {
+  .cart .products .product-item-container:last-child {
+    margin-bottom: 0 !important;
+  }
+}
 .cart .products .product-item-container .product-image {
   padding: 0;
 }
@@ -11110,11 +11115,110 @@ a {
   align-items: center;
   border-bottom: none;
 }
+@media (min-width: 992px) {
+  .cart .cart-summary {
+    border-radius: 5px !important;
+    border-bottom: 1px solid #c4c4c4;
+  }
+}
 .cart .cart-summary .total-price .text {
   font-weight: bold;
 }
 .cart .cart-summary .total-price .price {
   font-family: "Apercu Mono";
+}
+
+.checkout {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.checkout .title-page {
+  font-size: 1.25rem;
+  color: #4A2984;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.checkout .indicator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+.checkout .indicator .circle {
+  content: "";
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #c614cc;
+  opacity: 20%;
+}
+.checkout .indicator .circle.active {
+  opacity: 100%;
+  background-color: #4A2984;
+}
+.checkout .indicator .line {
+  content: "";
+  width: 50px;
+  height: 6px;
+  background-color: #c4c4c4;
+}
+.checkout .products .product-item-container {
+  padding: 12px;
+  border: 1px solid #c4c4c4;
+  border-radius: 20px;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+.checkout .products .product-item-container:last-child {
+  margin-bottom: 1.5rem;
+}
+.checkout .products .product-item-container .product-title, .checkout .products .product-item-container .product-price {
+  text-align: center;
+  color: #4A2984;
+}
+.checkout .products .product-item-container .product-title h4, .checkout .products .product-item-container .product-title .h4 {
+  font-family: "Skylar Sans";
+  font-size: 1.5rem;
+}
+.checkout .products .product-item-container .product-price {
+  font-family: "Apercu mono";
+  margin-bottom: 0.5rem;
+}
+.checkout .products .product-item-container .product-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.checkout .products .product-item-container .product-question p {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.checkout .products textarea {
+  width: 100%;
+  padding: 6px;
+}
+.checkout .payment-method .payment-method-container {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+.checkout .payment-method .type {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #c4c4c4;
+}
+.checkout .payment-method .type p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.checkout .payment-method .type.active {
+  border-bottom: 1px solid #4A2984;
+}
+.checkout .payment-method .type.active p {
+  color: #4A2984;
+  font-weight: 600;
 }
 
 .index .products .product-item-container .product-image {
@@ -11180,8 +11284,19 @@ a {
 .footer .footer-subs .text-subs {
   font-weight: 600;
 }
+.footer .footer-logo {
+  text-align: center;
+}
 .footer .footer-logo img {
   width: 20vh;
+}
+@media (min-width: 992px) {
+  .footer .footer-logo {
+    text-align: left;
+  }
+  .footer .footer-logo img {
+    width: 25vh;
+  }
 }
 .footer .footer-copyright p {
   color: #828282;
@@ -11221,6 +11336,13 @@ a {
   color: black;
   font-size: 1rem;
   text-transform: uppercase;
+}
+.navbar .nav-links a:hover {
+  color: #4A2984;
+}
+.navbar .nav-links a.active {
+  color: #4A2984;
+  font-weight: 600;
 }
 
 .sidebar {
