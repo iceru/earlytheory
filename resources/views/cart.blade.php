@@ -61,7 +61,7 @@
                        <span class="price">idr 225,000</span>
                     </h5>
                 </div>
-                <div class="checkout">
+                <div class="checkout-btn">
                     <a href="#" class="button primary">Checkout</a>
                 </div>
             </div>

@@ -19,6 +19,19 @@
             transition: .2s all ease-in;
         }
     }
+
+    &.secondary {
+        background-color: $secondary;
+        color: white;
+        transition: .2s all ease-in;
+        border: 1px solid $secondary;
+
+        &:hover {
+            background-color: $background;
+            color: $secondary;
+            transition: .2s all ease-in;
+        }
+    }
 }
 
 .form-input {

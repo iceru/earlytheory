@@ -79,12 +79,10 @@
 
 @font-face {
     font-family: 'Evogria';
-    src: url('/fonts/Apercu-Medium.eot');
-    src: url('/fonts/Apercu-Medium.eot?#iefix') format('embedded-opentype'),
-        url('/fonts/Apercu-Medium.woff2') format('woff2'),
-        url('/fonts/Apercu-Medium.woff') format('woff'),
-        url('/fonts/Apercu-Medium.ttf') format('truetype'),
-        url('/fonts/Apercu-Medium.svg#Apercu-Medium') format('svg');
+    src: url('/fonts/Evogria.otf');
+    src: url('/fonts/Evogria.ttf.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/Evogria.ttf.woff') format('woff'),
+        url('/fontsEvogria.ttf.svg#Evogria.ttf') format('svg');
     font-weight: 500;
     font-style: normal;
     font-display: swap;

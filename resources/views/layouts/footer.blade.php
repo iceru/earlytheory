@@ -2,7 +2,7 @@
     <div class="to-top col-12" id="to_top">
         <h5 class="text-end m-0">BACK TO TOP</h5>
     </div>
-    <div class="footer-info col-12 mb-4">
+    <div class="footer-info col-12">
         <div class="row">
             <div class="link col-6">
                 <div>
@@ -18,10 +18,10 @@
             </div>
         </div>
     </div>
-    
+
     <div class="footer-subs-logo row align-items-center pe-0">
-        <div class="footer-subs col-12 col-lg-6 mb-4 order-lg-2">
-            <p class="text-uppercase text-subs primary-color">Subscribe untuk promo terbaru!</p>
+        <div class="footer-subs col-12 col-lg-6 order-lg-2 pe-0">
+            <p class="text-uppercase text-subs primary-color pb-2">Subscribe untuk promo terbaru!</p>
             <div class="form-group d-flex">
             <input type="text"
                 class="form-control me-2" name="" id="" aria-describedby="helpId" placeholder="">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="footer-logo col-12 col-lg-6 mb-4 pe-0 order-lg-1">
+        <div class="footer-logo col-12 col-lg-6 order-lg-1">
             <img src="/images/MainLogo.png" alt="">
         </div>
     </div>

@@ -20,6 +20,10 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/article-detail', [ArticleController::class, 'show'])->name('article-detail');
 
+Route::get('/product', function(){
+    return view ('product-detail');
+});
+
 Route::get('/cart', function(){
     return view ('cart');
 });

@@ -2,14 +2,16 @@
 @import 'base/variable';
 @import 'base/button';
 @import 'base/font';
+@import 'components/footer';
+@import 'components/navbar';
+@import 'components/product';
 @import 'pages/articles';
 @import 'pages/article-detail';
 @import 'pages/auth';
 @import 'pages/cart';
 @import 'pages/checkout';
 @import 'pages/index';
-@import 'components/footer';
-@import 'components/navbar';
+@import 'pages/product-detail';
 
 * {
     margin: 0;

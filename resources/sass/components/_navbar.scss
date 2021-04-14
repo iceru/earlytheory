@@ -13,7 +13,7 @@
     }
 
     .cart-icon {
-        @include breakpoint(large){
+        @include breakpoint(large) {
             padding: 0;
         }
         padding: 0;
@@ -26,17 +26,18 @@
 
     .logo-lg {
         img {
-            width: 14vh;
+            width: 15vh;
         }
     }
 
     .nav-links {
-        display:flex;
+        display: flex;
         justify-content: space-around;
         a {
             color: black;
             font-size: 1rem;
             text-transform: uppercase;
+            font-family: "Evogria";
 
             &:hover {
                 color: $primary;
@@ -90,6 +91,7 @@
             a {
                 color: black;
                 font-size: 1.5rem;
+                font-family: "Evogria";
                 text-transform: uppercase;
             }
         }
