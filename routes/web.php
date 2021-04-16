@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminPaymentMethodsController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,32 @@ use App\Http\Controllers\AdminPaymentMethodsController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
+Route::get('/article-detail', [ArticleController::class, 'show'])->name('article-detail');
+
+Route::get('/product', function(){
+    return view ('product-detail');
+});
+
+Route::get('/cart', function(){
+    return view ('cart');
+});
+
+Route::get('/checkout/detail', function(){
+    return view ('checkout.detail');
+});
+
+Route::get('/checkout/summary', function(){
+    return view ('checkout.summary');
+});
+
+Route::get('/checkout/payment', function(){
+    return view ('checkout.payment');
+});
+
+Route::get('/checkout/confirm-payment', function(){
+    return view ('checkout.confirm-payment');
+});
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/dashboard', function () {

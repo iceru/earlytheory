@@ -10,23 +10,85 @@
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         margin-bottom: 1rem;
+        font-family: 'Evogria';
     }
 
     .footer-info {
+        margin-bottom: 1.5rem;
+        @include breakpoint(large) {
+            margin-bottom: 2rem;
+        }
         .link {
-            color: $grey;
-
-            > div {
+            div {
                 margin-bottom: 0.5rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                a {
+                    color: $grey;
+                }
             }
         }
 
         .social {
             i {
                 color: $grey;
-                margin-left: 0.5rem;
+                margin-left: 0.75rem;
                 font-size: 1.5rem;
+
+                @include breakpoint(large) {
+                    font-size: 2rem;
+                    margin-left: 1.25rem;
+                }
             }
+
+
+        }
+    }
+
+    .footer-subs-logo {
+
+        margin-bottom: 1.5rem;
+        @include breakpoint(large) {
+            margin-bottom: 2rem;
+        }
+
+        .footer-subs {
+            margin-bottom: 1.5rem;
+
+            @include breakpoint(medium) {
+                margin-bottom: 0;
+            }
+            .text-subs {
+                font-family: 'Evogria';
+                letter-spacing: 0.05rem;
+            }
+        }
+
+        .footer-logo {
+            text-align: center;
+
+            img {
+                width: 20vh;
+            }
+
+            @include breakpoint(large){
+                text-align: left;
+
+                img {
+                    width: 25vh;
+                }
+            }
+        }
+    }
+
+
+
+    .footer-copyright {
+        p {
+            color: $grey;
         }
     }
 }

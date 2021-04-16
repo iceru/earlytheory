@@ -1,36 +1,28 @@
 .index {
-    .sliders {
-        width: 100%;
-        border-radius: 10px;
+    @include breakpoint(large) {
+        padding: 2rem 0;
     }
-
     .products {
-
         .product-item-container {
-
             .product-image {
-                margin-bottom: .5rem;
-
-                img {
-                    width: 100%;
-                    height: auto;
-                    border-radius: 5px;
-                }
+                margin-bottom: 0.5rem;
             }
-
             .product-item {
                 text-align: center;
                 color: $primary;
                 padding: 12px;
                 border: 1px solid $background-secondary;
                 border-radius: 5px;
-
                 .product-title {
-                    font-family: 'Skylar Sans';
-                    font-size: 1.5rem;
+                    h3 {
+                        font-size: 1.5rem;
+
+                        @include breakpoint(large){
+                            font-size: 2rem;
+                        }
+                    }
                 }
                 .product-price {
-                    font-family: 'Apercu mono';
                     margin-bottom: 6px;
                 }
                 .product-desc {
@@ -38,5 +30,17 @@
                 }
             }
         }
+    }
+}
+
+.sliders {
+    width: 100%;
+    border-radius: 20px;
+    // height: 25vh;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 }

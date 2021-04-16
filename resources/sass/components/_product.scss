@@ -1,0 +1,24 @@
+.product-image {
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+}
+
+.product-title {
+    h3 {
+        font-family: "Skylar Sans";
+        font-size: 2rem;
+        color: $primary;
+
+        @include breakpoint(large) {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+.product-price {
+    color: $primary;
+    font-family: "Apercu mono";
+}

@@ -15,22 +15,26 @@
                     <img src="/images/PROBLEMSOLVER.png" alt="">
                 </div>
                 <div class="product-item">
-                    <h4 class="product-title">Problem Solver</h4>
+                    <div class="product-title">
+                        <h3>Problem Solver</h3>
+                    </div>
                     <p class="product-price">idr 75,000</p>
                     <p class="product-desc">Menjawab 1 Pertanyaan atas permasalahan hidupmu [Love, work, etc.]</p>
                 </div>
-                <a href="" class="button primary">Add To Cart</a>
+                <a href="" class="button primary my-3">Add To Cart</a>
             </div>
             <div class="product-item-container col-6 col-md-3">
                 <div class="product-image">
                     <img src="/images/PROBLEMSOLVER.png" alt="">
                 </div>
                 <div class="product-item">
-                    <h4 class="product-title">Problem Solver</h4>
+                    <div class="product-title">
+                        <h3>Problem Solver</h3>
+                    </div>
                     <p class="product-price">idr 75,000</p>
                     <p class="product-desc">Menjawab 1 Pertanyaan atas permasalahan hidupmu [Love, work, etc.]</p>
                 </div>
-                <a href="" class="button primary">Add To Cart</a>
+                <a href="" class="button primary my-3">Add To Cart</a>
             </div>
         </div>
     </div>
@@ -45,5 +49,3 @@
     </script>
     @endsection
 </x-app-layout>
-
-
