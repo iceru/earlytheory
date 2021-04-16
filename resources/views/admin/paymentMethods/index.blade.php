@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    Products Admin
+                    Payment Methods Admin
                 </div>
             </div>
         </div>
@@ -17,24 +17,24 @@
 
     <div class="py-12 my-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="/admin/products/store">
+            <form method="POST" enctype="multipart/form-data" action="/admin/payment-methods/store">
                 @csrf
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Title</label>
+                    <label class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputTitle" name="inputTitle">
+                        <input type="text" class="form-control" id="inputName" name="inputName">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Price</label>
+                    <label class="col-sm-2 col-form-label">Logo</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputPrice" name="inputPrice" min="0">
+                        <input type="file" class="form-control" id="inputLogo" name="inputLogo">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Description</label>
+                    <label class="col-sm-2 col-form-label">Account Number</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="2"></textarea>
+                        <input type="text" class="form-control" id="inputAccNum" name="inputAccNum">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -48,23 +48,21 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Title</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Description Short</th>
+                        <th>Name</th>
+                        <th>Logo</th>
+                        <th>Account Number</th>
                         <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products as $product)
+                    @foreach ($paymentMethods as $paymentMethod)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
-                        <td>{{$product->title}}</td>
-                        <td>{{$product->price}}</td>
-                        <td>{{$product->description}}</td>
-                        <td>{{$product->description_short}}</td>
-                        <td><a href="/admin/products/edit/{{$product->id}}">Edit</a> | 
-                            <a href="/admin/products/delete/{{$product->id}}">Delete</a></td>
+                        <td>{{$paymentMethod->name}}</td>
+                        <td><img src="{{Storage::url('payment-logo/'.$paymentMethod->logo)}}" alt="{{$paymentMethod->logo}}" width="100"></td>
+                        <td>{{$paymentMethod->account_number}}</td>
+                        <td><a href="/admin/payment-methods/edit/{{$paymentMethod->id}}">Edit</a> | 
+                            <a href="/admin/payment-methods/delete/{{$paymentMethod->id}}">Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -72,5 +70,6 @@
         </div>
     </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
 </x-admin-layout>
 

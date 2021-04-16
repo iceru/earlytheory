@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tags;
 use Illuminate\Http\Request;
 
-class AdminProductController extends Controller
+class AdminTagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,9 @@ class AdminProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index');
+        $tags = Tags::all();
+
+        return view('admin.tags.index', compact('tags'));
     }
 
     /**
@@ -34,7 +37,12 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = new Tags;
+
+        $tag->tag_name = $request->inputName;
+        $tag->save();
+
+        return redirect('/admin/tags');
     }
 
     /**
@@ -56,7 +64,9 @@ class AdminProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tag = Tags::findOrFail($id);
+
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -66,9 +76,15 @@ class AdminProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $tag = Tags::find($request->id);
+
+        $tag->tag_name = $request->updateName;
+
+        $tag->save();
+
+        return redirect('/admin/tags');
     }
 
     /**
@@ -79,6 +95,7 @@ class AdminProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Tags::find($id)->delete();
+        return redirect('/admin/tags');
     }
 }

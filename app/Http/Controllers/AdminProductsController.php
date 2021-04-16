@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
+use App\Models\Products;
 use Illuminate\Http\Request;
 
-class AdminArticleController extends Controller
+class AdminProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class AdminArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $products = Products::all();
 
-        return view('admin.articles.index', compact('articles'));
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -37,17 +37,18 @@ class AdminArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new Article;
+        $product = new Products;
 
-        $article->title = $request->inputTitle;
-        $article->description = $request->inputDesc;
-        $article->author = $request->inputAuthor;
-        $article->time_read = $request->inputTime;
-        $article->accent_color = $request->inputAccent;
+        $product->title = $request->inputTitle;
+        $product->price = $request->inputPrice;
+        $product->description = $request->inputDesc;
 
-        $article->save();
+        $shortDesc = substr($request->inputDesc, 0, strpos($request->inputDesc, ' ', 40));
+        $product->description_short = $shortDesc.'...';
 
-        return redirect('/admin/articles');
+        $product->save();
+
+        return redirect('/admin/products');
     }
 
     /**
@@ -69,9 +70,9 @@ class AdminArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::findOrFail($id);
+        $product = Products::findOrFail($id);
 
-        return view('admin.articles.edit', compact('article'));
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -83,17 +84,18 @@ class AdminArticleController extends Controller
      */
     public function update(Request $request)
     {
-        $article = Article::find($request->id);
+        $product = Products::find($request->id);
 
-        $article->title = $request->updateTitle;
-        $article->description = $request->updateDesc;
-        $article->author = $request->updateAuthor;
-        $article->time_read = $request->updateTime;
-        $article->accent_color = $request->updateAccent;
+        $product->title = $request->updateTitle;
+        $product->price = $request->updatePrice;
+        $product->description = $request->updateDesc;
 
-        $article->save();
+        $shortDesc = substr($request->updateDesc, 0, strpos($request->updateDesc, ' ', 40));
+        $product->description_short = $shortDesc.'...';
 
-        return redirect('/admin/articles');
+        $product->save();
+
+        return redirect('/admin/products');
     }
 
     /**
@@ -104,7 +106,7 @@ class AdminArticleController extends Controller
      */
     public function destroy($id)
     {
-        Article::find($id)->delete();
-        return redirect('/admin/articles');
+        Products::find($id)->delete();
+        return redirect('/admin/products');
     }
 }
