@@ -39,12 +39,23 @@ class AdminProductsController extends Controller
     {
         $product = new Products;
 
+        $request->validate([
+            'inputTitle' => 'required',
+            'inputPrice' => 'required|integer',
+            'inputDesc' => 'required',
+        ]);
+
         $product->title = $request->inputTitle;
         $product->price = $request->inputPrice;
         $product->description = $request->inputDesc;
 
-        $shortDesc = substr($request->inputDesc, 0, strpos($request->inputDesc, ' ', 40));
-        $product->description_short = $shortDesc.'...';
+        if(strlen($request->inputDesc) > 40) {
+            $shortDesc = substr($request->inputDesc, 0, strpos($request->inputDesc, ' ', 40)).'...';
+        }
+        else {
+            $shortDesc = $request->inputDesc;   
+        }
+        $product->description_short = $shortDesc;
 
         $product->save();
 
@@ -86,12 +97,23 @@ class AdminProductsController extends Controller
     {
         $product = Products::find($request->id);
 
+        $request->validate([
+            'updateTitle' => 'required',
+            'updatePrice' => 'required|integer',
+            'updateDesc' => 'required',
+        ]);
+
         $product->title = $request->updateTitle;
         $product->price = $request->updatePrice;
         $product->description = $request->updateDesc;
 
-        $shortDesc = substr($request->updateDesc, 0, strpos($request->updateDesc, ' ', 40));
-        $product->description_short = $shortDesc.'...';
+        if(strlen($request->updateDesc) > 40) {
+            $shortDesc = substr($request->updateDesc, 0, strpos($request->updateDesc, ' ', 40)).'...';
+        }
+        else {
+            $shortDesc = $request->updateDesc;   
+        }
+        $product->description_short = $shortDesc;
 
         $product->save();
 

@@ -39,6 +39,14 @@ class AdminArticleController extends Controller
     {
         $article = new Article;
 
+        $request->validate([
+            'inputTitle' => 'required',
+            'inputDesc' => 'required',
+            'inputAuthor' => 'required',
+            'inputTime' => 'required|integer',
+            'inputAccent' => 'required'
+        ]);
+
         $article->title = $request->inputTitle;
         $article->description = $request->inputDesc;
         $article->author = $request->inputAuthor;
@@ -84,6 +92,14 @@ class AdminArticleController extends Controller
     public function update(Request $request)
     {
         $article = Article::find($request->id);
+
+        $request->validate([
+            'updateTitle' => 'required',
+            'updateDesc' => 'required',
+            'updateAuthor' => 'required',
+            'updateTime' => 'required|integer',
+            'updateAccent' => 'required'
+        ]);
 
         $article->title = $request->updateTitle;
         $article->description = $request->updateDesc;

@@ -39,6 +39,10 @@ class AdminTagsController extends Controller
     {
         $tag = new Tags;
 
+        $request->validate([
+            'inputName' => 'required'
+        ]);
+
         $tag->tag_name = $request->inputName;
         $tag->save();
 
@@ -79,6 +83,10 @@ class AdminTagsController extends Controller
     public function update(Request $request)
     {
         $tag = Tags::find($request->id);
+
+        $request->validate([
+            'updateName' => 'required'
+        ]);
 
         $tag->tag_name = $request->updateName;
 
