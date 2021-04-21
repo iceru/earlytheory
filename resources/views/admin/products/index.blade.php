@@ -17,7 +17,7 @@
 
     <div class="py-12 my-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="/admin/products/store">
+            <form method="POST" enctype="multipart/form-data" action="/admin/products/store">
                 @csrf
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Title</label>
@@ -29,6 +29,12 @@
                     <label class="col-sm-2 col-form-label">Price</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputPrice" name="inputPrice" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="inputImage" name="inputImage" accept="image/*">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -48,6 +54,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
                         <th>Description</th>
@@ -59,6 +66,7 @@
                     @foreach ($products as $product)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
+                        <td><img src="{{Storage::url('product-image/'.$product->image)}}" alt="No Image" width="100"></td>
                         <td>{{$product->title}}</td>
                         <td>{{$product->price}}</td>
                         <td>{{$product->description}}</td>

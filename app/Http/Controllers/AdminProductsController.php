@@ -42,8 +42,17 @@ class AdminProductsController extends Controller
         $request->validate([
             'inputTitle' => 'required',
             'inputPrice' => 'required|integer',
+            'inputImage' => 'required|image',
             'inputDesc' => 'required',
         ]);
+        
+        if ($request->hasFile('inputImage')) {
+            $extension = $request->file('inputImage')->getClientOriginalExtension();
+            $filename = $request->inputTitle.'_'.time().'.'.$extension;
+            $path = $request->inputImage->storeAs('public/product-image', $filename);
+        }
+
+        $product->image = $filename;
 
         $product->title = $request->inputTitle;
         $product->price = $request->inputPrice;
@@ -100,8 +109,16 @@ class AdminProductsController extends Controller
         $request->validate([
             'updateTitle' => 'required',
             'updatePrice' => 'required|integer',
+            'updateImage' => 'image|nullable',
             'updateDesc' => 'required',
         ]);
+        
+        if ($request->hasFile('updateImage')) {
+            $extension = $request->file('updateImage')->getClientOriginalExtension();
+            $filename = $request->updateTitle.'_'.time().'.'.$extension;
+            $path = $request->updateImage->storeAs('public/product-image', $filename);
+            $product->image = $filename;
+        }
 
         $product->title = $request->updateTitle;
         $product->price = $request->updatePrice;
@@ -128,6 +145,9 @@ class AdminProductsController extends Controller
      */
     public function destroy($id)
     {
+        $product = Products::findOrFail($id);
+        Storage::disk('public')->delete('product-image/'.$product->image);
+
         Products::find($id)->delete();
         return redirect('/admin/products');
     }

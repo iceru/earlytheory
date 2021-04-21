@@ -17,7 +17,7 @@
 
     <div class="py-12 my-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="/admin/products/update">
+            <form method="POST" enctype="multipart/form-data" action="/admin/products/update">
                 @csrf
                 <input type="hidden" name="id" value="{{$product->id}}">
                 <div class="mb-3 row">
@@ -27,15 +27,21 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Description</label>
+                    <label class="col-sm-2 col-form-label">Price</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="updateDesc" id="updateDesc" cols="30" rows="2">{{$product->description}}</textarea>
+                        <input type="number" class="form-control" id="updatePrice" name="updatePrice" min="0" value="{{$product->price}}">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Time to Read</label>
+                    <label class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="updatePrice" name="updatePrice" min="0" value="{{$product->price}}">
+                        <input type="file" class="form-control" id="updateImage" name="updateImage" accept="image/*">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="updateDesc" id="updateDesc" cols="30" rows="2">{{$product->description}}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>

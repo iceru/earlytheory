@@ -42,7 +42,7 @@ class AdminPaymentMethodsController extends Controller
 
         $request->validate([
             'inputName' => 'required',
-            'inputLogo' => 'image',
+            'inputLogo' => 'required|image',
             'inputAccNum' => 'required'
         ]);
 

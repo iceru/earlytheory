@@ -10,32 +10,23 @@
         </div>
 
         <div class="products row mt-3">
-            <div class="product-item-container col-6 col-md-3">
-                <div class="product-image">
-                    <img src="/images/PROBLEMSOLVER.png" alt="">
-                </div>
-                <div class="product-item">
-                    <div class="product-title">
-                        <h3>Problem Solver</h3>
+            @forelse ($products as $product)
+                <div class="product-item-container col-6 col-md-3">
+                    <div class="product-image">
+                        <img src="{{Storage::url('product-image/'.$product->image)}}" alt="No Image">
                     </div>
-                    <p class="product-price">idr 75,000</p>
-                    <p class="product-desc">Menjawab 1 Pertanyaan atas permasalahan hidupmu [Love, work, etc.]</p>
-                </div>
-                <a href="" class="button primary my-3">Add To Cart</a>
-            </div>
-            <div class="product-item-container col-6 col-md-3">
-                <div class="product-image">
-                    <img src="/images/PROBLEMSOLVER.png" alt="">
-                </div>
-                <div class="product-item">
-                    <div class="product-title">
-                        <h3>Problem Solver</h3>
+                    <div class="product-item">
+                        <div class="product-title">
+                            <h3>{{$product->title}}</h3>
+                        </div>
+                        <p class="product-price">idr {{$product->price}}</p>
+                        <p class="product-desc">{{$product->description_short}}</p>
                     </div>
-                    <p class="product-price">idr 75,000</p>
-                    <p class="product-desc">Menjawab 1 Pertanyaan atas permasalahan hidupmu [Love, work, etc.]</p>
+                    <a href="" class="button primary my-3">Add To Cart</a>
                 </div>
-                <a href="" class="button primary my-3">Add To Cart</a>
-            </div>
+            @empty
+                <p>No Product</p>
+            @endforelse
         </div>
     </div>
 
