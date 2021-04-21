@@ -9,7 +9,7 @@
                     <h3>{{$product->title}}</h3>
                 </div>
                 <div class="product-price">
-                    <p>idr {{$product->price}}</p>
+                    <p>idr {{number_format($product->price)}}</p>
                 </div>
                 <div class="product-desc">
                     {{$product->description}}

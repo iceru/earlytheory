@@ -19,7 +19,7 @@
                         <div class="product-title">
                             <h3>{{$product->title}}</h3>
                         </div>
-                        <p class="product-price">idr {{$product->price}}</p>
+                        <p class="product-price">idr {{number_format($product->price)}}</p>
                         <p class="product-desc">{{$product->description_short}}</p>
                     </div>
                     <a href="" class="button primary my-3">Add To Cart</a>
