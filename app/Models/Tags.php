@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Tags extends Model
 {
     protected $table = 'tags';
+    protected $fillable = ['tag_name'];
 
-    public function article()
+    public function articles()
     {
-        return $this->belongsToMany(Article::class)->withPivot('articles_id', 'tags_id');
+        return $this->belongsToMany(Articles::class, 'articles_tags', 'tag_id', 'article_id');
     }
 }

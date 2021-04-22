@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
+use App\Models\Articles;
+use App\Models\Tags;
 use Illuminate\Http\Request;
 
 class AdminArticleController extends Controller
@@ -14,7 +15,7 @@ class AdminArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Articles::all();
 
         return view('admin.articles.index', compact('articles'));
     }
@@ -37,14 +38,15 @@ class AdminArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new Article;
+        $article = new Articles;
 
         $request->validate([
             'inputTitle' => 'required',
             'inputDesc' => 'required',
             'inputAuthor' => 'required',
             'inputTime' => 'required|integer',
-            'inputAccent' => 'required'
+            'inputAccent' => 'required',
+            'inputTags' => 'string|regex:/^[a-zA-Z0-9\s]+$/'
         ]);
 
         $article->title = $request->inputTitle;
@@ -52,9 +54,24 @@ class AdminArticleController extends Controller
         $article->author = $request->inputAuthor;
         $article->time_read = $request->inputTime;
         $article->accent_color = $request->inputAccent;
-
         $article->save();
 
+        $tagsArray = explode(' ', strtolower($request->inputTags));
+        $tags = array();
+
+        foreach($tagsArray as $articleTag) {
+            if($articleTag != ' ') {
+                $tag = Tags::firstOrCreate([
+                    'tag_name' => $articleTag
+                ]);
+                
+                $tags[$tag->id] = ['article_id' => $article->id];
+            }
+        }
+        // dd($tags);
+        
+        $article->tags()->attach($tags);
+        
         return redirect('/admin/articles');
     }
 
@@ -77,7 +94,11 @@ class AdminArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::findOrFail($id);
+        $article = Articles::find($id);
+        // dd($article->tags);
+
+        // $tags = Articles::with('tags')->where('id', $id)->get();
+        // dd($article);
 
         return view('admin.articles.edit', compact('article'));
     }
@@ -91,14 +112,15 @@ class AdminArticleController extends Controller
      */
     public function update(Request $request)
     {
-        $article = Article::find($request->id);
+        $article = Articles::find($request->id);
 
         $request->validate([
             'updateTitle' => 'required',
             'updateDesc' => 'required',
             'updateAuthor' => 'required',
             'updateTime' => 'required|integer',
-            'updateAccent' => 'required'
+            'updateAccent' => 'required',
+            'updateTags' => 'string|regex:/^[a-zA-Z0-9\s]+$/'
         ]);
 
         $article->title = $request->updateTitle;
@@ -106,8 +128,23 @@ class AdminArticleController extends Controller
         $article->author = $request->updateAuthor;
         $article->time_read = $request->updateTime;
         $article->accent_color = $request->updateAccent;
-
         $article->save();
+
+        $tagsArray = explode(' ', strtolower($request->updateTags));
+        $tags = array();
+
+        foreach($tagsArray as $articleTag) {
+            if($articleTag != ' ') {
+                $tag = Tags::firstOrCreate([
+                    'tag_name' => $articleTag
+                ]);
+                
+                $tags[$tag->id] = ['article_id' => $request->id];
+            }
+        }
+        // dd($tags);
+        
+        $article->tags()->sync($tags);
 
         return redirect('/admin/articles');
     }
@@ -120,7 +157,7 @@ class AdminArticleController extends Controller
      */
     public function destroy($id)
     {
-        Article::find($id)->delete();
+        Articles::find($id)->delete();
         return redirect('/admin/articles');
     }
 }

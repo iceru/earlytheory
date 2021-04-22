@@ -49,6 +49,13 @@
                         <input type="text" class="form-control" data-jscolor="" id="inputAccent" name="inputAccent">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Tags</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="inputTags" id="inputTags" cols="30" rows="2"></textarea>
+                        <div class="form-text">(Separate with space, ex: tag1 tag2 tag3)</div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

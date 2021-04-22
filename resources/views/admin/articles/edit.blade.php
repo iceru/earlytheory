@@ -50,6 +50,13 @@
                         <input type="text" class="form-control" data-jscolor="" id="updateAccent" name="updateAccent" value="{{$article->accent_color}}">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Tags</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="updateTags" id="updateTags" cols="30" rows="2">@foreach ($article->tags as $tag){{$tag->tag_name}} @endforeach</textarea>
+                        <div class="form-text">(Separate with space, ex: tag1 tag2 tag3)</div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
