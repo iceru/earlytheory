@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Articles;
+use App\Models\Tags;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -13,7 +15,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('articles');
+        $articles = Articles::paginate(3);
+        // dd($articles->first()->title);
+        return view('articles', compact('articles'));
     }
 
     /**
