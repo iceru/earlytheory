@@ -39,6 +39,7 @@
             @empty
                 <p>No Article</p>
             @endforelse
+            <div class="d-flex justify-content-center">{{$articles->links()}}</div>
         </div>
     </div>
 
