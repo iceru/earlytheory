@@ -8,7 +8,7 @@
                 <i class="fas fa-chevron-left    "></i>
             </div>
             <div class="title">
-                <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+                <h2>{{$article->title}}</h2>
             </div>
         </div>
         <div class="article-body">
@@ -17,25 +17,16 @@
                     <img src="/images/Favicon.png" alt="">
                 </div>
                 <div class="writer-name">
-                    <p>Early Theory</p>
+                    <p>{{$article->author}}</p>
                     <div class="information">
-                        <p>23 March 2021</p>
+                        <p>{{date_format($article->created_at, "j F Y")}}</p>
                         <div class="circle"></div>
-                        <p>5 Min Read</p>
+                        <p>{{$article->time_read}} Min Read</p>
                     </div>
                 </div>
             </div>
             <div class="article-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit rhoncus auctor gravida suscipit. Eleifend
-                euismod nisl eget tortor dolor. Habitant tellus eget purus mollis mi etiam ut. Malesuada nibh non
-                imperdiet tempor. Nascetur tortor mauris in pellentesque aliquet et. Mollis maecenas egestas convallis
-                amet.
-                <br> <br>
-                Egestas posuere tellus adipiscing in orci, enim. Volutpat sit arcu, ac porta etiam neque, faucibus. Orci
-                pharetra ut accumsan volutpat eget massa mollis mi pharetra. Mattis vulputate eget maecenas molestie
-                iaculis adipiscing aenean turpis sagittis. Et sed morbi viverra fames justo duis. Semper faucibus dictum
-                aliquam sit molestie vitae donec volutpat. Sapien condimentum enim elit in ipsum suspendisse aliquam.
-                Non nec ipsum quam accumsan nisl vel adipiscing sed ultrices. Tellus vel maecenas faucibus proin.
+                {!!nl2br($article->description)!!}
             </div>
 
             <div class="sliders mt-4">

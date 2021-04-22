@@ -80,7 +80,7 @@
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$article->title}}</td>
-                        <td>{{$article->description}}</td>
+                        <td>{!!nl2br($article->description)!!}</td>
                         <td>{{$article->author}}</td>
                         <td>{{$article->time_read}}</td>
                         <td style="color: {{$article->accent_color}}">{{$article->accent_color}}</td>

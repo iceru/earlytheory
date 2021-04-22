@@ -19,8 +19,11 @@
                         </div>
                         <div class="col-7">
                             <div class="tags">
-                                <p>#TAG1</p>
-                                <p>#TAG2</p>
+                                @forelse ($article->tags as $tag)
+                                    <p>#{{$tag->tag_name}}</p>
+                                @empty
+                                    <p>No Tag</p>
+                                @endforelse
                             </div>
                             <div class="title">
                                 <h5>{{$article->title}}</h5>
