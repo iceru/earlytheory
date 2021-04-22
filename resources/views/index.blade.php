@@ -13,11 +13,11 @@
             @forelse ($products as $product)
                 <div class="product-item-container col-6 col-md-3">
                     <div class="product-image">
-                        <img src="{{Storage::url('product-image/'.$product->image)}}" alt="No Image">
+                        <a href="/product/{{$product->id}}"><img src="{{Storage::url('product-image/'.$product->image)}}" alt="No Image"></a>
                     </div>
                     <div class="product-item">
                         <div class="product-title">
-                            <h3>{{$product->title}}</h3>
+                            <a href="/product/{{$product->id}}"><h3>{{$product->title}}</h3></a>
                         </div>
                         <p class="product-price">idr {{number_format($product->price)}}</p>
                         <p class="product-desc">{{$product->description_short}}</p>

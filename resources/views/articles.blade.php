@@ -13,9 +13,9 @@
             </div>
             @forelse ($articles as $article)
                 <div class="col-12 col-md-6 article">
-                    <div class="row article-info">
+                    <div class="row article-info">                       
                         <div class="col-5 article-image">
-                            <img src="/images/SWOT.png" alt="">
+                            <a href="/article-detail/{{$article->id}}"><img src="/images/SWOT.png" alt=""></a>
                         </div>
                         <div class="col-7">
                             <div class="tags">
@@ -26,7 +26,7 @@
                                 @endforelse
                             </div>
                             <div class="title">
-                                <h5>{{$article->title}}</h5>
+                                <a href="/article-detail/{{$article->id}}"><h5>{{$article->title}}</h5></a>
                             </div>
                             <div class="information">
                                 <p>{{date_format($article->created_at, "j F Y")}}</p>
