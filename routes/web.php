@@ -51,7 +51,7 @@ Route::get('/checkout/confirm-payment', function(){
 });
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){
-    Route::get('/admin/dashboard', function () {
+    Route::get('/admin', function () {
         return view('admin.dashboard');
     });
 

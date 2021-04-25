@@ -29,12 +29,14 @@
 <body class="font-sans antialiased">
     <div class="container">
         @include('layouts.navigation-admin')
+        <div class="row">
+            @include('layouts.sidebar-admin')
 
-
-        <!-- Page Content -->
-        <main class="row py-4">
-            {{ $slot }}
-        </main >
+            <!-- Page Content -->
+            <main class="col-12 col-lg-9">
+                {{ $slot }}
+            </main>
+        </div>
     </div>
 
     @yield('js')
