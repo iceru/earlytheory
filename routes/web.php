@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminPaymentMethodsController;
+use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ArticleController;
 
@@ -78,7 +79,10 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/payment-methods/edit/{id}', [AdminPaymentMethodsController::class, 'edit'])->name('admin.paymentMethods.edit');
     Route::post('/admin/payment-methods/update', [AdminPaymentMethodsController::class, 'update'])->name('admin.paymentMethods.update');
     Route::get('/admin/payment-methods/delete/{id}', [AdminPaymentMethodsController::class, 'destroy'])->name('admin.paymentMethods.destroy');
-
+    
+    Route::get('/admin/sliders', [SlidersController::class, 'index'])->name('admin.sliders');
+    Route::post('/admin/sliders/store', [SlidersController::class, 'store'])->name('admin.sliders.store');
+    Route::get('/admin/sliders/delete/{id}', [SlidersController::class, 'destroy'])->name('admin.sliders.destroy');
 });
 
 require __DIR__.'/auth.php';
