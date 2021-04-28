@@ -4,6 +4,9 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    @section('css')
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+    @endsection
 
     <div class="py-12">
         <h3 class="evogria">Products Admin</h3>
@@ -44,7 +47,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <table class="table">
+            <table class="table" id="table">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -73,6 +76,16 @@
             </table>
         </div>
     </div>
+
+    @section('js')
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        } );
+    </script>
+    @endsection
 
 </x-admin-layout>
 
