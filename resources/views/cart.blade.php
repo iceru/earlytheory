@@ -25,11 +25,15 @@
                                 <p class="product-price">idr {{number_format($item->model->price)}}</p>
                                 <div class="qty-spinner d-flex">
                                     <div class="min-button">
-                                        <i class="fas fa-minus-circle"></i>
+                                        @if ($item->quantity > 1)
+                                        <a href="/cart/min/{{$item->id}}" style="color: inherit;"><i class="fas fa-minus-circle"></i></a>
+                                        @elseif ($item->quantity == 1)
+                                        <a href="/cart/remove/{{$item->id}}" style="color: inherit;"><i class="fas fa-minus-circle"></i></a>                                            
+                                        @endif
                                     </div>
                                     <div class="qty">{{$item->quantity}}</div>
                                     <div class="plus-button">
-                                        <i class="fas fa-plus-circle"></i>
+                                        <a href="/cart/plus/{{$item->id}}" style="color: inherit;"><i class="fas fa-plus-circle"></i></a>
                                     </div>
                                 </div>
                             </div>

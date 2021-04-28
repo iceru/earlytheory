@@ -34,6 +34,34 @@ class CartController extends Controller
         return redirect('/cart');
     }
 
+    public function min($id)
+    {
+        $userID = Auth::id();
+        \Cart::session($userID)->update($id, array(
+            'quantity' => -1
+        ));
+
+        return redirect('/cart');
+    }
+
+    public function remove($id)
+    {
+        $userID = Auth::id();
+        \Cart::session($userID)->remove($id);
+
+        return redirect('/cart');
+    }
+
+    public function plus($id)
+    {
+        $userID = Auth::id();
+        \Cart::session($userID)->update($id, array(
+            'quantity' => 1
+        ));
+
+        return redirect('/cart');
+    }
+
     public function clear()
     {
         $userID = Auth::id();
