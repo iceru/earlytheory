@@ -6,51 +6,37 @@
             </div>
             <div class="col-lg-6">
                 <div class="d-flex justify-content-end mb-3">
-                    <button class="button primary align-items-center">
+                    <a href="/cart/clear" class="button primary align-items-center">
                         <span class="me-2 ">Remove All</span> <i class="fas fa-trash"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-6"></div>
             <div class="col-12 col-lg-6 product-cart ">
 
                 <div class="products">
-                    <div class="product-item-container row m-0">
-                        <div class="col-4 col-lg-3 product-image">
-                            <img src="/images/PROBLEMSOLVER.png" alt="">
-                        </div>
-                        <div class="col-8 col-lg-9 product-item">
-                            <h4 class="product-title">Mencari Jodoh</h4>
-                            <p class="product-price">idr 150.000</p>
-                            <div class="qty-spinner d-flex">
-                                <div class="min-button">
-                                    <i class="fas fa-minus-circle"></i>
-                                </div>
-                                <div class="qty">1</div>
-                                <div class="plus-button">
-                                    <i class="fas fa-plus-circle"></i>
+                    @forelse ($items as $item)
+                        <div class="product-item-container row m-0">
+                            <div class="col-4 col-lg-3 product-image">
+                                <img src="{{Storage::url('product-image/'.$item->model->image)}}" alt="">
+                            </div>
+                            <div class="col-8 col-lg-9 product-item">
+                                <h4 class="product-title">{{$item->model->title}}</h4>
+                                <p class="product-price">idr {{number_format($item->model->price)}}</p>
+                                <div class="qty-spinner d-flex">
+                                    <div class="min-button">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </div>
+                                    <div class="qty">{{$item->quantity}}</div>
+                                    <div class="plus-button">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-item-container row m-0">
-                        <div class="col-4 col-lg-3 product-image">
-                            <img src="/images/PROBLEMSOLVER.png" alt="">
-                        </div>
-                        <div class="col-8 col-lg-9 product-item">
-                            <h4 class="product-title">Mencari Jodoh</h4>
-                            <p class="product-price">idr 150.000</p>
-                            <div class="qty-spinner d-flex">
-                                <div class="min-button">
-                                    <i class="fas fa-minus-circle"></i>
-                                </div>
-                                <div class="qty">1</div>
-                                <div class="plus-button">
-                                    <i class="fas fa-plus-circle"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @empty
+                        <p>No Item</p>
+                    @endforelse
                 </div>
             </div>
 
@@ -58,7 +44,7 @@
                 <div class="total-price">
                     <h5>
                        <span class="text">Total</span> <br>
-                       <span class="price">idr 225,000</span>
+                       <span class="price">idr {{number_format($total)}}</span>
                     </h5>
                 </div>
                 <div class="checkout-btn">

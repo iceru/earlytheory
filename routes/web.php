@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminPaymentMethodsController;
 use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,9 @@ Route::get('/product/{id}', [ProductsController::class, 'productDetail'])->name(
 //     return view ('product-detail');
 // });
 
-Route::get('/cart', function(){
-    return view ('cart');
-});
+// Route::get('/cart', function(){
+//     return view ('cart');
+// });
 
 Route::get('/checkout/detail', function(){
     return view ('checkout.detail');
@@ -51,12 +52,17 @@ Route::get('/checkout/confirm-payment', function(){
     return view ('checkout.confirm-payment');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+    Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+});
+
 Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin', function () {
         return view('admin.dashboard');
     });
 
-    Route::get('/admin/articles', [AdminArticleController::class, 'index'])->name('admin.articles');
     Route::post('/admin/articles/store', [AdminArticleController::class, 'store'])->name('admin.articles.store');
     Route::get('/admin/articles/edit/{id}', [AdminArticleController::class, 'edit'])->name('admin.articles.edit');
     Route::post('/admin/articles/update', [AdminArticleController::class, 'update'])->name('admin.articles.update');

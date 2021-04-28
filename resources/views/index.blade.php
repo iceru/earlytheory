@@ -22,7 +22,7 @@
                         <p class="product-price">idr {{number_format($product->price)}}</p>
                         <p class="product-desc">{{$product->description_short}}</p>
                     </div>
-                    <a href="" class="button primary my-3">Add To Cart</a>
+                    <a href="/cart/add/{{$product->id}}" class="button primary my-3">Add To Cart</a>
                 </div>
             @empty
                 <p>No Product</p>
