@@ -6,13 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Article Admin
-                </div>
-            </div>
-        </div>
+        <h3 class="evogria">Articles</h3>
     </div>
 
     <div class="py-12 my-4">
@@ -84,7 +78,7 @@
                         <td>{{$article->author}}</td>
                         <td>{{$article->time_read}}</td>
                         <td style="color: {{$article->accent_color}}">{{$article->accent_color}}</td>
-                        <td><a href="/admin/articles/edit/{{$article->id}}">Edit</a> | 
+                        <td><a href="/admin/articles/edit/{{$article->id}}">Edit</a> |
                             <a href="/admin/articles/delete/{{$article->id}}">Delete</a></td>
                     </tr>
                     @endforeach
@@ -92,7 +86,7 @@
             </table>
         </div>
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
 </x-admin-layout>
 

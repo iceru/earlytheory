@@ -22,35 +22,3 @@ html, body {
     background: $background;
     font-family: 'Apercu', sans-serif;
 }
-
-.slick-prev {
-    left: 10px ;
-    z-index: 10;
-}
-
-.slick-next {
-    right: 10px ;
-    z-index: 10;
-}
-
-.slick-dots {
-    bottom: 5px ;
-
-    li {
-        width: 30px ;
-        height: 8px ;
-
-        button {
-            width: 30px ;
-            height: 8px ;
-
-            &:before {
-                content: ' ';
-                width: 30px ;
-                height: 8px ;
-                border-radius: 30px;
-                background: $primary;
-            }
-        }
-    }
-}

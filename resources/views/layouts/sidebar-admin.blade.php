@@ -1,12 +1,28 @@
 <div class="col-12 col-lg-3 sidebar-admin">
     <ul>
-        <li>Dashboard</li>
-        <li>Products</li>
-        <li>Articles</li>
-        <li>Sales</li>
-        <li>Payment Confirmation</li>
-        <li>Payment Methods</li>
-        <li>Tags</li>
-        <li>Logout</li>
+        <a href="/admin">
+            <li>Dashboard</li>
+        </a>
+        <a href="{{ route('admin.products') }}">
+            <li>Products</li>
+        </a>
+        <a href="{{ route('admin.articles') }}">
+            <li>Articles</li>
+        </a>
+        <a href="#">
+            <li>Sales</li>
+        </a>
+        <a href="#">
+            <li>Payment Confirmation</li>
+        </a>
+        <a href="{{ route('admin.paymentMethods') }}">
+            <li>Payment Methods</li>
+        </a>
+        <a href="{{ route('admin.tags') }}">
+            <li>Tags</li>
+        </a>
+        <a href="{{ route('logout') }}">
+            <li>Logout</li>
+        </a>
     </ul>
 </div>

@@ -17,6 +17,12 @@ $filler-blue: #4c57d3;
     color: $primary ;
 }
 
+.evogria {
+    font-family: "Evogria";
+    color: black;
+    text-transform: uppercase;
+}
+
 h1, h2, h3, h4, h5, h6, p {
     margin: 0;
 }
@@ -50,3 +56,37 @@ $breakpoints: (
           + "Available breakpoints are: #{map-keys($breakpoints)}.";
     }
 }
+
+
+.slick-prev {
+    left: 10px ;
+    z-index: 10;
+}
+
+.slick-next {
+    right: 10px ;
+    z-index: 10;
+}
+
+.slick-dots {
+    bottom: 5px ;
+
+    li {
+        width: 30px ;
+        height: 8px ;
+
+        button {
+            width: 30px ;
+            height: 8px ;
+
+            &:before {
+                content: ' ';
+                width: 30px ;
+                height: 8px ;
+                border-radius: 30px;
+                background: $primary;
+            }
+        }
+    }
+}
+

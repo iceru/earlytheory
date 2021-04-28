@@ -6,13 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Products Admin
-                </div>
-            </div>
-        </div>
+        <h3 class="evogria">Products Admin</h3>
     </div>
 
     <div class="py-12 my-4">
@@ -43,7 +37,7 @@
                         <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="2"></textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="button primary">Submit</button>
             </form>
         </div>
     </div>
@@ -71,7 +65,7 @@
                         <td>{{$product->price}}</td>
                         <td>{{$product->description}}</td>
                         <td>{{$product->description_short}}</td>
-                        <td><a href="/admin/products/edit/{{$product->id}}">Edit</a> | 
+                        <td><a href="/admin/products/edit/{{$product->id}}">Edit</a> |
                             <a href="/admin/products/delete/{{$product->id}}">Delete</a></td>
                     </tr>
                     @endforeach
@@ -79,6 +73,6 @@
             </table>
         </div>
     </div>
-    
+
 </x-admin-layout>
 

@@ -10835,12 +10835,47 @@ textarea.form-control-lg {
   color: #4A2984;
 }
 
+.evogria {
+  font-family: "Evogria";
+  color: black;
+  text-transform: uppercase;
+}
+
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p {
   margin: 0;
 }
 
 a {
   text-decoration: none;
+}
+
+.slick-prev {
+  left: 10px;
+  z-index: 10;
+}
+
+.slick-next {
+  right: 10px;
+  z-index: 10;
+}
+
+.slick-dots {
+  bottom: 5px;
+}
+.slick-dots li {
+  width: 30px;
+  height: 8px;
+}
+.slick-dots li button {
+  width: 30px;
+  height: 8px;
+}
+.slick-dots li button:before {
+  content: " ";
+  width: 30px;
+  height: 8px;
+  border-radius: 30px;
+  background: #4A2984;
 }
 
 .button {
@@ -11067,6 +11102,10 @@ a {
   left: 0;
   padding: 6rem 2rem;
 }
+.sidebar.admin {
+  width: 60vw;
+  box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.2);
+}
 .sidebar .close-sidebar {
   position: absolute;
   left: 2rem;
@@ -11102,6 +11141,35 @@ a {
   transform: translateX(0);
 }
 
+.sidebar-admin {
+  display: none;
+}
+@media (min-width: 992px) {
+  .sidebar-admin {
+    display: block;
+  }
+}
+
+.sidebar-admin ul, .sidebar-admin-mobile ul {
+  list-style-type: none;
+  padding: 0;
+}
+.sidebar-admin ul a, .sidebar-admin-mobile ul a {
+  color: black;
+  font-size: 1.1rem;
+  font-family: "Evogria";
+  text-transform: uppercase;
+  transition: 0.3s all ease-in;
+}
+.sidebar-admin ul a:hover, .sidebar-admin-mobile ul a:hover {
+  color: #4A2984;
+  transition: 0.3s all ease-in;
+}
+.sidebar-admin ul li, .sidebar-admin-mobile ul li {
+  padding: 1rem;
+  padding-left: 0;
+}
+
 .product-image img {
   width: 100%;
   height: auto;
@@ -11110,13 +11178,10 @@ a {
 
 .product-title h3, .product-title .h3 {
   font-family: "Skylar Sans";
-  font-size: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
   color: #4A2984;
-}
-@media (min-width: 992px) {
-  .product-title h3, .product-title .h3 {
-    font-size: 2.5rem;
-  }
 }
 
 .product-price {
@@ -11263,10 +11328,12 @@ a {
 .auth-card {
   border: 1px solid #c4c4c4;
   border-radius: 10px;
+  width: 40vw;
+  margin: 2rem auto !important;
 }
 
 .logo-login a img {
-  width: 50vw;
+  width: 20%;
 }
 
 .cart .title-page {
@@ -11529,11 +11596,6 @@ a {
 .index .products .product-item-container .product-item .product-title h3, .index .products .product-item-container .product-item .product-title .h3 {
   font-size: 1.5rem;
 }
-@media (min-width: 992px) {
-  .index .products .product-item-container .product-item .product-title h3, .index .products .product-item-container .product-item .product-title .h3 {
-    font-size: 2rem;
-  }
-}
 .index .products .product-item-container .product-item .product-price {
   margin-bottom: 6px;
 }
@@ -11613,35 +11675,6 @@ a {
 html, body {
   background: #e7e7e7;
   font-family: "Apercu", sans-serif;
-}
-
-.slick-prev {
-  left: 10px;
-  z-index: 10;
-}
-
-.slick-next {
-  right: 10px;
-  z-index: 10;
-}
-
-.slick-dots {
-  bottom: 5px;
-}
-.slick-dots li {
-  width: 30px;
-  height: 8px;
-}
-.slick-dots li button {
-  width: 30px;
-  height: 8px;
-}
-.slick-dots li button:before {
-  content: " ";
-  width: 30px;
-  height: 8px;
-  border-radius: 30px;
-  background: #4A2984;
 }
 @tailwind base;
 
