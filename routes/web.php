@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\AdminArticleController;
-use App\Http\Controllers\AdminTagsController;
-use App\Http\Controllers\AdminProductsController;
-use App\Http\Controllers\AdminPaymentMethodsController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminTagsController;
+use App\Http\Controllers\AdminArticleController;
+use App\Http\Controllers\AdminProductsController;
+use App\Http\Controllers\AdminPaymentMethodsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/article-detail/{id}', [ArticleController::class, 'show'])->name('article-detail');
 
 Route::get('/product/{id}', [ProductsController::class, 'productDetail'])->name('product-detail');
+
+Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 // Route::get('/product', function(){
 //     return view ('product-detail');
 // });
@@ -35,6 +38,11 @@ Route::get('/product/{id}', [ProductsController::class, 'productDetail'])->name(
 // Route::get('/cart', function(){
 //     return view ('cart');
 // });
+
+Route::get('/faq', function(){
+    return view ('faq');
+})->name('faq');
+
 
 Route::get('/checkout/detail', function(){
     return view ('checkout.detail');
@@ -66,6 +74,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
         return view('admin.dashboard');
     });
 
+    Route::get('/admin/articles', [AdminArticleController::class, 'index'])->name('admin.articles');
     Route::post('/admin/articles/store', [AdminArticleController::class, 'store'])->name('admin.articles.store');
     Route::get('/admin/articles/edit/{id}', [AdminArticleController::class, 'edit'])->name('admin.articles.edit');
     Route::post('/admin/articles/update', [AdminArticleController::class, 'update'])->name('admin.articles.update');
@@ -88,7 +97,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/payment-methods/edit/{id}', [AdminPaymentMethodsController::class, 'edit'])->name('admin.paymentMethods.edit');
     Route::post('/admin/payment-methods/update', [AdminPaymentMethodsController::class, 'update'])->name('admin.paymentMethods.update');
     Route::get('/admin/payment-methods/delete/{id}', [AdminPaymentMethodsController::class, 'destroy'])->name('admin.paymentMethods.destroy');
-    
+
     Route::get('/admin/sliders', [SlidersController::class, 'index'])->name('admin.sliders');
     Route::post('/admin/sliders/store', [SlidersController::class, 'store'])->name('admin.sliders.store');
     Route::get('/admin/sliders/delete/{id}', [SlidersController::class, 'destroy'])->name('admin.sliders.destroy');

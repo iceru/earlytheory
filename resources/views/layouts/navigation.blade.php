@@ -24,8 +24,8 @@
         </a>
     </div>
     <div class="col-4 nav-links">
-        <a href="#">Contact Us</a>
-        <a href="#">FAQ</a>
+        <a href="{{ route('contact-us') }}">Contact Us</a>
+        <a href="{{ route('faq') }}">FAQ</a>
     </div>
 </nav>
 
@@ -44,10 +44,10 @@
             <a href="{{ route('articles') }}">Articles</a>
         </li>
         <li>
-            <a href="#">Contact Us</a>
+            <a href="{{ route('contact-us') }}">Contact Us</a>
         </li>
         <li>
-            <a href="#">FAQ</a>
+            <a href="{{ route('faq') }}">FAQ</a>
         </li>
     </ul>
 </div>

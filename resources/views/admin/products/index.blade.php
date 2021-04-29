@@ -35,9 +35,15 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Short Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="inputShortDesc" id="inputShortDesc" cols="30" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="2"></textarea>
+                        <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="5"></textarea>
                     </div>
                 </div>
                 <button type="submit" class="button primary">Submit</button>
@@ -54,8 +60,8 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
+                        <th>Short Description</th>
                         <th>Description</th>
-                        <th>Description Short</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -63,11 +69,11 @@
                     @foreach ($products as $product)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
-                        <td><img src="{{Storage::url('product-image/'.$product->image)}}" alt="No Image" width="100"></td>
+                        <td><img src="{{Storage::url('product-image/'.$product->image)}}" alt="Image" width="100"></td>
                         <td>{{$product->title}}</td>
                         <td>{{$product->price}}</td>
-                        <td>{{$product->description}}</td>
                         <td>{{$product->description_short}}</td>
+                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
                         <td><a href="/admin/products/edit/{{$product->id}}">Edit</a> |
                             <a href="/admin/products/delete/{{$product->id}}">Delete</a></td>
                     </tr>

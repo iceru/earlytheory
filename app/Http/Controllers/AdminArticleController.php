@@ -41,6 +41,7 @@ class AdminArticleController extends Controller
         $article = new Articles;
 
         $request->validate([
+            'inputImage' => 'required|image',
             'inputTitle' => 'required',
             'inputDesc' => 'required',
             'inputAuthor' => 'required',
@@ -48,6 +49,14 @@ class AdminArticleController extends Controller
             'inputAccent' => 'required',
             'inputTags' => 'string|regex:/^[a-zA-Z0-9\s]+$/'
         ]);
+
+        if ($request->hasFile('inputImage')) {
+            $extension = $request->file('inputImage')->getClientOriginalExtension();
+            $filename = $request->inputTitle.'_'.time().'.'.$extension;
+            $path = $request->inputImage->storeAs('public/article-image', $filename);
+        }
+
+        $article->image = $filename;
 
         $article->title = $request->inputTitle;
         $article->description = $request->inputDesc;
@@ -64,14 +73,14 @@ class AdminArticleController extends Controller
                 $tag = Tags::firstOrCreate([
                     'tag_name' => $articleTag
                 ]);
-                
+
                 $tags[$tag->id] = ['article_id' => $article->id];
             }
         }
         // dd($tags);
-        
+
         $article->tags()->attach($tags);
-        
+
         return redirect('/admin/articles');
     }
 
@@ -115,6 +124,7 @@ class AdminArticleController extends Controller
         $article = Articles::find($request->id);
 
         $request->validate([
+            'updateImage' => 'required',
             'updateTitle' => 'required',
             'updateDesc' => 'required',
             'updateAuthor' => 'required',
@@ -122,6 +132,13 @@ class AdminArticleController extends Controller
             'updateAccent' => 'required',
             'updateTags' => 'string|regex:/^[a-zA-Z0-9\s]+$/'
         ]);
+
+        if ($request->hasFile('updateImage')) {
+            $extension = $request->file('updateImage')->getClientOriginalExtension();
+            $filename = $request->updateTitle.'_'.time().'.'.$extension;
+            $path = $request->updateImage->storeAs('public/article-image', $filename);
+            $article->image = $filename;
+        }
 
         $article->title = $request->updateTitle;
         $article->description = $request->updateDesc;
@@ -138,12 +155,12 @@ class AdminArticleController extends Controller
                 $tag = Tags::firstOrCreate([
                     'tag_name' => $articleTag
                 ]);
-                
+
                 $tags[$tag->id] = ['article_id' => $request->id];
             }
         }
         // dd($tags);
-        
+
         $article->tags()->sync($tags);
 
         return redirect('/admin/articles');

@@ -44,9 +44,10 @@ class AdminProductsController extends Controller
             'inputTitle' => 'required',
             'inputPrice' => 'required|integer',
             'inputImage' => 'required|image',
+            'inputShortDesc' => 'required',
             'inputDesc' => 'required',
         ]);
-        
+
         if ($request->hasFile('inputImage')) {
             $extension = $request->file('inputImage')->getClientOriginalExtension();
             $filename = $request->inputTitle.'_'.time().'.'.$extension;
@@ -58,14 +59,14 @@ class AdminProductsController extends Controller
         $product->title = $request->inputTitle;
         $product->price = $request->inputPrice;
         $product->description = $request->inputDesc;
-
-        if(strlen($request->inputDesc) > 40) {
-            $shortDesc = substr($request->inputDesc, 0, strpos($request->inputDesc, ' ', 40)).'...';
-        }
-        else {
-            $shortDesc = $request->inputDesc;   
-        }
-        $product->description_short = $shortDesc;
+        $product->description_short = $request->inputShortDesc;
+        // if(strlen($request->inputDesc) > 40) {
+        //     $shortDesc = substr($request->inputDesc, 0, strpos($request->inputDesc, ' ', 40)).'...';
+        // }
+        // else {
+        //     $shortDesc = $request->inputDesc;
+        // }
+        // $product->description_short = $shortDesc;
 
         $product->save();
 
@@ -113,7 +114,7 @@ class AdminProductsController extends Controller
             'updateImage' => 'image|nullable',
             'updateDesc' => 'required',
         ]);
-        
+
         if ($request->hasFile('updateImage')) {
             $extension = $request->file('updateImage')->getClientOriginalExtension();
             $filename = $request->updateTitle.'_'.time().'.'.$extension;
@@ -129,7 +130,7 @@ class AdminProductsController extends Controller
             $shortDesc = substr($request->updateDesc, 0, strpos($request->updateDesc, ' ', 40)).'...';
         }
         else {
-            $shortDesc = $request->updateDesc;   
+            $shortDesc = $request->updateDesc;
         }
         $product->description_short = $shortDesc;
 

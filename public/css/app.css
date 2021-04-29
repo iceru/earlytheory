@@ -10878,6 +10878,20 @@ a {
   background: #4A2984;
 }
 
+.accordion-button {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.accordion-button:not(.collapsed) {
+  background: #4A2984;
+  color: white;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
 .button {
   padding: 8px 16px;
   border-radius: 5px;
@@ -11578,6 +11592,30 @@ a {
   margin-bottom: 1rem;
 }
 
+.contact-us .row {
+  width: 80%;
+  margin: auto;
+}
+.contact-us h2, .contact-us .h2 {
+  margin-bottom: 3rem;
+}
+.contact-us .contact-form {
+  padding-right: 3rem;
+  padding-top: 30px;
+}
+.contact-us .contact-info {
+  background: linear-gradient(138deg, #4A2984 0%, #794cc7 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 1rem;
+}
+.contact-us .contact-info h4, .contact-us .contact-info .h4, .contact-us .contact-info p {
+  color: white;
+}
+.contact-us .contact-info .contact-social i {
+  font-size: 1.5rem;
+}
+
 @media (min-width: 992px) {
   .index {
     padding: 2rem 0;
@@ -11613,6 +11651,11 @@ a {
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
+}
+
+.main-content {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .product-detail {

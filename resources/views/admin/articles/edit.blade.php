@@ -6,13 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Article Admin
-                </div>
-            </div>
-        </div>
+        <h3 class="evogria">Update Article</h3>
     </div>
 
     <div class="py-12 my-4">
@@ -20,6 +14,12 @@
             <form method="POST" action="/admin/articles/update">
                 @csrf
                 <input type="hidden" name="id" value="{{$article->id}}">
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="updateImage" name="updateImage" accept="image/*">
+                    </div>
+                </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
@@ -61,7 +61,7 @@
             </form>
         </div>
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
 </x-admin-layout>
 

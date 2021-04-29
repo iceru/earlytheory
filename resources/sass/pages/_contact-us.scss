@@ -1,0 +1,32 @@
+.contact-us {
+    .row {
+        width: 80%;
+        margin: auto;
+    }
+
+    h2 {
+        margin-bottom: 3rem;
+    }
+
+    .contact-form {
+        padding-right: 3rem;
+        padding-top: 30px;
+    }
+
+    .contact-info {
+        background: linear-gradient(138deg, $primary 0%, lighten($primary, 20%) 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 1rem;
+
+        h4, p {
+            color: white;
+        }
+
+        .contact-social {
+            i {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

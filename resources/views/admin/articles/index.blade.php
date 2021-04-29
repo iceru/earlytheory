@@ -17,6 +17,12 @@
             <form method="POST" action="/admin/articles/store">
                 @csrf
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="inputImage" name="inputImage" accept="image/*">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="inputTitle" name="inputTitle">
@@ -25,7 +31,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="2"></textarea>
+                        <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="6"></textarea>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -35,7 +41,7 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Time to Read</label>
+                    <label class="col-sm-2 col-form-label">Time to Read (in Minutes)</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputTime" name="inputTime" min="0">
                     </div>
@@ -64,6 +70,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Image</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Author</th>
@@ -76,8 +83,9 @@
                     @foreach ($articles as $article)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
+                        <td><img src="{{Storage::url('article-image/'.$article->image)}}" alt="Image" width="100"></td>
                         <td>{{$article->title}}</td>
-                        <td>{!!nl2br($article->description)!!}</td>
+                        <td>{!! substr(nl2br($article->description), 0, 200) . '...'!!}</td>
                         <td>{{$article->author}}</td>
                         <td>{{$article->time_read}}</td>
                         <td style="color: {{$article->accent_color}}">{{$article->accent_color}}</td>
