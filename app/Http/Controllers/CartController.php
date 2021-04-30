@@ -10,19 +10,17 @@ class CartController extends Controller
 {
     public function show()
     {
-        $userID = Auth::id();
-        $items = \Cart::session($userID)->getContent();
-        $total = \Cart::session($userID)->getTotal();
-        // dd($items);
+        $items = \Cart::getContent();
+        $total = \Cart::getTotal();
+        
         return view('cart', compact('items', 'total'));
     }
 
     public function add($id)
     {
         $product = Products::findOrFail($id);
-        $userID = Auth::id();
 
-        \Cart::session($userID)->add(array(
+        \Cart::add(array(
             'id' => $id,
             'name' => $product->title,
             'price' => $product->price,
@@ -36,8 +34,7 @@ class CartController extends Controller
 
     public function min($id)
     {
-        $userID = Auth::id();
-        \Cart::session($userID)->update($id, array(
+        \Cart::update($id, array(
             'quantity' => -1
         ));
 
@@ -46,16 +43,14 @@ class CartController extends Controller
 
     public function remove($id)
     {
-        $userID = Auth::id();
-        \Cart::session($userID)->remove($id);
+        \Cart::remove($id);
 
         return redirect('/cart');
     }
 
     public function plus($id)
     {
-        $userID = Auth::id();
-        \Cart::session($userID)->update($id, array(
+        \Cart::update($id, array(
             'quantity' => 1
         ));
 
@@ -64,8 +59,7 @@ class CartController extends Controller
 
     public function clear()
     {
-        $userID = Auth::id();
-        \Cart::session($userID)->clear();
+        \Cart::clear();
 
         return redirect('/cart');
     }

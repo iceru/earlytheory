@@ -60,14 +60,12 @@ Route::get('/checkout/confirm-payment', function(){
     return view ('checkout.confirm-payment');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
-    Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');
-    Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.plus');
-    Route::get('/cart/plus/{id}', [CartController::class, 'plus'])->name('cart.plus');
-    Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-    Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
-});
+Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');
+Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.plus');
+Route::get('/cart/plus/{id}', [CartController::class, 'plus'])->name('cart.plus');
+Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin', function () {
