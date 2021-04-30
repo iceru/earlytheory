@@ -14,17 +14,18 @@
                 <div class="circle"></div>
             </div>
             <div class="products col-12">
+                @foreach ($sales->products as $item)
                 <div class="row">
                     <div class="product-item-container col-lg-6 ">
                         <div class="row">
                             <div class="product-title col-12">
-                                <h4>Mencari Jodoh</h4>
+                                <h4>{{$item->title}}</h4>
                             </div>
                             <div class="product-price col-12">
-                                <p>idr 150.000</p>
+                                <p>idr {{number_format($item->price)}}</p>
                             </div>
                             <div class="col-5 col-lg-3 product-image">
-                                <img src="/images/PROBLEMSOLVER.png" alt="">
+                                <img src="{{Storage::url('product-image/'.$item->image)}}" alt="">
                             </div>
                             <div class="col-7 col-lg-9 ps-0">
                                 <textarea name="detail" id="detail"  placeholder="Jabarkan Pertanyaanmu Disini.."></textarea>
@@ -32,6 +33,7 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
             <div class="col-12">
                 <a class="button secondary" href="/checkout/summary">

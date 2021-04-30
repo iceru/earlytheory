@@ -52,7 +52,7 @@
                     </h5>
                 </div>
                 <div class="checkout-btn">
-                    <a href="#" class="button primary">Checkout</a>
+                    <a href="/checkout" class="button primary">Checkout</a>
                 </div>
             </div>
         </div>

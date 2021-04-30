@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminProductsController;
@@ -43,10 +44,12 @@ Route::get('/faq', function(){
     return view ('faq');
 })->name('faq');
 
+Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
+Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
 
-Route::get('/checkout/detail', function(){
-    return view ('checkout.detail');
-});
+// Route::get('/checkout/detail', function(){
+//     return view ('checkout.detail');
+// });
 
 Route::get('/checkout/summary', function(){
     return view ('checkout.summary');
