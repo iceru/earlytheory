@@ -11,6 +11,12 @@
         padding-bottom: 0.5rem;
         margin-bottom: 1rem;
         font-family: 'Evogria';
+        text-align: right;
+
+        h5 {
+            display: inline-block;
+            cursor: pointer;
+        }
     }
 
     .footer-info {

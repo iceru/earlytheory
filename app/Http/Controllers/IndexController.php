@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sliders;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,9 @@ class IndexController extends Controller
     public function index()
     {
         $products = Products::all();
+        $sliders = Sliders::all();
 
-        return view('index', compact('products'));
+        return view('index', compact('products', 'sliders'));
     }
 
     /**

@@ -9,6 +9,18 @@
     .article {
         margin-bottom: 2rem;
         .article-info {
+            @include breakpoint(large) {
+                .col-7 {
+                    padding-left: 1rem;
+                }
+            }
+            .title {
+                a h5{
+                    font-weight: 600;
+                    letter-spacing: 0.1rem;
+                    color: $primary;
+                }
+            }
             .article-image {
                 padding-right: 0;
                 img {

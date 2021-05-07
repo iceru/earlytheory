@@ -11,7 +11,7 @@
 
     <div class="py-12 my-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="/admin/articles/update">
+            <form method="POST" enctype="multipart/form-data" action="/admin/articles/update">
                 @csrf
                 <input type="hidden" name="id" value="{{$article->id}}">
                 <div class="mb-3 row">

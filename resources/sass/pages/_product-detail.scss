@@ -3,14 +3,20 @@
     padding-bottom: 1.5rem;
 
     @include breakpoint(large) {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
     }
 
     .product {
         text-align: center;
         @include breakpoint(large) {
             text-align: left;
+        }
+
+        .product-title {
+            h3 {
+                font-size: 2rem;
+            }
         }
 
         .product-image {

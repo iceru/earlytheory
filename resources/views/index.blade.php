@@ -1,12 +1,11 @@
 <x-app-layout>
     <div class="index col-12">
         <div class="sliders">
-            <div class="slider-item">
-                <img src="/images/Sliders1.png" alt="">
-            </div>
-            <div class="slider-item">
-                <img src="/images/Sliders1.png" alt="">
-            </div>
+            @foreach ($sliders as $slider)
+                <div class="slider-item">
+                    <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
+                </div>
+            @endforeach
         </div>
 
         <div class="products row mt-3">
@@ -25,7 +24,7 @@
                     <a href="/cart/add/{{$product->id}}" class="button primary my-3">Add To Cart</a>
                 </div>
             @empty
-                <p>No Product</p>
+                <h4 class="evogria">No Product</h4>
             @endforelse
         </div>
     </div>
