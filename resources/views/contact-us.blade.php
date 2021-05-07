@@ -4,7 +4,7 @@
             <div class="col-12 text-center">
                 <h2 class="evogria">Contact Us</h2>
             </div>
-            <div class="col-12 col-md-6 contact-form">
+            {{-- <div class="col-12 col-md-6 contact-form">
                 <form action="">
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
@@ -20,8 +20,8 @@
                     </div>
                     <button type="submit" class="button primary">Submit</button>
                 </form>
-            </div>
-            <div class="col-12 col-md-6 contact-info">
+            </div> --}}
+            <div class="col-12 contact-info">
                 <h3 class="mb-2">Contact Information</h3>
                 <p class="mb-5">Lorem ipsum dolor</p>
 

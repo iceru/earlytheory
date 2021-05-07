@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="article-text">
-                {!!nl2br($article->description)!!}
+                {!! ($article->description) !!}
             </div>
 
             <div class="sliders mt-5">

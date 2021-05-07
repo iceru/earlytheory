@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sliders;
-use App\Models\Products;
+use App\Models\FAQ;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class AdminFaqController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+    *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $products = Products::all();
-        $sliders = Sliders::where('category', 'products')->get();
-
-        return view('index', compact('products', 'sliders'));
+        $faq = FAQ::all();
+        return view('admin.faq.index', compact('faq'));
     }
 
     /**
@@ -28,7 +25,12 @@ class IndexController extends Controller
      */
     public function create()
     {
-        //
+
+    }
+
+    public function display() {
+        $faq = FAQ::all();
+        return view ('faq', compact('faq'));
     }
 
     /**
@@ -39,7 +41,19 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $faq = new FAQ;
+
+        $request->validate([
+            'inputTitle' => 'required',
+            'inputQuestion' => 'required',
+        ]);
+
+        $faq->title = $request->inputTitle;
+        $faq->question = $request->inputQuestion;
+        $faq->save();
+
+        return redirect('/admin/faq');
     }
 
     /**
@@ -61,7 +75,9 @@ class IndexController extends Controller
      */
     public function edit($id)
     {
-        //
+        $faq = FAQ::find($id);
+
+        return view('admin.faq.edit', compact('faq'));
     }
 
     /**
@@ -71,9 +87,21 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $faq = FAQ::find($request->id);
+
+        $request->validate([
+            'updateTitle' => 'required',
+            'updateQuestion' => 'required'
+        ]);
+
+
+        $faq->title = $request->updateTitle;
+        $faq->question = $request->updateQuestion;
+        $faq->save();
+
+        return redirect('/admin/faq');
     }
 
     /**

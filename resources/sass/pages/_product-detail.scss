@@ -56,4 +56,39 @@
             }
         }
     }
+
+    .other-products {
+        margin-top: 4rem;
+        .other-title {
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid $background-secondary;
+        }
+
+        .products {
+            .product-item-container {
+                .product-image {
+                    margin-bottom: 0.5rem;
+                }
+                .product-item {
+                    text-align: center;
+                    color: $primary;
+                    padding: 12px;
+                    border: 1px solid $background-secondary;
+                    border-radius: 5px;
+                    .product-title {
+                        h3 {
+                            font-size: 1.5rem;
+                        }
+                    }
+                    .product-price {
+                        margin-bottom: 6px;
+                    }
+                    .product-desc {
+                        font-size: 0.85rem;
+                    }
+                }
+            }
+        }
+    }
 }

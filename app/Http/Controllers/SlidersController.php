@@ -20,7 +20,9 @@ class SlidersController extends Controller
         $slider = new Sliders;
 
         $request->validate([
-            'inputImage' => 'required|image'
+            'inputImage' => 'required|image',
+            'inputLink' => 'required',
+            'inputCategory' => 'required'
         ]);
 
         if ($request->hasFile('inputImage')) {
@@ -29,7 +31,47 @@ class SlidersController extends Controller
             $path = $request->inputImage->storeAs('public/sliders-image', $filename);
         }
 
+        $slider->link = $request->inputLink;
+        $slider->category = $request->inputCategory;
         $slider->image = $filename;
+        $slider->save();
+
+        return redirect('/admin/sliders');
+    }
+
+    public function edit($id)
+    {
+        $slider = Sliders::findOrFail($id);
+
+        return view('admin.sliders.edit', compact('slider'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $slider = Sliders::find($request->id);
+
+        $request->validate([
+            'updateImage' => 'image|nullable',
+            'updateLink' => 'required',
+            'updateCategory' => 'required',
+        ]);
+
+        if ($request->hasFile('updateImage')) {
+            $extension = $request->file('updateImage')->getClientOriginalExtension();
+            $filename = $request->updateTitle.'_'.time().'.'.$extension;
+            $path = $request->updateImage->storeAs('public/sliders-image', $filename);
+            $slider->image = $filename;
+        }
+
+        $slider->link = $request->updateLink;
+        $slider->category = $request->updateCategory;
         $slider->save();
 
         return redirect('/admin/sliders');

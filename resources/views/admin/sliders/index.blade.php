@@ -22,6 +22,23 @@
                         <input type="file" class="form-control" id="inputImage" name="inputImage" accept="image/*">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Slider Link</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputLink" name="inputLink">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Slider Category</label>
+                    <div class="col-sm-10">
+                        <select name="inputCategory" class="form-select" id="inputCategory">
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="products">Products</option>
+                            <option value="articles">Articles</option>
+                            <option value="article-detail">Article Detail</option>
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -34,6 +51,8 @@
                     <tr>
                         <th>No</th>
                         <th>Image</th>
+                        <th>Link</th>
+                        <th>Category</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -42,7 +61,10 @@
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td><img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="No Image" width="100"></td>
-                        <td><a href="/admin/sliders/delete/{{$slider->id}}">Delete</a></td>
+                        <td>{{ $slider->link }}</td>
+                        <td>{{ $slider->category }}</td>
+                        <td><a href="/admin/sliders/edit/{{$slider->id}}">Edit</a> |
+                            <a href="/admin/sliders/delete/{{$slider->id}}">Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>

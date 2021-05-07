@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Description</label>
+                    <label class="col-sm-2 col-form-label">Article Content</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" name="updateDesc" id="updateDesc" cols="30" rows="2">{{$article->description}}</textarea>
                     </div>
@@ -53,7 +53,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Tags</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="updateTags" id="updateTags" cols="30" rows="2">@foreach ($article->tags as $tag){{$tag->tag_name}} @endforeach</textarea>
+                        <input class="form-control" name="updateTags" value="@foreach ($article->tags as $tag){{$tag->tag_name}} @endforeach" id="updateTags"></input>
                         <div class="form-text">(Separate with space, ex: tag1 tag2 tag3)</div>
                     </div>
                 </div>
@@ -62,6 +62,18 @@
         </div>
     </div>
 
+
+    @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          toolbar_mode: 'floating',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          height : "480"
+       });
+    </script>
+    @endsection
 </x-admin-layout>
 

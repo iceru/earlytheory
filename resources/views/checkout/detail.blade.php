@@ -14,10 +14,10 @@
                 <div class="circle"></div>
             </div>
             <div class="products col-12">
-                @foreach ($sales->products as $item)
                 <div class="row">
-                    <div class="product-item-container col-lg-6 ">
-                        <div class="row">
+                    @foreach ($sales->products as $item)
+                    <div class=" col-12 col-lg-6 ">
+                        <div class="product-item-container row">
                             <div class="product-title col-12">
                                 <h4>{{$item->title}}</h4>
                             </div>
@@ -32,8 +32,8 @@
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
             <div class="col-12">
                 <a class="button secondary" href="/checkout/summary">

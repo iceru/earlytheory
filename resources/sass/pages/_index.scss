@@ -2,6 +2,7 @@
     @include breakpoint(large) {
         padding: 2rem 0;
     }
+
     .products {
         .product-item-container {
             .product-image {
@@ -28,6 +29,7 @@
         }
     }
 }
+
 
 .sliders {
     width: 100%;

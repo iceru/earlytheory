@@ -21,6 +21,9 @@
         <a href="{{ route('admin.paymentMethods') }}">
             <li>Payment Methods</li>
         </a>
+        <a href="{{ route('admin.faq') }}">
+            <li>FAQ</li>
+        </a>
         <a href="{{ route('admin.tags') }}">
             <li>Tags</li>
         </a>

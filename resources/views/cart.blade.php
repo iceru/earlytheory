@@ -1,17 +1,16 @@
 <x-app-layout>
-    <div class="col-12 cart">
+    <div class="col-12 cart main-content">
         <div class="row">
             <div class="col-12 title-page text-center primary-color">
                 <h1>MY CART</h1>
             </div>
-            <div class="col-lg-6">
-                <div class="d-flex justify-content-end mb-3">
+            <div class="col-12">
+                <div class="d-flex mb-3">
                     <a href="/cart/clear" class="button primary align-items-center">
                         <span class="me-2 ">Remove All</span> <i class="fas fa-trash"></i>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-6"></div>
             <div class="col-12 col-lg-6 product-cart ">
 
                 <div class="products">
@@ -21,14 +20,14 @@
                                 <img src="{{Storage::url('product-image/'.$item->model->image)}}" alt="">
                             </div>
                             <div class="col-8 col-lg-9 product-item">
-                                <h4 class="product-title">{{$item->model->title}}</h4>
+                                <div class="product-title"><h3>{{$item->model->title}}</h3></div>
                                 <p class="product-price">idr {{number_format($item->model->price)}}</p>
                                 <div class="qty-spinner d-flex">
                                     <div class="min-button">
                                         @if ($item->quantity > 1)
                                         <a href="/cart/min/{{$item->id}}" style="color: inherit;"><i class="fas fa-minus-circle"></i></a>
                                         @elseif ($item->quantity == 1)
-                                        <a href="/cart/remove/{{$item->id}}" style="color: inherit;"><i class="fas fa-minus-circle"></i></a>                                            
+                                        <a href="/cart/remove/{{$item->id}}" style="color: inherit;"><i class="fas fa-minus-circle"></i></a>
                                         @endif
                                     </div>
                                     <div class="qty">{{$item->quantity}}</div>

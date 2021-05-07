@@ -126,13 +126,7 @@ class AdminProductsController extends Controller
         $product->price = $request->updatePrice;
         $product->description = $request->updateDesc;
 
-        if(strlen($request->updateDesc) > 40) {
-            $shortDesc = substr($request->updateDesc, 0, strpos($request->updateDesc, ' ', 40)).'...';
-        }
-        else {
-            $shortDesc = $request->updateDesc;
-        }
-        $product->description_short = $shortDesc;
+        $product->description_short = $request->updateShortDesc;
 
         $product->save();
 

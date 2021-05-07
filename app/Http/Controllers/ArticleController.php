@@ -16,8 +16,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $sliders = Sliders::all();
-        $articles = Articles::paginate(3);
+        $sliders = Sliders::where('category', 'articles')->get();
+        $articles = Articles::paginate(12);
         // dd($articles->first()->title);
         return view('articles', compact('articles', 'sliders'));
     }
@@ -51,7 +51,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $sliders = Sliders::all();
+        $sliders = Sliders::where('category', 'article-detail')->get();
         $article = Articles::findOrFail($id);
 
         return view('article-detail', compact('article', 'sliders'));

@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Description</label>
+                    <label class="col-sm-2 col-form-label">Article Content</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="6"></textarea>
                     </div>
@@ -55,7 +55,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Tags</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="inputTags" id="inputTags" cols="30" rows="2"></textarea>
+                        <input class="form-control" name="inputTags" id="inputTags"></input>
                         <div class="form-text">(Separate with space, ex: tag1 tag2 tag3)</div>
                     </div>
                 </div>
@@ -107,6 +107,14 @@
         $(document).ready(function() {
             $('#table').DataTable();
         } );
+
+        tinymce.init({
+          selector: 'textarea',
+          toolbar_mode: 'floating',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          height : "480"
+       });
     </script>
     @endsection
 </x-admin-layout>

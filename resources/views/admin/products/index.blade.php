@@ -37,7 +37,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Short Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="inputShortDesc" id="inputShortDesc" cols="30" rows="2"></textarea>
+                        <input class="form-control" name="inputShortDesc" id="inputShortDesc" cols="30" rows="2"></input>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -91,6 +91,14 @@
             $('#table').DataTable();
         } );
     </script>
+     <script>
+        tinymce.init({
+          selector: 'textarea',
+          toolbar_mode: 'floating',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+       });
+      </script>
     @endsection
 
 </x-admin-layout>

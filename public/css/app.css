@@ -10986,6 +10986,14 @@ a {
   font-style: normal;
   font-display: swap;
 }
+@media (min-width: 768px) {
+  .footer .footer-info, .footer .footer-subs-logo, .footer .footer-copyright {
+    padding: 0 5vw;
+  }
+  .footer .to-top {
+    padding: 0 6.8vw;
+  }
+}
 .footer .to-top {
   color: white;
   background-color: #4A2984;
@@ -11077,11 +11085,24 @@ a {
 }
 .navbar-mobile .cart-icon {
   padding: 0;
+  position: relative;
 }
 @media (min-width: 992px) {
   .navbar-mobile .cart-icon {
     padding: 0;
   }
+}
+.navbar-mobile .cart-icon .badge-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  color: white;
+  border-radius: 50%;
+  background: #4A2984;
+  font-size: 12px;
+  height: 18px;
+  width: 18px;
+  text-align: center;
 }
 
 .navbar {
@@ -11625,6 +11646,7 @@ a {
   padding: 30px;
   border-radius: 1rem;
   position: relative;
+  padding-bottom: 15vw;
 }
 .contact-us .contact-info h4, .contact-us .contact-info .h4, .contact-us .contact-info p {
   color: white;
@@ -11736,6 +11758,33 @@ a {
 }
 .product-detail .product .add-to-cart button {
   width: 100%;
+}
+.product-detail .other-products {
+  margin-top: 4rem;
+}
+.product-detail .other-products .other-title {
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #c4c4c4;
+}
+.product-detail .other-products .products .product-item-container .product-image {
+  margin-bottom: 0.5rem;
+}
+.product-detail .other-products .products .product-item-container .product-item {
+  text-align: center;
+  color: #4A2984;
+  padding: 12px;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+}
+.product-detail .other-products .products .product-item-container .product-item .product-title h3, .product-detail .other-products .products .product-item-container .product-item .product-title .h3 {
+  font-size: 1.5rem;
+}
+.product-detail .other-products .products .product-item-container .product-item .product-price {
+  margin-bottom: 6px;
+}
+.product-detail .other-products .products .product-item-container .product-item .product-desc {
+  font-size: 0.85rem;
 }
 
 * {
