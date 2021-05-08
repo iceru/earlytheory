@@ -4,9 +4,11 @@
             <div class="col-12">
                 <div class="sliders">
                     @foreach ($sliders as $slider)
+                    <a href="{{ $slider->link }}">
                         <div class="slider-item">
                             <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
                         </div>
+                    </a>
                     @endforeach
                 </div>
             </div>

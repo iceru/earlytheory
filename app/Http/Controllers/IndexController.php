@@ -50,7 +50,15 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        //
+        if ( ! Newsletter::isSubscribed($request->email) )
+        {
+            Newsletter::subscribe($request->email);
+            return \Response::json(['success' => 'Thank you for Subscribing to our Newsletter']);
+        }
+
+        else {
+            return \Response::json(['error' => 'You already Subscribed!']);
+        }
     }
 
     /**

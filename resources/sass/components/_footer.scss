@@ -1,8 +1,6 @@
 .footer {
-    // position: fixed;
-    // left: 0;
-    // bottom: 0;
-    // width: 100%;
+    justify-content: center;
+
     @include breakpoint(medium) {
         .footer-info, .footer-subs-logo, .footer-copyright{
             padding: 0 5vw;

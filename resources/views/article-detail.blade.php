@@ -5,7 +5,7 @@
                 <i class="fas fa-share    "></i>
             </div> --}}
             <div class="back">
-                <i class="fas fa-chevron-left    "></i>
+                <i class="fas fa-chevron-left"></i>
             </div>
 
             <div class="title" style="background-color: {{ $article->accent_color }}; opacity: 0.8">
@@ -33,9 +33,11 @@
 
             <div class="sliders mt-5">
                 @foreach ($sliders as $slider)
+                <a href="{{ $slider->link }}">
                     <div class="slider-item">
                         <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
                     </div>
+                </a>
                 @endforeach
             </div>
         </div>

@@ -40,12 +40,18 @@
         width: 100%;
         object-fit: cover;
         object-position: center;
-        height: 500px;
+        // height: 500px;
         border-radius: 2rem;
+        height: 50vw;
+
+        @include breakpoint(medium) {
+            height: 40vw;
+        }
     }
 }
 
 .main-content {
     padding-top: 3rem;
     padding-bottom: 3rem;
+    min-height: 50vh;
 }

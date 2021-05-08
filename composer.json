@@ -12,7 +12,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "santigarcor/laratrust": "^6.3"
+        "santigarcor/laratrust": "^6.3",
+        "spatie/laravel-newsletter": "^4.9"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
