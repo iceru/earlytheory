@@ -52,7 +52,12 @@
                     </h5>
                 </div>
                 <div class="checkout-btn">
-                    <a href="/checkout" class="button primary">Checkout</a>
+                    @if (\Cart::isEmpty())
+                        {{-- <a href="#" class="button primary disabled" aria-disabled="true">Checkout</a> --}}
+                        <a href="#" class="btn btn-primary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Checkout</a>
+                    @else
+                        <a href="/checkout" class="button primary">Checkout</a>
+                    @endif
                 </div>
             </div>
         </div>
