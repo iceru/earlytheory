@@ -23,20 +23,22 @@
                     </div>
                 </div>
                 <div class="bank-detail payment-detail show">
+                    @foreach ($paymethods_bank as $item)
                     <div class="bank-method-item d-flex justify-content-center align-items-center mb-3">
                         <div class="bank-image">
-                            <img src="/images/bca.svg" alt="">
+                            <img src="{{Storage::url('payment-logo/'.$item->logo)}}" alt="">
                         </div>
                         <div class="bank-text">
-                            <span class="bank-number">16651232132</span> <br>
-                            <span> a/n John Doe</span>
+                            <span class="bank-number">{{$item->account_number}}</span> <br>
+                            <span> a/n {{$item->account_owner}}</span>
                         </div>
                     </div>
+                    @endforeach
                 </div>
                 <div class="qr-detail payment-detail">
                     <div class="bank-method-item d-flex justify-content-center align-items-center mb-3">
                         <div class="bank-image">
-                            <img src="/images/qrcode.png" alt="">
+                            <img src="{{Storage::url('payment-logo/'.$paymethods_qr->logo)}}" alt="">
                         </div>
                         {{-- <div class="bank-text">
                             <span class="bank-number">16651232132</span> <br>
@@ -46,7 +48,7 @@
                 </div>
 
             <div class="col-12">
-                <a class="button secondary" href="/checkout/confirm-payment">
+                <a class="button secondary" href="/checkout/{{$sales->id}}/confirm-payment">
                     Confirm your Payment
                 </a>
             </div>

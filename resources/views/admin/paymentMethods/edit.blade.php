@@ -33,6 +33,12 @@
                         <input type="text" class="form-control" id="updateAccNum" name="updateAccNum" value="{{$paymentMethod->account_number}}">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Account Owner</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="updateAccOwn" name="updateAccOwn" value="{{$paymentMethod->account_owner}}">
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>

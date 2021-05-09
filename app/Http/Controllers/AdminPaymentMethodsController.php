@@ -43,7 +43,8 @@ class AdminPaymentMethodsController extends Controller
         $request->validate([
             'inputName' => 'required',
             'inputLogo' => 'required|image',
-            'inputAccNum' => 'required'
+            'inputAccNum' => 'required',
+            'inputAccOwn' => 'required'
         ]);
 
         if ($request->hasFile('inputLogo')) {
@@ -55,6 +56,7 @@ class AdminPaymentMethodsController extends Controller
         $paymentMethod->name = $request->inputName;
         $paymentMethod->logo = $filename;
         $paymentMethod->account_number = $request->inputAccNum;
+        $paymentMethod->account_owner = $request->inputAccOwn;
 
         $paymentMethod->save();
 
@@ -99,7 +101,9 @@ class AdminPaymentMethodsController extends Controller
         $request->validate([
             'updateName' => 'required',
             'updateLogo' => 'image|nullable',
-            'updateAccNum' => 'required'
+            'updateAccNum' => 'required',
+            'updateAccOwn' => 'required'
+
         ]);
 
         if ($request->hasFile('updateLogo')) {
@@ -111,6 +115,7 @@ class AdminPaymentMethodsController extends Controller
         
         $paymentMethod->name = $request->updateName;
         $paymentMethod->account_number = $request->updateAccNum;
+        $paymentMethod->account_owner = $request->updateAccOwn;
 
         $paymentMethod->save();
 

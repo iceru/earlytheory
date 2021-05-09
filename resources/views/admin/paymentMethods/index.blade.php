@@ -26,12 +26,20 @@
                     <label class="col-sm-2 col-form-label">Logo</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="inputLogo" name="inputLogo" accept="image/*">
+                        <div class="form-text">(Upload QR image for QR payment)</div>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Account Number</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="inputAccNum" name="inputAccNum">
+                        <div class="form-text">(Input "qr" (without quote) for QR payment)</div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Account Owner</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputAccOwn" name="inputAccOwn">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -48,6 +56,7 @@
                         <th>Name</th>
                         <th>Logo</th>
                         <th>Account Number</th>
+                        <th>Account Owner</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -58,6 +67,7 @@
                         <td>{{$paymentMethod->name}}</td>
                         <td><img src="{{Storage::url('payment-logo/'.$paymentMethod->logo)}}" alt="{{$paymentMethod->logo}}" width="100"></td>
                         <td>{{$paymentMethod->account_number}}</td>
+                        <td>{{$paymentMethod->account_owner}}</td>
                         <td><a href="/admin/payment-methods/edit/{{$paymentMethod->id}}">Edit</a> |
                             <a href="/admin/payment-methods/delete/{{$paymentMethod->id}}">Delete</a></td>
                     </tr>

@@ -47,22 +47,28 @@ Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 
 Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
 Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
+Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');
+Route::get('/checkout/{id}/summary', [SalesController::class, 'summary'])->name('sales.summary');
+Route::get('/checkout/{id}/payment', [SalesController::class, 'payment'])->name('sales.payment');
+Route::get('/checkout/{id}/confirm-payment', [SalesController::class, 'confirmPayment'])->name('sales.confirm-payment');
+Route::post('/checkout/{id}/confirm-payment/submit', [SalesController::class, 'submitPayment'])->name('sales.submit-payment');
+Route::get('/checkout/{id}/payment-success', [SalesController::class, 'success'])->name('sales.success');
 
 // Route::get('/checkout/detail', function(){
 //     return view ('checkout.detail');
 // });
 
-Route::get('/checkout/summary', function(){
-    return view ('checkout.summary');
-});
+// Route::get('/checkout/summary', function(){
+//     return view ('checkout.summary');
+// });
 
-Route::get('/checkout/payment', function(){
-    return view ('checkout.payment');
-});
+// Route::get('/checkout/payment', function(){
+//     return view ('checkout.payment');
+// });
 
-Route::get('/checkout/confirm-payment', function(){
-    return view ('checkout.confirm-payment');
-});
+// Route::get('/checkout/confirm-payment', function(){
+//     return view ('checkout.confirm-payment');
+// });
 
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');

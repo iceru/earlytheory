@@ -13,9 +13,10 @@
                 <div class="line"></div>
                 <div class="circle active"></div>
             </div>
-            <form action="">
+            <form action="/checkout/{{$sales->id}}/confirm-payment/submit" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="form-payment col-12">
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="form-label" for="">Full Name</label>
                         <input class="form-control" type="text" >
                     </div>
@@ -26,13 +27,18 @@
                     <div class="form-group">
                         <label for="" class="form-label">Phone Number</label>
                         <input type="tel" class="form-control">
-                    </div>
+                    </div> --}}
+                    <input type="text" name="salesId" value="{{$sales->id}}" hidden>
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="email" class="form-control">
+                        <input type="email" name="inputEmail" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Upload Proof of Payment</label>
+                        <input type="file" class="form-control" id="inputPayment" name="inputPayment" accept="image/*">
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="button primary" href="/a">
+                        <button type="submit" class="button primary">
                             Submit
                         </a>
                     </div>
