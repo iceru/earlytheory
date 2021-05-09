@@ -27,6 +27,12 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Duration</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updateDuration" name="updateDuration" min="0" value="{{$product->duration}}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="updateImage" name="updateImage" accept="image/*">

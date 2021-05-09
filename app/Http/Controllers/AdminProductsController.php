@@ -43,6 +43,7 @@ class AdminProductsController extends Controller
         $request->validate([
             'inputTitle' => 'required',
             'inputPrice' => 'required|integer',
+            'inputDuration' => 'nullable|integer',
             'inputImage' => 'required|image',
             'inputShortDesc' => 'required',
             'inputDesc' => 'required',
@@ -58,6 +59,7 @@ class AdminProductsController extends Controller
 
         $product->title = $request->inputTitle;
         $product->price = $request->inputPrice;
+        $product->duration = $request->inputDuration;
         $product->description = $request->inputDesc;
         $product->description_short = $request->inputShortDesc;
         // if(strlen($request->inputDesc) > 40) {
@@ -111,6 +113,7 @@ class AdminProductsController extends Controller
         $request->validate([
             'updateTitle' => 'required',
             'updatePrice' => 'required|integer',
+            'updateDuration' => 'nullable|integer',
             'updateImage' => 'image|nullable',
             'updateDesc' => 'required',
         ]);
@@ -124,6 +127,7 @@ class AdminProductsController extends Controller
 
         $product->title = $request->updateTitle;
         $product->price = $request->updatePrice;
+        $product->duration = $request->updateDuration;
         $product->description = $request->updateDesc;
 
         $product->description_short = $request->updateShortDesc;
