@@ -3,19 +3,20 @@
         <div class="row">
             <div class="col-12">
                 <div class="sliders">
-                    <div class="slider-item">
-                        <img src="/images/Sliders1.png" alt="">
-                    </div>
-                    <div class="slider-item">
-                        <img src="/images/Sliders1.png" alt="">
-                    </div>
+                    @foreach ($sliders as $slider)
+                    <a href="{{ $slider->link }}">
+                        <div class="slider-item">
+                            <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
+                        </div>
+                    </a>
+                    @endforeach
                 </div>
             </div>
             @forelse ($articles as $article)
-                <div class="col-12 col-md-6 article">
-                    <div class="row article-info">                       
+                <div class="col-12 col-md-6 col-xxl-4 article">
+                    <div class="row article-info">
                         <div class="col-5 article-image">
-                            <a href="/article-detail/{{$article->id}}"><img src="/images/SWOT.png" alt=""></a>
+                            <a href="/article-detail/{{$article->id}}"><img src="{{Storage::url('article-image/'.$article->image)}}" alt="{{ $article->title }}"></a>
                         </div>
                         <div class="col-7">
                             <div class="tags">
@@ -37,7 +38,7 @@
                     </div>
                 </div>
             @empty
-                <p>No Article</p>
+                <h4 class="evogria">No Article</h4>
             @endforelse
             <div class="d-flex justify-content-center">{{$articles->links()}}</div>
         </div>

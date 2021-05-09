@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SlidersController;
+use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\SalesController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminProductsController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\AdminPaymentMethodsController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/newsletter', [IndexController::class, 'store'])->name('newsletter');
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/article-detail/{id}', [ArticleController::class, 'show'])->name('article-detail');
@@ -40,9 +42,8 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 //     return view ('cart');
 // });
 
-Route::get('/faq', function(){
-    return view ('faq');
-})->name('faq');
+Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
+
 
 Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
 Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
@@ -99,7 +100,15 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::post('/admin/payment-methods/update', [AdminPaymentMethodsController::class, 'update'])->name('admin.paymentMethods.update');
     Route::get('/admin/payment-methods/delete/{id}', [AdminPaymentMethodsController::class, 'destroy'])->name('admin.paymentMethods.destroy');
 
+    Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
+    Route::get('/admin/faq/edit/{id}', [AdminFaqController::class, 'edit'])->name('admin.faq.edit');
+    Route::post('/admin/faq/update', [AdminFaqController::class, 'update'])->name('admin.faq.update');
+    Route::post('/admin/faq/store', [AdminFaqController::class, 'store'])->name('admin.faq.store');
+    Route::get('/admin/faq/delete/{id}', [AdminFaqController::class, 'destroy'])->name('admin.faq.destroy');
+
     Route::get('/admin/sliders', [SlidersController::class, 'index'])->name('admin.sliders');
+    Route::get('/admin/sliders/edit/{id}', [SlidersController::class, 'edit'])->name('admin.sliders.edit');
+    Route::post('/admin/sliders/update', [SlidersController::class, 'update'])->name('admin.sliders.update');
     Route::post('/admin/sliders/store', [SlidersController::class, 'store'])->name('admin.sliders.store');
     Route::get('/admin/sliders/delete/{id}', [SlidersController::class, 'destroy'])->name('admin.sliders.destroy');
 });

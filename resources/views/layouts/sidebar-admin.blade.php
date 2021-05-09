@@ -15,14 +15,24 @@
         <a href="#">
             <li>Payment Confirmation</li>
         </a>
+        <a href="{{ route('admin.sliders') }}">
+            <li>Slider Images</li>
+        </a>
         <a href="{{ route('admin.paymentMethods') }}">
             <li>Payment Methods</li>
+        </a>
+        <a href="{{ route('admin.faq') }}">
+            <li>FAQ</li>
         </a>
         <a href="{{ route('admin.tags') }}">
             <li>Tags</li>
         </a>
-        <a href="{{ route('logout') }}">
-            <li>Logout</li>
-        </a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+            this.closest('form').submit();">
+                <li>Logout</li>
+            </a>
+        </form>
     </ul>
 </div>

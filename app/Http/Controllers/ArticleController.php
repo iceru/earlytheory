@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Articles;
 use App\Models\Tags;
+use App\Models\Sliders;
+use App\Models\Articles;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -15,9 +16,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Articles::paginate(3);
+        $sliders = Sliders::where('category', 'articles')->get();
+        $articles = Articles::paginate(12);
         // dd($articles->first()->title);
-        return view('articles', compact('articles'));
+        return view('articles', compact('articles', 'sliders'));
     }
 
     /**
@@ -49,9 +51,10 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
+        $sliders = Sliders::where('category', 'article-detail')->get();
         $article = Articles::findOrFail($id);
-        
-        return view('article-detail', compact('article'));
+
+        return view('article-detail', compact('article', 'sliders'));
     }
 
     /**

@@ -27,21 +27,43 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Duration</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updateDuration" name="updateDuration" min="0" value="{{$product->duration}}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="updateImage" name="updateImage" accept="image/*">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Description</label>
+                    <label class="col-sm-2 col-form-label">Short Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="updateDesc" id="updateDesc" cols="30" rows="2">{{$product->description}}</textarea>
+                        <input class="form-control" name="updateShortDesc" id="updateShortDesc" value="{{ $product->description_short }}"></input>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" name="updateDesc" id="updateDesc" cols="30" rows="6">{{$product->description}}</textarea>
+                    </div>
+                </div>
+                <button type="submit" class="button primary">Update</button>
             </form>
         </div>
     </div>
-
+    @section('js')
+     <script>
+        tinymce.init({
+          selector: 'textarea',
+          toolbar_mode: 'floating',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          height: 480
+       });
+      </script>
+    @endsection
 </x-admin-layout>
 

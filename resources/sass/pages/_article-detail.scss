@@ -29,12 +29,12 @@
             padding: 20px 20px 80px 20px;
             bottom: 0;
             left: 0;
-            background-color: rgba(#4C57D3, 0.6);
             letter-spacing: 1px;
 
             h2 {
                 font-family: 'Skylar Sans';
                 font-size: 28px;
+                opacity: 1;
             }
         }
 
@@ -46,6 +46,7 @@
                 width: 100%;
                 padding-left: 5%;
                 padding-bottom: 60px;
+                padding-top: 30px;
                 border-bottom-left-radius: 20px;
                 border-bottom-right-radius: 20px;
 

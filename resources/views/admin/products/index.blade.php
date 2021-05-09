@@ -29,6 +29,12 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Duration</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputDuration" name="inputDuration" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="inputImage" name="inputImage" accept="image/*">
@@ -37,7 +43,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Short Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="inputShortDesc" id="inputShortDesc" cols="30" rows="2"></textarea>
+                        <input class="form-control" name="inputShortDesc" id="inputShortDesc" cols="30" rows="2"></input>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -60,6 +66,7 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
+                        <th>Duration</th>
                         <th>Short Description</th>
                         <th>Description</th>
                         <th>Options</th>
@@ -72,6 +79,7 @@
                         <td><img src="{{Storage::url('product-image/'.$product->image)}}" alt="Image" width="100"></td>
                         <td>{{$product->title}}</td>
                         <td>{{$product->price}}</td>
+                        <td>{{$product->duration}}</td>
                         <td>{{$product->description_short}}</td>
                         <td>{{substr($product->description, 0, 100) . '...'}}</td>
                         <td><a href="/admin/products/edit/{{$product->id}}">Edit</a> |
@@ -91,6 +99,14 @@
             $('#table').DataTable();
         } );
     </script>
+     <script>
+        tinymce.init({
+          selector: 'textarea',
+          toolbar_mode: 'floating',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+       });
+      </script>
     @endsection
 
 </x-admin-layout>

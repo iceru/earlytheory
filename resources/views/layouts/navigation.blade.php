@@ -11,6 +11,7 @@
         <a href="/cart">
             <img src="/images/svg/cart.svg" alt="cart">
         </a>
+        <div class="badge-count">{{ \Cart::getContent()->count() }}</div>
     </div>
 </nav>
 <nav class="navbar align-items-center row d-none d-lg-flex">

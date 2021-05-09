@@ -1,12 +1,14 @@
 <x-app-layout>
     <div class="index col-12">
         <div class="sliders">
-            <div class="slider-item">
-                <img src="/images/Sliders1.png" alt="">
-            </div>
-            <div class="slider-item">
-                <img src="/images/Sliders1.png" alt="">
-            </div>
+            @foreach ($sliders as $slider)
+            <a target="_blank" href="{{ $slider->link }}">
+                <div class="slider-item">
+                    <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
+                </div>
+            </a>
+
+            @endforeach
         </div>
 
         <div class="products row mt-3">
@@ -19,13 +21,13 @@
                         <div class="product-title">
                             <a href="/product/{{$product->id}}"><h3>{{$product->title}}</h3></a>
                         </div>
-                        <p class="product-price">idr {{number_format($product->price)}}</p>
-                        <p class="product-desc">{{$product->description_short}}</p>
+                        <p class="product-price">idr {{number_format($product->price)}} @if($product->duration > 0) <span> / {{ $product->duration }} menit  </span> @endif </p>
+                        <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
                     <a href="/cart/add/{{$product->id}}" class="button primary my-3">Add To Cart</a>
                 </div>
             @empty
-                <p>No Product</p>
+                <h4 class="evogria">No Product</h4>
             @endforelse
         </div>
     </div>
@@ -34,7 +36,9 @@
     <script>
         $(document).ready(function(){
             $('.sliders').slick({
-                dots: true
+                dots: true,
+                autoplay: true,
+                autoplaySpeed: 3000,
             });
         });
     </script>

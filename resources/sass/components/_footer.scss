@@ -1,9 +1,15 @@
 .footer {
-    // position: fixed;
-    // left: 0;
-    // bottom: 0;
-    // width: 100%;
+    justify-content: center;
 
+    @include breakpoint(medium) {
+        .footer-info, .footer-subs-logo, .footer-copyright{
+            padding: 0 5vw;
+        }
+
+        .to-top {
+            padding: 0 6.8vw;
+        }
+    }
     .to-top {
         color: white;
         background-color: $primary;
@@ -11,7 +17,15 @@
         padding-bottom: 0.5rem;
         margin-bottom: 1rem;
         font-family: 'Evogria';
+        text-align: right;
+
+        h5 {
+            display: inline-block;
+            cursor: pointer;
+        }
     }
+
+
 
     .footer-info {
         margin-bottom: 1.5rem;
@@ -83,8 +97,6 @@
             }
         }
     }
-
-
 
     .footer-copyright {
         p {

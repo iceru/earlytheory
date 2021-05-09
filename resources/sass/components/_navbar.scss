@@ -17,6 +17,20 @@
             padding: 0;
         }
         padding: 0;
+        position: relative;
+
+        .badge-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            color: white;
+            border-radius: 50%;
+            background: $primary;
+            font-size: 12px;
+            height: 18px;
+            width: 18px;
+            text-align: center;
+        }
     }
 }
 
@@ -26,7 +40,11 @@
 
     .logo-lg {
         img {
-            width: 15vh;
+            width: 12vw;
+
+            @include breakpoint(xxlarge) {
+                width: 9vw;
+            }
         }
     }
 

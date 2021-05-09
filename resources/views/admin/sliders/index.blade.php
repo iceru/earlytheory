@@ -9,13 +9,7 @@
     @endsection
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Sliders Admin
-                </div>
-            </div>
-        </div>
+        <h3 class="evogria">Sliders Image</h3>
     </div>
 
     <div class="py-12 my-4">
@@ -26,6 +20,23 @@
                     <label class="col-sm-2 col-form-label">Slider Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="inputImage" name="inputImage" accept="image/*">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Slider Link</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputLink" name="inputLink">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Slider Category</label>
+                    <div class="col-sm-10">
+                        <select name="inputCategory" class="form-select" id="inputCategory">
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="products">Products</option>
+                            <option value="articles">Articles</option>
+                            <option value="article-detail">Article Detail</option>
+                        </select>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -40,6 +51,8 @@
                     <tr>
                         <th>No</th>
                         <th>Image</th>
+                        <th>Link</th>
+                        <th>Category</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -48,14 +61,17 @@
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td><img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="No Image" width="100"></td>
-                        <td><a href="/admin/sliders/delete/{{$slider->id}}">Delete</a></td>
+                        <td>{{ $slider->link }}</td>
+                        <td>{{ $slider->category }}</td>
+                        <td><a href="/admin/sliders/edit/{{$slider->id}}">Edit</a> |
+                            <a href="/admin/sliders/delete/{{$slider->id}}">Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    
+
     @section('js')
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>

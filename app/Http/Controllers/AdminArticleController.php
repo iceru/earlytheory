@@ -124,7 +124,7 @@ class AdminArticleController extends Controller
         $article = Articles::find($request->id);
 
         $request->validate([
-            'updateImage' => 'required',
+            'updateImage' => 'image|nullable',
             'updateTitle' => 'required',
             'updateDesc' => 'required',
             'updateAuthor' => 'required',

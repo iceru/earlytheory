@@ -2,8 +2,10 @@
     @include breakpoint(large) {
         padding: 2rem 0;
     }
+
     .products {
         .product-item-container {
+            margin-bottom: 2rem;
             .product-image {
                 margin-bottom: 0.5rem;
             }
@@ -15,7 +17,12 @@
                 border-radius: 5px;
                 .product-title {
                     h3 {
-                        font-size: 1.5rem;
+                        font-size: 1.25rem;
+                        margin-bottom: 6px;
+
+                        @include breakpoint(medium) {
+                            font-size: 1.5rem;
+                        }
                     }
                 }
                 .product-price {
@@ -23,11 +30,16 @@
                 }
                 .product-desc {
                     font-size: 0.85rem;
+
+                    @include breakpoint(large) {
+                        min-height: 65px;
+                    }
                 }
             }
         }
     }
 }
+
 
 .sliders {
     width: 100%;
@@ -38,10 +50,18 @@
         width: 100%;
         object-fit: cover;
         object-position: center;
+        // height: 500px;
+        border-radius: 2rem;
+        height: 50vw;
+
+        @include breakpoint(medium) {
+            height: 40vw;
+        }
     }
 }
 
 .main-content {
     padding-top: 3rem;
     padding-bottom: 3rem;
+    min-height: 50vh;
 }
