@@ -21,7 +21,7 @@
                         <div class="product-title">
                             <a href="/product/{{$product->id}}"><h3>{{$product->title}}</h3></a>
                         </div>
-                        <p class="product-price">idr {{number_format($product->price)}}</p>
+                        <p class="product-price">idr {{number_format($product->price)}} @if($product->duration > 0) <span> / {{ $product->duration }} menit  </span> @endif </p>
                         <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
                     <a href="/cart/add/{{$product->id}}" class="button primary my-3">Add To Cart</a>
