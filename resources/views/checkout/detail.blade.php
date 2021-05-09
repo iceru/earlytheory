@@ -40,7 +40,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 d-grid gap-2">
                     {{-- <a class="button secondary" href="/checkout/summary">
                         Go to Summary
                     </a> --}}

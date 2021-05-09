@@ -40,11 +40,23 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="col-12">
-                    <a class="button secondary" href="/checkout/{{$sales->id}}/payment">
-                        Go to Payment
-                    </a>
-                </div>
+                <form action="/checkout/{{$sales->id}}/discount" method="post">
+                    @csrf
+                    <div class="col-12">
+                        @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+                        <input type="text" class="form-control mb-2" placeholder="Discount Code" name="inputDiscount">
+                    </div>
+                    <div class="col-12 d-grid gap-2">
+                        <button type="submit" class="button secondary">Go to Payment</button>
+                        {{-- <a class="button secondary" href="/checkout/{{$sales->id}}/payment">
+                            Go to Payment
+                        </a> --}}
+                    </div>
+                </form>
             </div>
         </div>
 </x-app-layout>

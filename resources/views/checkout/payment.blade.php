@@ -13,6 +13,13 @@
                 <div class="line"></div>
                 <div class="circle"></div>
             </div>
+            @if (session('status'))
+            <div class="col-12">
+                <div class="alert alert-primary">
+                    {{ session('status') }}
+                </div>
+            </div>
+            @endif
             <div class="payment-method col-12">
                 <div class="row payment-method-container">
                     <div class="col-6 type active" id="bank">
@@ -47,7 +54,7 @@
                     </div>
                 </div>
 
-            <div class="col-12">
+            <div class="col-12 d-grid gap-2">
                 <a class="button secondary" href="/checkout/{{$sales->id}}/confirm-payment">
                     Confirm your Payment
                 </a>

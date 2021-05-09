@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminPaymentMethodsController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\AdminPaymentController;
+use App\Http\Controllers\AdminDiscountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,8 @@ Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.check
 Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
 Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');
 Route::get('/checkout/{id}/summary', [SalesController::class, 'summary'])->name('sales.summary');
-Route::get('/checkout/{id}/payment', [SalesController::class, 'payment'])->name('sales.payment');
+Route::post('/checkout/{id}/discount', [SalesController::class, 'discount'])->name('sales.discount');
+Route::get('/checkout/{id}/payment', [SalesController::class, 'paymentMethods'])->name('sales.paymentmethods');
 Route::get('/checkout/{id}/confirm-payment', [SalesController::class, 'confirmPayment'])->name('sales.confirm-payment');
 Route::post('/checkout/{id}/confirm-payment/submit', [SalesController::class, 'submitPayment'])->name('sales.submit-payment');
 Route::get('/checkout/{id}/payment-success', [SalesController::class, 'success'])->name('sales.success');
@@ -126,6 +128,12 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
     Route::get('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
+    
+    Route::get('/admin/discount', [AdminDiscountController::class, 'index'])->name('admin.discount');
+    Route::get('/admin/discount/edit/{id}', [AdminDiscountController::class, 'edit'])->name('admin.discount.edit');
+    Route::post('/admin/discount/update', [AdminDiscountController::class, 'update'])->name('admin.discount.update');
+    Route::post('/admin/discount/store', [AdminDiscountController::class, 'store'])->name('admin.discount.store');
+    Route::get('/admin/discount/delete/{id}', [AdminDiscountController::class, 'destroy'])->name('admin.discount.destroy');
 });
 
 require __DIR__.'/auth.php';

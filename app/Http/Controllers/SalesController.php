@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use App\Models\Sales;
+use App\Models\Discount;
 use App\Models\PaymentMethods;
 use Illuminate\Http\Request;
 
@@ -68,7 +69,40 @@ class SalesController extends Controller
         return view('checkout.summary', compact('sales'));
     }
 
-    public function payment($id)
+    public function discount(Request $request, $id)
+    {
+        $sales = Sales::find($id);
+        
+        if($request->inputDiscount) {
+            $disc_code = strtoupper($request->inputDiscount);
+            $discount = Discount::where('code', $disc_code)->first();
+    
+            if($discount) {
+                if($sales->total_price >= $discount->min_total) {
+                    $total = $sales->total_price;
+                    $nominal = $discount->nominal;
+                    $discounted_total = $total-$nominal;
+        
+                    $sales->total_price = $discounted_total;
+                    $sales->save();
+
+                    return redirect()->route('sales.paymentmethods', ['id' => $sales->id])->with('status', 'Discount code "'.$disc_code.'" applied!');
+                }
+                else {
+                    return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
+                }
+            }
+            else {
+                return redirect()->back()->with('error', 'Discount Code not found!');
+            }
+        }
+        else {
+            return redirect()->route('sales.paymentmethods', ['id' => $sales->id]);
+        }
+
+    }
+
+    public function paymentMethods($id)
     {
         $sales = Sales::find($id);
         $paymethods_bank = PaymentMethods::where('account_number', '!=', 'qr')->get();

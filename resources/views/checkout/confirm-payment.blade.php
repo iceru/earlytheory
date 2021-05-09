@@ -37,8 +37,8 @@
                         <label for="">Upload Proof of Payment</label>
                         <input type="file" class="form-control" id="inputPayment" name="inputPayment" accept="image/*">
                     </div>
-                    <div class="col-12">
-                        <button type="submit" class="button primary">
+                    <div class="col-12 d-grid gap-2">
+                        <button type="submit" class="button secondary">
                             Submit
                         </a>
                     </div>
