@@ -5,6 +5,7 @@
 
     .products {
         .product-item-container {
+            margin-bottom: 2rem;
             .product-image {
                 margin-bottom: 0.5rem;
             }
@@ -16,7 +17,12 @@
                 border-radius: 5px;
                 .product-title {
                     h3 {
-                        font-size: 1.5rem;
+                        font-size: 1.25rem;
+                        margin-bottom: 6px;
+
+                        @include breakpoint(medium) {
+                            font-size: 1.5rem;
+                        }
                     }
                 }
                 .product-price {
@@ -24,6 +30,10 @@
                 }
                 .product-desc {
                     font-size: 0.85rem;
+
+                    @include breakpoint(large) {
+                        min-height: 65px;
+                    }
                 }
             }
         }

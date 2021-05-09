@@ -24,12 +24,14 @@
                             <div class="product-price col-12">
                                 <p>idr {{number_format($item->price)}}</p>
                             </div>
-                            <div class="col-5 col-lg-3 product-image">
+                           <div class="row g-0">
+                            <div class="col-4 col-lg-3 product-image">
                                 <img src="{{Storage::url('product-image/'.$item->image)}}" alt="">
                             </div>
-                            <div class="col-7 col-lg-9 ps-0">
+                            <div class="col-8 col-lg-9 ps-2">
                                 <textarea name="detail" id="detail"  placeholder="Jabarkan Pertanyaanmu Disini.."></textarea>
                             </div>
+                           </div>
                         </div>
                     </div>
                     @endforeach
