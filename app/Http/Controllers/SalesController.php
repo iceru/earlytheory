@@ -79,14 +79,12 @@ class SalesController extends Controller
     
             if($discount) {
                 if($sales->total_price >= $discount->min_total) {
-                    $total = $sales->total_price;
                     $nominal = $discount->nominal;
-                    $discounted_total = $total-$nominal;
         
-                    $sales->total_price = $discounted_total;
+                    $sales->discount = $nominal;
                     $sales->save();
 
-                    return redirect()->route('sales.paymentmethods', ['id' => $sales->id])->with('status', 'Discount code "'.$disc_code.'" applied!');
+                    return redirect()->route('sales.paymentmethods', ['id' => $sales->id])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
                 }
                 else {
                     return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
