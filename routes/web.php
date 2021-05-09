@@ -13,6 +13,8 @@ use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminPaymentMethodsController;
+use App\Http\Controllers\AdminSalesController;
+use App\Http\Controllers\AdminPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +119,13 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::post('/admin/sliders/update', [SlidersController::class, 'update'])->name('admin.sliders.update');
     Route::post('/admin/sliders/store', [SlidersController::class, 'store'])->name('admin.sliders.store');
     Route::get('/admin/sliders/delete/{id}', [SlidersController::class, 'destroy'])->name('admin.sliders.destroy');
+    
+    Route::get('/admin/sales', [AdminSalesController::class, 'index'])->name('admin.sales');
+    Route::get('/admin/sales/{id}', [AdminSalesController::class, 'detail'])->name('admin.sales.detail');
+    Route::get('/admin/sales/delete/{id}', [AdminSalesController::class, 'destroy'])->name('admin.sales.destroy');
+    
+    Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
+    Route::get('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
 });
 
 require __DIR__.'/auth.php';

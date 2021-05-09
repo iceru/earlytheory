@@ -9,10 +9,10 @@
         <a href="{{ route('admin.articles') }}">
             <li>Articles</li>
         </a>
-        <a href="#">
+        <a href="{{ route('admin.sales') }}">
             <li>Sales</li>
         </a>
-        <a href="#">
+        <a href="{{ route('admin.confirm-payment') }}">
             <li>Payment Confirmation</li>
         </a>
         <a href="{{ route('admin.sliders') }}">

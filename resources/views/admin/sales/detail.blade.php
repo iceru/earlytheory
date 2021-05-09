@@ -9,7 +9,7 @@
     @endsection
 
     <div class="py-12">
-        <h3 class="evogria">Payment Confirmation</h3>
+        <h3 class="evogria">Products of Sales #{{$sales->sales_no}}</h3>
     </div>
 
     <div class="py-12 my-4">
@@ -21,26 +21,24 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Sales Number</th>
-                        <th>Total Price</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Proof of Payment</th>
-                        <th>Products</th>
-                        <th>Confirm Payment</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Duration</th>
+                        <th>Short Description</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($sales as $sale)
+                    @foreach ($sales->products as $product)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
-                        <td>{{$sale->sales_no}}</td>
-                        <td>{{$sale->total_price}}</td>
-                        <td>{{$sale->email}}</td>
-                        <td>{{$sale->status}}</td>
-                        <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>
-                        <td><a href="/admin/sales/{{$sale->id}}">Detail</a></td>
-                        <td><a class="button primary" href="/admin/confirm-payment/{{$sale->id}}/confirm">Confirm</a></td>
+                        <td><img src="{{Storage::url('product-image/'.$product->image)}}" alt="Image" width="100"></td>
+                        <td>{{$product->title}}</td>
+                        <td>{{$product->price}}</td>
+                        <td>{{$product->duration}}</td>
+                        <td>{{$product->description_short}}</td>
+                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
                     </tr>
                     @endforeach
                 </tbody>
