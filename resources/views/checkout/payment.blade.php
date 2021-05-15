@@ -20,7 +20,7 @@
                 </div>
             </div>
             @endif
-            <div>
+            <div class="total-payment">
                 <h4>Total Payment: idr {{number_format($sales->total_price-$sales->discount)}}</h4>
             </div>
             <div class="mx-auto col-12">
@@ -36,13 +36,13 @@
                 </div>
                 <div class="bank-detail payment-detail show">
                     @foreach ($paymethods_bank as $item)
-                    <div class="bank-method-item d-flex justify-content-center align-items-center mb-3">
-                        <div class="bank-image">
+                    <div class="bank-method-item row mb-3 align-items-center">
+                        <div class="bank-image col-12 col-lg-8">
                             <img src="{{Storage::url('payment-logo/'.$item->logo)}}" alt="">
                         </div>
-                        <div class="bank-text">
+                        <div class="bank-text col-12 col-lg-4">
                             <span class="bank-number">{{$item->account_number}}</span> <br>
-                            <span> a/n {{$item->account_owner}}</span>
+                            <span class="bank-owner"> a/n {{$item->account_owner}}</span>
                         </div>
                     </div>
                     @endforeach
@@ -64,9 +64,8 @@
                     Confirm your Payment
                 </a>
             </div>
-            </div>
+        </div>
     </div>
-
     @section('js')
     <script>
         $(document).ready(function(){

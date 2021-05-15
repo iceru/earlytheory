@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputPayType">Payment Type</label>
-                        <select class="form-control" name="inputPayType" id="inputPayType">
+                        <select class="form-select" name="inputPayType" id="inputPayType">
                             <option selected disabled>Select</option>
                             @foreach ($paymentMethods as $payType)
                             <option value="{{$payType->id}}">{{$payType->name}}</option>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputRelationship">Status Relationship</label>
-                        <select class="form-control" name="inputRelationship" id="inputRelationship">
+                        <select class="form-select" name="inputRelationship" id="inputRelationship">
                             <option selected disabled>Select</option>
                             <option value="single">Single</option>
                             <option value="pacaran">Pacaran</option>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group">
                       <label for="inputPekerjaan">Status Pekerjaan</label>
-                      <select class="form-control" name="inputPekerjaan" id="inputPekerjaan">
+                      <select class="form-select" name="inputPekerjaan" id="inputPekerjaan">
                             <option selected disabled>Select</option>
                             <option value="unemployed">Unemployed</option>
                             <option value="employed">Employed</option>

@@ -138,7 +138,6 @@ class SalesController extends Controller
 
         $sales->name = $request->inputName;
         $sales->email = $request->inputEmail;
-        $sales->status = "success";
         $sales->phone = $request->inputPhone;
         $sales->paymethod_id = $request->inputPayType;
         $sales->relationship = $request->inputRelationship;
