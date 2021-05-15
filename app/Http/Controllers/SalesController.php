@@ -33,7 +33,7 @@ class SalesController extends Controller
             }
     
             \Cart::clear();
-            return redirect()->route('sales.detail', ['id' => $sales->id]);
+            return redirect()->route('sales.detail', ['id' => $sales->sales_no]);
         }
         else {
             return redirect('/cart');
@@ -42,14 +42,14 @@ class SalesController extends Controller
 
     public function detail($id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         return view('checkout.detail', compact('sales'));
     }
 
     public function addQuestion(Request $request, $id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         $item_id = $request->id;
         $item_question = $request->question;
@@ -59,19 +59,19 @@ class SalesController extends Controller
             $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
         }
 
-        return redirect()->route('sales.summary', ['id' => $sales->id]);
+        return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
     }
 
     public function summary($id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         return view('checkout.summary', compact('sales'));
     }
 
     public function discount(Request $request, $id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
         
         if($request->inputDiscount) {
             $disc_code = strtoupper($request->inputDiscount);
@@ -84,7 +84,7 @@ class SalesController extends Controller
                     $sales->discount = $nominal;
                     $sales->save();
 
-                    return redirect()->route('sales.paymentmethods', ['id' => $sales->id])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
+                    return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
                 }
                 else {
                     return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
@@ -95,14 +95,14 @@ class SalesController extends Controller
             }
         }
         else {
-            return redirect()->route('sales.paymentmethods', ['id' => $sales->id]);
+            return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no]);
         }
 
     }
 
     public function paymentMethods($id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
         $paymethods_bank = PaymentMethods::where('account_number', '!=', 'qr')->get();
         $paymethods_qr = PaymentMethods::where('account_number', '=', 'qr')->first();
         return view('checkout.payment', compact('sales', 'paymethods_bank', 'paymethods_qr'));
@@ -110,17 +110,23 @@ class SalesController extends Controller
 
     public function confirmPayment($id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $paymentMethods = PaymentMethods::all();
 
-        return view('checkout.confirm-payment', compact('sales'));
+        return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
     }
 
     public function submitPayment(Request $request, $id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         $request->validate([
-            'inputEmail' => 'required|email'
+            'inputName' => 'required',
+            'inputEmail' => 'required|email',
+            'inputPhone' => 'required',
+            'inputPayType' => 'required',
+            'inputRelationship' => 'required',
+            'inputPekerjaan' => 'required'
         ]);
 
         if ($request->hasFile('inputPayment')) {
@@ -130,15 +136,20 @@ class SalesController extends Controller
             $sales->payment = $filename;
         }
 
+        $sales->name = $request->inputName;
         $sales->email = $request->inputEmail;
+        $sales->phone = $request->inputPhone;
+        $sales->paymethod_id = $request->inputPayType;
+        $sales->relationship = $request->inputRelationship;
+        $sales->job = $request->inputPekerjaan;
         $sales->save();
 
-        return redirect()->route('sales.success', ['id' => $sales->id]);
+        return redirect()->route('sales.success', ['id' => $sales->sales_no]);
     }
 
     public function success($id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
         return view('checkout.payment-success', compact('sales'));
     }
 

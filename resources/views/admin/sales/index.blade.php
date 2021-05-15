@@ -23,8 +23,12 @@
                         <th>No</th>
                         <th>Sales Number</th>
                         <th>Total Price</th>
+                        <th>Name</th>
                         <th>Email</th>
-                        <th>Status</th>
+                        <th>Phone Number</th>
+                        <th>Payment Type</th>
+                        <th>Status Relationship</th>
+                        <th>Status Pekerjaan</th>
                         <th>Proof of Payment</th>
                         <th>Products</th>
                         <th>Options</th>
@@ -36,7 +40,12 @@
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$sale->sales_no}}</td>
                         <td>{{$sale->total_price}}</td>
+                        <td>{{$sale->name}}</td>
                         <td>{{$sale->email}}</td>
+                        <td>{{$sale->phone}}</td>
+                        <td>{{$sale->paymethod_id}}</td>
+                        <td>{{$sale->relationship}}</td>
+                        <td>{{$sale->job}}</td>
                         <td>{{$sale->status}}</td>
                         <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>
                         <td><a href="/admin/sales/{{$sale->id}}">Detail</a></td>

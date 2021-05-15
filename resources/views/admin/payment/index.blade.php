@@ -23,6 +23,8 @@
                         <th>No</th>
                         <th>Sales Number</th>
                         <th>Total Price</th>
+                        <th>Discount</th>
+                        <th>Total Price (After Discount)</th>
                         <th>Email</th>
                         <th>Status</th>
                         <th>Proof of Payment</th>
@@ -35,7 +37,9 @@
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$sale->sales_no}}</td>
-                        <td>{{$sale->total_price}}</td>
+                        <td>{{number_format($sale->total_price)}}</td>
+                        <td>{{number_format($sale->discount)}}</td>
+                        <td>{{number_format($sale->total_price-$sale->discount)}}</td>
                         <td>{{$sale->email}}</td>
                         <td>{{$sale->status}}</td>
                         <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>

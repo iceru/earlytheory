@@ -20,6 +20,11 @@
                 </div>
             </div>
             @endif
+            <div>
+                <h4>Total Payment: idr {{number_format($sales->total_price-$sales->discount)}}</h4>
+            </div>
+            <div class="mx-auto col-12">
+            </div>
             <div class="payment-method col-12">
                 <div class="row payment-method-container">
                     <div class="col-6 type active" id="bank">
@@ -55,7 +60,7 @@
                 </div>
 
             <div class="col-12 d-grid gap-2">
-                <a class="button secondary" href="/checkout/{{$sales->id}}/confirm-payment">
+                <a class="button secondary" href="/checkout/{{$sales->sales_no}}/confirm-payment">
                     Confirm your Payment
                 </a>
             </div>
