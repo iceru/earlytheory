@@ -19,7 +19,7 @@ class UpdateSalesTable extends Migration
             $table->unsignedBigInteger('paymethod_id')->nullable();
             $table->foreign('paymethod_id')->references('id')->on('payment_methods')->onDelete('cascade');
             $table->text('relationship')->nullable();
-            $table->text('job')->nullable()-;
+            $table->text('job')->nullable();
         });
     }
 
