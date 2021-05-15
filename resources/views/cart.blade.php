@@ -17,7 +17,9 @@
                     @forelse ($items as $item)
                         <div class="product-item-container row m-0">
                             <div class="col-4 col-lg-3 product-image">
-                                <img src="{{Storage::url('product-image/'.$item->model->image)}}" alt="">
+                                @foreach ((array)json_decode($item->model->image) as $image)
+                                    <img src="{{Storage::url('product-image/'.$image)}}" alt="No Image">
+                                @endforeach
                             </div>
                             <div class="col-8 col-lg-9 product-item">
                                 <div class="product-title"><h3>{{$item->model->title}}</h3></div>
@@ -61,4 +63,18 @@
             </div>
         </div>
     </div>
+    @section('js')
+    <script>
+
+        $(document).ready(function(){
+
+            $('.product-image').slick({
+                dots: false,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+            });
+        });
+    </script>
+    @endsection
 </x-app-layout>
