@@ -30,8 +30,7 @@
                                <div class="row g-0">
                                    <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5>
                                 <div class="col-4 col-lg-3 product-image">
-                                    <?php $images = (array)json_decode($item->image); ?>
-                                    @foreach ($images as $image)
+                                    @foreach ((array)json_decode($item->image) as $image)
                                         <img src="{{Storage::url('product-image/'.$image)}}" alt="">
                                     @endforeach
                                 </div>

@@ -25,8 +25,7 @@
                                 <p>idr {{number_format($item->price)}}</p>
                             </div>
                             <div class="col-5 col-lg-3 product-image">
-                                <?php $images = (array)json_decode($item->image); ?>
-                                @foreach ($images as $image)
+                                @foreach ((array)json_decode($item->image) as $image)
                                     <img src="{{Storage::url('product-image/'.$image)}}" alt="No Image">
                                 @endforeach
                             </div>

@@ -15,8 +15,7 @@
             @forelse ($products as $product)
                 <div class="product-item-container col-6 col-md-4 col-lg-3">
                     <div class="product-image">
-                        <?php $images = (array)json_decode($product->image); ?>
-                        @foreach ($images as $item)
+                        @foreach ((array)json_decode($product->image) as $item)
                             <a href="/product/{{$product->id}}"><img src="{{Storage::url('product-image/'.$item)}}" alt="No Image"></a>
                         @endforeach
                     </div>
