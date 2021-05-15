@@ -1,9 +1,11 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <div class="p-4 text-center logo-login">
+                <a href="/">
+                    <img src="/images/MainLogo.png" alt="Early Theory">
+                </a>
+            </div>
         </x-slot>
 
         <!-- Validation Errors -->
@@ -13,21 +15,21 @@
             @csrf
 
             <!-- Name -->
-            <div>
+            <div class="row align-items-center me-0 mb-3">
                 <x-label for="name" :value="__('Name')" />
 
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
             <!-- Email Address -->
-            <div class="mt-4">
+            <div class="row align-items-center me-0 mb-3">
                 <x-label for="email" :value="__('Email')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
             <!-- Password -->
-            <div class="mt-4">
+            <div class="row align-items-center me-0 mb-3">
                 <x-label for="password" :value="__('Password')" />
 
                 <x-input id="password" class="block mt-1 w-full"
@@ -37,20 +39,22 @@
             </div>
 
             <!-- Confirm Password -->
-            <div class="mt-4">
+            <div class="row align-items-center me-0 mb-3">
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
                                 name="password_confirmation" required />
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+            <div class="row mb-3 primary-color">
+                <a class=" text-right" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
+            </div>
+            <div class="flex items-center justify-end mt-4">
 
-                <x-button class="ml-4">
+
+                <x-button>
                     {{ __('Register') }}
                 </x-button>
             </div>

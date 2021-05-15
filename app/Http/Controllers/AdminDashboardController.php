@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sliders;
-use App\Models\Products;
 use Illuminate\Http\Request;
-use Newsletter;
+use Analytics;
+use Spatie\Analytics\Period;
 
-class IndexController extends Controller
+class AdminDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,8 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $products = Products::all();
-        $sliders = Sliders::where('category', 'products')->get();
-
-        return view('index', compact('products', 'sliders'));
+        // $popular = Analytics::fetchMostVisitedPages(Period::days(7), 5);
+        return view('admin.dashboard');
     }
 
     /**
@@ -38,18 +35,9 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function store(Request $request)
     {
-        if ( ! Newsletter::isSubscribed($request->email) )
-        {
-            Newsletter::subscribe($request->email);
-            return \Response::json(['success' => 'Thank you for Subscribing to our Newsletter']);
-        }
-
-        else {
-            return \Response::json(['error' => 'You already Subscribed!']);
-        }
+        //
     }
 
     /**
@@ -60,7 +48,7 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**

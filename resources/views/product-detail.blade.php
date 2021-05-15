@@ -1,8 +1,11 @@
 <x-app-layout>
     <div class="product-detail container main-content">
         <div class="product row">
-            <div class="col-12 col-lg-5 product-image">
-                <img src="{{Storage::url('product-image/'.$product->image)}}" alt="No Image">
+            <div class="col-12 col-lg-5 product-image ">
+                <?php $images = (array)json_decode($product->image); ?>
+                @foreach ($images as $item)
+                    <img class="pb-2" src="{{Storage::url('product-image/'.$item)}}" alt="No Image">
+                @endforeach
             </div>
             <div class="col-12 col-lg-7">
                 <div class="product-title mb-2">
@@ -23,12 +26,14 @@
         </div>
         <div class="other-products">
             <h3 class="evogria other-title">Other Products</h3>
-            {{-- <div class="row products">
-                @foreach ($randoms as $random)
+            <div class="row products">
+                @foreach ($related as $product)
                 <div class="product-item-container col-6 col-md-3">
-                    <div class="product-image">
-                        <a href="/product/{{$product->id}}"><img
-                                src="{{Storage::url('product-image/'.$product->image)}}" alt="No Image"></a>
+                    <div class="product-images related">
+                        <?php $images = (array)json_decode($product->image); ?>
+                        @foreach ($images as $item)
+                            <img class="pb-2" src="{{Storage::url('product-image/'.$item)}}" alt="No Image">
+                        @endforeach
                     </div>
                     <div class="product-item">
                         <div class="product-title">
@@ -42,7 +47,28 @@
                     <a href="/cart/add/{{$product->id}}" class="button primary my-3">Add To Cart</a>
                 </div>
                 @endforeach
-            </div> --}}
+            </div>
         </div>
     </div>
+
+    @section('js')
+    <script>
+
+        $(document).ready(function(){
+            $('.product-image').slick({
+                dots: true,
+                arrows: true,
+                autoplay: true,
+                autoplaySpeed: 5000,
+            });
+
+            $('.product-images').slick({
+                dots: false,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+            });
+        });
+    </script>
+    @endsection
 </x-app-layout>

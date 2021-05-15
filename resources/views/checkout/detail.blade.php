@@ -28,11 +28,15 @@
                                     <p>idr {{number_format($item->price)}}</p>
                                 </div>
                                <div class="row g-0">
+                                   <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5>
                                 <div class="col-4 col-lg-3 product-image">
-                                    <img src="{{Storage::url('product-image/'.$item->image)}}" alt="">
+                                    <?php $images = (array)json_decode($item->image); ?>
+                                    @foreach ($images as $image)
+                                        <img src="{{Storage::url('product-image/'.$image)}}" alt="">
+                                    @endforeach
                                 </div>
                                 <div class="col-8 col-lg-9 ps-2">
-                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini..">{{$item->pivot->question}}</textarea>
+                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.." required>{{$item->pivot->question}}</textarea>
                                 </div>
                                </div>
                             </div>
@@ -48,4 +52,16 @@
                 </div>
             </form>
     </div>
+
+    <script>
+
+        $(document).ready(function(){
+            $('.product-image').slick({
+                dots: false,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+            });
+        });
+    </script>
 </x-app-layout>

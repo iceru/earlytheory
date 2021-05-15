@@ -22,12 +22,12 @@
             @endif
             <div class="payment-method col-12">
                 <div class="row payment-method-container">
-                    <div class="col-6 type active" id="bank">
-                        <p>Bank Transfer</p>
+                    <div class="col-12 type active" id="bank">
+                        <p>BCA Bank Transfer / QR BCA</p>
                     </div>
-                    <div class="col-6 type" id="qr">
+                    {{-- <div class="col-6 type" id="qr">
                         <p>QR Payment (Gopay, OVO)</p>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="bank-detail payment-detail show">
                     @foreach ($paymethods_bank as $item)
@@ -42,7 +42,7 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="qr-detail payment-detail">
+                {{-- <div class="qr-detail payment-detail">
                     <div class="bank-method-item d-flex justify-content-center align-items-center mb-3">
                         <div class="bank-image">
                             <img src="{{Storage::url('payment-logo/'.$paymethods_qr->logo)}}" alt="">
@@ -51,8 +51,8 @@
                             <span class="bank-number">16651232132</span> <br>
                             <span> a/n John Doe</span>
                         </div> --}}
-                    </div>
-                </div>
+                   {{-- </div>
+                </div> --}}
 
             <div class="col-12 d-grid gap-2">
                 <a class="button secondary" href="/checkout/{{$sales->id}}/confirm-payment">

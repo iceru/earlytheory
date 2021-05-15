@@ -48,9 +48,9 @@
 
     </div>
 
-   <div class="container-fluid">
-    @include('layouts.footer')
-   </div>
+    <div class="container-fluid">
+        @include('layouts.footer')
+    </div>
 
     @yield('js')
 
@@ -58,6 +58,32 @@
         $(document).ready(function(){
             $('#to_top').click(function(){
                 $("html, body").animate({scrollTop: 0}, 100);
+            });
+
+            $("#newsletter").on("submit", function (e) {
+                e.preventDefault();
+                var email = $("#email").val();
+                $.ajax({
+                    url: "/newsletter",
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    data: { email: email },
+                    success: function (data) {
+                        if ($.isEmptyObject(data.error)) {
+                            Swal.fire({
+                                icon: "success",
+                                title: data.success,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: data.error,
+                            });
+                        }
+                    },
+                });
             });
         });
     </script>

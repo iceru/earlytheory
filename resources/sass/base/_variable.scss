@@ -17,6 +17,14 @@ $filler-blue: #4c57d3;
     color: $primary ;
 }
 
+.white-color {
+    color: white;
+
+    &:hover {
+        color: currentColor;
+    }
+}
+
 .evogria {
     font-family: "Evogria";
     color: black;

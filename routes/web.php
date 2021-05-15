@@ -10,12 +10,13 @@ use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AdminTagsController;
-use App\Http\Controllers\AdminArticleController;
-use App\Http\Controllers\AdminProductsController;
-use App\Http\Controllers\AdminPaymentMethodsController;
 use App\Http\Controllers\AdminSalesController;
+use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminDiscountController;
+use App\Http\Controllers\AdminProductsController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminPaymentMethodsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ use App\Http\Controllers\AdminDiscountController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::get('/newsletter', [IndexController::class, 'store'])->name('newsletter');
+Route::post('/newsletter', [IndexController::class, 'store'])->name('newsletter');
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/article-detail/{id}', [ArticleController::class, 'show'])->name('article-detail');
@@ -82,9 +83,7 @@ Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/admin/articles', [AdminArticleController::class, 'index'])->name('admin.articles');
     Route::post('/admin/articles/store', [AdminArticleController::class, 'store'])->name('admin.articles.store');
@@ -121,14 +120,14 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::post('/admin/sliders/update', [SlidersController::class, 'update'])->name('admin.sliders.update');
     Route::post('/admin/sliders/store', [SlidersController::class, 'store'])->name('admin.sliders.store');
     Route::get('/admin/sliders/delete/{id}', [SlidersController::class, 'destroy'])->name('admin.sliders.destroy');
-    
+
     Route::get('/admin/sales', [AdminSalesController::class, 'index'])->name('admin.sales');
     Route::get('/admin/sales/{id}', [AdminSalesController::class, 'detail'])->name('admin.sales.detail');
     Route::get('/admin/sales/delete/{id}', [AdminSalesController::class, 'destroy'])->name('admin.sales.destroy');
-    
+
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
     Route::get('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
-    
+
     Route::get('/admin/discount', [AdminDiscountController::class, 'index'])->name('admin.discount');
     Route::get('/admin/discount/edit/{id}', [AdminDiscountController::class, 'edit'])->name('admin.discount.edit');
     Route::post('/admin/discount/update', [AdminDiscountController::class, 'update'])->name('admin.discount.update');

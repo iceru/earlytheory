@@ -10835,6 +10835,13 @@ textarea.form-control-lg {
   color: #4A2984;
 }
 
+.white-color {
+  color: white;
+}
+.white-color:hover {
+  color: currentColor;
+}
+
 .evogria {
   font-family: "Evogria";
   color: black;
@@ -11049,7 +11056,7 @@ a {
 .footer .footer-subs-logo .footer-subs {
   margin-bottom: 1.5rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .footer .footer-subs-logo .footer-subs {
     margin-bottom: 0;
   }
@@ -11611,15 +11618,15 @@ a {
   margin-right: 1.5rem;
 }
 .checkout .payment-method .payment-detail .bank-method-item .bank-image img {
-  width: 120px;
+  width: 200px;
 }
 @media (min-width: 768px) {
   .checkout .payment-method .payment-detail .bank-method-item .bank-image img {
-    width: 200px;
+    width: 400px;
   }
 }
 .checkout .payment-method .payment-detail .bank-method-item .bank-text {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: #4A2984;
 }
 .checkout .payment-method .payment-detail .bank-method-item .bank-text .bank-number {
@@ -11744,6 +11751,15 @@ a {
     padding-bottom: 3rem;
   }
 }
+.product-detail .slick-prev {
+  left: 20px;
+}
+.product-detail .slick-next {
+  right: 20px;
+}
+.product-detail .slick-dots {
+  bottom: 15px;
+}
 .product-detail .product {
   text-align: center;
 }
@@ -11761,6 +11777,7 @@ a {
 .product-detail .product .product-image img {
   width: 80%;
   margin-bottom: 1rem;
+  border-radius: 2rem;
 }
 @media (min-width: 992px) {
   .product-detail .product .product-image img {

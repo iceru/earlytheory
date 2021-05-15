@@ -44,24 +44,37 @@ class AdminProductsController extends Controller
             'inputTitle' => 'required',
             'inputPrice' => 'required|integer',
             'inputDuration' => 'nullable|integer',
-            'inputImage' => 'required|image',
+            'inputImage' => 'required',
+            'inputImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'inputShortDesc' => 'required',
             'inputDesc' => 'required',
         ]);
 
         if ($request->hasFile('inputImage')) {
-            $extension = $request->file('inputImage')->getClientOriginalExtension();
-            $filename = $request->inputTitle.'_'.time().'.'.$extension;
-            $path = $request->inputImage->storeAs('public/product-image', $filename);
-        }
+            // $extension = $request->file('inputImage')->getClientOriginalExtension();
+            // $filename = $request->inputTitle.'_'.time().'.'.$extension;
+            // $path = $request->inputImage->storeAs('public/product-image', $filename);
 
-        $product->image = $filename;
+            $images = $request->file('inputImage');
+
+            foreach($images as $image) {
+                $name = $image->getClientOriginalName();
+                $filename = $request->inputTitle.'_'.time().'.'.$name;
+                $path = $image->storeAs('public/product-image', $filename);
+                $data[] = $filename;
+            }
+        }
+        $product->image=json_encode($data);
 
         $product->title = $request->inputTitle;
         $product->price = $request->inputPrice;
         $product->duration = $request->inputDuration;
         $product->description = $request->inputDesc;
         $product->description_short = $request->inputShortDesc;
+
+        $product->save();
+
+
         // if(strlen($request->inputDesc) > 40) {
         //     $shortDesc = substr($request->inputDesc, 0, strpos($request->inputDesc, ' ', 40)).'...';
         // }
@@ -70,7 +83,6 @@ class AdminProductsController extends Controller
         // }
         // $product->description_short = $shortDesc;
 
-        $product->save();
 
         return redirect('/admin/products');
     }
@@ -114,16 +126,26 @@ class AdminProductsController extends Controller
             'updateTitle' => 'required',
             'updatePrice' => 'required|integer',
             'updateDuration' => 'nullable|integer',
-            'updateImage' => 'image|nullable',
+            'updateImage' => 'nullable',
+            'updateImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'updateDesc' => 'required',
         ]);
 
         if ($request->hasFile('updateImage')) {
-            $extension = $request->file('updateImage')->getClientOriginalExtension();
-            $filename = $request->updateTitle.'_'.time().'.'.$extension;
-            $path = $request->updateImage->storeAs('public/product-image', $filename);
-            $product->image = $filename;
+            // $extension = $request->file('updateImage')->getClientOriginalExtension();
+            // $filename = $request->updateTitle.'_'.time().'.'.$extension;
+            // $path = $request->updateImage->storeAs('public/product-image', $filename);
+            // $product->image = $filename;
+            $images = $request->file('updateImage');
+
+            foreach($images as $image) {
+                $name = $image->getClientOriginalName();
+                $filename = $request->inputTitle.'_'.time().'.'.$name;
+                $path = $image->storeAs('public/product-image', $filename);
+                $data[] = $filename;
+            }
         }
+        $product->image = json_encode($data);
 
         $product->title = $request->updateTitle;
         $product->price = $request->updatePrice;

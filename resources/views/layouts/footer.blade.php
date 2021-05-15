@@ -24,7 +24,7 @@
     <div class="footer-subs-logo row align-items-center">
         <div class="footer-subs col-12 col-lg-6 order-lg-2">
             <p class="text-uppercase text-subs primary-color pb-2">Subscribe untuk promo terbaru!</p>
-            <form action="" method="POST" id="newsletter">
+            <form action="/newsletter" id="newsletter">
                 @csrf
                 <div class="form-group d-flex">
                     <input type="text" class="form-control me-2" name="email" id="email" placeholder="Email">
@@ -42,38 +42,5 @@
         <p class="text-center">Copyrights Reserved. Early Theory 2021</p>
     </div>
 </div>
-
-@section('js')
-<script>
-   $(document).ready(function() {
-    $('#newsletter').on('submit', function(e) {
-        e.preventDefault();
-        var email = $('#email').val();
-        $.ajax({
-        url: "/newsletter",
-        method: "POST",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {email:email},
-        success: function(data) {
-            if($.isEmptyObject(data.error)){
-                Swal.fire({
-                    icon: 'success',
-                    title: data.success
-                 })
-                }
-            else {
-                Swal.fire({
-                    icon: 'error',
-                    title: data.error
-                })
-            }
-        }
-        })
-    });
-});
-</script>
-@endsection
 
 

@@ -7,6 +7,18 @@
         padding-bottom: 3rem;
     }
 
+    .slick-prev {
+        left: 20px;
+    }
+
+    .slick-next {
+        right: 20px;
+    }
+
+    .slick-dots {
+        bottom: 15px;
+    }
+
     .product {
         text-align: center;
         @include breakpoint(large) {
@@ -24,6 +36,7 @@
             img {
                 width: 80%;
                 margin-bottom: 1rem;
+                border-radius: 2rem;
                 @include breakpoint(large) {
                     width: 100%;
                     margin-bottom: 0;

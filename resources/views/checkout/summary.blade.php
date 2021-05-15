@@ -25,14 +25,17 @@
                                 <p>idr {{number_format($item->price)}}</p>
                             </div>
                             <div class="col-5 col-lg-3 product-image">
-                                <img src="{{Storage::url('product-image/'.$item->image)}}" alt="">
+                                <?php $images = (array)json_decode($item->image); ?>
+                                @foreach ($images as $image)
+                                    <img src="{{Storage::url('product-image/'.$image)}}" alt="No Image">
+                                @endforeach
                             </div>
-                            <div class="col-7 col-lg-9 ps-0 product-question">
+                            <div class="col-7 col-lg-9 product-question">
                                 <h5>Pertanyaan</h5>
                                 <p>{{nl2br($item->pivot->question)}}</p>
                                 <button class="button primary mt-3 mt-lg-2">
                                     <span><i class="fas fa-edit"></i> &nbsp;</span>
-                                    <a href="/checkout/{{$sales->id}}/detail"><span>
+                                    <a class="white-color" href="/checkout/{{$sales->id}}/detail"><span>
                                         Edit</span></a>
                                 </button>
                             </div>
@@ -59,4 +62,16 @@
                 </form>
             </div>
         </div>
+
+        <script>
+
+            $(document).ready(function(){
+                $('.product-image').slick({
+                    dots: false,
+                    arrows: false,
+                    autoplay: true,
+                    autoplaySpeed: 5000,
+                });
+            });
+        </script>
 </x-app-layout>

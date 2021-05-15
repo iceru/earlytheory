@@ -72,7 +72,7 @@
         .footer-subs {
             margin-bottom: 1.5rem;
 
-            @include breakpoint(medium) {
+            @include breakpoint(large) {
                 margin-bottom: 0;
             }
             .text-subs {

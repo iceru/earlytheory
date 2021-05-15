@@ -135,7 +135,7 @@ class AdminArticleController extends Controller
 
         if ($request->hasFile('updateImage')) {
             $extension = $request->file('updateImage')->getClientOriginalExtension();
-            $filename = $request->updateTitle.'_'.time().'.'.$extension;
+            $filename = time().'.'.$extension;
             $path = $request->updateImage->storeAs('public/article-image', $filename);
             $article->image = $filename;
         }

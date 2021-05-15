@@ -17,21 +17,21 @@ class SalesController extends Controller
             // foreach ($cart as $item) {
             //     dd($item->id);
             // }
-    
+
             $salesNo = time();
             $total = \Cart::getTotal();
-    
+
             $sales = new Sales;
             $sales->sales_no = $salesNo;
             $sales->total_price = $total;
             $sales->email = ' ';
             $sales->save();
-    
+
             foreach (\Cart::getContent() as $item) {
                 $product = Products::find($item->id);
                 $product->sales()->attach($sales, ['question' => ' '], ['qty' => $item->qty]);
             }
-    
+
             \Cart::clear();
             return redirect()->route('sales.detail', ['id' => $sales->id]);
         }
@@ -72,15 +72,15 @@ class SalesController extends Controller
     public function discount(Request $request, $id)
     {
         $sales = Sales::find($id);
-        
+
         if($request->inputDiscount) {
             $disc_code = strtoupper($request->inputDiscount);
             $discount = Discount::where('code', $disc_code)->first();
-    
+
             if($discount) {
                 if($sales->total_price >= $discount->min_total) {
                     $nominal = $discount->nominal;
-        
+
                     $sales->discount = $nominal;
                     $sales->save();
 
@@ -131,6 +131,7 @@ class SalesController extends Controller
         }
 
         $sales->email = $request->inputEmail;
+        $sales->status = "success";
         $sales->save();
 
         return redirect()->route('sales.success', ['id' => $sales->id]);
@@ -142,5 +143,5 @@ class SalesController extends Controller
         return view('checkout.payment-success', compact('sales'));
     }
 
-    
+
 }
