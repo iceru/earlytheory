@@ -2,8 +2,7 @@
     <div class="product-detail container main-content">
         <div class="product row">
             <div class="col-12 col-lg-5 product-image ">
-                <?php $images = (array)json_decode($product->image); ?>
-                @foreach ($images as $item)
+                @foreach ((array)json_decode($product->image) as $item)
                     <img class="pb-2" src="{{Storage::url('product-image/'.$item)}}" alt="No Image">
                 @endforeach
             </div>
