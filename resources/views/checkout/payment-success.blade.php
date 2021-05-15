@@ -15,7 +15,11 @@
             </div> --}}
             <div class="col-12">
                 <h5>Sales Number: {{$sales->sales_no}}</h5>
+                <h5>Name: {{$sales->name}}</h5>
                 <h5>Email: {{$sales->email}}</h5>
+                <h5>Phone Number: {{$sales->phone}}</h5>
+                <h5>Relationship: {{strtoupper($sales->relationship)}}</h5>
+                <h5>Pekerjaan: {{strtoupper($sales->job)}}</h5>
                 <h5>Proof of Payment:</h5>
                 <img src="{{Storage::url('payment-proof/'.$sales->payment)}}">
             </div>

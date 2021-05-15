@@ -35,7 +35,7 @@
                                 <p>{{nl2br($item->pivot->question)}}</p>
                                 <button class="button primary mt-3 mt-lg-2">
                                     <span><i class="fas fa-edit"></i> &nbsp;</span>
-                                    <a class="white-color" href="/checkout/{{$sales->id}}/detail"><span>
+                                    <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
                                         Edit</span></a>
                                 </button>
                             </div>
@@ -43,7 +43,7 @@
                     </div>
                     @endforeach
                 </div>
-                <form action="/checkout/{{$sales->id}}/discount" method="post">
+                <form action="/checkout/{{$sales->sales_no}}/discount" method="post">
                     @csrf
                     <div class="col-12">
                         @if (session('error'))

@@ -13,7 +13,7 @@
                 <div class="line"></div>
                 <div class="circle"></div>
             </div>
-            <form action="/checkout/{{$sales->id}}/question/add" method="post">
+            <form action="/checkout/{{$sales->sales_no}}/question/add" method="post">
                 @csrf
                 <div class="products col-12">
                     <div class="row">
