@@ -144,8 +144,8 @@ class AdminProductsController extends Controller
                 $path = $image->storeAs('public/product-image', $filename);
                 $data[] = $filename;
             }
+            $product->image = json_encode($data);
         }
-        $product->image = json_encode($data);
 
         $product->title = $request->updateTitle;
         $product->price = $request->updatePrice;
