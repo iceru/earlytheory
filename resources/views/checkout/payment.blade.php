@@ -66,6 +66,28 @@
             </div>
         </div>
     </div>
+
+    <div class="print">
+        <p>Sales Number: {{$sales->sales_no}}</p>
+        <p>Order Status: {{strtoupper($sales->status)}}</p>
+        <p>Products</p>
+        <table class="table table-bordered">
+            @foreach ($sales->products as $product)
+            <tr>
+                <td scope="row">{{$loop->iteration}}</td>
+                <td><img src="{{Storage::url('product-image/'.$product->image)}}" alt="Image" width="100"></td>
+                <td>{{$product->title}}</td>
+                <td>idr {{number_format($product->price)}}</td>
+                <td>{{$product->duration}}</td>
+                <td>{{$product->pivot->question}}</td>
+            </tr>
+            @endforeach
+        </table>
+        <p>Total Price: idr {{number_format($sales->total_price)}}</p>
+        <p>Discount: - idr {{number_format($sales->discount)}}</p>
+        <p>Total Price (After Discount): idr {{number_format($sales->total_price-$sales->discount)}}</p>
+    </div>
+
     @section('js')
     <script>
         $(document).ready(function(){

@@ -18,9 +18,9 @@
                     {!! $product->description !!}
                 </div>
                 <div class="add-to-cart">
-                    <button class="button primary">
+                    <a href="/cart/add/{{$product->id}}" class="button primary">
                         Order Now
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
