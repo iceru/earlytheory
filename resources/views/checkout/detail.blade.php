@@ -13,6 +13,13 @@
                 <div class="line"></div>
                 <div class="circle"></div>
             </div>
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                <div class="alert alert-danger" role="alert">
+                    <strong>Pertanyaan wajib diisi!</strong>
+                </div>
+                @endforeach
+            @endif
             <form action="/checkout/{{$sales->sales_no}}/question/add" method="post">
                 @csrf
                 <div class="products col-12">
@@ -35,7 +42,7 @@
                                     @endforeach
                                 </div>
                                 <div class="col-8 col-lg-9 ps-2">
-                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.." required>{{$item->pivot->question}}</textarea>
+                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.." required>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                 </div>
                                </div>
                             </div>

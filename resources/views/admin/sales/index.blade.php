@@ -49,7 +49,9 @@
                         <td>{{$sale->email}}</td>
                         <td>{{$sale->phone}}</td>
                         @if ($sale->paymentmethods)
-                           <td>{{$sale->paymentmethods->name}}</td>
+                        <td>{{$sale->paymentmethods->name}}</td>
+                        @else
+                        <td></td>
                         @endif
                         <td>{{$sale->relationship}}</td>
                         <td>{{$sale->job}}</td>

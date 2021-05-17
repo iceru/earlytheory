@@ -34,6 +34,17 @@
                         <input type="number" class="form-control" id="inputMin" name="inputMin" min="0">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Product</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" name="inputProduct" id="inputProduct">
+                            <option selected>For all product</option>
+                            @foreach ($products as $product)
+                            <option value="{{$product->id}}">{{$product->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="button primary">Submit</button>
             </form>
         </div>
@@ -48,6 +59,7 @@
                         <th>Code</th>
                         <th>Nominal</th>
                         <th>Minimum Purchase</th>
+                        <th>Product</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -58,6 +70,11 @@
                         <td>{{$disc->code}}</td>
                         <td>{{$disc->nominal}}</td>
                         <td>{{$disc->min_total}}</td>
+                        @if ($disc->products)
+                        <td>{{$disc->products->title}}</td>
+                        @else
+                        <td>All Product</td>
+                        @endif
                         <td><a href="/admin/discount/edit/{{$disc->id}}">Edit</a> |
                             <a href="/admin/discount/delete/{{$disc->id}}">Delete</a></td>
                     </tr>

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     protected $table = 'discount';
+
+    public function products()
+    {
+        return $this->belongsTo(Products::class, 'product_id', 'id');
+    }
 }

@@ -51,6 +51,10 @@ class SalesController extends Controller
     {
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
+        $request->validate([
+            'question.*' => 'required'
+        ]);
+
         $item_id = $request->id;
         $item_question = $request->question;
 
@@ -77,7 +81,7 @@ class SalesController extends Controller
             $disc_code = strtoupper($request->inputDiscount);
             $discount = Discount::where('code', $disc_code)->first();
 
-            if($discount) {
+            if($discount && !$discount->product_id) {
                 if($sales->total_price >= $discount->min_total) {
                     $nominal = $discount->nominal;
 
@@ -88,6 +92,26 @@ class SalesController extends Controller
                 }
                 else {
                     return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
+                }
+            }
+            elseif($discount && $discount->product_id) {
+                foreach($sales->products as $product) {
+                    if($product->id == $discount->product_id) {
+                        if($discount->products->price >= $discount->min_total) {
+                            $nominal = $discount->nominal;
+    
+                            $sales->discount = $nominal;
+                            $sales->save();
+    
+                            return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
+                        }
+                    }
+                    else {
+                        $discproduct = 0;
+                    }
+                }
+                if($discproduct == 0) {
+                    return redirect()->back()->with('error', 'Discount code cannot be use for this product!');
                 }
             }
             else {

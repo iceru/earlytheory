@@ -26,7 +26,7 @@
                         <th>Price</th>
                         <th>Duration</th>
                         <th>Short Description</th>
-                        <th>Description</th>
+                        <th>Question</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +38,7 @@
                         <td>{{$product->price}}</td>
                         <td>{{$product->duration}}</td>
                         <td>{{$product->description_short}}</td>
-                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
+                        <td>{{$product->pivot->question}}</td>
                     </tr>
                     @endforeach
                 </tbody>

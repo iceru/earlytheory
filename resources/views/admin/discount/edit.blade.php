@@ -38,6 +38,17 @@
                         <input type="number" class="form-control" id="updateMin" name="updateMin" min="0" value="{{$discount->min_total}}">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Product</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" name="updateProduct" id="updateProduct">
+                            <option value="0" {{$discount->product_id == NULL ? 'selected' : ''}}>For all product</option>
+                            @foreach ($products as $product)
+                            <option value="{{$product->id}}" {{$discount->product_id == $product->id ? 'selected' : ''}}>{{$product->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="button primary">Submit</button>
             </form>
         </div>
