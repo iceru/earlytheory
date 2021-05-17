@@ -106,8 +106,7 @@
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>
-                            <?php $images = (array)json_decode($product->image); ?>
-                            @foreach ($images as $item)
+                            @foreach ((array)json_decode($product->image) as $item)
                                 <img class="mb-2" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
                             @endforeach
                         </td>
