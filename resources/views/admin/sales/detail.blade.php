@@ -9,12 +9,82 @@
     @endsection
 
     <div class="py-12">
-        <h3 class="evogria">Products of Sales #{{$sales->sales_no}}</h3>
+        <h3 class="evogria">Detail of Sales #{{$sales->sales_no}}</h3>
     </div>
 
     <div class="py-12 my-4">
     </div>
 
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Total Price</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price)}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Discount</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->discount)}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Total Price (After Discount)</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price-$sales->discount)}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="{{$sales->name}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="{{$sales->email}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Phone Number</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="{{$sales->phone}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Payment Type</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" @if ($sales->paymentmethods)
+            value="{{$sales->paymentMethods->name}}"
+            @endif readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Status Relationship</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="{{$sales->relationship}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Status Pekerjaan</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="{{$sales->job}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Status</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="{{$sales->status}}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Proof of Payment</label>
+        <div class="col-sm-10">
+            <img src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="-">
+        </div>
+    </div>
+    
+    <h5>Product Sales</h5>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="table" id="table">
@@ -26,25 +96,32 @@
                         <th>Price</th>
                         <th>Duration</th>
                         <th>Short Description</th>
-                        <th>Description</th>
+                        <th>Question</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($sales->products as $product)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
-                        <td><img src="{{Storage::url('product-image/'.$product->image)}}" alt="Image" width="100"></td>
+                        <td>
+                            @foreach ((array)json_decode($product->image) as $item)
+                                <img class="mb-2" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
+                            @endforeach
+                        </td>
                         <td>{{$product->title}}</td>
-                        <td>{{$product->price}}</td>
-                        <td>{{$product->duration}}</td>
+                        <td>idr {{number_format($product->price)}}</td>
+                        <td>{{$product->duration}} menit</td>
                         <td>{{$product->description_short}}</td>
-                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
+                        <td>{{$product->pivot->question}}</td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
 
