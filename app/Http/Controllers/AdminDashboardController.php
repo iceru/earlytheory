@@ -15,8 +15,16 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        // $popular = Analytics::fetchMostVisitedPages(Period::days(7), 5);
-        return view('admin.dashboard');
+        $totalVisitors1 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(1), 5);
+        $totalVisitors3 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(3));
+        $mostVisited1 = Analytics::fetchMostVisitedPages(Period::days(30), 5);
+        $mostVisited3 = Analytics::fetchMostVisitedPages(Period::months(3), 5);
+        $fetchUser3 = Analytics::fetchUserTypes(Period::months(3));
+        $fetchUser1 = Analytics::fetchUserTypes(Period::months(1));
+        $topReferres3 = Analytics::fetchTopReferrers(Period::months(3), 5);
+        $topReferres1 = Analytics::fetchTopReferrers(Period::months(1), 5);
+
+        return view('admin.dashboard', compact('mostVisited3', 'fetchUser3', 'totalVisitors1'));
     }
 
     /**

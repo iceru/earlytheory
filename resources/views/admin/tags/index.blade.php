@@ -22,12 +22,12 @@
                         <input type="text" class="form-control" id="inputName" name="inputName">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="button primary">Submit</button>
             </form>
         </div>
     </div>
 
-    <div class="py-12">
+    <div class="py-12 table-overflow">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="table" id="table">
                 <thead>

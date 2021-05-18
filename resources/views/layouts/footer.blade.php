@@ -1,4 +1,4 @@
-<div class="footer row">
+<div class="footer row no-print">
     <div class="to-top col-12" id="to_top">
         <h5 class="text-end m-0">BACK TO TOP</h5>
     </div>

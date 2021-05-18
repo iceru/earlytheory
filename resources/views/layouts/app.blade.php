@@ -48,7 +48,7 @@
 
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid no-print">
         @include('layouts.footer')
     </div>
 

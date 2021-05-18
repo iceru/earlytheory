@@ -15,7 +15,7 @@
     <div class="py-12 my-4">
     </div>
 
-    <div class="py-12">
+    <div class="py-12 table-overflow">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="table" id="table">
                 <thead>
@@ -50,13 +50,19 @@
                         <td>{{$sale->phone}}</td>
                         @if ($sale->paymentmethods)
                            <td>{{$sale->paymentmethods->name}}</td>
+                        @else
+                        <td>-</td>
                         @endif
                         <td>{{$sale->relationship}}</td>
                         <td>{{$sale->job}}</td>
                         <td>{{$sale->status}}</td>
-                        <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>
-                        <td><a href="/admin/sales/{{$sale->id}}">Detail</a></td>
-                        <td><a href="/admin/sales/delete/{{$sale->id}}">Delete</a></td>
+                        @if ($sale->payment)
+                            <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>
+                        @else
+                            <td>-</td>
+                        @endif
+                        <td><a href="/admin/sales/{{$sale->id}}" class="primary-color"><i class="fa fa-info-circle" aria-hidden="true"></i> Detail</a></td>
+                        <td><a href="/admin/sales/delete/{{$sale->id}}" class="primary-color"><i class="fas fa-trash    "></i> Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -131,6 +131,13 @@
         }
     }
 
+    .button-invoice {
+        @include breakpoint(large) {
+            width: 75%;
+            margin: auto;
+        }
+    }
+
     .payment-method {
         @include breakpoint(large) {
             width: 75%;
@@ -223,11 +230,66 @@
     }
 
     .form-payment {
-        width: 75%;
-        margin: auto;
+        @include breakpoint(large) {
+            width: 75%;
+            margin: auto;
+        }
 
         .form-group {
             margin-bottom: 1rem;
         }
+    }
+
+    .payment-success {
+        @include breakpoint(large) {
+            width: 75%;
+            margin: auto;
+        }
+        .thank-you {
+            margin-bottom: 1.5rem;
+
+            img {
+                margin-bottom: 2rem;
+                width: 300px;
+            }
+        }
+
+        .proof-desc p {
+            // margin-bottom: 1rem;
+            padding: .5rem 0;
+            // border-bottom: 1px solid $background-secondary;
+        }
+
+        .proof-desc {
+            margin-bottom: 2rem;
+        }
+
+        .proof-image img {
+            width: 300px;
+            border-radius: 1rem;
+        }
+
+        @include breakpoint(medium) {
+            .thankyou img {
+                width: 20vw;
+            }
+            .proof-image {
+                padding-left: 2rem;
+            }
+
+            .proof-image img {
+                width: 30vw;
+            }
+        }
+    }
+
+
+
+}
+.print {
+    display: none;
+
+    @media print {
+        display: block;
     }
 }

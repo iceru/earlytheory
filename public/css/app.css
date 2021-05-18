@@ -11588,6 +11588,12 @@ a {
   }
 }
 @media (min-width: 992px) {
+  .checkout .button-invoice {
+    width: 75%;
+    margin: auto;
+  }
+}
+@media (min-width: 992px) {
   .checkout .payment-method {
     width: 75%;
     margin: auto;
@@ -11664,12 +11670,57 @@ a {
   justify-content: center;
   align-items: center;
 }
-.checkout .form-payment {
-  width: 75%;
-  margin: auto;
+@media (min-width: 992px) {
+  .checkout .form-payment {
+    width: 75%;
+    margin: auto;
+  }
 }
 .checkout .form-payment .form-group {
   margin-bottom: 1rem;
+}
+@media (min-width: 992px) {
+  .checkout .payment-success {
+    width: 75%;
+    margin: auto;
+  }
+}
+.checkout .payment-success .thank-you {
+  margin-bottom: 1.5rem;
+}
+.checkout .payment-success .thank-you img {
+  margin-bottom: 2rem;
+  width: 300px;
+}
+.checkout .payment-success .proof-desc p {
+  padding: 0.5rem 0;
+}
+.checkout .payment-success .proof-desc {
+  margin-bottom: 2rem;
+}
+.checkout .payment-success .proof-image img {
+  width: 300px;
+  border-radius: 1rem;
+}
+@media (min-width: 768px) {
+  .checkout .payment-success .thankyou img {
+    width: 20vw;
+  }
+  .checkout .payment-success .proof-image {
+    padding-left: 2rem;
+  }
+  .checkout .payment-success .proof-image img {
+    width: 30vw;
+  }
+}
+
+.print {
+  display: none;
+}
+@media print {
+  .print {
+    display: block;
+  }
 }
 
 .contact-us .row {
@@ -11766,6 +11817,10 @@ a {
   padding-top: 3rem;
   padding-bottom: 3rem;
   min-height: 50vh;
+}
+
+.table-overflow {
+  overflow: auto;
 }
 
 .product-detail {
@@ -13240,6 +13295,12 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 html, body {
   background: #e7e7e7;
   font-family: "Apercu", sans-serif;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
 }
 @tailwind base;
 

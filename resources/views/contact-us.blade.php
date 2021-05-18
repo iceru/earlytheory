@@ -22,22 +22,19 @@
                 </form>
             </div> --}}
             <div class="col-12 contact-info">
-                <h3 class="mb-2">Contact Information</h3>
-                <p class="mb-5">Lorem ipsum dolor</p>
+                <h3 class="mb-2 evogria" style="color: white">Contact Information</h3>
+                <p class="mb-5">You can contact us through here</p>
 
-                <p class="mb-3"><i class="fa fa-envelope" aria-hidden="true"></i> &nbsp; earlytheory@gmail.com</p>
-                <p class="mb-5"><i class="fa fa-phone-alt" aria-hidden="true"></i> &nbsp; 081112224444</p>
+                <p class="mb-5"><i class="fa fa-envelope" aria-hidden="true"></i> &nbsp; earlytheorytarot@gmail.com</p>
+                {{-- <p class="mb-5"><i class="fa fa-phone-alt" aria-hidden="true"></i> &nbsp; 081112224444</p> --}}
 
                 <p class="mb-2">Our Social Media</p>
                 <div class="contact-social d-flex">
                     <div class="me-3">
-                        <i class="fab fa-facebook"></i>
+                        <a href="https://www.instagram.com/early.theory" class="white-color"><i class="fab fa-instagram"></i></a>
                     </div>
-                    <div class="me-3">
-                        <i class="fab fa-twitter"></i>
-                    </div>
-                    <div class="me-3">
-                        <i class="fab fa-instagram"></i>
+                    <div class="me-3 white-color">
+                        <a href="https://www.tiktok.com/@early.theory?" class="white-color"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
                 <div class="wave-contact">

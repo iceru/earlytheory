@@ -13,6 +13,7 @@
 @import 'pages/checkout';
 @import 'pages/contact-us';
 @import 'pages/index';
+@import 'pages/admin';
 @import 'pages/product-detail';
 @import "~sweetalert2/src/sweetalert2";
 
@@ -24,4 +25,18 @@
 html, body {
     background: $background;
     font-family: 'Apercu', sans-serif;
+}
+
+// .print {
+//     display: none;
+
+//     @media print {
+//         display: block;
+//     }
+// }
+
+.no-print {
+    @media print {
+        display: none;
+    }
 }

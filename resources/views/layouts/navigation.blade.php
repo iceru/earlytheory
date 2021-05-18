@@ -1,4 +1,4 @@
-<nav class="navbar-mobile align-items-center row">
+<nav class="navbar-mobile align-items-center row no-print">
     <div class="hamburger col-2 d-lg-none d-flex justify-content-start">
         <img src="/images/svg/hamburger.svg" alt="menu">
     </div>

@@ -31,6 +31,7 @@
     "dependencies": {
         "@popperjs/core": "^2.9.2",
         "bootstrap": "^5.0.0-beta3",
+        "color-hash": "^2.0.1",
         "popper.js": "^1.16.1",
         "vue-axios": "^3.2.4",
         "vue-router": "^3.5.1"
