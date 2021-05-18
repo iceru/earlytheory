@@ -1,10 +1,14 @@
+.container-fluid {
+    padding: 0 !important;
+}
+
 .footer {
     justify-content: center;
 
     @include breakpoint(medium) {
-        .footer-info, .footer-subs-logo, .footer-copyright{
-            padding: 0 5vw;
-        }
+        // .footer-info, .footer-subs-logo, .footer-copyright{
+        //     padding: 0 5vw;
+        // }
 
         .to-top {
             padding: 0 6.8vw;
@@ -23,6 +27,10 @@
             display: inline-block;
             cursor: pointer;
         }
+    }
+
+    .row > * {
+        max-width: initial;
     }
 
 

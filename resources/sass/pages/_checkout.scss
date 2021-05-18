@@ -34,10 +34,10 @@
             height: 25px;
             border-radius: 50%;
             background-color: $secondary;
-            opacity: 20%;
+            opacity: 0.2;
 
             &.active {
-                opacity: 100%;
+                opacity: 1;
                 background-color: $primary;
             }
         }
@@ -131,7 +131,7 @@
         }
     }
 
-    .button-invoice {
+    .button-invoice, .disclaimer {
         @include breakpoint(large) {
             width: 75%;
             margin: auto;
@@ -186,18 +186,9 @@
             .bank-method-item {
                 .bank-image {
                     text-align: center;
-                    margin-bottom: 1rem;
 
                     img {
-                        width: 200px;
-                    }
-
-                    @include breakpoint (large) {
-                        margin: 0;
-
-                        img {
-                            width: 350px;
-                        }
+                        width: 100%;
                     }
                 }
 

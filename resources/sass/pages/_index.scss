@@ -54,8 +54,12 @@
         border-radius: 2rem;
         height: 50vw;
 
-        @include breakpoint(medium) {
+        @include breakpoint(large) {
             height: 40vw;
+        }
+
+        @include breakpoint(xxlarge) {
+            height: 33vw;
         }
     }
 }

@@ -28,7 +28,7 @@
                 <h4>Total Payment: idr {{number_format($sales->total_price-$sales->discount)}}</h4>
             </div>
             <div class="disclaimer">
-                <h5><b>Disclaimer: </b> </h5>
+                <h5 class="text-center text-danger mb-3"><b>Disclaimer:</b> Harap segera menyelesaikan pembayaran pada halaman checkout. Transaksi akan diproses jika anda sudah melakukan konfirmasi pembayaran</h5>
             </div>
             <div class="mx-auto col-12">
             </div>

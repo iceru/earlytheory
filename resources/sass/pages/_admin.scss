@@ -1,3 +1,19 @@
 .table-overflow {
     overflow: auto;
 }
+
+.dashboard {
+    padding-bottom: 3rem;
+    .form-select {
+        width: 30%;
+    }
+    .charts {
+        display: none;
+        .chart {
+            background: #F5F5F5;
+            padding: 1rem;
+            border-radius: 2rem;
+        }
+    }
+}
+
