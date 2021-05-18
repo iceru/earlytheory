@@ -27,6 +27,9 @@
             <div class="total-payment">
                 <h4>Total Payment: idr {{number_format($sales->total_price-$sales->discount)}}</h4>
             </div>
+            <div class="disclaimer">
+                <h5 class="text-center text-danger mb-3"><b>Disclaimer:</b> Harap segera menyelesaikan pembayaran pada halaman checkout. Transaksi akan diproses jika anda sudah melakukan konfirmasi pembayaran</h5>
+            </div>
             <div class="mx-auto col-12">
             </div>
             <div class="payment-method col-12">
@@ -41,13 +44,13 @@
                 <div class="bank-detail payment-detail show">
                     @foreach ($paymethods_bank as $item)
                     <div class="bank-method-item row mb-3 align-items-center">
-                        <div class="bank-image col-12 col-lg-8">
+                        <div class="bank-image col-12">
                             <img src="{{Storage::url('payment-logo/'.$item->logo)}}" alt="">
                         </div>
-                        <div class="bank-text col-12 col-lg-4">
+                        {{-- <div class="bank-text col-12 col-lg-4">
                             <span class="bank-number">{{$item->account_number}}</span> <br>
                             <span class="bank-owner"> a/n {{$item->account_owner}}</span>
-                        </div>
+                        </div> --}}
                     </div>
                     @endforeach
                 </div>
