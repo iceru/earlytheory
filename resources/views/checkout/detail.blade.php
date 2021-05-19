@@ -35,14 +35,14 @@
                                     <p>idr {{number_format($item->price)}}</p>
                                 </div>
                                <div class="row g-0">
-                                   <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5>
+                                {{-- <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5> --}}
                                 <div class="col-4 col-lg-3 product-image">
                                     @foreach ((array)json_decode($item->image) as $image)
                                         <img src="{{Storage::url('product-image/'.$image)}}" alt="">
                                     @endforeach
                                 </div>
                                 <div class="col-8 col-lg-9 ps-2">
-                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.." required>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini..">{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                 </div>
                                </div>
                             </div>
@@ -54,7 +54,7 @@
                     {{-- <a class="button secondary" href="/checkout/summary">
                         Go to Summary
                     </a> --}}
-                    <button type="submit" class="button secondary">Go to Summary</button>
+                    <button type="submit" class="button secondary">Konfirmasi</button>
                 </div>
             </form>
     </div>

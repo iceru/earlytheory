@@ -2,7 +2,7 @@
     <div class="col-12 checkout no-print">
         <div class="row page-success">
             <div class="col-12 title-page">
-                <h1>Payment Success</h1>
+                <h1>Pembayaran Berhasil</h1>
             </div>
             {{-- <div class="col-12 indicator">
                 <div class="circle"></div>
@@ -16,8 +16,8 @@
             <div class="col-12 payment-success">
                 <div class="text-center thank-you mb-3">
                     <img src="/images/pay.svg" alt="">
-                    <h5>Thank you for your Purchase!</h5>
-                    <p>We will contact you soon</p>
+                    <h5>Kami akan konfirmasi orderanmu lewat Whatsapp!</h5>
+                    <p>Pengiriman file dalam waktu 2-3 hari kerja</p>
                 </div>
                 <hr>
                 <div class="row proof">
@@ -33,11 +33,14 @@
                                 <p><b>Email:</b> <br> {{$sales->email}}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Phone Number:</b> <br> {{$sales->phone}}</p>
+                                <p><b>Nomor Telepon:</b> <br> {{$sales->phone}}</p>
                             </div>
-                            <div class="col-12 mt-3">
+                            <div class="col-6">
+                                <p><b>Tanggal Lahir:</b> <br> {{ \Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}</p>
+                            </div>
+                            {{-- <div class="col-12 mt-3">
                                 <button id="print" class="button primary">Print Invoice &nbsp; <i class="fa fa-print" aria-hidden="true"></i></button>
-                            </div>
+                            </div> --}}
                         </div>
 
                         {{-- <h5>Relationship: {{strtoupper($sales->relationship)}}</h5>
@@ -53,7 +56,7 @@
         </div>
 
     </div>
-    <div class="print">
+    {{-- <div class="print">
         <h1 class="mb-3 text-center pt-3">Invoice</h1>
         <hr>
         <p>Sales Number: {{$sales->sales_no}}</p>
@@ -71,11 +74,11 @@
             </thead>
             <tr>
                 <td scope="row">{{$loop->iteration}}</td>
-                {{-- <td>
+                <td>
                     @foreach ((array)json_decode($product->image) as $item)
                         <img src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
                     @endforeach
-                </td> --}}
+                </td>
                 <td>{{$product->title}}</td>
                 <td>idr {{number_format($product->price)}} @if($product->duration) / {{$product->duration}} Minutes @endif</td>
                 <td>{{$product->pivot->question}}</td>
@@ -93,7 +96,7 @@
             </p>
         </div>
 
-    </div>
+    </div> --}}
 
     @section('js')
     <script>

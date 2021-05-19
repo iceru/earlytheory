@@ -21,14 +21,14 @@
             </div>
             @endif
 
-            <div class="button-invoice">
+            {{-- <div class="button-invoice">
                 <button id="print" class="text-center button secondary">Print Invoice &nbsp; <i class="fa fa-print" aria-hidden="true"></i></button>
-            </div>
+            </div> --}}
             <div class="total-payment">
                 <h4>Total Payment: idr {{number_format($sales->total_price-$sales->discount)}}</h4>
             </div>
             <div class="disclaimer">
-                <h5 class="text-center text-danger mb-3"><b>Disclaimer:</b> Harap segera menyelesaikan pembayaran pada halaman checkout. Transaksi akan diproses jika anda sudah melakukan konfirmasi pembayaran</h5>
+                <h5 class="text-center text-danger mb-3"><b>Disclaimer:</b> Transaksi hanya akan diproses jika anda sudah melakukan konfirmasi pembayaran</h5>
             </div>
             <div class="mx-auto col-12">
             </div>
@@ -68,13 +68,13 @@
 
             <div class="col-12 d-grid gap-2">
                 <a class="button secondary" href="/checkout/{{$sales->sales_no}}/confirm-payment">
-                    Confirm your Payment
+                    Lanjutkan Pembayaran
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="print">
+    {{-- <div class="print">
         <h1 class="mb-3 text-center pt-3">Invoice</h1>
         <hr>
         <p>Sales Number: {{$sales->sales_no}}</p>
@@ -92,11 +92,11 @@
             </thead>
             <tr>
                 <td scope="row">{{$loop->iteration}}</td>
-                {{-- <td>
+                <td>
                     @foreach ((array)json_decode($product->image) as $item)
                         <img src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
                     @endforeach
-                </td> --}}
+                </td>
                 <td>{{$product->title}}</td>
                 <td>idr {{number_format($product->price)}} @if($product->duration) / {{$product->duration}} Minutes @endif</td>
                 <td>{{$product->pivot->question}}</td>
@@ -110,7 +110,7 @@
         @endif
 
     </div>
-
+ --}}
     @section('js')
     <script>
         $(document).ready(function(){

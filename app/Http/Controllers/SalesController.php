@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
+use Carbon\Carbon;
 use App\Models\Sales;
 use App\Models\Discount;
-use App\Models\PaymentMethods;
+use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethods;
 
 class SalesController extends Controller
 {
@@ -52,7 +53,7 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         $request->validate([
-            'question.*' => 'required'
+            'question.*' => 'nullable'
         ]);
 
         $item_id = $request->id;
@@ -99,10 +100,10 @@ class SalesController extends Controller
                     if($product->id == $discount->product_id) {
                         if($discount->products->price >= $discount->min_total) {
                             $nominal = $discount->nominal;
-    
+
                             $sales->discount = $nominal;
                             $sales->save();
-    
+
                             return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
                         }
                     }
@@ -148,6 +149,7 @@ class SalesController extends Controller
             'inputName' => 'required',
             'inputEmail' => 'required|email',
             'inputPhone' => 'required',
+            'inputBirthdate' => 'required',
             'inputPayType' => 'required',
             'inputRelationship' => 'required',
             'inputPekerjaan' => 'required'
@@ -163,6 +165,7 @@ class SalesController extends Controller
         $sales->name = $request->inputName;
         $sales->email = $request->inputEmail;
         $sales->phone = $request->inputPhone;
+        $sales->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');;
         $sales->paymethod_id = $request->inputPayType;
         $sales->relationship = $request->inputRelationship;
         $sales->job = $request->inputPekerjaan;

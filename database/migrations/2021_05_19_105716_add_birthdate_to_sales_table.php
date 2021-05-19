@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDiscountToSalesTable extends Migration
+class AddBirthdateToSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddDiscountToSalesTable extends Migration
     public function up()
     {
         Schema::table('sales', function (Blueprint $table) {
-            $table->integer('discount')->nullable();
+            $table->date('birthdate')->nullable();
+
         });
     }
 
@@ -26,7 +27,7 @@ class AddDiscountToSalesTable extends Migration
     public function down()
     {
         Schema::table('sales', function (Blueprint $table) {
-            $table->dropColumn('discount');
+            $table->dropColumn('birthdate');
         });
     }
 }

@@ -12,7 +12,7 @@ class CartController extends Controller
     {
         $items = \Cart::getContent();
         $total = \Cart::getTotal();
-        
+
         return view('cart', compact('items', 'total'));
     }
 
@@ -28,8 +28,8 @@ class CartController extends Controller
             'attributes' => array(),
             'associatedModel' => 'App\Models\Products'
         ));
-
-        return redirect('/cart');
+        $ctc = \Cart::getContent()->count();
+        return \Response::json(['success' => 'Produk sukses ditambahkan ke keranjang', 'count' => $ctc]);
     }
 
     public function min($id)

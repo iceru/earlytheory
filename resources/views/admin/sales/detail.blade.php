@@ -15,43 +15,49 @@
     <div class="py-12 my-4">
     </div>
 
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Total Price</label>
         <div class="col-sm-10">
             <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price)}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Discount</label>
         <div class="col-sm-10">
             <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->discount)}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Total Price (After Discount)</label>
         <div class="col-sm-10">
             <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price-$sales->discount)}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Name</label>
         <div class="col-sm-10">
             <input type="text" class="form-control-plaintext" value="{{$sales->name}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Email</label>
         <div class="col-sm-10">
             <input type="text" class="form-control-plaintext" value="{{$sales->email}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Phone Number</label>
         <div class="col-sm-10">
             <input type="text" class="form-control-plaintext" value="{{$sales->phone}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
+        <label class="col-sm-2 col-form-label fw-bolder">Date of Birth</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" readonly>
+        </div>
+    </div>
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Payment Type</label>
         <div class="col-sm-10">
             <input type="text" class="form-control-plaintext" @if ($sales->paymentmethods)
@@ -59,32 +65,32 @@
             @endif readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Status Relationship</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" value="{{$sales->relationship}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->relationship}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Status Pekerjaan</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" value="{{$sales->job}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->job}}" readonly>
         </div>
     </div>
-    <div class="mb-3 row">
+    {{-- <div class="mb-1 row">
         <label class="col-sm-2 col-form-label fw-bolder">Status</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" value="{{$sales->status}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->status}}" readonly>
         </div>
-    </div>
+    </div> --}}
     <div class="mb-3 row">
         <label class="col-sm-2 col-form-label fw-bolder">Proof of Payment</label>
         <div class="col-sm-10">
-            <img src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="-">
+            <img width=150 src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="-">
         </div>
     </div>
-    
-    <h5>Product Sales</h5>
+
+    <h5 class="mb-2">Product Sales</h5>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="table" id="table">
@@ -105,7 +111,7 @@
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>
                             @foreach ((array)json_decode($product->image) as $item)
-                                <img class="mb-2" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
+                                <img class="mb-1" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
                             @endforeach
                         </td>
                         <td>{{$product->title}}</td>
