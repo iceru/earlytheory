@@ -17,9 +17,7 @@
                     {!! $product->description !!}
                 </div>
                 <div class="add-to-cart">
-                    <a href="/cart/add/{{$product->id}}" class="button primary">
-                        Order Now
-                    </a>
+                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
                 </div>
             </div>
         </div>
@@ -42,7 +40,7 @@
                         <p class="product-price">idr {{number_format($product->price)}}</p>
                         <p class="product-desc">{{$product->description_short}}</p>
                     </div>
-                    <a href="/cart/add/{{$product->id}}" class="button primary my-3">Add To Cart</a>
+                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
                 </div>
                 @endforeach
             </div>

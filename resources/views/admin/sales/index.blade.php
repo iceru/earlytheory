@@ -45,7 +45,7 @@
                         @else
                         <td></td>
                         @endif
-                        <td>{{$sale->status}}</td>
+                        <td class="text-capitalize">{{$sale->status}}</td>
                         @if ($sale->payment)
                             <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>
                         @else

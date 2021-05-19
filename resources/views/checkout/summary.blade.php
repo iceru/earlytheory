@@ -53,7 +53,7 @@
                         <input type="text" class="form-control mb-2" placeholder="Discount Code" name="inputDiscount">
                     </div>
                     <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button secondary">Go to Payment</button>
+                        <button type="submit" class="button secondary">Lanjut ke Pembayaran</button>
                         {{-- <a class="button secondary" href="/checkout/{{$sales->id}}/payment">
                             Go to Payment
                         </a> --}}

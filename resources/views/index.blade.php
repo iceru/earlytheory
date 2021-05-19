@@ -26,7 +26,7 @@
                         <p class="product-price">idr {{number_format($product->price)}} @if($product->duration > 0) <span> / {{ $product->duration }} menit  </span> @endif </p>
                         <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
-                    <a href="/cart/add/{{$product->id}}" class="button primary my-3">Add To Cart</a>
+                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
                 </div>
             @empty
                 <h4 class="evogria">No Product</h4>
@@ -41,6 +41,7 @@
                 dots: true,
                 autoplay: true,
                 autoplaySpeed: 3000,
+                pauseOnHover: false,
             });
         });
 
@@ -50,6 +51,7 @@
                 arrows: false,
                 autoplay: true,
                 autoplaySpeed: 5000,
+                pauseOnHover: false,
             });
         });
     </script>

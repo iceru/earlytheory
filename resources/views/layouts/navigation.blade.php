@@ -11,7 +11,7 @@
         <a href="/cart">
             <img src="/images/svg/cart.svg" alt="cart">
         </a>
-        <div class="badge-count">{{ \Cart::getContent()->count() }}</div>
+        <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
     </div>
 </nav>
 <nav class="navbar align-items-center row d-none d-lg-flex">
@@ -57,10 +57,13 @@
     $(document).ready(function() {
         $('.hamburger').click(function(){
             $('.sidebar').toggleClass('active');
+            $('body').css('overflow-y', 'hidden');
         })
 
         $('.close-sidebar').click(function () {
             $('.sidebar').removeClass('active');
+            $('body').css('overflow-y', 'auto');
+
         })
     })
 </script>

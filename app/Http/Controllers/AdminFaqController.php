@@ -112,6 +112,7 @@ class AdminFaqController extends Controller
      */
     public function destroy($id)
     {
-        //
+        FAQ::find($id)->delete();
+        return redirect('/admin/faq');
     }
 }

@@ -18,16 +18,20 @@
                 <div class="form-payment col-12">
                     <div class="form-group">
                         <label for="inputName">Full Name</label>
-                        <input class="form-control" type="text" name="inputName">
+                        <input class="form-control" type="text" name="inputName" required>
                     </div>
                     <input type="text" name="salesId" value="{{$sales->id}}" hidden>
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
-                        <input type="email" name="inputEmail" class="form-control">
+                        <input type="email" name="inputEmail" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="inputPhone">Phone Number</label>
-                        <input type="tel" class="form-control" name="inputPhone">
+                        <input type="tel" class="form-control" name="inputPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputBirthdate">Tanggal Lahir</label>
+                        <input type="text" class="form-control" name="inputBirthdate" id="datepicker" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="inputPayType">Payment Type</label>
@@ -60,7 +64,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputPayment">Upload Proof of Payment</label>
-                        <input type="file" class="form-control" id="inputPayment" name="inputPayment" accept="image/*">
+                        <input type="file" class="form-control" id="inputPayment" name="inputPayment" accept="image/*" required>
                     </div>
                     <div class="col-12 d-grid gap-2">
                         <button type="submit" class="button secondary">
@@ -71,4 +75,15 @@
             </form>
 
     </div>
+
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1930:2021",
+                altFormat: 'yy/mm/dd',
+            });
+        } );
+    </script>
 </x-app-layout>
