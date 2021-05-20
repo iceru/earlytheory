@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Articles
+    @endsection
     <div class="col-12 articles">
         <div class="row">
             <div class="col-12">

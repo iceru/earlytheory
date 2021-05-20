@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Payment - {{$sales->sales_no}}
+    @endsection
     <div class="col-12 checkout ">
         <div class="row no-print">
             <div class="col-12 title-page">
@@ -43,6 +46,7 @@
                 </div>
                 <div class="bank-detail payment-detail show">
                     @foreach ($paymethods_bank as $item)
+                    @if ($loop->first)
                     <div class="bank-method-item row mb-3 align-items-center">
                         <div class="bank-image col-12">
                             <img src="{{Storage::url('payment-logo/'.$item->logo)}}" alt="">
@@ -52,6 +56,8 @@
                             <span class="bank-owner"> a/n {{$item->account_owner}}</span>
                         </div> --}}
                     </div>
+                    @endif
+                    
                     @endforeach
                 </div>
                 {{-- <div class="qr-detail payment-detail">
@@ -68,7 +74,7 @@
 
             <div class="col-12 d-grid gap-2">
                 <a class="button secondary" href="/checkout/{{$sales->sales_no}}/confirm-payment">
-                    Lanjutkan Pembayaran
+                    Lanjut ke Konfirmasi Pembayaran
                 </a>
             </div>
         </div>

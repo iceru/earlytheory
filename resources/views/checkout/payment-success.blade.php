@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Payment Success - {{$sales->sales_no}}
+    @endsection
     <div class="col-12 checkout no-print">
         <div class="row page-success">
             <div class="col-12 title-page">

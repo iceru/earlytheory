@@ -1,24 +1,26 @@
 <x-app-layout>
+    @section('title')
+        FAQ
+    @endsection
     <div class="col-12 faq main-content">
         <div class="row">
             <div class="col-12">
                 <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-                <div class="accordion" id="accordionExample">
+                <div class="accordion" id="accordion">
+                    @foreach ($faq as $item)
                     <div class="accordion-item">
-                        @foreach ($faq as $item)
-                        <h2 class="accordion-header" id="headingOne">
+                        <h4 class="accordion-header" id="heading{{$item->id}}">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                data-bs-target="#data{{$item->id}}" aria-expanded="true" aria-controls="collapseOne">
                                 {{ $item->title }}
                             </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse multi-collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
+                        </h4>
+                        <div id="data{{$item->id}}" class="accordion-collapse collapse multi-collapse show" aria-labelledby="heading{{$item->id}}"
+                            data-bs-parent="#accordion">
                             <div class="accordion-body">
                                {!!nl2br($item->question) !!}
                             </div>
                         </div>
-                        @endforeach
                         {{-- <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -56,6 +58,8 @@
                             </div>
                         </div> --}}
                     </div>
+                    
+                    @endforeach
                 </div>
             </div>
         </div>

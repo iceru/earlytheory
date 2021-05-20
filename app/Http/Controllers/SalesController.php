@@ -33,7 +33,7 @@ class SalesController extends Controller
                 $product->sales()->attach($sales, ['question' => ' '], ['qty' => $item->qty]);
             }
 
-            \Cart::clear();
+            // \Cart::clear();
             return redirect()->route('sales.detail', ['id' => $sales->sales_no]);
         }
         else {
@@ -53,8 +53,30 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         $request->validate([
-            'question.*' => 'nullable'
+            'question.*' => 'nullable',
+            'inputName' => 'required',
+            'inputEmail' => 'required|email',
+            'inputPhone' => 'required',
+            'inputBirthdate' => 'required',
+            'inputRelationship' => 'required',
+            'inputPekerjaan' => 'required',
+        ],
+        [
+            'inputName.required' => 'Nama lengkap belum diisi',
+            'inputEmail.required' => 'Email belum diisi',
+            'inputPhone.required' => 'Nomor Telepon belum diisi',
+            'inputBirthdate.required' => 'Tanggal Lahir belum diisi',
+            'inputRelationship.required' => 'Status Relationship belum diisi',
+            'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
         ]);
+
+        $sales->name = $request->inputName;
+        $sales->email = $request->inputEmail;
+        $sales->phone = $request->inputPhone;
+        $sales->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');;
+        $sales->paymethod_id = $request->inputPayType;
+        $sales->relationship = $request->inputRelationship;
+        $sales->job = $request->inputPekerjaan;
 
         $item_id = $request->id;
         $item_question = $request->question;
@@ -63,6 +85,7 @@ class SalesController extends Controller
             $product = Products::find($item_id[$key]);
             $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
         }
+        $sales->save();
 
         return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
     }
@@ -146,13 +169,13 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         $request->validate([
-            'inputName' => 'required',
-            'inputEmail' => 'required|email',
-            'inputPhone' => 'required',
-            'inputBirthdate' => 'required',
             'inputPayType' => 'required',
-            'inputRelationship' => 'required',
-            'inputPekerjaan' => 'required'
+            'inputPayment' => 'max:5000'
+        ],
+        [
+            'inputPayType.required' => 'Tipe Pembayaran belum diisi',
+            // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
+            'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
         ]);
 
         if ($request->hasFile('inputPayment')) {
@@ -162,13 +185,7 @@ class SalesController extends Controller
             $sales->payment = $filename;
         }
 
-        $sales->name = $request->inputName;
-        $sales->email = $request->inputEmail;
-        $sales->phone = $request->inputPhone;
-        $sales->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');;
         $sales->paymethod_id = $request->inputPayType;
-        $sales->relationship = $request->inputRelationship;
-        $sales->job = $request->inputPekerjaan;
         $sales->save();
 
         return redirect()->route('sales.success', ['id' => $sales->sales_no]);
@@ -177,6 +194,9 @@ class SalesController extends Controller
     public function success($id)
     {
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        
+        \Cart::clear();
+        
         return view('checkout.payment-success', compact('sales'));
     }
 

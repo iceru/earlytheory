@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Summary - {{$sales->sales_no}}
+    @endsection
     <div class="col-12 checkout">
         <div class="row">
             <div class="col-12 title-page">

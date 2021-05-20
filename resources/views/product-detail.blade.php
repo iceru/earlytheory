@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        {{$product->title}}
+    @endsection
     <div class="product-detail container main-content">
         <div class="product row">
             <div class="col-12 col-lg-5 product-image ">

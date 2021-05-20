@@ -1,40 +1,40 @@
 <div class="col-12 col-lg-3 sidebar-admin">
     <ul>
         <a href="/admin">
-            <li>Dashboard</li>
+            <li class="{{ (request()->is('admin')) ? 'active' : '' }}"> <i class="fas fa-home fa-fw"></i> &nbsp; Dashboard</li>
         </a>
         <a href="{{ route('admin.products') }}">
-            <li>Products</li>
+            <li class="{{ (request()->is('admin/products')) ? 'active' : '' }}"> <i class="fas fa-box fa-fw"></i> &nbsp; Products</li>
         </a>
         <a href="{{ route('admin.articles') }}">
-            <li>Articles</li>
+            <li class="{{ (request()->is('admin/articles')) ? 'active' : '' }}"><i class="fas fa-newspaper fa-fw"></i> &nbsp; Articles</li>
         </a>
         <a href="{{ route('admin.sales') }}">
-            <li>Sales</li>
+            <li class="{{ (request()->is('admin/sales')) ? 'active' : '' }}"><i class="fas fa-money-bill-wave fa-fw"></i> &nbsp; Sales</li>
         </a>
         <a href="{{ route('admin.confirm-payment') }}">
-            <li>Payment Confirmation</li>
+            <li class="{{ (request()->is('admin/confirm-payment')) ? 'active' : '' }}"><i class="fas fa-receipt fa-fw"></i> &nbsp; Payment Confirmation</li>
         </a>
         <a href="{{ route('admin.sliders') }}">
-            <li>Slider Images</li>
+            <li class="{{ (request()->is('admin/sliders')) ? 'active' : '' }}"><i class="fas fa-images fa-fw"></i> &nbsp; Slider Images</li>
         </a>
         <a href="{{ route('admin.paymentMethods') }}">
-            <li>Payment Methods</li>
+            <li class="{{ (request()->is('admin/paymentMethods')) ? 'active' : '' }}"<i class="fas fa-credit-card fa-fw"></i> &nbsp; Payment Methods</li>
         </a>
         <a href="{{ route('admin.discount') }}">
-            <li>Discount</li>
+            <li class="{{ (request()->is('admin/discount')) ? 'active' : '' }}"><i class="fas fa-percent fa-fw"></i> &nbsp; Discount</li>
         </a>
         <a href="{{ route('admin.faq') }}">
-            <li>FAQ</li>
+            <li class="{{ (request()->is('admin/faq')) ? 'active' : '' }}"><i class="fas fa-question-circle fa-fw"></i> &nbsp; FAQ</li>
         </a>
         <a href="{{ route('admin.tags') }}">
-            <li>Tags</li>
+            <li class="{{ (request()->is('admin/tags')) ? 'active' : '' }}"><i class="fas fa-tags fa-fw"></i> &nbsp; Tags</li>
         </a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <a href="{{ route('logout') }}" onclick="event.preventDefault();
             this.closest('form').submit();">
-                <li>Logout</li>
+                <li><i class="fas fa-sign-out-alt fa-fw"></i> &nbsp; Logout</li>
             </a>
         </form>
     </ul>

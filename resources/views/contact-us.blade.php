@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Contact Us
+    @endsection
     <div class="col-12 contact-us main-content">
         <div class="row">
             <div class="col-12 text-center">

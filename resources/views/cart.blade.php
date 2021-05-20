@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Cart
+    @endsection
     <div class="col-12 cart main-content">
         <div class="row">
             <div class="col-12 title-page text-center primary-color">
@@ -55,7 +58,7 @@
                 <div class="checkout-btn">
                     @if (\Cart::isEmpty())
                         {{-- <a href="#" class="button primary disabled" aria-disabled="true">Checkout</a> --}}
-                        <a href="#" class="btn btn-primary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Checkout</a>
+                        <a href="#" class="btn btn-disabled btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Checkout</a>
                     @else
                         <a href="/checkout" class="button primary">Checkout</a>
                     @endif
