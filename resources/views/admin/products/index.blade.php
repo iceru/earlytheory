@@ -1,4 +1,7 @@
 <x-admin-layout>
+    @section('title')
+        Products Admin
+    @endsection
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -115,8 +118,8 @@
                         <td>{{$product->duration}}</td>
                         <td>{{$product->description_short}}</td>
                         <td>{{substr($product->description, 0, 100) . '...'}}</td>
-                        <td><a href="/admin/products/edit/{{$product->id}}">Edit</a> |
-                            <a href="/admin/products/delete/{{$product->id}}">Delete</a></td>
+                        <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center  mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                            <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center" href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -146,6 +149,7 @@
           toolbar_mode: 'floating',
           tinycomments_mode: 'embedded',
           tinycomments_author: 'Author name',
+          height: "480"
        });
     </script>
     <script>

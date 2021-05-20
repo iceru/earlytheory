@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Early Theory - Homepage
+    @endsection
     <div class="index col-12">
         <div class="sliders">
             @foreach ($sliders as $slider)

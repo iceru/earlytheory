@@ -25,7 +25,21 @@ class AdminSalesController extends Controller
 
     public function destroy($id)
     {
-        Sales::find($id)->delete();
-        return redirect('/admin/sales');
+        $delete = Sales::find($id)->delete();
+        // check data deleted or not
+        if ($delete == 1) {
+            $success = true;
+            $message = "Sales deleted successfully";
+        } else {
+            $success = false;
+            $message = "Sales not found";
+        }
+
+        //  Return response
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
+        // return redirect('/admin/sales');
     }
 }

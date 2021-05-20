@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        {{$article->title}}
+    @endsection
     <div class="col-12 g-0 article-detail main-content">
         <div class="article-image" style="background-image: url('{{Storage::url('article-image/'.$article->image)}}')">
             {{-- <div class="share">

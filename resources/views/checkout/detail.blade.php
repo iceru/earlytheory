@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Checkout - {{$sales->sales_no}}
+    @endsection
     <div class="col-12 checkout">
         <div class="row">
             <div class="col-12 title-page">
@@ -13,15 +16,59 @@
                 <div class="line"></div>
                 <div class="circle"></div>
             </div>
-            @if ($errors->any())
+            @if (count($errors) > 0)
+            <div class="alert alert-danger">
+            <strong>Sorry !</strong> Terdapat kesalahan dalam input data.<br><br>
+            <ul>
                 @foreach ($errors->all() as $error)
-                <div class="alert alert-danger" role="alert">
-                    <strong>Pertanyaan wajib diisi!</strong>
-                </div>
+                    <li>{{ $error }}</li>
                 @endforeach
+            </ul>
+            </div>
             @endif
             <form action="/checkout/{{$sales->sales_no}}/question/add" method="post">
                 @csrf
+                <div class="form-payment col-12 mb-3">
+                   <div class="row">
+                    <div class="form-group col-12 col-lg-6">
+                        <label for="inputName">Nama Lengkap</label>
+                        <input class="form-control" type="text" value="{{ old('inputName') }}" name="inputName" required>
+                    </div>
+                    <input type="text" name="salesId" value="{{$sales->id}}" hidden>
+                    <div class="form-group col-12 col-lg-6">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" name="inputEmail" value="{{ old('inputEmail') }}" class="form-control" required>
+                    </div>
+                    <div class="form-group col-12 col-lg-6">
+                        <label for="inputPhone">Nomor Telepon</label>
+                        <input type="tel" class="form-control" value="{{ old('inputPhone') }}" name="inputPhone" required>
+                    </div>
+                    <div class="form-group col-12 col-lg-6">
+                        <label for="inputBirthdate">Tanggal Lahir</label>
+                        <input type="text" class="form-control" value="{{ old('inputBirthdate') }}" name="inputBirthdate" id="datepicker" required autocomplete="off">
+                    </div>
+                    <div class="form-group col-12 col-lg-6">
+                        <label for="inputRelationship">Status Relationship</label>
+                        <select class="form-select" name="inputRelationship" id="inputRelationship">
+                            <option selected disabled>Select</option>
+                            <option value="single"  @if (old('inputRelationship') == "single") {{ 'selected' }} @endif>Single</option>
+                            <option value="pacaran"  @if (old('inputRelationship') == "pacaran") {{ 'selected' }} @endif>Pacaran</option>
+                            <option value="menikah" @if (old('inputRelationship') == "menikah") {{ 'selected' }} @endif>Menikah</option>
+                            <option value="divorced" @if (old('inputRelationship') == "divorced") {{ 'selected' }} @endif>Divorced</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="inputPekerjaan">Status Pekerjaan</label>
+                      <select class="form-select" name="inputPekerjaan" id="inputPekerjaan">
+                            <option selected disabled>Select</option>
+                            <option value="unemployed" @if (old('inputPekerjaan') == "unemployed") {{ 'selected' }} @endif>Unemployed</option>
+                            <option value="employed" @if (old('inputPekerjaan') == "employed") {{ 'selected' }} @endif>Employed</option>
+                            <option value="business" @if (old('inputPekerjaan') == "business") {{ 'selected' }} @endif>Business</option>
+                            <option value="student"  @if (old('inputPekerjaan') == "student") {{ 'selected' }} @endif>Student</option>
+                      </select>
+                    </div>
+                   </div>
+                </div>
                 <div class="products col-12">
                     <div class="row">
                         @foreach ($sales->products as $item)
@@ -67,6 +114,12 @@
                 arrows: false,
                 autoplay: true,
                 autoplaySpeed: 5000,
+            });
+            $( "#datepicker" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1930:2021",
+                altFormat: 'yy/mm/dd',
             });
         });
     </script>

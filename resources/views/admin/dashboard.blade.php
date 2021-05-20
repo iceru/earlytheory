@@ -285,10 +285,13 @@
             var mv7 =  {!!json_encode($mostVisited7)!!}
             var pageTitle7 = [];
             var pageViews7 = [];
+            var urlMv7 = [];
             mv7.forEach(element => {
-                pageTitle7.push(element.pageTitle.substr(0, 15))
+                pageTitle7.push(element.pageTitle.substr(0, 30))
                 pageViews7.push(element.pageViews)
+                urlMv7.push(element.url)
             });
+            console.log(mv7);
             var ctx7 = document.getElementById("mostviewed7").getContext("2d");
             window.myBar = new Chart(ctx7, {
                 type: 'pie',

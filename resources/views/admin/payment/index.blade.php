@@ -28,8 +28,7 @@
                         <th>Payment Type</th>
                         <th>Status</th>
                         <th>Proof of Payment</th>
-                        <th>Sales Detail</th>
-                        <th>Confirm Payment</th>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +36,7 @@
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$sale->sales_no}}</td>
-                        <td>{{date_format($sale->created_at, 'd F Y g:i:s')}}</td>
+                        <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
                         <td>{{number_format($sale->total_price-$sale->discount)}}</td>
                         <td>{{$sale->name}}</td>
                         @if ($sale->paymentmethods)
@@ -51,8 +50,9 @@
                         @else
                         <td>-</td>
                         @endif
-                        <td><a href="/admin/sales/{{$sale->id}}">Detail</a></td>
-                        <td><a class="button primary" href="/admin/confirm-payment/{{$sale->id}}/confirm">Confirm</a></td>
+                        <td><a href="/admin/sales/{{$sale->id}}" class="btn btn-primary justify-content-center d-flex align-items-center  btn-sm mb-2"> <i class="fa fa-info-circle me-1" aria-hidden="true"></i> Detail</a>
+                            <a class="btn btn-success d-flex align-items-center mb-2 btn-sm" href="/admin/confirm-payment/{{$sale->id}}/confirm"><i class="fa fa-check me-1" aria-hidden="true"></i> Confirm</a>
+                            <button onclick="deleteConfirmation({{$sale->id}})" class="btn btn-danger d-flex align-items-center btn-sm"><i class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -68,7 +68,49 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
-        } );
+        });
+
+        function deleteConfirmation(id) {
+            Swal.fire({
+                title: "Delete the Data?",
+                text: "You will not be able to recover it",
+                icon: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Delete",
+                cancelButtonText: "Cancel",
+                reverseButtons: !0
+            }).then(function (e) {
+
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{url('/admin/sales/delete')}}/" + id,
+                        data: {_token: CSRF_TOKEN},
+                        dataType: 'JSON',
+                        success: function (results) {
+
+                            if (results.success === true) {
+                                Swal.fire("Done!", results.success, 'success').then(function(){ 
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire("Error!", results.success, 'error').then(function(){ 
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+
+                } else {
+                    e.dismiss;
+                }
+
+            }, function (dismiss) {
+                return false;
+            })
+        }
     </script>
     @endsection
 </x-admin-layout>

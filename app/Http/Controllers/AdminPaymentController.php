@@ -25,4 +25,23 @@ class AdminPaymentController extends Controller
 
         return redirect('/admin/confirm-payment');
     }
+
+    public function deleteAll()
+    {
+        $deleteAll = Sales::where('status', 'pending')->delete();
+
+        if ($deleteAll == 1) {
+            $success = true;
+            $message = "Sales deleted successfully";
+        } else {
+            $success = false;
+            $message = "Sales not found";
+        }
+
+        //  Return response
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+        ]);
+    }
 }
