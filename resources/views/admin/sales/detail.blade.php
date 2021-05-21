@@ -100,6 +100,7 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
+                        <th>Qty</th>
                         <th>Duration</th>
                         <th>Short Description</th>
                         <th>Question</th>
@@ -116,6 +117,7 @@
                         </td>
                         <td>{{$product->title}}</td>
                         <td>idr {{number_format($product->price)}}</td>
+                        <td>{{$product->pivot->qty}}</td>
                         <td>{{$product->duration}} menit</td>
                         <td>{{$product->description_short}}</td>
                         <td>{{$product->pivot->question}}</td>

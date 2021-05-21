@@ -19,7 +19,7 @@
             <li class="{{ (request()->is('admin/sliders')) ? 'active' : '' }}"><i class="fas fa-images fa-fw"></i> &nbsp; Slider Images</li>
         </a>
         <a href="{{ route('admin.paymentMethods') }}">
-            <li class="{{ (request()->is('admin/paymentMethods')) ? 'active' : '' }}"<i class="fas fa-credit-card fa-fw"></i> &nbsp; Payment Methods</li>
+            <li class="{{ (request()->is('admin/paymentMethods')) ? 'active' : '' }}"><i class="fas fa-credit-card fa-fw"></i> &nbsp; Payment Methods</li>
         </a>
         <a href="{{ route('admin.discount') }}">
             <li class="{{ (request()->is('admin/discount')) ? 'active' : '' }}"><i class="fas fa-percent fa-fw"></i> &nbsp; Discount</li>
