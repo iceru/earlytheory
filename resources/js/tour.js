@@ -78,7 +78,7 @@ $(document).ready(function(){
         });
 
         tour.addStep({
-            id: 'step-2',
+            id: 'step-3',
             text: 'Selanjutnya produk tersebut akan masuk kedalam cart yang kamu bisa akses dengan mengklik icon cart ini!',
             attachTo: {
                 element: '.cart-icon-a',
@@ -98,6 +98,35 @@ $(document).ready(function(){
                 }
             ]
         });
+
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+
+           }else
+           {
+            tour.addStep({
+                id: 'step-4',
+                text: 'Ketahui update astrologi dan tarot disini!',
+                attachTo: {
+                    element: '.article-link',
+                    on: 'bottom'
+                },
+                buttons: [
+                    {
+                        action() {
+                          return this.back();
+                        },
+                        classes: 'shepherd-button-secondary',
+                        text: 'Back'
+                    },
+                    {
+                        text: 'Next',
+                        action: tour.next
+                    }
+                ]
+            });
+           }
+
+
 
         tour.addStep({
             id: 'end',

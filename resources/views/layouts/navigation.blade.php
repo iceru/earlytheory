@@ -17,7 +17,7 @@
 <nav class="navbar align-items-center row d-none d-lg-flex">
     <div class="col-4 nav-links">
         <a href="{{ route('index') }}">Products</a>
-        <a href="{{ route('articles') }}">Articles</a>
+        <a href="{{ route('articles') }}" class="article-link">Articles</a>
     </div>
     <div class="col-4 logo-lg text-center">
         <a href="/">
@@ -41,7 +41,7 @@
         <li>
             <a href="{{ route('index') }}">Products</a>
         </li>
-        <li>
+        <li class="article-link">
             <a href="{{ route('articles') }}">Articles</a>
         </li>
         <li>
