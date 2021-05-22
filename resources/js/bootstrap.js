@@ -9,6 +9,7 @@ window.axios = require('axios');
 // window.$ = require('jquery');
 require('bootstrap');
 window.Swal = require('sweetalert2');
+window.Shepherd = require('shepherd.js');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

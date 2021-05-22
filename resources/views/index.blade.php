@@ -39,6 +39,7 @@
 
     @section('js')
     <script>
+
         $(document).ready(function(){
             $('.sliders').slick({
                 dots: true,
@@ -57,6 +58,7 @@
                 pauseOnHover: false,
             });
         });
+
     </script>
     @endsection
 </x-app-layout>

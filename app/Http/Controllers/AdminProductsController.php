@@ -15,7 +15,7 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = Products::all();
+        $products = Products::orderBy('ordernumber')->get();
 
         return view('admin.products.index', compact('products'));
     }
@@ -42,6 +42,7 @@ class AdminProductsController extends Controller
 
         $request->validate([
             'inputTitle' => 'required',
+            'inputOrdernumber' => 'required',
             'inputPrice' => 'required|integer',
             'inputDuration' => 'nullable|integer',
             'inputImage' => 'required',
@@ -67,6 +68,7 @@ class AdminProductsController extends Controller
         $product->image=json_encode($data);
 
         $product->title = $request->inputTitle;
+        $product->ordernumber = $request->inputOrdernumber;
         $product->price = $request->inputPrice;
         $product->duration = $request->inputDuration;
         $product->description = $request->inputDesc;
@@ -124,6 +126,7 @@ class AdminProductsController extends Controller
 
         $request->validate([
             'updateTitle' => 'required',
+            'updateOrdernumber' => 'required',
             'updatePrice' => 'required|integer',
             'updateDuration' => 'nullable|integer',
             'updateImage' => 'nullable',
@@ -148,6 +151,7 @@ class AdminProductsController extends Controller
         }
 
         $product->title = $request->updateTitle;
+        $product->ordernumber = $request->updateOrdernumber;
         $product->price = $request->updatePrice;
         $product->duration = $request->updateDuration;
         $product->description = $request->updateDesc;

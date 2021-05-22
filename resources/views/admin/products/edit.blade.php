@@ -30,6 +30,13 @@
                 @csrf
                 <input type="hidden" name="id" value="{{$product->id}}">
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Order Number</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="updateOrdernumber" name="updateOrdernumber"
+                            value="{{$product->ordernumber}}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="updateTitle" name="updateTitle"
