@@ -35,6 +35,12 @@
             <form method="POST" enctype="multipart/form-data" action="/admin/products/store">
                 @csrf
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Order Number</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputOrdernumber" name="inputOrdernumber">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="inputTitle" name="inputTitle">
@@ -94,7 +100,8 @@
             <table class="table" id="table">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        {{-- <th>No</th> --}}
+                        <th>Order Number</th>
                         <th>Image</th>
                         <th>Title</th>
                         <th>Price</th>
@@ -107,7 +114,8 @@
                 <tbody>
                     @foreach ($products as $product)
                     <tr>
-                        <td scope="row">{{$loop->iteration}}</td>
+                        {{-- <td scope="row">{{$loop->iteration}}</td> --}}
+                        <td>{{$product->ordernumber}}</td>
                         <td>
                             @foreach ((array)json_decode($product->image) as $item)
                                 <img class="mb-2" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">

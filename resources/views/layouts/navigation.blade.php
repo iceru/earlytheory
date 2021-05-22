@@ -8,7 +8,7 @@
         </a>
     </div>
     <div class="cart-icon col-2 col-lg-12 d-flex justify-content-end">
-        <a href="/cart">
+        <a href="/cart" class="cart-icon-a">
             <img src="/images/svg/cart.svg" alt="cart">
         </a>
         <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
