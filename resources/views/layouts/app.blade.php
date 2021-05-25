@@ -70,6 +70,8 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    
 </head>
 
 <body class="font-sans antialiased">
@@ -121,8 +123,19 @@
                         }
                     },
                 });
+                
             });
+
+            if(navigator.userAgent.includes("Instagram") ){
+                Swal.fire({
+                    title: "Gunakan browser Chrome atau Safari untuk menghindari error dalam bertransaksi",
+                    icon: "warning"
+                })
+            }
         });
+        
+
+        console.log(navigator.userAgent.includes("Instagram"));
     </script>
 </body>
 

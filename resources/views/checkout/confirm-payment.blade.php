@@ -85,7 +85,7 @@
                     
                     <div class="form-group">
                         <label for="inputPayment">Upload Bukti Transfer (Max. 5MB)</label>
-                        <input type="file" class="form-control" id="inputPayment" name="inputPayment" accept="image/*" required>
+                        <input type="file" class="form-control" id="inputPayment" name="inputPayment" accept="image/jpeg,image/png,image/svg+xml" required>
                     </div>
                     <div class="col-12 d-grid gap-2">
                         <button type="submit" class="button secondary">
