@@ -56,7 +56,7 @@
                 <thead>
                     <tr>
                         {{-- <th>No</th> --}}
-                        <th>Order Number</th>
+                        <th>Order</th>
                         <th>Image</th>
                         <th>Link</th>
                         <th>Category</th>
