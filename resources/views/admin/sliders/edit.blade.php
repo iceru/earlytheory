@@ -15,6 +15,12 @@
                 @csrf
                 <input type="hidden" name="id" value="{{$slider->id}}">
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Slider Link</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updateOrdernumber" name="updateOrdernumber" value="{{$slider->ordernumber}}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Slider Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="updateImage" name="updateImage" accept="image/*">
