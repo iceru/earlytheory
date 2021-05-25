@@ -22,6 +22,7 @@ class SlidersController extends Controller
         $request->validate([
             'inputImage' => 'required|image',
             'inputLink' => 'required',
+            'inputOrdernumber' => 'required',
             'inputCategory' => 'required'
         ]);
 
@@ -32,6 +33,7 @@ class SlidersController extends Controller
         }
 
         $slider->link = $request->inputLink;
+        $slider->ordernumber = $request->inputOrdernumber;
         $slider->category = $request->inputCategory;
         $slider->image = $filename;
         $slider->save();
@@ -60,6 +62,7 @@ class SlidersController extends Controller
         $request->validate([
             'updateImage' => 'image|nullable',
             'updateLink' => 'required',
+            'updateOrdernumber' => 'required',
             'updateCategory' => 'required',
         ]);
 
@@ -71,6 +74,7 @@ class SlidersController extends Controller
         }
 
         $slider->link = $request->updateLink;
+        $slider->ordernumber = $request->updateOrdernumber;
         $slider->category = $request->updateCategory;
         $slider->save();
 

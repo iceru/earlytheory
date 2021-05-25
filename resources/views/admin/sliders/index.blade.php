@@ -17,6 +17,12 @@
             <form method="POST" enctype="multipart/form-data" action="/admin/sliders/store">
                 @csrf
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Slider Link</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputOrdernumber" name="inputOrdernumber">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Slider Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="inputImage" name="inputImage" accept="image/*">
@@ -49,7 +55,8 @@
             <table class="table" id="table">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        {{-- <th>No</th> --}}
+                        <th>Order Number</th>
                         <th>Image</th>
                         <th>Link</th>
                         <th>Category</th>
@@ -59,7 +66,8 @@
                 <tbody>
                     @foreach ($sliders as $slider)
                     <tr>
-                        <td scope="row">{{$loop->iteration}}</td>
+                        {{-- <td scope="row">{{$loop->iteration}}</td> --}}
+                        <td>{{ $slider->ordernumber }}</td>
                         <td><img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="No Image" width="100"></td>
                         <td>{{ $slider->link }}</td>
                         <td>{{ $slider->category }}</td>

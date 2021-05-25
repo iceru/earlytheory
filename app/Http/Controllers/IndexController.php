@@ -17,7 +17,7 @@ class IndexController extends Controller
     public function index()
     {
         $products = Products::orderBy('ordernumber')->get();
-        $sliders = Sliders::where('category', 'products')->get();
+        $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
 
         return view('index', compact('products', 'sliders'));
     }
