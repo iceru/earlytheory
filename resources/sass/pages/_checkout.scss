@@ -221,10 +221,6 @@
     }
 
     .form-payment {
-        @include breakpoint(large) {
-            width: 75%;
-            margin: auto;
-        }
 
         .form-group {
             margin-bottom: 1rem;
