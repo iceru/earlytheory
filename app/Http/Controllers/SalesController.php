@@ -33,7 +33,7 @@ class SalesController extends Controller
 
             foreach (\Cart::getContent() as $item) {
                 $product = Products::find($item->id);
-                $product->sales()->attach($sales, ['question' => ' '], ['qty' => $item->qty]);
+                $product->sales()->attach($sales, ['qty' => $item->quantity]);
             }
 
             // \Cart::clear();
