@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\Sales;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class UserTransaction extends Mailable
+{
+    use Queueable, SerializesModels;
+    public $sales;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct(Sales $sales)
+    {
+        $this->sales = $sales;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->from('earlytheory@gmail.com', 'Early Theory')
+                    ->to($this->sales->email, $this->sales->name)
+                    ->subject('Order Diterima' . $this->sales->sales_no . ' - Early Theory')
+                    ->view('emails.user-transaction');
+    }
+}

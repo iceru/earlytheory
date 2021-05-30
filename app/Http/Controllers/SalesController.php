@@ -7,7 +7,10 @@ use App\Models\Sales;
 use App\Models\Discount;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
+use App\Mail\AdminNotification;
+use Illuminate\Support\Facades\Mail;
 
 class SalesController extends Controller
 {
@@ -30,7 +33,7 @@ class SalesController extends Controller
 
             foreach (\Cart::getContent() as $item) {
                 $product = Products::find($item->id);
-                $product->sales()->attach($sales, ['question' => ' '], ['qty' => $item->qty]);
+                $product->sales()->attach($sales, ['qty' => $item->quantity]);
             }
 
             // \Cart::clear();
@@ -188,15 +191,18 @@ class SalesController extends Controller
         $sales->paymethod_id = $request->inputPayType;
         $sales->save();
 
+        Mail::send(new UserTransaction($sales));
+        Mail::send(new AdminNotification($sales));
+
         return redirect()->route('sales.success', ['id' => $sales->sales_no]);
     }
 
     public function success($id)
     {
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-        
+
         \Cart::clear();
-        
+
         return view('checkout.payment-success', compact('sales'));
     }
 
