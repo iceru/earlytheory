@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Email</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
 </head>
 
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
     body {
         max-width: 900px;
         font-family: 'PT Sans', sans-serif;
@@ -23,8 +22,22 @@
         padding: 0 20px;
     }
 
-    h5 {
-        margin-bottom: .25rem;
+    .row {
+        display: flex;
+    }
+
+    .col-8 {
+        flex: 0 1 70%;
+        margin-bottom: 16px;
+    }
+
+    .col-4 {
+        flex: 0 1 30%;
+        margin-bottom: 16px;
+    }
+
+    .order-img, .img-product {
+        width: 100%;
     }
 </style>
 
@@ -36,44 +49,27 @@
        <h5>Email: {{ $sales->email }}</h5>
        <h5 style="margin-bottom: 2rem">Phone Number: {{ $sales->phone }}</h5>
 
-       <table class="table" id="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Duration</th>
-                <th>Short Description</th>
-                <th>Question</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($sales->products as $product)
-            <tr>
-                <td scope="row">{{$loop->iteration}}</td>
-                <td>
+       @foreach ($sales->products as $product)
+        <div class="products">
+            <div class="row">
+                <div class="col-4">
                     @foreach ((array)json_decode($product->image) as $item)
-                        @if($loop->first)
-                        <img class="mb-1" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
-                        @endif
+                    @if($loop->first)
+                    <img class="img-product" src="{{Storage::url('product-image/'.$item)}}" alt="Image">
+                    @endif
                     @endforeach
-                </td>
-                <td>{{$product->title}}</td>
-                <td>idr {{number_format($product->price)}}</td>
-                <td>{{$product->pivot->qty}}</td>
-                @if($product->duration > 0)
-                <td>{{$product->duration}} menit</td>
-                @else
-                <td>-</td>
-                @endif
-                <td>{{$product->description_short}}</td>
-                <td>{{$product->pivot->question}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                </div>
+                <div class="col-8">
+                    <h6>{{$product->title}}</h6>
+                    <p>idr {{number_format($product->price)}}</p>
+                </div>
+            </div>
+            <div class="question" style="margin-top: 12px">
+                <p>Pertanyaan: </p>
+                <p>{{$product->pivot->question}}</p>
+            </div>
+        </div>
+        @endforeach
    </div>
 </body>
 
