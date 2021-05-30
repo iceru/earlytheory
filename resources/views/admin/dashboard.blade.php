@@ -81,6 +81,12 @@
             </div>
 
         </div>
+
+        <div class="mt-3">
+            <a class="button primary align-items-center" href="https://www.analytics.google.com">
+                Open Google Analytics <i class="fas fa-chart-line ms-2"></i>
+            </a>
+        </div>
     </div>
 
     @section('js')
