@@ -5,7 +5,9 @@
 .dashboard {
     padding-bottom: 3rem;
     .form-select {
-        width: 30%;
+        @include breakpoint(large){
+            width: 30%;
+        }
     }
     .charts {
         display: none;
