@@ -19,8 +19,8 @@
             <div class="products col-12">
                 <div class="row">
                     @foreach ($sales->products as $item)
-                    <div class="product-item-container col-12 col-lg-6">
-                        <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="row product-item-container">
                             <div class="product-title col-12">
                                 <h3>{{$item->title}}</h3>
                             </div>
@@ -45,23 +45,25 @@
                     </div>
                     @endforeach
                 </div>
-                <form action="/checkout/{{$sales->sales_no}}/discount" method="post">
-                    @csrf
-                    <div class="col-12">
-                        @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
+                <div class="row">
+                    <form action="/checkout/{{$sales->sales_no}}/discount" method="post">
+                        @csrf
+                        <div class="col-12">
+                            @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+                            <input type="text" class="form-control mb-3" placeholder="Discount Code" name="inputDiscount">
                         </div>
-                        @endif
-                        <input type="text" class="form-control mb-2" placeholder="Discount Code" name="inputDiscount">
-                    </div>
-                    <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button secondary">Lanjut ke Pembayaran</button>
-                        {{-- <a class="button secondary" href="/checkout/{{$sales->id}}/payment">
-                            Go to Payment
-                        </a> --}}
-                    </div>
-                </form>
+                        <div class="col-12 d-grid gap-2">
+                            <button type="submit" class="button secondary">Lanjut ke Pembayaran</button>
+                            {{-- <a class="button secondary" href="/checkout/{{$sales->id}}/payment">
+                                Go to Payment
+                            </a> --}}
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

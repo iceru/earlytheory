@@ -76,10 +76,12 @@
     $(document).ready(function() {
         $('.hamburger').click(function(){
             $('.sidebar').toggleClass('active');
+            $('body').css('overflow-y', 'hidden');
         })
 
         $('.close-sidebar').click(function () {
             $('.sidebar').removeClass('active');
+            $('body').css('overflow-y', 'auto');
         })
     })
 </script>
