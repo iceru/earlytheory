@@ -39,7 +39,7 @@
                         <input type="text" class="form-control" id="updateAccOwn" name="updateAccOwn" value="{{$paymentMethod->account_owner}}">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="button primary">Update</button>
             </form>
         </div>
     </div>

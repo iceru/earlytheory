@@ -17,13 +17,13 @@
             <form method="POST" action="/admin/faq/store">
                 @csrf
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Title</label>
+                    <label class="col-sm-2 col-form-label">Question</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="inputTitle" name="inputTitle">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Question</label>
+                    <label class="col-sm-2 col-form-label">Answer</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" name="inputQuestion" id="inputQuestion" cols="30" rows="6"></textarea>
                     </div>
@@ -39,9 +39,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Title</th>
-                        <th>Options</th>
                         <th>Question</th>
+                        <th>Answer</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,8 +50,11 @@
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$faq->title}}</td>
                         <td>{{$faq->question}}</td>
-                        <td ><a class="primary-color" href="/admin/faq/edit/{{$faq->id}}">Edit <i class="fas fa-edit    "></i></a> <br>
-                            <a class="primary-color" href="/admin/faq/delete/{{$faq->id}}">Delete <i class="fas fa-trash    "></i></a></td>
+                        <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
+                            href="/admin/faq/edit/{{$faq->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                        <a href="/admin/faq/edit/{{$faq->id}}"
+                            class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
+                                class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>
