@@ -30,8 +30,8 @@ class AdminNotification extends Mailable
      */
     public function build()
     {
-        return $this->from('earlytheory@gmail.com', 'Early Theory')
-                    ->to('earlytheory@gmail.com', 'Early Theory')
+        return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
+                    ->to('earlytheorytarot@gmail.com', 'Early Theory')
                     ->subject('Order Masuk ' . $this->sales->sales_no . ' - a/n ' . $this->sales->name)
                     ->view('emails.admin-notification');
     }
