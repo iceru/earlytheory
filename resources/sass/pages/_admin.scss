@@ -1,5 +1,7 @@
 .table-overflow {
     overflow: auto;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .dashboard {
@@ -18,4 +20,26 @@
         }
     }
 }
+
+.table-overflow::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  /* Track */
+  .table-overflow::-webkit-scrollbar-track {
+    background: white;
+    width: 4px;
+  }
+
+  /* Handle */
+  .table-overflow::-webkit-scrollbar-thumb {
+    background: #888;
+      border-radius: 20px;
+      width: 3px;
+  }
+
+  /* Handle on hover */
+  .table-overflow::-webkit-scrollbar-thumb:hover {
+    background: $primary;
+  }
 

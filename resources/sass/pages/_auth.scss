@@ -11,9 +11,9 @@
 .logo-login {
     a img {
         width: 60%;
-    }
 
-    @include breakpoint(large) {
-        width: 20%;
+        @include breakpoint(large) {
+            width: 20%;
+        }
     }
 }
