@@ -17,13 +17,13 @@
             <form method="POST" action="/admin/faq/store">
                 @csrf
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Title</label>
+                    <label class="col-sm-2 col-form-label">Question</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="inputTitle" name="inputTitle">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Question</label>
+                    <label class="col-sm-2 col-form-label">Answer</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" name="inputQuestion" id="inputQuestion" cols="30" rows="6"></textarea>
                     </div>
@@ -39,9 +39,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Title</th>
-                        <th>Options</th>
                         <th>Question</th>
+                        <th>Answer</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

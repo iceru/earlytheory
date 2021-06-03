@@ -15,13 +15,13 @@
                 @csrf
                 <input type="hidden" name="id" value="{{$faq->id}}">
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Title</label>
+                    <label class="col-sm-2 col-form-label">Question</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="updateTitle" name="updateTitle" value="{{$faq->title}}">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Question</label>
+                    <label class="col-sm-2 col-form-label">Answer</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" name="updateQuestion" id="updateQuestion" cols="30" rows="4">{{$faq->question}}</textarea>
                     </div>
