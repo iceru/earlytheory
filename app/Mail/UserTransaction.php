@@ -30,9 +30,9 @@ class UserTransaction extends Mailable
      */
     public function build()
     {
-        return $this->from('earlytheory@gmail.com', 'Early Theory')
+        return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
                     ->to($this->sales->email, $this->sales->name)
-                    ->subject('Order Diterima' . $this->sales->sales_no . ' - Early Theory')
+                    ->subject('Order Diterima ' . $this->sales->sales_no . ' - Early Theory')
                     ->view('emails.user-transaction');
     }
 }

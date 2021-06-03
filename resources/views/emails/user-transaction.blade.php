@@ -8,67 +8,67 @@
     <title>Email</title>
 </head>
 
-<style>
-    body {
-        max-width: 900px;
-        font-family: 'PT Sans', sans-serif;
-        padding: 20px;
-    }
-
-    .main {
-        margin: 10px auto;
-        padding: 0 20px;
-    }
-
-    .row {
-        display: flex;
-    }
-
-    .col-8 {
-        flex: 0 1 70%;
-        margin-bottom: 16px;
-    }
-
-    .col-4 {
-        flex: 0 1 30%;
-        margin-bottom: 16px;
-    }
-
-    .order-img,
-    .img-product {
-        width: 100%;
-    }
-</style>
-
 <body style="margin:auto">
+    <style>
+        body {
+            max-width: 900px;
+            font-family: 'PT Sans', sans-serif;
+            padding: 20px;
+        }
+    
+        .main {
+            margin: 10px auto;
+            padding: 0 20px;
+        }
+    
+        .row {
+            display: flex;
+        }
+    
+        .col-8 {
+            flex: 0 1 70%;
+            margin-bottom: 16px;
+        }
+    
+        .col-4 {
+            flex: 0 1 30%;
+            margin-bottom: 16px;
+        }
+    
+        .col-6 {
+            flex: 0 1 50%;
+        }
+    
+        .order-img,
+        .img-product {
+            width: 100%;
+        }
+        </style>
     <img class="order-img" src="https://earlytheory.com/images/OrderEmailConf.png" alt="Order Confirmation">
     <div>
-        <h5>Sales Number: {{ $sales->sales_no }}</h5>
-        <h5>Full Name: {{ $sales->name }}</h5>
-        <h5>Email: {{ $sales->email }}</h5>
-        <h5 style="margin-bottom: 2rem">Phone Number: {{ $sales->phone }}</h5>
-
-        @foreach ($sales->products as $product)
+        <h3>Sales Number: {{ $sales->sales_no }}</h3>
+        <h3>Full Name: {{ $sales->name }}</h3>
+        <h3>Email: {{ $sales->email }}</h3>
+        <h3 style="margin-bottom: 30px">Phone Number: {{ $sales->phone }}</h3>
+        <h3 style="margin-bottom: 10px">Products: </h3>
         <div class="products">
             <div class="row">
-                <div class="col-4">
-                    @foreach ((array)json_decode($product->image) as $item)
-                    @if($loop->first)
-                    <img class="img-product" src="{{Storage::url('product-image/'.$item)}}" alt="Image">
-                    @endif
-                    @endforeach
+                @foreach ($sales->products as $product)
+                <div class="col-6" style="margin-bottom: 16px">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4 class="margin-bottom: 4px">{{$product->title}}</h4>
+                            <p class="margin-bottom: 4px">idr {{number_format($product->price)}}</p>
+                        </div>
+                        <p class="question" style="margin-bottom: 20px">
+                            <span>Pertanyaan: </span>
+                            <span style="margin-left: 6px">{{$product->pivot->question}}</span>
+                        </p>
+                    </div>
                 </div>
-                <div class="col-8">
-                    <h6>{{$product->title}}</h6>
-                    <p>idr {{number_format($product->price)}}</p>
-                </div>
-            </div>
-            <div class="question" style="margin-top: 12px">
-                <p>Pertanyaan: </p>
-                <p>{{$product->pivot->question}}</p>
+                @endforeach
             </div>
         </div>
-        @endforeach
     </div>
 </body>
 
