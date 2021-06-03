@@ -71,8 +71,11 @@
                         <td><img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="No Image" width="100"></td>
                         <td>{{ $slider->link }}</td>
                         <td>{{ $slider->category }}</td>
-                        <td><a href="/admin/sliders/edit/{{$slider->id}}">Edit</a> |
-                            <a href="/admin/sliders/delete/{{$slider->id}}">Delete</a></td>
+                        <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
+                            href="/admin/sliders/edit/{{$slider->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                        <a href="/admin/sliders/edit/{{$slider->id}}"
+                            class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
+                                class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>

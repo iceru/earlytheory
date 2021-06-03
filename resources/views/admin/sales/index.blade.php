@@ -60,9 +60,8 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
-
     @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
@@ -80,7 +79,6 @@
                 cancelButtonText: "Cancel",
                 reverseButtons: !0
             }).then(function (e) {
-
                 if (e.value === true) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
@@ -92,11 +90,11 @@
                         success: function (results) {
 
                             if (results.success === true) {
-                                Swal.fire("Done!", results.success, 'success').then(function(){ 
+                                Swal.fire("Done!", results.success, 'success').then(function(){
                                     location.reload();
                                 });
                             } else {
-                                Swal.fire("Error!", results.success, 'error').then(function(){ 
+                                Swal.fire("Error!", results.success, 'error').then(function(){
                                     location.reload();
                                 });
                             }

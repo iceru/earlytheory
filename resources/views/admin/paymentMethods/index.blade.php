@@ -68,8 +68,11 @@
                         <td><img src="{{Storage::url('payment-logo/'.$paymentMethod->logo)}}" alt="{{$paymentMethod->logo}}" width="100"></td>
                         <td>{{$paymentMethod->account_number}}</td>
                         <td>{{$paymentMethod->account_owner}}</td>
-                        <td><a href="/admin/payment-methods/edit/{{$paymentMethod->id}}">Edit</a> |
-                            <a href="/admin/payment-methods/delete/{{$paymentMethod->id}}">Delete</a></td>
+                        <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
+                            href="/admin/payment-methods/edit/{{$paymentMethod->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                        <a href="/admin/payment-methods/edit/{{$paymentMethod->id}}"
+                            class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
+                                class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>

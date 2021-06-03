@@ -57,7 +57,7 @@
                         <div class="form-text">(Separate with space, ex: tag1 tag2 tag3)</div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="button primary">Update</button>
             </form>
         </div>
     </div>

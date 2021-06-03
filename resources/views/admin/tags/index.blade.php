@@ -42,8 +42,11 @@
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$tag->tag_name}}</td>
-                        <td><a href="/admin/tags/edit/{{$tag->id}}">Edit</a> |
-                            <a href="/admin/tags/delete/{{$tag->id}}">Delete</a></td>
+                        <td><a class="btn btn-primary btn-small align-items-center justify-content-center me-2"
+                            href="/admin/tags/edit/{{$tag->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                        <a href="/admin/tags/edit/{{$tag->id}}"
+                            class="btn btn-danger btn-small align-items-center justify-content-center"><i
+                                class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>
