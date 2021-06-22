@@ -23,10 +23,10 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Logo</label>
+                    <label class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="inputLogo" name="inputLogo" accept="image/*">
-                        <div class="form-text">(Upload QR image for QR payment)</div>
+                        <div class="form-text">(Upload Payment Methods)</div>
                     </div>
                 </div>
                 <div class="mb-3 row">
