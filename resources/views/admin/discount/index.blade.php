@@ -38,7 +38,7 @@
                     <label class="col-sm-2 col-form-label">Product</label>
                     <div class="col-sm-10">
                         <select class="form-select" name="inputProduct" id="inputProduct">
-                            <option selected>For all product</option>
+                            <option selected value="0">For all product</option>
                             @foreach ($products as $product)
                             <option value="{{$product->id}}">{{$product->title}}</option>
                             @endforeach

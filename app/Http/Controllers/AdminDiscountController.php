@@ -27,7 +27,7 @@ class AdminDiscountController extends Controller
             'inputProduct' => 'integer'
         ]);
 
-        if($request->inputProduct == 0) {
+        if($request->inputProduct == "0") {
             $request->inputProduct = NULL;
         }
 
@@ -36,7 +36,7 @@ class AdminDiscountController extends Controller
         $discount->min_total = $request->inputMin;
         $discount->product_id = $request->inputProduct;
 
-        $discount->save();
+        $savediscount = $discount->save();
 
         return redirect('/admin/discount');
     }
@@ -60,7 +60,7 @@ class AdminDiscountController extends Controller
             'updateProduct' => 'integer'
         ]);
 
-        if($request->inputProduct == 0) {
+        if($request->updateProduct == "0") {
             $request->updateProduct = NULL;
         }
 
