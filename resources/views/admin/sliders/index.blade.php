@@ -17,7 +17,7 @@
             <form method="POST" enctype="multipart/form-data" action="/admin/sliders/store">
                 @csrf
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Slider Link</label>
+                    <label class="col-sm-2 col-form-label">Order Number</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputOrdernumber" name="inputOrdernumber">
                     </div>
@@ -73,7 +73,7 @@
                         <td>{{ $slider->category }}</td>
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
                             href="/admin/sliders/edit/{{$slider->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
-                        <a href="/admin/sliders/edit/{{$slider->id}}"
+                        <a href="/admin/sliders/delete/{{$slider->id}}"
                             class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
                                 class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>

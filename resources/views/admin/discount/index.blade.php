@@ -77,7 +77,7 @@
                         @endif
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
                             href="/admin/discount/edit/{{$disc->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
-                        <a href="/admin/discount/edit/{{$disc->id}}"
+                        <a href="/admin/discount/delete/{{$disc->id}}"
                             class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
                                 class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>

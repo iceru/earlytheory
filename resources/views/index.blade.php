@@ -47,9 +47,6 @@
                 autoplaySpeed: 3000,
                 pauseOnHover: false,
             });
-        });
-
-        $(document).ready(function(){
             $('.product-image').slick({
                 dots: false,
                 arrows: false,
@@ -57,6 +54,13 @@
                 autoplaySpeed: 5000,
                 pauseOnHover: false,
             });
+            
+            if(navigator.userAgent.includes("Instagram") ){
+                Swal.fire({
+                    title: "Gunakan browser Chrome atau Safari untuk menghindari error dalam bertransaksi",
+                    icon: "warning"
+                })
+            }
         });
 
     </script>

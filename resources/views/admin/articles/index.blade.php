@@ -120,7 +120,6 @@
           tinycomments_author: 'Author name',
           height : "480"
        });
-        }
     </script>
     @endsection
 </x-admin-layout>

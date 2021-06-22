@@ -160,9 +160,6 @@
           height: "480"
        });
     </script>
-    <script>
-
-    </script>
     @endsection
 
 </x-admin-layout>
