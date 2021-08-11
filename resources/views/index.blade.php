@@ -19,7 +19,7 @@
                 <div class="product-item-container col-6 col-md-4 col-lg-3">
                     <div class="product-image">
                         @foreach ((array)json_decode($product->image) as $item)
-                            <a href="/product/{{$product->id}}"><img src="{{Storage::url('product-image/'.$item)}}" alt="No Image"></a>
+                            <a href="/product/{{$product->id}}"><img src="{{Storage::url('product-image/'.$item)}}" loading="lazy" alt="{{ $product->title }}"></a>
                         @endforeach
                     </div>
                     <div class="product-item">

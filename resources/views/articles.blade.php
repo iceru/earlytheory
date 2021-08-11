@@ -21,7 +21,7 @@
                         <div class="col-5 article-image">
                             <a href="/article-detail/{{$article->id}}">
                                 <div class="ratio ratio-4x3">
-                                    <img src="{{Storage::url('article-image/'.$article->image)}}" alt="{{ $article->title }}">
+                                    <img src="{{Storage::url('article-image/'.$article->image)}}" alt="{{ $article->title }}" loading="lazy">
                                 </div>
                             </a>
                         </div>
