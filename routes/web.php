@@ -86,6 +86,8 @@ Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
+    Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
+
     Route::get('/admin/articles', [AdminArticleController::class, 'index'])->name('admin.articles');
     Route::post('/admin/articles/store', [AdminArticleController::class, 'store'])->name('admin.articles.store');
     Route::get('/admin/articles/edit/{id}', [AdminArticleController::class, 'edit'])->name('admin.articles.edit');

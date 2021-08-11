@@ -102,7 +102,7 @@
                             </div>
                         </td>
                         <td>{{$article->title}}</td>
-                        <td>{!! substr(nl2br($article->description), 0, 200) . '...'!!}</td>
+                        <td class="tab-article-desc">{!! substr($article->description, 0, 200) !!}</td>
                         <td>{{$article->author}}</td>
                         <td>{{$article->time_read}}</td>
                         <td style="color: {{$article->accent_color}}">{{$article->accent_color}}</td>
@@ -129,13 +129,33 @@
         $(document).ready(function() {
             $('#table').DataTable();
 
-        tinymce.init({
-          selector: 'textarea',
-          toolbar_mode: 'floating',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          height : "480"
-       });
+            function split( val ) {
+                return val.split( / / );
+            }
+
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+
+            $('#inputTags').autocomplete({
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                    response( $.ui.autocomplete.filter(
+                        {!! json_encode($autocomplete) !!}, extractLast( request.term ) ) );
+                },
+                select: function( event, ui ) {
+                    var terms = split( this.value );
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push( ui.item.value );
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push( "" );
+                    this.value = terms.join( " " );
+                    return false;
+                }
+            });
+        });
     </script>
     @endsection
 </x-admin-layout>
