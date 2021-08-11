@@ -1,12 +1,24 @@
 <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
     @section('css')
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
     @endsection
+
+    @if (count($errors) > 0)
+    <div class="alert alert-danger mt-3">
+        <strong>Sorry !</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <div class="py-12">
         <h3 class="evogria">Sliders Image</h3>
@@ -68,7 +80,11 @@
                     <tr>
                         {{-- <td scope="row">{{$loop->iteration}}</td> --}}
                         <td>{{ $slider->ordernumber }}</td>
-                        <td><img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="No Image" width="100"></td>
+                        <td>
+                            <div class="ratio ratio-16x9">
+                                <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="No Image" width="100">
+                            </div>
+                        </td>
                         <td>{{ $slider->link }}</td>
                         <td>{{ $slider->category }}</td>
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"

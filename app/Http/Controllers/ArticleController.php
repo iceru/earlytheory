@@ -17,8 +17,8 @@ class ArticleController extends Controller
     public function index()
     {
         $sliders = Sliders::where('category', 'articles')->orderBy('ordernumber')->get();
-        $articles = Articles::paginate(12);
-        // dd($articles->first()->title);
+        $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
+
         return view('articles', compact('articles', 'sliders'));
     }
 

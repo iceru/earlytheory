@@ -1,9 +1,21 @@
 <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+
+    @if (count($errors) > 0)
+    <div class="alert alert-danger mt-3">
+      <strong>Sorry !</strong> There were some problems with your input.<br><br>
+      <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="alert alert-success mt-3">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <div class="py-12">
         <h3 class="evogria">Update Article</h3>
@@ -66,13 +78,35 @@
     @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
     <script>
-        tinymce.init({
-          selector: 'textarea',
-          toolbar_mode: 'floating',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          height : "480"
-       });
+       $(document).ready(function(){
+
+            function split( val ) {
+                return val.split( / / );
+            }
+
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+
+            $('#updateTags').autocomplete({
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                    response( $.ui.autocomplete.filter(
+                        {!! json_encode($autocomplete) !!}, extractLast( request.term ) ) );
+                },
+                select: function( event, ui ) {
+                    var terms = split( this.value );
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push( ui.item.value );
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push( "" );
+                    this.value = terms.join( " " );
+                    return false;
+                }
+            });
+       })
     </script>
     @endsection
 </x-admin-layout>

@@ -2,18 +2,11 @@
     @section('title')
         Products Admin
     @endsection
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+
     @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
     @endsection
 
-    <div class="py-12">
-        <h3 class="evogria">Products Admin</h3>
-    </div>
     @if (count($errors) > 0)
     <div class="alert alert-danger">
       <strong>Sorry !</strong> There were some problems with your input.<br><br>
@@ -25,11 +18,16 @@
     </div>
     @endif
 
-      @if(session('success'))
-      <div class="alert alert-success">
-        {{ session('success') }}
-      </div>
-      @endif
+    @if(session('success'))
+    <div class="alert alert-success">
+    {{ session('success') }}
+    </div>
+    @endif
+      
+    <div class="py-12">
+        <h3 class="evogria">Products Admin</h3>
+    </div>
+
     <div class="py-12 my-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form method="POST" enctype="multipart/form-data" action="/admin/products/store">
@@ -118,7 +116,9 @@
                         <td>{{$product->ordernumber}}</td>
                         <td>
                             @foreach ((array)json_decode($product->image) as $item)
-                                <img class="mb-2" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
+                               <div class="ratio ratio-1x1 mb-2">
+                                    <img src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
+                               </div>
                             @endforeach
                         </td>
                         <td>{{$product->title}}</td>
@@ -151,17 +151,6 @@
                 $(this).parents(".control-group").remove();
             });
         });
-
-        tinymce.init({
-          selector: 'textarea',
-          toolbar_mode: 'floating',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          height: "480"
-       });
-    </script>
-    <script>
-
     </script>
     @endsection
 

@@ -48,6 +48,7 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 
 Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 
+Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
 
 Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
 Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');

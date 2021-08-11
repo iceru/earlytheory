@@ -6,7 +6,6 @@ window._ = require('lodash');
  */
 
 window.axios = require('axios');
-// window.$ = require('jquery');
 require('bootstrap');
 window.Swal = require('sweetalert2');
 window.Shepherd = require('shepherd.js');
