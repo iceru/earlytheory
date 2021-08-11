@@ -1,12 +1,25 @@
 <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+    
     @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
     @endsection
+
+    @if (count($errors) > 0)
+    <div class="alert alert-danger mt-3">
+      <strong>Sorry !</strong> There were some problems with your input.<br><br>
+      <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="alert alert-success mt-3">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <div class="py-12">
         <h3 class="evogria">Articles</h3>
@@ -83,9 +96,13 @@
                     @foreach ($articles as $article)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
-                        <td><img src="{{Storage::url('article-image/'.$article->image)}}" alt="Image" width="100"></td>
+                        <td>
+                            <div class="ratio ratio-1x1">
+                                <img src="{{Storage::url('article-image/'.$article->image)}}" alt="Image" width="100">
+                            </div>
+                        </td>
                         <td>{{$article->title}}</td>
-                        <td>{!! substr(nl2br($article->description), 0, 200) . '...'!!}</td>
+                        <td class="tab-article-desc">{!! substr($article->description, 0, 200) !!}</td>
                         <td>{{$article->author}}</td>
                         <td>{{$article->time_read}}</td>
                         <td style="color: {{$article->accent_color}}">{{$article->accent_color}}</td>
@@ -111,15 +128,34 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
-        } );
 
-        tinymce.init({
-          selector: 'textarea',
-          toolbar_mode: 'floating',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          height : "480"
-       });
+            function split( val ) {
+                return val.split( / / );
+            }
+
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+
+            $('#inputTags').autocomplete({
+                source: function( request, response ) {
+                    // delegate back to autocomplete, but extract the last term
+                    response( $.ui.autocomplete.filter(
+                        {!! json_encode($autocomplete) !!}, extractLast( request.term ) ) );
+                },
+                select: function( event, ui ) {
+                    var terms = split( this.value );
+                    // remove the current input
+                    terms.pop();
+                    // add the selected item
+                    terms.push( ui.item.value );
+                    // add placeholder to get the comma-and-space at the end
+                    terms.push( "" );
+                    this.value = terms.join( " " );
+                    return false;
+                }
+            });
+        });
     </script>
     @endsection
 </x-admin-layout>

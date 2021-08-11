@@ -48,6 +48,7 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 
 Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 
+Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
 
 Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
 Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
@@ -84,6 +85,8 @@ Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
 
     Route::get('/admin/articles', [AdminArticleController::class, 'index'])->name('admin.articles');
     Route::post('/admin/articles/store', [AdminArticleController::class, 'store'])->name('admin.articles.store');

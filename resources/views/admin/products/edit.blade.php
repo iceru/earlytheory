@@ -1,13 +1,4 @@
 <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <h3 class="evogria">Update Product</h3>
-    </div>
     @if (count($errors) > 0)
     <div class="alert alert-danger mt-3">
         <strong>Sorry !</strong> There were some problems with your input.<br><br>
@@ -24,6 +15,11 @@
         {{ session('success') }}
     </div>
     @endif
+
+    <div class="py-12">
+        <h3 class="evogria">Update Product</h3>
+    </div>
+    
     <div class="py-12 my-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form method="POST" enctype="multipart/form-data" action="/admin/products/update">
@@ -107,13 +103,6 @@
                 $(this).parents(".control-group").remove();
             });
         });
-        tinymce.init({
-          selector: 'textarea',
-          toolbar_mode: 'floating',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          height: 480
-       });
     </script>
     @endsection
 </x-admin-layout>

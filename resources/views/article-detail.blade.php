@@ -17,6 +17,17 @@
         </div>
         <div class="article-body">
             <div class="addthis_inline_share_toolbox mb-4"></div>
+            <div class="mb-3">
+                <div class="tags">
+                    @forelse ($article->tags as $tag)
+                        <a href="{{ route('tag.show', $tag->id) }}">
+                            <p>#{{$tag->tag_name}}</p>
+                        </a>
+                    @empty
+                        <p>No Tag</p>
+                    @endforelse
+                </div>
+            </div>
             <div class="writer-info">
                 <div class="writer-image">
                     <img src="/images/Favicon.png" alt="">

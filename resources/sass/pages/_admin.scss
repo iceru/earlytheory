@@ -21,6 +21,21 @@
     }
 }
 
+.tab-article-desc {
+  img {
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+}
+
 .table-overflow::-webkit-scrollbar {
     height: 8px;
   }

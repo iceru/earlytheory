@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tags;
+use App\Models\Articles;
 use Illuminate\Http\Request;
 
 class AdminTagsController extends Controller
@@ -57,7 +58,10 @@ class AdminTagsController extends Controller
      */
     public function show($id)
     {
-        //
+        $tag = Tags::findOrFail($id);
+        $articles = $tag->articles()->paginate(12);
+
+        return view('tag-detail', compact('tag', 'articles'));
     }
 
     /**

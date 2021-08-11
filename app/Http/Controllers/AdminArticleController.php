@@ -16,8 +16,9 @@ class AdminArticleController extends Controller
     public function index()
     {
         $articles = Articles::all();
+        $autocomplete = Tags::pluck('tag_name')->toArray();
 
-        return view('admin.articles.index', compact('articles'));
+        return view('admin.articles.index', compact('articles', 'autocomplete'));
     }
 
     /**
@@ -104,12 +105,13 @@ class AdminArticleController extends Controller
     public function edit($id)
     {
         $article = Articles::find($id);
+        $autocomplete = Tags::pluck('tag_name')->toArray();
         // dd($article->tags);
 
         // $tags = Articles::with('tags')->where('id', $id)->get();
         // dd($article);
 
-        return view('admin.articles.edit', compact('article'));
+        return view('admin.articles.edit', compact('article', 'autocomplete'));
     }
 
     /**
@@ -176,5 +178,11 @@ class AdminArticleController extends Controller
     {
         Articles::find($id)->delete();
         return redirect('/admin/articles');
+    }
+
+    public function upload(Request $request){
+        $fileName=$request->file('file')->getClientOriginalName();
+        $path=$request->file('file')->storeAs('uploads', $fileName, 'public');
+        return response()->json(['location'=>"/storage/$path"]); 
     }
 }
