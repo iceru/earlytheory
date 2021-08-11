@@ -16,7 +16,7 @@
             <li class="{{ (request()->is('admin/confirm-payment')) ? 'active' : '' }}"><i class="fas fa-receipt fa-fw"></i> &nbsp; Payment Confirmation</li>
         </a>
         <a href="{{ route('admin.sliders') }}">
-            <li class="{{ (request()->is('admin/sliders')) ? 'active' : '' }}"><i class="fas fa-images fa-fw"></i> &nbsp; Slider Images</li>
+            <li class="{{ (request()->is('admin/sliders')) ? 'active' : '' }}"><i class="fas fa-images fa-fw"></i> &nbsp; Sliders Image</li>
         </a>
         <a href="{{ route('admin.paymentMethods') }}">
             <li class="{{ (request()->is('admin/paymentMethods')) ? 'active' : '' }}"><i class="fas fa-credit-card fa-fw"></i> &nbsp; Payment Methods</li>

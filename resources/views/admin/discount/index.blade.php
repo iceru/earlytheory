@@ -51,7 +51,7 @@
                     <label class="col-sm-2 col-form-label">Product</label>
                     <div class="col-sm-10">
                         <select class="form-select" name="inputProduct" id="inputProduct">
-                            <option selected>For all product</option>
+                            <option selected value="0">For all product</option>
                             @foreach ($products as $product)
                             <option value="{{$product->id}}">{{$product->title}}</option>
                             @endforeach
@@ -90,7 +90,7 @@
                         @endif
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
                             href="/admin/discount/edit/{{$disc->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
-                        <a href="/admin/discount/edit/{{$disc->id}}"
+                        <a href="/admin/discount/delete/{{$disc->id}}"
                             class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
                                 class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>

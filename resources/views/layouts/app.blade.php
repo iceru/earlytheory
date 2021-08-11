@@ -126,12 +126,6 @@
                 
             });
 
-            if(navigator.userAgent.includes("Instagram") ){
-                Swal.fire({
-                    title: "Gunakan browser Chrome atau Safari untuk menghindari error dalam bertransaksi",
-                    icon: "warning"
-                })
-            }
         });
         
 
