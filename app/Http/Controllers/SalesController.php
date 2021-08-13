@@ -35,6 +35,8 @@ class SalesController extends Controller
             foreach (\Cart::getContent() as $item) {
                 $product = Products::find($item->id);
                 $product->sales()->attach($sales, ['qty' => $item->quantity]);
+                $product->stock = $product->stock-$item->quantity;
+                $product->save();
             }
 
             // \Cart::clear();
@@ -92,7 +94,16 @@ class SalesController extends Controller
         }
         $sales->save();
 
-        return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
+        // Check product category in sales
+        foreach ($sales->products as $item) {
+            if($item->category === 'product') {
+                //on progress
+                return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
+            }
+            elseif($item->category === 'service') {
+                return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
+            }
+        }
     }
 
     public function summary($id)
