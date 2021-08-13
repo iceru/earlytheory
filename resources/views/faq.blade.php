@@ -5,7 +5,7 @@
     <div class="col-12 faq main-content">
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+                <h2 class="text-center mb-5 evogria">Frequently Asked Questions</h2>
                 <div class="accordion" id="accordion">
                     @foreach ($faq as $item)
                     <div class="accordion-item">
