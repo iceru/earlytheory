@@ -88,11 +88,9 @@
                                         <img src="{{Storage::url('product-image/'.$image)}}" alt="">
                                     @endforeach
                                 </div>
-                                @if ($item->duration == "0")
-                                <div class="col-8 col-lg-9 ps-2">
+                                <div class="col-8 col-lg-9 ps-2" @if ($item->duration != "0") hidden @endif>
                                     <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini..">{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                 </div>
-                                @endif
                                </div>
                             </div>
                         </div>

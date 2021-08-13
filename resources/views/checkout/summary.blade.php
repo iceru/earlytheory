@@ -32,7 +32,7 @@
                                     <img src="{{Storage::url('product-image/'.$image)}}" alt="No Image">
                                 @endforeach
                             </div>
-                            <div class="col-7 col-lg-9 product-question">
+                            <div class="col-7 col-lg-9 product-question"  @if ($item->duration != "0") hidden @endif>
                                 <h5>Pertanyaan</h5>
                                 <p>{{nl2br($item->pivot->question)}}</p>
                                 <button class="button primary mt-3 mt-lg-2">
