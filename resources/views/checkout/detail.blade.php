@@ -32,12 +32,12 @@
                    <div class="row">
                     <div class="form-group col-12 col-lg-6">
                         <label for="inputName">Nama Lengkap</label>
-                        <input class="form-control" type="text" value="{{ old('inputName') }}" name="inputName" required>
+                        <input class="form-control" type="text" value="{{ old('inputName', optional($user)->name) }}" name="inputName" required>
                     </div>
                     <input type="text" name="salesId" value="{{$sales->id}}" hidden>
                     <div class="form-group col-12 col-lg-6">
                         <label for="inputEmail">Email</label>
-                        <input type="email" name="inputEmail" value="{{ old('inputEmail') }}" class="form-control" required>
+                        <input type="email" name="inputEmail" value="{{ old('inputEmail', optional($user)->email) }}" class="form-control" required>
                     </div>
                     <div class="form-group col-12 col-lg-6">
                         <label for="inputPhone">Nomor Telepon</label>

@@ -11,6 +11,7 @@ use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
 use App\Mail\AdminNotification;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class SalesController extends Controller
 {
@@ -46,9 +47,10 @@ class SalesController extends Controller
 
     public function detail($id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        return view('checkout.detail', compact('sales'));
+        return view('checkout.detail', compact('sales', 'user'));
     }
 
     public function addQuestion(Request $request, $id)
