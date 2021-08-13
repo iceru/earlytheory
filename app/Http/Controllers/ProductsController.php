@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    public function productDetail($id)
+    public function productDetail($slug)
     {
-        $product = Products::findOrFail($id);
-        $related = Products::where('id', '!=', $id)->take(4)->get();
+        $product = Products::where('slug', $slug)->firstOrFail();
+        $related = Products::where('slug', '!=', $slug)->take(4)->get();
         return view('product-detail', compact('product', 'related'));
     }
 }

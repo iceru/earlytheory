@@ -35,7 +35,7 @@ Route::post('/newsletter', [IndexController::class, 'store'])->name('newsletter'
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/article-detail/{id}', [ArticleController::class, 'show'])->name('article-detail');
 
-Route::get('/product/{id}', [ProductsController::class, 'productDetail'])->name('product-detail');
+Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->name('product-detail');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 // Route::get('/product', function(){

@@ -36,7 +36,7 @@
                     </div>
                     <div class="product-item">
                         <div class="product-title">
-                            <a href="/product/{{$product->id}}">
+                            <a href="/product/{{$product->slug}}">
                                 <h3>{{$product->title}}</h3>
                             </a>
                         </div>

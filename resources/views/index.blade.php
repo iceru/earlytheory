@@ -19,12 +19,12 @@
                 <div class="product-item-container col-6 col-md-4 col-lg-3">
                     <div class="product-image">
                         @foreach ((array)json_decode($product->image) as $item)
-                            <a href="/product/{{$product->id}}"><img src="{{Storage::url('product-image/'.$item)}}" loading="lazy" alt="{{ $product->title }}"></a>
+                            <a href="/product/{{$product->slug}}"><img src="{{Storage::url('product-image/'.$item)}}" loading="lazy" alt="{{ $product->title }}"></a>
                         @endforeach
                     </div>
                     <div class="product-item">
                         <div class="product-title">
-                            <a href="/product/{{$product->id}}"><h3>{{$product->title}}</h3></a>
+                            <a href="/product/{{$product->slug}}"><h3>{{$product->title}}</h3></a>
                         </div>
                         <p class="product-price">idr {{number_format($product->price)}} @if($product->duration > 0) <span> / {{ $product->duration }} menit  </span> @endif </p>
                         <div class="product-desc">{{ $product->description_short }}</div>
