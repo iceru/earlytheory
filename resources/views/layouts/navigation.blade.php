@@ -13,6 +13,17 @@
         </a>
         <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
     </div>
+
+    {{-- Temporary Logout Button --}}
+    <div>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+            this.closest('form').submit();">
+                <i class="fas fa-sign-out-alt fa-fw"></i> &nbsp; Logout
+            </a>
+        </form>
+    </div>
 </nav>
 <nav class="navbar align-items-center row d-none d-lg-flex">
     <div class="col-4 nav-links">

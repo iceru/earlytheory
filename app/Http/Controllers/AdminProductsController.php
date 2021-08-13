@@ -49,6 +49,8 @@ class AdminProductsController extends Controller
             'inputImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'inputShortDesc' => 'required',
             'inputDesc' => 'required',
+            'inputCategory' => 'required|in:product,service',
+            'inputStock' => 'required',
         ]);
 
         if ($request->hasFile('inputImage')) {
@@ -66,14 +68,17 @@ class AdminProductsController extends Controller
             }
         }
         $product->image=json_encode($data);
-
+        
         $product->title = $request->inputTitle;
         $product->ordernumber = $request->inputOrdernumber;
         $product->price = $request->inputPrice;
         $product->duration = $request->inputDuration;
         $product->description = $request->inputDesc;
         $product->description_short = $request->inputShortDesc;
-
+        $product->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->inputTitle);
+        $product->category = $request->inputCategory;
+        $product->stock = $request->inputStock;
+        
         $product->save();
 
 
@@ -132,6 +137,8 @@ class AdminProductsController extends Controller
             'updateImage' => 'nullable',
             'updateImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'updateDesc' => 'required',
+            'updateCategory' => 'required|in:product,service',
+            'updateStock' => 'required',
         ]);
 
         if ($request->hasFile('updateImage')) {
@@ -157,6 +164,9 @@ class AdminProductsController extends Controller
         $product->description = $request->updateDesc;
 
         $product->description_short = $request->updateShortDesc;
+        $product->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->updateTitle);
+        $product->category = $request->updateCategory;
+        $product->stock = $request->updateStock;
 
         $product->save();
 

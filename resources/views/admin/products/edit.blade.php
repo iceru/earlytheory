@@ -87,6 +87,22 @@
                             rows="6">{{$product->description}}</textarea>
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Category" name="updateCategory">
+                            <option selected disabled>Select Category</option>
+                            <option {{  $product->category === "product" ? 'selected' : '' }} value="product">Product</option>
+                            <option {{  $product->category === "service" ? 'selected' : '' }} value="service">Service</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Stock</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputStock" name="updateStock" min="0" value="{{$product->stock}}">
+                    </div>
+                </div>
                 <button type="submit" class="button primary">Update</button>
             </form>
         </div>

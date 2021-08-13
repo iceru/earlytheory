@@ -88,6 +88,22 @@
                         <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="5"></textarea>
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Category" name="inputCategory">
+                            <option selected disabled>Select Category</option>
+                            <option value="product">Product</option>
+                            <option value="service">Service</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Stock</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputStock" name="inputStock" min="0">
+                    </div>
+                </div>
                 <button type="submit" class="button primary">Submit</button>
             </form>
         </div>
@@ -98,7 +114,6 @@
             <table class="table" id="table">
                 <thead>
                     <tr>
-                        {{-- <th>No</th> --}}
                         <th>Order Number</th>
                         <th>Image</th>
                         <th>Title</th>
@@ -106,6 +121,9 @@
                         <th>Duration</th>
                         <th>Short Description</th>
                         <th>Description</th>
+                        <th>Slug</th>
+                        <th>Category</th>
+                        <th>Stock</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -126,6 +144,9 @@
                         <td>{{$product->duration}}</td>
                         <td>{{$product->description_short}}</td>
                         <td>{{substr($product->description, 0, 100) . '...'}}</td>
+                        <td>{{$product->slug}}</td>
+                        <td>{{ucfirst($product->category)}}</td>
+                        <td>{{$product->stock}}</td>
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
                             <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center" href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
