@@ -54,6 +54,10 @@ Route::middleware(['auth', 'role:user'])->group(function (){
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
     Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');
+    Route::get('/checkout/{id}/shipping', [SalesController::class, 'shipping'])->name('sales.shipping');
+    Route::get('/checkout/findCityShipping', [SalesController::class, 'findCityShipping'])->name('sales.findCityShipping');
+    Route::get('/checkout/checkShippingCost', [SalesController::class, 'checkShippingCost'])->name('sales.checkShippingCost');
+    Route::post('/checkout/{id}/shipping/add', [SalesController::class, 'addShipping'])->name('sales.addShipping');
     Route::get('/checkout/{id}/summary', [SalesController::class, 'summary'])->name('sales.summary');
     Route::post('/checkout/{id}/discount', [SalesController::class, 'discount'])->name('sales.discount');
     Route::get('/checkout/{id}/payment', [SalesController::class, 'paymentMethods'])->name('sales.paymentmethods');

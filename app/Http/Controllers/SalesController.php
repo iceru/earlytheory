@@ -95,15 +95,137 @@ class SalesController extends Controller
         $sales->save();
 
         // Check product category in sales
+        $is_product = 0;
         foreach ($sales->products as $item) {
             if($item->category === 'product') {
-                //on progress
-                return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
-            }
-            elseif($item->category === 'service') {
-                return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
+                $is_product += 1;
             }
         }
+
+        if($is_product > 0) {
+            return redirect()->route('sales.shipping', ['id' => $sales->sales_no]);
+        }
+        elseif($is_product == 0) {
+            return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
+        }
+    }
+
+    public function shipping($id)
+    {
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "key: 6647e093d8e3502f18a50d44d52e032a"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        $prov = json_decode($response);
+        $provinces = $prov->rajaongkir->results;
+
+        return view('checkout.shipping', compact('sales', 'provinces'));
+    }
+
+    public function findCityShipping(Request $request)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=".$request->id,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "key: 6647e093d8e3502f18a50d44d52e032a"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        
+        $city = json_decode($response);
+        $cities = $city->rajaongkir->results;
+
+        return $cities;
+    }
+
+    public function checkShippingCost(Request $request)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "origin=153&destination=".$request->id."&weight=1000&courier=jne",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "key: 6647e093d8e3502f18a50d44d52e032a"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        $cost = json_decode($response);
+        $costs = $cost->rajaongkir->results[0]->costs;
+
+        return $costs;
+    }
+
+    public function addShipping(Request $request, $id)
+    {
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
+
+        $request->validate([
+            'inputAddress' => 'required',
+            'inputProvince' => 'required',
+            'inputCity' => 'required',
+            'inputZip' => 'required',
+            'shipCost' => 'required',
+        ],
+        [
+            'inputAddress.required' => 'Alamat belum diisi',
+            'inputProvince.required' => 'Provinsi belum diisi',
+            'inputCity.required' => 'Kota/Kab belum diisi',
+            'inputZip.required' => 'Kode Pos belum diisi',
+            'shipCost.required' => 'Shipping belum diisi',
+        ]);
+
+        $sales->ship_address = $request->inputAddress;
+        $sales->ship_province = $request->inputProvince;
+        $sales->ship_city = $request->inputCity;
+        $sales->ship_zip = $request->inputZip;
+        $sales->ship_cost = $request->shipCost;
+        $sales->save();
+
+        return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
+
     }
 
     public function summary($id)

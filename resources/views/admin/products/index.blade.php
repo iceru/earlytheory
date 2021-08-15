@@ -95,7 +95,7 @@
                             <option selected disabled>Select Category</option>
                             <option value="product">Product</option>
                             <option value="service">Service</option>
-                          </select>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">
