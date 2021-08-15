@@ -20,7 +20,11 @@
                     {!! $product->description !!}
                 </div>
                 <div class="add-to-cart">
+                    @if ($product->stock > 0)
                     <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
+                    @else
+                    <div class="button secondary my-3" disabled>Out of Stock</div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -43,7 +47,11 @@
                         <p class="product-price">idr {{number_format($product->price)}}</p>
                         <p class="product-desc">{{$product->description_short}}</p>
                     </div>
+                    @if ($product->stock > 0)
                     <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
+                    @else
+                    <div class="button secondary my-3" disabled>Out of Stock</div>
+                    @endif
                 </div>
                 @endforeach
             </div>
