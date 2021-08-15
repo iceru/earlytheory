@@ -16,77 +16,89 @@
     </div>
 
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Total Price</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Total Price</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Discount</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Discount</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->discount)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Total Price (After Discount)</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Shipping Cost</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->ship_cost)}}" readonly>
+        </div>
+    </div>
+    <div class="mb-1 row">
+        <label class="col-sm-3 col-form-label fw-bolder">Total Price (After Discount + Shipping)</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price-$sales->discount)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Name</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Name</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" value="{{$sales->name}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Email</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Email</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" value="{{$sales->email}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Phone Number</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Phone Number</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" value="{{$sales->phone}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Date of Birth</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Date of Birth</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Payment Type</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Payment Type</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext" @if ($sales->paymentmethods)
             value="{{$sales->paymentMethods->name}}"
             @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Status Relationship</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Status Relationship</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->relationship}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Status Pekerjaan</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Status Pekerjaan</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->job}}" readonly>
         </div>
     </div>
     {{-- <div class="mb-1 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Status</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Status</label>
+        <div class="col-sm-9">
             <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->status}}" readonly>
         </div>
     </div> --}}
     <div class="mb-3 row">
-        <label class="col-sm-2 col-form-label fw-bolder">Proof of Payment</label>
-        <div class="col-sm-10">
+        <label class="col-sm-3 col-form-label fw-bolder">Proof of Payment</label>
+        <div class="col-sm-9">
             <img width=150 src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="-">
+        </div>
+    </div>
+    <div class="mb-1 row">
+        <label class="col-sm-3 col-form-label fw-bolder">Shipping Address</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->ship_address}}, {{$sales->city}}, {{$sales->province}}, {{$sales->ship_zip}}" alt="-" readonly>
         </div>
     </div>
 

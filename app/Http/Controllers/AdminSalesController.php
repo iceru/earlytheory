@@ -20,6 +20,35 @@ class AdminSalesController extends Controller
     {
         $sales = Sales::find($id);
 
+        if($sales->ship_city != '') {
+            // foreach($sales as $s) {
+                $curl = curl_init();
+        
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$sales->ship_city."&province=".$sales->ship_province,
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 30,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "GET",
+                  CURLOPT_HTTPHEADER => array(
+                    "key: 6647e093d8e3502f18a50d44d52e032a"
+                  ),
+                ));
+                
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+                
+                curl_close($curl);
+                
+                $result = json_decode($response);
+        
+                $sales->province = $result->rajaongkir->results->province;
+                $sales->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+            // }
+        }
+
         return view('admin.sales.detail', compact('sales'));
     }
 
