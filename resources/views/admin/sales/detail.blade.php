@@ -101,6 +101,12 @@
             <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->ship_address}}, {{$sales->city}}, {{$sales->province}}, {{$sales->ship_zip}}" alt="-" readonly>
         </div>
     </div>
+    <div class="mb-1 row">
+        <label class="col-sm-3 col-form-label fw-bolder">Shipping Method</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->ship_method}}" alt="-" readonly>
+        </div>
+    </div>
 
     <h5 class="mb-2">Product Sales</h5>
     <div class="py-12">

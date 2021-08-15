@@ -207,21 +207,24 @@ class SalesController extends Controller
             'inputProvince' => 'required',
             'inputCity' => 'required',
             'inputZip' => 'required',
-            'shipCost' => 'required',
+            'inputShipping' => 'required',
         ],
         [
             'inputAddress.required' => 'Alamat belum diisi',
             'inputProvince.required' => 'Provinsi belum diisi',
             'inputCity.required' => 'Kota/Kab belum diisi',
             'inputZip.required' => 'Kode Pos belum diisi',
-            'shipCost.required' => 'Shipping belum diisi',
+            'inputShipping.required' => 'Shipping belum diisi',
         ]);
+
+        $shipping = explode("-",$request->inputShipping);
 
         $sales->ship_address = $request->inputAddress;
         $sales->ship_province = $request->inputProvince;
         $sales->ship_city = $request->inputCity;
         $sales->ship_zip = $request->inputZip;
-        $sales->ship_cost = $request->shipCost;
+        $sales->ship_cost = $shipping[0];
+        $sales->ship_method = $shipping[1];
         $sales->save();
 
         return redirect()->route('sales.summary', ['id' => $sales->sales_no]);

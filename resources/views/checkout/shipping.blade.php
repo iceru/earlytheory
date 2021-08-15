@@ -57,8 +57,8 @@
                         <input class="form-control" type="text" value="{{ old('inputZip')}}" name="inputZip" required>
                     </div>
                     <div class="form-group col-12 col-lg-6">
-                        <label for="shipCost">Shipping</label>
-                        <select class="form-select" aria-label="Select Shipping" name="shipCost" id="ship">
+                        <label for="inputShipping">Shipping</label>
+                        <select class="form-select" aria-label="Select Shipping" name="inputShipping" id="ship">
                             <option value="" selected disabled>Pilih Provinsi & Kota/Kab Terlebih Dahulu</option>
                         </select>
                     </div>
@@ -115,7 +115,7 @@
                     console.log(data);
                     shipopt += '<option value="" selected disabled>Select Shipping</option>';
                     for (var i=0; i<data.length; i++) {
-                        shipopt += '<option value="'+data[i].cost[0].value+'">JNE '+data[i].service+' ('+data[i].cost[0].etd+' Days) : Rp '+data[i].cost[0].value+'</option>';
+                        shipopt += '<option value="'+data[i].cost[0].value+'-JNE '+data[i].service+'">JNE '+data[i].service+' ('+data[i].cost[0].etd+' Days) : Rp '+data[i].cost[0].value+'</option>';
                     }
                     $('#ship').html(shipopt);
                 }
