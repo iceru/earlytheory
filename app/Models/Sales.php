@@ -21,4 +21,9 @@ class Sales extends Model
     {
         return $this->belongsTo(PaymentMethods::class, 'paymethod_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(Products::class, 'user_id', 'id');
+    }
 }

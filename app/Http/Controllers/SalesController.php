@@ -18,6 +18,7 @@ class SalesController extends Controller
     public function checkout()
     {
         if(!\Cart::isEmpty()) {
+            $userid = Auth::id();
             $cart = \Cart::getContent();
             // foreach ($cart as $item) {
             //     dd($item->id);
@@ -30,6 +31,7 @@ class SalesController extends Controller
             $sales->sales_no = $salesNo;
             $sales->total_price = $total;
             $sales->email = ' ';
+            $sales->user_id = $userid;
             $sales->save();
 
             foreach (\Cart::getContent() as $item) {
@@ -52,92 +54,115 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        return view('checkout.detail', compact('sales', 'user'));
+        if($user->id == $sales->user_id) {
+            return view('checkout.detail', compact('sales', 'user'));
+        }
+
+        else {
+            return redirect('/');
+        }
+
     }
 
     public function addQuestion(Request $request, $id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        $request->validate([
-            'question.*' => 'nullable',
-            'inputName' => 'required',
-            'inputEmail' => 'required|email',
-            'inputPhone' => 'required',
-            'inputBirthdate' => 'required',
-            'inputRelationship' => 'required',
-            'inputPekerjaan' => 'required',
-        ],
-        [
-            'inputName.required' => 'Nama lengkap belum diisi',
-            'inputEmail.required' => 'Email belum diisi',
-            'inputPhone.required' => 'Nomor Telepon belum diisi',
-            'inputBirthdate.required' => 'Tanggal Lahir belum diisi',
-            'inputRelationship.required' => 'Status Relationship belum diisi',
-            'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
-        ]);
+        if($user->id == $sales->user_id) {
 
-        $sales->name = $request->inputName;
-        $sales->email = $request->inputEmail;
-        $sales->phone = $request->inputPhone;
-        $sales->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');;
-        $sales->paymethod_id = $request->inputPayType;
-        $sales->relationship = $request->inputRelationship;
-        $sales->job = $request->inputPekerjaan;
-
-        $item_id = $request->id;
-        $item_question = $request->question;
-
-        foreach ($item_id as $key => $i) {
-            $product = Products::find($item_id[$key]);
-            $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
-        }
-        $sales->save();
-
-        // Check product category in sales
-        $is_product = 0;
-        foreach ($sales->products as $item) {
-            if($item->category === 'product') {
-                $is_product += 1;
+            $request->validate([
+                'question.*' => 'nullable',
+                'inputName' => 'required',
+                'inputEmail' => 'required|email',
+                'inputPhone' => 'required',
+                'inputBirthdate' => 'required',
+                'inputRelationship' => 'required',
+                'inputPekerjaan' => 'required',
+            ],
+            [
+                'inputName.required' => 'Nama lengkap belum diisi',
+                'inputEmail.required' => 'Email belum diisi',
+                'inputPhone.required' => 'Nomor Telepon belum diisi',
+                'inputBirthdate.required' => 'Tanggal Lahir belum diisi',
+                'inputRelationship.required' => 'Status Relationship belum diisi',
+                'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
+            ]);
+    
+            $sales->name = $request->inputName;
+            $sales->email = $request->inputEmail;
+            $sales->phone = $request->inputPhone;
+            $sales->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');;
+            $sales->paymethod_id = $request->inputPayType;
+            $sales->relationship = $request->inputRelationship;
+            $sales->job = $request->inputPekerjaan;
+    
+            $item_id = $request->id;
+            $item_question = $request->question;
+    
+            foreach ($item_id as $key => $i) {
+                $product = Products::find($item_id[$key]);
+                $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+            }
+            $sales->save();
+    
+            // Check product category in sales
+            $is_product = 0;
+            foreach ($sales->products as $item) {
+                if($item->category === 'product') {
+                    $is_product += 1;
+                }
+            }
+    
+            if($is_product > 0) {
+                return redirect()->route('sales.shipping', ['id' => $sales->sales_no]);
+            }
+            elseif($is_product == 0) {
+                return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
             }
         }
 
-        if($is_product > 0) {
-            return redirect()->route('sales.shipping', ['id' => $sales->sales_no]);
-        }
-        elseif($is_product == 0) {
-            return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
-        }
+        else {
+            return redirect('/');
+        }        
     }
 
     public function shipping($id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        $curl = curl_init();
+        if($user->id == $sales->user_id) {
+                
+            $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "key: 6647e093d8e3502f18a50d44d52e032a"
-        ),
-        ));
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "key: 6647e093d8e3502f18a50d44d52e032a"
+            ),
+            ));
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
 
-        curl_close($curl);
+            curl_close($curl);
 
-        $prov = json_decode($response);
-        $provinces = $prov->rajaongkir->results;
+            $prov = json_decode($response);
+            $provinces = $prov->rajaongkir->results;
 
-        return view('checkout.shipping', compact('sales', 'provinces'));
+            return view('checkout.shipping', compact('sales', 'provinces'));
+        }
+
+        else {
+            return redirect('/');
+        }   
     }
 
     public function findCityShipping(Request $request)
@@ -200,148 +225,197 @@ class SalesController extends Controller
 
     public function addShipping(Request $request, $id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        $request->validate([
-            'inputAddress' => 'required',
-            'inputProvince' => 'required',
-            'inputCity' => 'required',
-            'inputZip' => 'required',
-            'inputShipping' => 'required',
-        ],
-        [
-            'inputAddress.required' => 'Alamat belum diisi',
-            'inputProvince.required' => 'Provinsi belum diisi',
-            'inputCity.required' => 'Kota/Kab belum diisi',
-            'inputZip.required' => 'Kode Pos belum diisi',
-            'inputShipping.required' => 'Shipping belum diisi',
-        ]);
+        if($user->id == $sales->user_id) {
+            $request->validate([
+                'inputAddress' => 'required',
+                'inputProvince' => 'required',
+                'inputCity' => 'required',
+                'inputZip' => 'required',
+                'inputShipping' => 'required',
+            ],
+            [
+                'inputAddress.required' => 'Alamat belum diisi',
+                'inputProvince.required' => 'Provinsi belum diisi',
+                'inputCity.required' => 'Kota/Kab belum diisi',
+                'inputZip.required' => 'Kode Pos belum diisi',
+                'inputShipping.required' => 'Shipping belum diisi',
+            ]);
+    
+            $shipping = explode("-",$request->inputShipping);
+    
+            $sales->ship_address = $request->inputAddress;
+            $sales->ship_province = $request->inputProvince;
+            $sales->ship_city = $request->inputCity;
+            $sales->ship_zip = $request->inputZip;
+            $sales->ship_cost = $shipping[0];
+            $sales->ship_method = $shipping[1];
+            $sales->save();
+    
+            return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
+        }
 
-        $shipping = explode("-",$request->inputShipping);
-
-        $sales->ship_address = $request->inputAddress;
-        $sales->ship_province = $request->inputProvince;
-        $sales->ship_city = $request->inputCity;
-        $sales->ship_zip = $request->inputZip;
-        $sales->ship_cost = $shipping[0];
-        $sales->ship_method = $shipping[1];
-        $sales->save();
-
-        return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
-
+        else {
+            return redirect('/');
+        }   
     }
 
     public function summary($id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        return view('checkout.summary', compact('sales'));
+        if($user->id == $sales->user_id) {
+            return view('checkout.summary', compact('sales'));
+        }
+
+        else {
+            return redirect('/');
+        }
     }
 
     public function discount(Request $request, $id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-
-        if($request->inputDiscount) {
-            $disc_code = strtoupper($request->inputDiscount);
-            $discount = Discount::where('code', $disc_code)->first();
-
-            if($discount && !$discount->product_id) {
-                if($sales->total_price >= $discount->min_total) {
-                    $nominal = $discount->nominal;
-
-                    $sales->discount = $nominal;
-                    $sales->save();
-
-                    return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
-                }
-                else {
-                    return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
-                }
-            }
-            elseif($discount && $discount->product_id) {
-                foreach($sales->products as $product) {
-                    if($product->id == $discount->product_id) {
-                        if($discount->products->price >= $discount->min_total) {
-                            $nominal = $discount->nominal;
-
-                            $sales->discount = $nominal;
-                            $sales->save();
-
-                            return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
-                        }
+        
+        if($user->id == $sales->user_id) {
+            if($request->inputDiscount) {
+                $disc_code = strtoupper($request->inputDiscount);
+                $discount = Discount::where('code', $disc_code)->first();
+    
+                if($discount && !$discount->product_id) {
+                    if($sales->total_price >= $discount->min_total) {
+                        $nominal = $discount->nominal;
+    
+                        $sales->discount = $nominal;
+                        $sales->save();
+    
+                        return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
                     }
                     else {
-                        $discproduct = 0;
+                        return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
                     }
                 }
-                if($discproduct == 0) {
-                    return redirect()->back()->with('error', 'Discount code cannot be use for this product!');
+                elseif($discount && $discount->product_id) {
+                    foreach($sales->products as $product) {
+                        if($product->id == $discount->product_id) {
+                            if($discount->products->price >= $discount->min_total) {
+                                $nominal = $discount->nominal;
+    
+                                $sales->discount = $nominal;
+                                $sales->save();
+    
+                                return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
+                            }
+                        }
+                        else {
+                            $discproduct = 0;
+                        }
+                    }
+                    if($discproduct == 0) {
+                        return redirect()->back()->with('error', 'Discount code cannot be use for this product!');
+                    }
+                }
+                else {
+                    return redirect()->back()->with('error', 'Discount Code not found!');
                 }
             }
             else {
-                return redirect()->back()->with('error', 'Discount Code not found!');
+                return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no]);
             }
         }
-        else {
-            return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no]);
-        }
 
+        else {
+            return redirect('/');
+        }
     }
 
     public function paymentMethods($id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-        $paymethods_bank = PaymentMethods::where('account_number', '!=', 'qr')->get();
-        $paymethods_qr = PaymentMethods::where('account_number', '=', 'qr')->first();
-        return view('checkout.payment', compact('sales', 'paymethods_bank', 'paymethods_qr'));
+
+        if($user->id == $sales->user_id) {
+            $paymethods_bank = PaymentMethods::where('account_number', '!=', 'qr')->get();
+            $paymethods_qr = PaymentMethods::where('account_number', '=', 'qr')->first();
+            return view('checkout.payment', compact('sales', 'paymethods_bank', 'paymethods_qr'));
+        }
+
+        else {
+            return redirect('/');
+        }
     }
 
     public function confirmPayment($id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-        $paymentMethods = PaymentMethods::all();
 
-        return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
+        if($user->id == $sales->user_id) {
+            $paymentMethods = PaymentMethods::all();
+    
+            return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
+        }
+
+        else {
+            return redirect('/');
+        }
     }
 
     public function submitPayment(Request $request, $id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        $request->validate([
-            'inputPayType' => 'required',
-            'inputPayment' => 'max:5000'
-        ],
-        [
-            'inputPayType.required' => 'Tipe Pembayaran belum diisi',
-            // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
-            'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
-        ]);
-
-        if ($request->hasFile('inputPayment')) {
-            $extension = $request->file('inputPayment')->getClientOriginalExtension();
-            $filename = $sales->sales_no.'_'.time().'.'.$extension;
-            $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
-            $sales->payment = $filename;
+        if($user->id == $sales->user_id) {
+            $request->validate([
+                'inputPayType' => 'required',
+                'inputPayment' => 'max:5000'
+            ],
+            [
+                'inputPayType.required' => 'Tipe Pembayaran belum diisi',
+                // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
+                'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
+            ]);
+    
+            if ($request->hasFile('inputPayment')) {
+                $extension = $request->file('inputPayment')->getClientOriginalExtension();
+                $filename = $sales->sales_no.'_'.time().'.'.$extension;
+                $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
+                $sales->payment = $filename;
+            }
+    
+            $sales->paymethod_id = $request->inputPayType;
+            $sales->save();
+    
+            Mail::send(new UserTransaction($sales));
+            Mail::send(new AdminNotification($sales));
+    
+            return redirect()->route('sales.success', ['id' => $sales->sales_no]);
         }
 
-        $sales->paymethod_id = $request->inputPayType;
-        $sales->save();
-
-        Mail::send(new UserTransaction($sales));
-        Mail::send(new AdminNotification($sales));
-
-        return redirect()->route('sales.success', ['id' => $sales->sales_no]);
+        else {
+            return redirect('/');
+        }
     }
 
     public function success($id)
     {
+        $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        \Cart::clear();
+        if($user->id == $sales->user_id) {
+            \Cart::clear();
+    
+            return view('checkout.payment-success', compact('sales'));
+        }
 
-        return view('checkout.payment-success', compact('sales'));
+        else {
+            return redirect('/');
+        }
     }
 
 
