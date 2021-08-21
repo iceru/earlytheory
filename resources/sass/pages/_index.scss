@@ -52,15 +52,6 @@
         object-position: center;
         // height: 500px;
         border-radius: 2rem;
-        height: 50vw;
-
-        @include breakpoint(large) {
-            height: 40vw;
-        }
-
-        @include breakpoint(xxlarge) {
-            height: 33vw;
-        }
     }
 }
 

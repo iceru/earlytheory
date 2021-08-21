@@ -121,7 +121,6 @@
                         <th>Duration</th>
                         <th>Short Description</th>
                         <th>Description</th>
-                        <th>Slug</th>
                         <th>Category</th>
                         <th>Stock</th>
                         <th>Options</th>
@@ -144,7 +143,6 @@
                         <td>{{$product->duration}}</td>
                         <td>{{$product->description_short}}</td>
                         <td>{{substr($product->description, 0, 100) . '...'}}</td>
-                        <td>{{$product->slug}}</td>
                         <td>{{ucfirst($product->category)}}</td>
                         <td>{{$product->stock}}</td>
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>

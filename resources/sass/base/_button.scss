@@ -1,12 +1,16 @@
 .button {
     padding: 8px 16px;
     border-radius: 5px;
-    display: inline-flex;
+    display: flex;
     text-decoration: none;
     justify-content: center;
     align-items: center;
     border: none;
     font-family: 'Apercu', sans-serif;
+
+    &.inline {
+        display: inline-flex;
+    }
 
     &.primary {
         background-color: $primary;
@@ -32,6 +36,13 @@
             color: $secondary;
             transition: .2s all ease-in;
         }
+    }
+
+    &.disabled {
+        background-color: lightgray;
+        color: black;
+        transition: .2s all ease-in;
+        border: 1px solid lightgray;
     }
 }
 

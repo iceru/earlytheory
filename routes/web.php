@@ -51,7 +51,7 @@ Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 
 Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
 
-Route::middleware(['auth', 'role:user'])->group(function(){
+Route::middleware(['auth'])->group(function(){
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');

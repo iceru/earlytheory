@@ -1,12 +1,16 @@
-<x-guest-layout>
+<x-app-layout>
+    @section('title')
+    Login
+    @endsection
+    
     <x-auth-card>
-        <x-slot name="logo">
+        {{-- <x-slot name="logo">
             <div class="p-4 text-center logo-login">
                 <a href="/">
                     <img src="/images/MainLogo.png" alt="Early Theory">
                 </a>
             </div>
-        </x-slot>
+        </x-slot> --}}
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -63,4 +67,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

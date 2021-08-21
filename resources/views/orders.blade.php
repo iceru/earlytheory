@@ -21,9 +21,9 @@
                         </div>
                         <div class="col-12">
                             <div class="d-flex">
-                                <a href="" class="button primary">Order Detail</a>
+                                <a href="{{ route('user.order-detail', $order->id) }}" class="button primary me-3" style="display: inline-flex">Order Detail</a>
                                 @if ($order->payment->isEmpty())
-                                    <a href="" class="button secondary">Confirm Payment</a>
+                                    <a href="" class="button secondary" style="display: inline-flex">Confirm Payment</a>
                                 @endif
                             </div>
                         </div>
