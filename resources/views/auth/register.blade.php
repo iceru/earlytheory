@@ -47,13 +47,11 @@
                                 name="password_confirmation" required />
             </div>
             <div class="row mb-3 primary-color">
-                <a class=" text-right" href="{{ route('login') }}">
+                <a class="primary-color" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
             </div>
             <div class="flex items-center justify-end mt-4">
-
-
                 <x-button>
                     {{ __('Register') }}
                 </x-button>

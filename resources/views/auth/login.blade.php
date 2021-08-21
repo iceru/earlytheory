@@ -35,14 +35,14 @@
             </div>
 
             <!-- Remember Me -->
-            <div class="row mt-4 me-0 ">
+           <div class="row mt-3 me-0">
                 <label for="remember_me" class="d-flex align-items-center">
                     <input id="remember_me" type="checkbox" class="rounded pr-2" name="remember" style="margin-right: .5rem">
                     <span class="pl-2 ">{{ __('Remember me') }}</span>
                 </label>
-            </div>
+           </div>
 
-            <div class="row align-items-center mt-4 me-0 ">
+            <div class="row align-items-center mt-3 me-0 ">
                 @if (Route::has('password.request'))
                     <a class="col-8 primary-color" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
@@ -52,6 +52,14 @@
                 <x-button class="col-4 m-0">
                     {{ __('Log in') }}
                 </x-button>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <a class="primary-color " href="{{ route('register') }}">
+                        Doesn't have an account?
+                    </a>
+                </div>
             </div>
         </form>
     </x-auth-card>

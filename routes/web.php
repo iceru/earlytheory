@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ArticleController;
@@ -50,7 +51,14 @@ Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 
 Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
 
-Route::middleware(['auth', 'role:user'])->group(function (){
+Route::middleware(['auth', 'role:user'])->group(function(){
+    Route::get('/account', [UserController::class, 'account'])->name('user.account');
+    Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
+    Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');
+    Route::get('/order/{$id}', [UserController::class, 'orderDetail'])->name('user.order-detail');
+});
+
+Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
     Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');
