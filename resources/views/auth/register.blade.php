@@ -27,30 +27,39 @@
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
-
+            
             <!-- Password -->
             <div class="row align-items-center me-0 mb-3">
                 <x-label for="password" :value="__('Password')" />
-
+                
                 <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
+                type="password"
+                name="password"
+                required autocomplete="new-password" />
             </div>
-
+            
             <!-- Confirm Password -->
             <div class="row align-items-center me-0 mb-3">
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
+                
                 <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+                type="password"
+                name="password_confirmation" required />
             </div>
+
+            <!-- Phone Number -->
+            <div class="row align-items-center me-0 mb-3">
+                <x-label for="phone" :value="__('Phone')" />
+
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
+            </div>
+            
             <div class="row mb-3 primary-color">
                 <a class=" text-right" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
             </div>
+
             <div class="flex items-center justify-end mt-4">
 
 

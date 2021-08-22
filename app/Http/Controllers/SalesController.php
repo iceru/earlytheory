@@ -391,8 +391,8 @@ class SalesController extends Controller
             $sales->paymethod_id = $request->inputPayType;
             $sales->save();
     
-            Mail::send(new UserTransaction($sales));
-            Mail::send(new AdminNotification($sales));
+            // Mail::send(new UserTransaction($sales));
+            // Mail::send(new AdminNotification($sales));
     
             return redirect()->route('sales.success', ['id' => $sales->sales_no]);
         }
