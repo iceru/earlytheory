@@ -29,10 +29,10 @@
                         <p class="product-price">idr {{number_format($product->price)}} @if($product->duration > 0) <span> / {{ $product->duration }} menit  </span> @endif </p>
                         <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
-                    @if ($product->stock > 0)
-                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
+                    @if ($product->stock <= 0 && $product->category == 'product')
+                        <div class="button disabled my-3" disabled>Out of Stock</div>
                     @else
-                    <div class="button secondary my-3" disabled>Out of Stock</div>
+                        <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
                     @endif
                 </div>
             @empty
