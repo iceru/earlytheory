@@ -41,30 +41,30 @@
                     </div>
                     <div class="form-group col-12 col-lg-6">
                         <label for="inputPhone">Nomor Telepon</label>
-                        <input type="tel" class="form-control" value="{{ old('inputPhone') }}" name="inputPhone" required>
+                        <input type="tel" class="form-control" value="{{ old('inputPhone', optional($user)->phone) }}" name="inputPhone" required>
                     </div>
                     <div class="form-group col-12 col-lg-6">
                         <label for="inputBirthdate">Tanggal Lahir</label>
-                        <input type="text" class="form-control" value="{{ old('inputBirthdate') }}" name="inputBirthdate" id="datepicker" required autocomplete="off">
+                        <input type="text" class="form-control" value="{{ old('inputBirthdate', optional($user)->birthdate) }}" name="inputBirthdate" id="datepicker" required autocomplete="off">
                     </div>
                     <div class="form-group col-12 col-lg-6">
                         <label for="inputRelationship">Status Relationship</label>
                         <select class="form-select" name="inputRelationship" id="inputRelationship">
                             <option selected disabled>Select</option>
-                            <option value="single"  @if (old('inputRelationship') == "single") {{ 'selected' }} @endif>Single</option>
-                            <option value="pacaran"  @if (old('inputRelationship') == "pacaran") {{ 'selected' }} @endif>Pacaran</option>
-                            <option value="menikah" @if (old('inputRelationship') == "menikah") {{ 'selected' }} @endif>Menikah</option>
-                            <option value="divorced" @if (old('inputRelationship') == "divorced") {{ 'selected' }} @endif>Divorced</option>
+                            <option value="single"  @if (old('inputRelationship') == "single" || $user->relationship == "single") {{ 'selected' }} @endif>Single</option>
+                            <option value="pacaran"  @if (old('inputRelationship') == "pacaran" || $user->relationship == "pacaran") {{ 'selected' }} @endif>Pacaran</option>
+                            <option value="menikah" @if (old('inputRelationship') == "menikah" || $user->relationship == "menikah") {{ 'selected' }} @endif>Menikah</option>
+                            <option value="divorced" @if (old('inputRelationship') == "divorced" || $user->relationship == "divorced") {{ 'selected' }} @endif>Divorced</option>
                         </select>
                     </div>
                     <div class="form-group col-12 col-lg-6">
                       <label for="inputPekerjaan">Status Pekerjaan</label>
                       <select class="form-select" name="inputPekerjaan" id="inputPekerjaan">
                             <option selected disabled>Select</option>
-                            <option value="unemployed" @if (old('inputPekerjaan') == "unemployed") {{ 'selected' }} @endif>Unemployed</option>
-                            <option value="employed" @if (old('inputPekerjaan') == "employed") {{ 'selected' }} @endif>Employed</option>
-                            <option value="business" @if (old('inputPekerjaan') == "business") {{ 'selected' }} @endif>Business</option>
-                            <option value="student"  @if (old('inputPekerjaan') == "student") {{ 'selected' }} @endif>Student</option>
+                            <option value="unemployed" @if (old('inputPekerjaan') == "unemployed" || $user->job == "unemployed") {{ 'selected' }} @endif>Unemployed</option>
+                            <option value="employed" @if (old('inputPekerjaan') == "employed" || $user->job == "employed") {{ 'selected' }} @endif>Employed</option>
+                            <option value="business" @if (old('inputPekerjaan') == "business" || $user->job == "business") {{ 'selected' }} @endif>Business</option>
+                            <option value="student"  @if (old('inputPekerjaan') == "student" || $user->job == "student") {{ 'selected' }} @endif>Student</option>
                       </select>
                     </div>
                    </div>

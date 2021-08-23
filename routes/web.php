@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/order/{$id}', [UserController::class, 'orderDetail'])->name('user.order-detail');
 });
 
-Route::middleware(['auth', 'role:administrator'])->group(function (){
+Route::middleware(['auth', 'role:user'])->group(function (){
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
     Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');

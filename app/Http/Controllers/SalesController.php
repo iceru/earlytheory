@@ -30,7 +30,6 @@ class SalesController extends Controller
             $sales = new Sales;
             $sales->sales_no = $salesNo;
             $sales->total_price = $total;
-            $sales->email = ' ';
             $sales->user_id = $userid;
             $sales->save();
 
@@ -89,13 +88,7 @@ class SalesController extends Controller
                 'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
             ]);
     
-            $sales->name = $request->inputName;
-            $sales->email = $request->inputEmail;
-            $sales->phone = $request->inputPhone;
-            $sales->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');;
             $sales->paymethod_id = $request->inputPayType;
-            $sales->relationship = $request->inputRelationship;
-            $sales->job = $request->inputPekerjaan;
     
             $item_id = $request->id;
             $item_question = $request->question;
@@ -105,6 +98,14 @@ class SalesController extends Controller
                 $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
             }
             $sales->save();
+
+            $user->name = $request->inputName;
+            $user->email = $request->inputEmail;
+            $user->phone = $request->inputPhone;
+            $user->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');
+            $user->relationship = $request->inputRelationship;
+            $user->job = $request->inputPekerjaan;
+            $user->save();
     
             // Check product category in sales
             $is_product = 0;
@@ -357,7 +358,7 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
             $paymentMethods = PaymentMethods::all();
     
-            return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
+            return view('checkout.confirm-payment', compact('user', 'sales', 'paymentMethods'));
         }
 
         else {
@@ -410,7 +411,7 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
             \Cart::clear();
     
-            return view('checkout.payment-success', compact('sales'));
+            return view('checkout.payment-success', compact('user', 'sales'));
         }
 
         else {

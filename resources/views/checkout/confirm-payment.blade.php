@@ -39,36 +39,36 @@
                 <div class="form-payment col-12">
                     <div class="form-group">
                         <label for="inputName">Nama Lengkap</label>
-                        <input class="form-control-plaintext" type="text" value="{{ $sales->name }}" name="inputName"
+                        <input class="form-control-plaintext" type="text" value="{{ $user->name }}" name="inputName"
                             readonly>
                     </div>
                     <input type="text" name="salesId" value="{{$sales->id}}" hidden>
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
-                        <input type="email" name="inputEmail" value="{{ $sales->email }}" class="form-control-plaintext"
+                        <input type="email" name="inputEmail" value="{{ $user->email }}" class="form-control-plaintext"
                             readonly>
                     </div>
                     <div class="form-group">
                         <label for="inputPhone">Nomor Telepon</label>
-                        <input type="tel" class="form-control-plaintext" value="{{ $sales->phone }}" name="inputPhone"
+                        <input type="tel" class="form-control-plaintext" value="{{ $user->phone }}" name="inputPhone"
                             readonly>
                     </div>
                     <div class="form-group">
                         <label for="inputBirthdate">Tanggal Lahir</label>
-                        <input type="text" class="form-control-plaintext" value="{{ $sales->birthdate }}"
+                        <input type="text" class="form-control-plaintext" value="{{ $user->birthdate }}"
                             name="inputBirthdate" id="datepicker" readonly autocomplete="off">
                     </div>
                     <div class="form-group ">
                         <label for="inputRelationship">Status Relationship</label>
                         <select class="form-control-plaintext" name="inputRelationship" id="inputRelationship" disabled>
                             <option selected disabled>Select</option>
-                            <option value="single" @if ($sales->relationship == "single") {{ 'selected' }} @endif
+                            <option value="single" @if ($user->relationship == "single") {{ 'selected' }} @endif
                                 disabled>Single</option>
-                            <option value="pacaran" @if ($sales->relationship == "pacaran") {{ 'selected' }} @endif
+                            <option value="pacaran" @if ($user->relationship == "pacaran") {{ 'selected' }} @endif
                                 disabled>Pacaran</option>
-                            <option value="menikah" @if ($sales->relationship == "menikah") {{ 'selected' }} @endif
+                            <option value="menikah" @if ($user->relationship == "menikah") {{ 'selected' }} @endif
                                 disabled>Menikah</option>
-                            <option value="divorced" @if ($sales->relationship == "divorced") {{ 'selected' }} @endif
+                            <option value="divorced" @if ($user->relationship == "divorced") {{ 'selected' }} @endif
                                 disabled>Divorced</option>
                         </select>
                     </div>
@@ -76,13 +76,13 @@
                         <label for="inputPekerjaan">Status Pekerjaan</label>
                         <select class="form-control-plaintext" name="inputPekerjaan" id="inputPekerjaan" disabled>
                             <option selected disabled>Select</option>
-                            <option value="unemployed" @if ($sales->job == "unemployed") {{ 'selected' }} @endif
+                            <option value="unemployed" @if ($user->job == "unemployed") {{ 'selected' }} @endif
                                 disabled>Unemployed</option>
-                            <option value="employed" @if ($sales->job == "employed") {{ 'selected' }} @endif
+                            <option value="employed" @if ($user->job == "employed") {{ 'selected' }} @endif
                                 disabled>Employed</option>
-                            <option value="business" @if ($sales->job== "business") {{ 'selected' }} @endif
+                            <option value="business" @if ($user->job== "business") {{ 'selected' }} @endif
                                 disabled>Business</option>
-                            <option value="student" @if ($sales->job == "student") {{ 'selected' }} @endif
+                            <option value="student" @if ($user->job == "student") {{ 'selected' }} @endif
                                 disabled>Student</option>
                         </select>
                     </div>

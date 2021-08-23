@@ -30,16 +30,16 @@
                                 <p><b>Sales Number:</b> <br> {{$sales->sales_no}}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Name:</b> <br> {{$sales->name}}</p>
+                                <p><b>Name:</b> <br> {{$user->name}}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Email:</b> <br> {{$sales->email}}</p>
+                                <p><b>Email:</b> <br> {{$user->email}}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Nomor Telepon:</b> <br> {{$sales->phone}}</p>
+                                <p><b>Nomor Telepon:</b> <br> {{$user->phone}}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Tanggal Lahir:</b> <br> {{ \Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}</p>
+                                <p><b>Tanggal Lahir:</b> <br> {{ \Carbon\Carbon::parse($user->birthdate)->toFormattedDateString()}}</p>
                             </div>
                             {{-- <div class="col-12 mt-3">
                                 <button id="print" class="button primary">Print Invoice &nbsp; <i class="fa fa-print" aria-hidden="true"></i></button>
