@@ -358,7 +358,7 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
             $paymentMethods = PaymentMethods::all();
     
-            return view('checkout.confirm-payment', compact('user', 'sales', 'paymentMethods'));
+            return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
         }
 
         else {
@@ -411,7 +411,7 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
             \Cart::clear();
     
-            return view('checkout.payment-success', compact('user', 'sales'));
+            return view('checkout.payment-success', compact('sales'));
         }
 
         else {

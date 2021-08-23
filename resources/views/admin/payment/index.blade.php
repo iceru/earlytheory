@@ -38,7 +38,7 @@
                         <td>{{$sale->sales_no}}</td>
                         <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
                         <td>{{number_format($sale->total_price-$sale->discount)}}</td>
-                        <td>{{$sale->name}}</td>
+                        <td>{{$sale->user->name}}</td>
                         @if ($sale->paymentmethods)
                         <td>{{$sale->paymentmethods->name}}</td>
                         @else

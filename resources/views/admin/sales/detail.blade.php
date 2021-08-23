@@ -42,25 +42,25 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Name</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->name}}" readonly>
+            <input type="text" class="form-control-plaintext" value="{{$sales->user->name}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Email</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->email}}" readonly>
+            <input type="text" class="form-control-plaintext" value="{{$sales->user->email}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Phone Number</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->phone}}" readonly>
+            <input type="text" class="form-control-plaintext" value="{{$sales->user->phone}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Date of Birth</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" readonly>
+            <input type="text" class="form-control-plaintext" value="{{\Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
@@ -74,13 +74,13 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Status Relationship</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->relationship}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->user->relationship}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Status Pekerjaan</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->job}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->user->job}}" readonly>
         </div>
     </div>
     {{-- <div class="mb-1 row">
