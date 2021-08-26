@@ -6903,7 +6903,6 @@ module.exports = {
 /***/ (() => {
 
 $('.addcart').on('click', function () {
-  debugger;
   var id = $(this).data('id');
 
   if (id) {
@@ -6912,7 +6911,6 @@ $('.addcart').on('click', function () {
       type: "GET",
       dataType: "json",
       success: function success(data) {
-        debugger;
         $('#cartcount').html(data.count); // console.log(data.count);
 
         var Toast = Swal.mixin({

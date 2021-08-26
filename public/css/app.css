@@ -10842,7 +10842,11 @@ textarea.form-control-lg {
 }
 
 .primary-color {
-  color: #4A2984;
+  color: #4A2984 !important;
+}
+
+.grey-color {
+  color: #828282 !important;
 }
 
 .white-color {
@@ -10856,6 +10860,12 @@ textarea.form-control-lg {
   font-family: "Evogria";
   color: black;
   text-transform: uppercase;
+}
+
+.skylar {
+  font-family: "Skylar Sans";
+  letter-spacing: 1px;
+  font-weight: 700;
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p {
@@ -11986,9 +11996,53 @@ a {
 .account .account-content .account-item {
   margin-bottom: 0.75rem;
 }
-.account .order-content {
+.account .account-content .account-item p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.account .orders-content {
   padding-left: 2rem;
 }
+.account .orders-content .order-item {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #4A2984;
+}
+.account .orders-content .order-item .order-header {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+.account .orders-content .order-item .order-products .product-item:not(:first-child) {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 576px) {
+  .account {
+    width: 100%;
+  }
+  .account .account-navigation {
+    height: auto !important;
+    margin-bottom: 1rem;
+  }
+  .account .account-navigation .sidebar-account {
+    display: flex;
+    justify-content: space-between;
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .account .account-navigation .sidebar-account li {
+    margin: 1rem;
+  }
+  .account .account-navigation .sidebar-account li a {
+    font-size: 1rem;
+  }
+  .account .account-content {
+    padding: 1rem;
+  }
+}
+
 .product-detail {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;

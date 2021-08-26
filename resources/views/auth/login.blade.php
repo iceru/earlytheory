@@ -4,19 +4,13 @@
     @endsection
     
     <x-auth-card>
-        {{-- <x-slot name="logo">
-            <div class="p-4 text-center logo-login">
-                <a href="/">
-                    <img src="/images/MainLogo.png" alt="Early Theory">
-                </a>
-            </div>
-        </x-slot> --}}
+        <h5 class="evogria mb-4 text-center">Login</h5>
 
         <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <x-auth-session-status class="mb-4 alert alert-secondary" :status="session('status')" />
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-auth-validation-errors class="mb-4 alert alert-danger" :errors="$errors" />
 
         <form method="POST" action="{{ route('login') }}" class="container">
             @csrf
@@ -54,13 +48,13 @@
                 @endif
 
                 <x-button class="col-4 m-0">
-                    {{ __('Log in') }}
+                    {{ __('Login') }}
                 </x-button>
             </div>
 
             <div class="row mt-3">
                 <div class="col-12 text-center">
-                    <a class="primary-color " href="{{ route('register') }}">
+                    <a class="primary-color fw-bold" href="{{ route('register') }}">
                         Doesn't have an account?
                     </a>
                 </div>

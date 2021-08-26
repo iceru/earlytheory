@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\Models\User;
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,6 +18,36 @@ class UserController extends Controller
     public function accountEdit()
     {
         return view('account-edit')->with('user', auth()->user());
+    }
+    
+    public function accountUpdate(Request $request) {
+        $user = auth()->user();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'birthdate' => 'nullable',
+            'job' => 'nullable',
+            'relationship' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('user.account-edit')
+            ->withErrors($validator)
+            ->withInput();
+        };
+        
+        $update = $user->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'birthdate' => $request->birthdate,
+            'phone' => $request->phone,
+            'job' => $request->job,
+            'relationship' => $request->relationship,
+        ])->save();
+
+        return redirect()->route('user.account-edit')->with('success', 'Data berhasil terupdate!');
     }
 
     public function orders()

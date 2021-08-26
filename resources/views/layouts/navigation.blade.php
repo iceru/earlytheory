@@ -4,7 +4,7 @@
         <div class="dropdown">
             <a class="d-flex align-items-center me-3"  id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-2 primary-color" aria-hidden="true"></i>
-                <span class="evogria dropdown-toggle">{{ auth()->user()->name }}</span>
+                <span class="dropdown-toggle grey-color fw-bold">{{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="{{ route('user.account') }}">Account</a></li>
@@ -21,7 +21,7 @@
             </ul>
         </div>
         @else
-        <a href="{{ route('login') }}" class="evogria button primary inline"><i class="fa fa-user me-2" style="font-size: 13px" aria-hidden="true"></i> Login</a>
+        <a href="{{ route('login') }}" class="evogria primary-color d-flex"><i class="fa fa-user me-2" style="line-height: 1.6" aria-hidden="true"></i> <span style="margin-top: 2px">Login</span></a>
         @endauth
     </div>
     <div class="hamburger col-3 d-lg-none d-flex justify-content-start">

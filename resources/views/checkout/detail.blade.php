@@ -79,7 +79,7 @@
                                     <h4>{{$item->title}}</h4>
                                 </div>
                                 <div class="product-price col-12">
-                                    <p>idr {{number_format($item->price)}}</p>
+                                    <p>IDR {{number_format($item->price)}}</p>
                                 </div>
                                <div class="row g-0">
                                 {{-- <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5> --}}

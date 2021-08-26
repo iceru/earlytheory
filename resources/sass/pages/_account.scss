@@ -44,14 +44,63 @@
 
         .account-item {
             margin-bottom: .75rem;
+
+            p {
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
         }
     }
 
-    .order-content {
+    .orders-content {
         padding-left: 2rem;
 
         .order-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid $primary;
+
+            .order-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .order-products {
+                .product-item:not(:first-child) {
+                    margin-top: 1rem;
+                    padding-top: 1rem;
+                    border-top: 1px solid rgba(0,0,0, 0.1);
+                }
+            }
+        }
+    }
+
+    
+
+    @include breakpoint-down(small) {
+        width: 100%;
+
+        .account-navigation {
+            height: auto !important;
+            margin-bottom: 1rem;
             
+            .sidebar-account {
+                display: flex;
+                justify-content: space-between;
+                border-right: none;
+                padding-right: 0;
+                border-bottom: 1px solid rgba(0,0,0, 0.1);
+                li {
+                    margin: 1rem;
+                    a {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+
+        .account-content {
+            padding: 1rem;
         }
     }
 }
