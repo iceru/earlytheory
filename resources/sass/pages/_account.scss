@@ -56,20 +56,21 @@
         padding-left: 2rem;
 
         .order-item {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid $primary;
+            &:not(:last-child) {
+                margin-bottom: 2rem;
+                padding-bottom: 2rem;
+                border-bottom: 1px solid $primary;
+            }
 
             .order-header {
                 margin-bottom: 1rem;
-                padding-bottom: 1rem;
             }
 
             .order-products {
-                .product-item:not(:first-child) {
-                    margin-top: 1rem;
-                    padding-top: 1rem;
-                    border-top: 1px solid rgba(0,0,0, 0.1);
+                .product-item:not(:last-child) {
+                    margin-bottom: 1rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 1px solid rgba(0,0,0, 0.1);
                 }
             }
         }

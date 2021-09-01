@@ -1,8 +1,11 @@
 <x-app-layout>
     @section('title')
-        {{$article->title}}
+        {{$article->title}} - Early Theory
     @endsection
     <div class="col-12 g-0 article-detail main-content">
+        <div class="breadcrumb mb-3 fw-normal">
+            <a href="{{ route('articles') }}" class="primary-color">Articles</a><span>&nbsp; <span class="primary-color">/</span> &nbsp;{{ $article->title }}</span>
+        </div>
         <div class="article-image" style="background-image: url('{{Storage::url('article-image/'.$article->image)}}')">
             {{-- <div class="share">
                 <i class="fas fa-share    "></i>
@@ -12,7 +15,7 @@
             </div>
 
             <div class="title" style="background-color: {{ $article->accent_color }}; opacity: 0.8">
-                <h2>{{$article->title}}</h2>
+                <h1>{{$article->title}}</h1>
             </div>
         </div>
         <div class="article-body">
@@ -41,9 +44,9 @@
                     </div>
                 </div>
             </div>
-            <div class="article-text">
+            <article class="article-text">
                 {!! ($article->description) !!}
-            </div>
+            </article>
 
             <div class="sliders mt-5">
                 @foreach ($sliders as $slider)

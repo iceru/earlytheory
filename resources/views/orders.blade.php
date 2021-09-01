@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="order-products mb-4 col-12">
+                        <div class="order-products mb-2 mb-lg-4 col-12">
                             @foreach ($order->products as $product)
                                 <div class="product-item">
                                    <div class="row">
@@ -33,12 +33,21 @@
                                             @endforeach
                                         </div>
                                         <div class="col-9">
-                                            <div class="d-flex align-items-start justify-content-between">
+                                            <div class="d-block d-lg-flex align-items-start justify-content-between">
                                                 <h4 class="skylar primary-color mb-1">{{ $product->title }}</h4>
-                                                <h5>Quantity: {{$product->pivot->qty}}</h5>
+                                                <p class="mb-1 mb-lg-0">Quantity: {{$product->pivot->qty}}</p>
                                             </div>
-                                            <h5 class="mb-2">IDR {{ $product->price }}</h5>
-                                            <p>{{$product->description_short}}</p>
+                                            <p class="mb-1 mb-lg-2">IDR {{ $product->price }}</p>
+                                            <div class="d-none d-lg-block">
+                                                <p >{{$product->description_short}}</p>
+                                                @if ($product->pivot->question != '')
+                                                <h6>Question: </h6>
+                                                <p>{{$product->pivot->question}}</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-block d-lg-none">
+                                            <p class="mb-2">{{$product->description_short}}</p>
                                             @if ($product->pivot->question != '')
                                             <h6>Question: </h6>
                                             <p>{{$product->pivot->question}}</p>

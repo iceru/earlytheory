@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminSalesController;
+use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminDiscountController;
@@ -39,6 +40,10 @@ Route::get('/article-detail/{id}', [ArticleController::class, 'show'])->name('ar
 Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->name('product-detail');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
+
+  
+Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
+Route::get('auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 // Route::get('/product', function(){
 //     return view ('product-detail');
 // });

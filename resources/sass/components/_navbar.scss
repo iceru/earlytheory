@@ -34,6 +34,28 @@
     }
 }
 
+.dropdown-menu {
+    background-color: $background;
+    padding: 0;
+
+    .dropdown-item {
+        padding: .5rem 1rem;
+
+        &.active, &:active, &:hover, &:focus {
+            background-color: $primary;
+            color: white;
+
+            a {
+                color: white;
+            }
+        }
+
+        a {
+            color: black;
+        }
+    }
+}
+
 .navbar {
     padding-top: 0;
     padding-bottom: 1rem;

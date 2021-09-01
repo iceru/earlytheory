@@ -10,9 +10,9 @@
                 <li><a class="dropdown-item" href="{{ route('user.account') }}">Account</a></li>
                 <li><a class="dropdown-item" href="{{ route('user.orders') }}">Orders</a></li>
                 <li>
-                    <form method="POST" class="dropdown-item" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                         this.closest('form').submit();">
                             Logout
                         </a>
@@ -21,7 +21,7 @@
             </ul>
         </div>
         @else
-        <a href="{{ route('login') }}" class="evogria primary-color d-flex"><i class="fa fa-user me-2" style="line-height: 1.6" aria-hidden="true"></i> <span style="margin-top: 2px">Login</span></a>
+        <a href="{{ route('login') }}" class="evogria primary-color d-flex"><i class="fa fa-user me-2" style="line-height: 1.4" aria-hidden="true"></i> <span class="grey-color">Login</span></a>
         @endauth
     </div>
     <div class="hamburger col-3 d-lg-none d-flex justify-content-start">

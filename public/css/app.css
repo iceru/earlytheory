@@ -11148,6 +11148,24 @@ a {
   text-align: center;
 }
 
+.dropdown-menu {
+  background-color: #e7e7e7;
+  padding: 0;
+}
+.dropdown-menu .dropdown-item {
+  padding: 0.5rem 1rem;
+}
+.dropdown-menu .dropdown-item.active, .dropdown-menu .dropdown-item:active, .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus {
+  background-color: #4A2984;
+  color: white;
+}
+.dropdown-menu .dropdown-item.active a, .dropdown-menu .dropdown-item:active a, .dropdown-menu .dropdown-item:hover a, .dropdown-menu .dropdown-item:focus a {
+  color: white;
+}
+.dropdown-menu .dropdown-item a {
+  color: black;
+}
+
 .navbar {
   padding-top: 0;
   padding-bottom: 1rem;
@@ -11268,6 +11286,10 @@ a {
   width: 100%;
   height: auto;
   border-radius: 10px;
+  object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  -o-object-fit: cover;
 }
 
 .product-title h3, .product-title .h3 {
@@ -11411,7 +11433,7 @@ a {
   left: 0;
   letter-spacing: 1px;
 }
-.article-detail .article-image .title h2, .article-detail .article-image .title .h2 {
+.article-detail .article-image .title h1, .article-detail .article-image .title .h1 {
   font-family: "Skylar Sans";
   font-size: 28px;
   opacity: 1;
@@ -11429,7 +11451,7 @@ a {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
   }
-  .article-detail .article-image .title h2, .article-detail .article-image .title .h2 {
+  .article-detail .article-image .title h1, .article-detail .article-image .title .h1 {
     font-size: 2rem;
   }
 }
@@ -12003,19 +12025,18 @@ a {
 .account .orders-content {
   padding-left: 2rem;
 }
-.account .orders-content .order-item {
+.account .orders-content .order-item:not(:last-child) {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid #4A2984;
 }
 .account .orders-content .order-item .order-header {
   margin-bottom: 1rem;
-  padding-bottom: 1rem;
 }
-.account .orders-content .order-item .order-products .product-item:not(:first-child) {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+.account .orders-content .order-item .order-products .product-item:not(:last-child) {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 @media (max-width: 576px) {
   .account {
