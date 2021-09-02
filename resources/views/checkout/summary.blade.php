@@ -29,17 +29,24 @@
                             </div>
                             <div class="col-5 col-lg-3 product-image">
                                 @foreach ((array)json_decode($item->image) as $image)
+                                <div class="ratio ratio-1x1">
                                     <img src="{{Storage::url('product-image/'.$image)}}" alt="No Image">
+                                </div>
                                 @endforeach
                             </div>
-                            <div class="col-7 col-lg-9 product-question"  @if ($item->duration != "0") hidden @endif>
-                                <h5>Pertanyaan</h5>
-                                <p>{{nl2br($item->pivot->question)}}</p>
-                                <button class="button primary mt-3 mt-lg-2">
-                                    <span><i class="fas fa-edit"></i> &nbsp;</span>
-                                    <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
-                                        Edit</span></a>
-                                </button>
+                            <div class="col-7 col-lg-9 product-question"  >
+                                <div @if ($item->duration != "0" || $item->category == 'product') hidden @endif>
+                                    <h5>Pertanyaan</h5>
+                                    <p>{{nl2br($item->pivot->question)}}</p>
+                                    <button class="button primary mt-3 mt-lg-2">
+                                        <span><i class="fas fa-edit"></i> &nbsp;</span>
+                                        <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
+                                            Edit</span></a>
+                                    </button>
+                                </div>
+                                @if ($item->duration != "0" || $item->category == 'product')
+                                    <p>{!! $item->description_short !!}</p>
+                                @endif
                             </div>
                         </div>
                     </div>

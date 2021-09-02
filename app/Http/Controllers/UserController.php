@@ -6,6 +6,7 @@ use Validator;
 use App\Models\User;
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethods;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -56,15 +57,16 @@ class UserController extends Controller
         return view('orders', compact('orders'));
     }
 
-    public function order($id)
-    {
-        $order = Sales::where('id', $id)->firstOrFail();
-        return view('order-detail', compact('order'));
-    }
+    // public function order($id)
+    // {
+    //     $order = Sales::where('id', $id)->firstOrFail();
+    //     return view('order-detail', compact('order'));
+    // }
 
     public function confirmPayment($id)
     {
-        $order = Sales::where('id', $id)->firstOrFail();
-        return view('confirm-pay', compact('order'));
+        $paymentMethods = PaymentMethods::all();
+        $order = Sales::where('sales_no', $id)->firstOrFail();
+        return view('confirm-payment', compact('order', 'paymentMethods'));
     }
 }

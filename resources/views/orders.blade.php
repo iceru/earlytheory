@@ -59,9 +59,8 @@
                         </div>
                         <div class="col-12">
                             <div class="d-flex">
-                                <a href="{{ route('user.order-detail', $order->id) }}" class="button primary me-3" style="display: inline-flex">Order Detail</a>
                                 @if ($order->payment == '')
-                                    <a href="" class="button secondary" style="display: inline-flex">Confirm Payment</a>
+                                    <a href="{{ route('user.confirm-payment', $order->sales_no) }}" class="button primary" style="display: inline-flex">Confirm Payment</a>
                                 @endif
                             </div>
                         </div>

@@ -11540,8 +11540,12 @@ a {
 }
 .cart .products .product-item-container .product-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 .cart .products .product-item-container .product-item {
   color: #4A2984;
@@ -11670,11 +11674,6 @@ a {
   .checkout .products .product-item-container .product-price {
     font-size: 1.25rem;
   }
-}
-.checkout .products .product-item-container .product-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
 }
 .checkout .products .product-item-container .product-question p {
   display: -webkit-box;

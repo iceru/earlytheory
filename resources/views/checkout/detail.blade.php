@@ -29,45 +29,28 @@
             <form action="/checkout/{{$sales->sales_no}}/question/add" method="post">
                 @csrf
                 <div class="form-payment col-12 mb-3">
-                   <div class="row">
-                    <div class="form-group col-12 col-lg-6">
-                        <label for="inputName">Nama Lengkap</label>
-                        <input class="form-control" type="text" value="{{ old('inputName', optional($sales->user)->name) }}" name="inputName" required>
-                    </div>
-                    <input type="text" name="salesId" value="{{$sales->id}}" hidden>
-                    <div class="form-group col-12 col-lg-6">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" name="inputEmail" value="{{ old('inputEmail', optional($sales->user)->email) }}" class="form-control" required>
-                    </div>
-                    <div class="form-group col-12 col-lg-6">
-                        <label for="inputPhone">Nomor Telepon</label>
-                        <input type="tel" class="form-control" value="{{ old('inputPhone', optional($sales->user)->phone) }}" name="inputPhone" required>
-                    </div>
-                    <div class="form-group col-12 col-lg-6">
-                        <label for="inputBirthdate">Tanggal Lahir</label>
-                        <input type="text" class="form-control" value="{{ old('inputBirthdate', optional($sales->user)->birthdate) }}" name="inputBirthdate" id="datepicker" required autocomplete="off">
-                    </div>
-                    <div class="form-group col-12 col-lg-6">
-                        <label for="inputRelationship">Status Relationship</label>
-                        <select class="form-select" name="inputRelationship" id="inputRelationship">
-                            <option selected disabled>Select</option>
-                            <option value="single"  @if (old('inputRelationship') == "single" || $sales->user->relationship == "single") {{ 'selected' }} @endif>Single</option>
-                            <option value="pacaran"  @if (old('inputRelationship') == "pacaran" || $sales->user->relationship == "pacaran") {{ 'selected' }} @endif>Pacaran</option>
-                            <option value="menikah" @if (old('inputRelationship') == "menikah" || $sales->user->relationship == "menikah") {{ 'selected' }} @endif>Menikah</option>
-                            <option value="divorced" @if (old('inputRelationship') == "divorced" || $sales->user->relationship == "divorced") {{ 'selected' }} @endif>Divorced</option>
+                    <div class="row">
+                        <div class="form-group col-12 col-lg-6">
+                            <label for="inputRelationship">Status Relationship</label>
+                            <select class="form-select" name="inputRelationship" id="inputRelationship">
+                                <option selected disabled>Select</option>
+                                <option value="single"  @if (old('inputRelationship') == "single" || $sales->user->relationship == "single") {{ 'selected' }} @endif>Single</option>
+                                <option value="pacaran"  @if (old('inputRelationship') == "pacaran" || $sales->user->relationship == "pacaran") {{ 'selected' }} @endif>Pacaran</option>
+                                <option value="menikah" @if (old('inputRelationship') == "menikah" || $sales->user->relationship == "menikah") {{ 'selected' }} @endif>Menikah</option>
+                                <option value="divorced" @if (old('inputRelationship') == "divorced" || $sales->user->relationship == "divorced") {{ 'selected' }} @endif>Divorced</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12 col-lg-6">
+                        <label for="inputPekerjaan">Status Pekerjaan</label>
+                        <select class="form-select" name="inputPekerjaan" id="inputPekerjaan">
+                                <option selected disabled>Select</option>
+                                <option value="unemployed" @if (old('inputPekerjaan') == "unemployed" || $sales->user->job == "unemployed") {{ 'selected' }} @endif>Unemployed</option>
+                                <option value="employed" @if (old('inputPekerjaan') == "employed" || $sales->user->job == "employed") {{ 'selected' }} @endif>Employed</option>
+                                <option value="business" @if (old('inputPekerjaan') == "business" || $sales->user->job == "business") {{ 'selected' }} @endif>Business</option>
+                                <option value="student"  @if (old('inputPekerjaan') == "student" || $sales->user->job == "student") {{ 'selected' }} @endif>Student</option>
                         </select>
+                        </div>
                     </div>
-                    <div class="form-group col-12 col-lg-6">
-                      <label for="inputPekerjaan">Status Pekerjaan</label>
-                      <select class="form-select" name="inputPekerjaan" id="inputPekerjaan">
-                            <option selected disabled>Select</option>
-                            <option value="unemployed" @if (old('inputPekerjaan') == "unemployed" || $sales->user->job == "unemployed") {{ 'selected' }} @endif>Unemployed</option>
-                            <option value="employed" @if (old('inputPekerjaan') == "employed" || $sales->user->job == "employed") {{ 'selected' }} @endif>Employed</option>
-                            <option value="business" @if (old('inputPekerjaan') == "business" || $sales->user->job == "business") {{ 'selected' }} @endif>Business</option>
-                            <option value="student"  @if (old('inputPekerjaan') == "student" || $sales->user->job == "student") {{ 'selected' }} @endif>Student</option>
-                      </select>
-                    </div>
-                   </div>
                 </div>
                 <div class="products col-12">
                     <div class="row">
@@ -83,15 +66,26 @@
                                 </div>
                                <div class="row g-0">
                                 {{-- <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5> --}}
-                                <div class="col-4 col-lg-3 product-image">
-                                    @foreach ((array)json_decode($item->image) as $image)
-                                        <img src="{{Storage::url('product-image/'.$image)}}" alt="">
-                                    @endforeach
+                                <div class="col-4 col-lg-3 ">
+                                    <div class="product-image">
+                                        @foreach ((array)json_decode($item->image) as $image)
+                                            <div class="ratio ratio-1x1">
+                                                <img src="{{Storage::url('product-image/'.$image)}}" alt="">
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <div class="col-8 col-lg-9 ps-2" @if ($item->duration != "0") hidden @endif>
-                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini..">{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                <div class="col-8 col-lg-9 ps-2">
+                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.."  @if ($item->duration != "0" || $item->category == 'product') hidden @endif>
+                                        {{$item->pivot->question == ' ' ? '' : $item->pivot->question}}
+                                    </textarea>
+
+                                    @if ($item->duration != "0" || $item->category == 'product')
+                                        <p>{!! $item->description_short !!}</p>
+                                    @endif
                                 </div>
-                               </div>
+                            </div>
+                                
                             </div>
                         </div>
                         @endforeach

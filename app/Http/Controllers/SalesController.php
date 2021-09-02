@@ -71,19 +71,10 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
 
             $request->validate([
-                'question.*' => 'nullable',
-                'inputName' => 'required',
-                'inputEmail' => 'required|email',
-                'inputPhone' => 'required',
-                'inputBirthdate' => 'required',
                 'inputRelationship' => 'required',
                 'inputPekerjaan' => 'required',
             ],
             [
-                'inputName.required' => 'Nama lengkap belum diisi',
-                'inputEmail.required' => 'Email belum diisi',
-                'inputPhone.required' => 'Nomor Telepon belum diisi',
-                'inputBirthdate.required' => 'Tanggal Lahir belum diisi',
                 'inputRelationship.required' => 'Status Relationship belum diisi',
                 'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
             ]);
@@ -99,10 +90,6 @@ class SalesController extends Controller
             }
             $sales->save();
 
-            $user->name = $request->inputName;
-            $user->email = $request->inputEmail;
-            $user->phone = $request->inputPhone;
-            $user->birthdate = Carbon::parse($request->inputBirthdate)->format('Y-m-d');
             $user->relationship = $request->inputRelationship;
             $user->job = $request->inputPekerjaan;
             $user->save();

@@ -21,7 +21,9 @@
                         <div class="product-item-container row m-0">
                             <div class="col-4 col-lg-3 product-image">
                                 @foreach ((array)json_decode($item->model->image) as $image)
-                                    <img src="{{Storage::url('product-image/'.$image)}}" alt="No Image">
+                                    <div class="ratio ratio-1x1">
+                                        <img src="{{Storage::url('product-image/'.$image)}}" alt="{{ $item->title }}">
+                                    </div>
                                 @endforeach
                             </div>
                             <div class="col-8 col-lg-9 product-item">

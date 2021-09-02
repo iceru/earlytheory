@@ -61,7 +61,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
     Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');
-    Route::get('/order/{$id}', [UserController::class, 'orderDetail'])->name('user.order-detail');
+    Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
+    Route::get('/confirm-payment/submit', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function (){
