@@ -64,6 +64,7 @@ class AdminArticleController extends Controller
         $article->author = $request->inputAuthor;
         $article->time_read = $request->inputTime;
         $article->accent_color = $request->inputAccent;
+        $article->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->inputTitle);
         $article->save();
 
         $tagsArray = explode(' ', strtolower($request->inputTags));
@@ -147,6 +148,7 @@ class AdminArticleController extends Controller
         $article->author = $request->updateAuthor;
         $article->time_read = $request->updateTime;
         $article->accent_color = $request->updateAccent;
+        $article->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->updateTitle);
         $article->save();
 
         $tagsArray = explode(' ', strtolower($request->updateTags));
