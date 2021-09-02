@@ -49,10 +49,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         $sliders = Sliders::where('category', 'article-detail')->orderBy('ordernumber')->get();
-        $article = Articles::findOrFail($id);
+        $article = Articles::where('slug', $slug)->firstOrFail();
 
         return view('article-detail', compact('article', 'sliders'));
     }
