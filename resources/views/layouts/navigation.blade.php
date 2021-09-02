@@ -4,15 +4,15 @@
         <div class="dropdown">
             <a class="d-flex align-items-center me-3"  id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-2 primary-color" aria-hidden="true"></i>
-                <span class="evogria dropdown-toggle">{{ auth()->user()->name }}</span>
+                <span class="dropdown-toggle grey-color fw-bold">{{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="{{ route('user.account') }}">Account</a></li>
                 <li><a class="dropdown-item" href="{{ route('user.orders') }}">Orders</a></li>
                 <li>
-                    <form method="POST" class="dropdown-item" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                         this.closest('form').submit();">
                             Logout
                         </a>
@@ -21,7 +21,7 @@
             </ul>
         </div>
         @else
-        <a href="{{ route('login') }}" class="evogria button primary inline"><i class="fa fa-user me-2" style="font-size: 13px" aria-hidden="true"></i> Login</a>
+        <a href="{{ route('login') }}" class="evogria primary-color d-flex"><i class="fa fa-user me-2" style="line-height: 1.4" aria-hidden="true"></i> <span class="grey-color">Login</span></a>
         @endauth
     </div>
     <div class="hamburger col-3 d-lg-none d-flex justify-content-start">

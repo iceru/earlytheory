@@ -1,4 +1,4 @@
-<div class="col-3">
+<div class="col-12 col-md-3">
     <div class="account-navigation">
         <ul class="sidebar-account">
             <li>

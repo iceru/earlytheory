@@ -4,16 +4,10 @@
     @endsection
 
     <x-auth-card>
-        {{-- <x-slot name="logo">
-            <div class="p-4 text-center logo-login">
-                <a href="/">
-                    <img src="/images/MainLogo.png" alt="Early Theory">
-                </a>
-            </div>
-        </x-slot> --}}
+        <h5 class="evogria mb-4 text-center">Register</h5>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-auth-validation-errors class="mb-4 alert alert-secondary" :errors="$errors" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -30,6 +24,13 @@
                 <x-label for="email" :value="__('Email')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+            
+            <!-- Phone Number -->
+            <div class="row align-items-center me-0 mb-3">
+                <x-label for="phone" :value="__('Phone')" />
+
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
             </div>
             
             <!-- Password -->
@@ -50,25 +51,18 @@
                 type="password"
                 name="password_confirmation" required />
             </div>
-
-            <!-- Phone Number -->
-            <div class="row align-items-center me-0 mb-3">
-                <x-label for="phone" :value="__('Phone')" />
-
-                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
-            </div>
-            
             <div class="row mb-3 primary-color">
-                <a class="primary-color" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+               <div class="d-flex justify-content-between align-items-center">
+                    <a class="primary-color" href="{{ route('login') }}">
+                        {{ __('Already registered?') }}
+                    </a>
+                    <x-button>
+                        {{ __('Register') }}
+                    </x-button>
+               </div>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+            
         </form>
     </x-auth-card>
 </x-app-layout>

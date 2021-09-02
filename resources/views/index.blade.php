@@ -7,7 +7,9 @@
             @foreach ($sliders as $slider)
             <a target="_blank" href="{{ $slider->link }}">
                 <div class="slider-item">
-                    <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
+                    <div class="ratio ratio-16x9">
+                        <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
+                    </div>
                 </div>
             </a>
 
@@ -19,7 +21,11 @@
                 <div class="product-item-container col-6 col-md-4 col-lg-3">
                     <div class="product-image">
                         @foreach ((array)json_decode($product->image) as $item)
-                            <a href="/product/{{$product->slug}}"><img src="{{Storage::url('product-image/'.$item)}}" loading="lazy" alt="{{ $product->title }}"></a>
+                            <a href="/product/{{$product->slug}}">
+                                <div class="ratio ratio-1x1">
+                                    <img src="{{Storage::url('product-image/'.$item)}}" loading="lazy" alt="{{ $product->title }}">
+                                </div>
+                            </a>
                         @endforeach
                     </div>
                     <div class="product-item">

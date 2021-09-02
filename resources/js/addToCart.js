@@ -1,6 +1,5 @@
 
     $('.addcart').on('click', function(){
-        debugger;
         var id = $(this).data('id');
         if(id) {
             $.ajax({
@@ -8,7 +7,6 @@
                 type:"GET",
                 dataType:"json",
                 success:function(data) {
-                    debugger
                     $('#cartcount').html(data.count);
                     // console.log(data.count);
 
