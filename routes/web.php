@@ -43,7 +43,7 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
-Route::get('auth/google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
+Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 // Route::get('/product', function(){
 //     return view ('product-detail');
 // });

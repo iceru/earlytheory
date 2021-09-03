@@ -55,36 +55,6 @@
                             <input type="text" class="form-control" value="{{ old('birthdate', optional($user)->birthdate) }}"
                                 name="birthdate" id="datepicker" required autocomplete="off">
                         </div>
-
-                        <div class="form-group col-12 col-lg-6 mb-3">
-                            <label for="relationship">Status Relationship</label>
-                            <select class="form-select" name="relationship" id="relationship">
-                                <option selected disabled>Select</option>
-                                <option value="single" @if (old('relationship', optional($user)->relationship)=="single" ) {{ 'selected' }}
-                                    @endif>Single</option>
-                                <option value="pacaran" @if (old('relationship', optional($user)->relationship)=="pacaran" ) {{ 'selected' }}
-                                    @endif>Pacaran</option>
-                                <option value="menikah" @if (old('relationship', optional($user)->relationship)=="menikah" ) {{ 'selected' }}
-                                    @endif>Menikah</option>
-                                <option value="divorced" @if (old('relationship', optional($user)->relationship)=="divorced" ) {{ 'selected' }}
-                                    @endif>Divorced</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-12 col-lg-6 mb-3">
-                            <label for="pekerjaan">Status Pekerjaan</label>
-                            <select class="form-select" name="job" id="pekerjaan">
-                                <option selected disabled>Select</option>
-                                <option value="unemployed" @if (old('job', optional($user)->job)=="unemployed" ) {{ 'selected' }}
-                                    @endif>Unemployed</option>
-                                <option value="employed" @if (old('job', optional($user)->job)=="employed" ) {{ 'selected' }}
-                                    @endif>Employed</option>
-                                <option value="business" @if (old('job', optional($user)->job)=="business" ) {{ 'selected' }}
-                                    @endif>Business</option>
-                                <option value="student" @if (old('job', optional($user)->job)=="student" ) {{ 'selected' }} @endif>
-                                    Student</option>
-                            </select>
-                        </div>
                         <div class="col-12">
                             <button type="submit" class="button primary">Submit</button>
                         </div>
