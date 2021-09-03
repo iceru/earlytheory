@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Sales;
 use App\Models\Discount;
 use App\Models\Products;
+use App\Models\ShippingAddress;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
@@ -79,7 +80,9 @@ class SalesController extends Controller
                 'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
             ]);
     
-            $sales->paymethod_id = $request->inputPayType;
+            // $sales->paymethod_id = $request->inputPayType;
+            $sales->relationship = $request->inputRelationship;
+            $sales->job = $request->inputPekerjaan;
     
             $item_id = $request->id;
             $item_question = $request->question;
@@ -90,9 +93,6 @@ class SalesController extends Controller
             }
             $sales->save();
 
-            $user->relationship = $request->inputRelationship;
-            $user->job = $request->inputPekerjaan;
-            $user->save();
     
             // Check product category in sales
             $is_product = 0;
@@ -119,8 +119,36 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-
+        
         if($user->id == $sales->user_id) {
+            $address = ShippingAddress::where('user_id', $user->id)->get();
+
+            foreach($address as $a) {
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                    "key: 6647e093d8e3502f18a50d44d52e032a"
+                ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+
+                $result = json_decode($response);
+                $a->province = $result->rajaongkir->results->province;
+                $a->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+                
+            }
                 
             $curl = curl_init();
 
@@ -145,7 +173,7 @@ class SalesController extends Controller
             $prov = json_decode($response);
             $provinces = $prov->rajaongkir->results;
 
-            return view('checkout.shipping', compact('sales', 'provinces'));
+            return view('checkout.shipping', compact('sales', 'address', 'provinces'));
         }
 
         else {
@@ -183,6 +211,8 @@ class SalesController extends Controller
 
     public function checkShippingCost(Request $request)
     {
+        $shippingAddress = ShippingAddress::where('id', $request->id)->firstOrFail();
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -193,7 +223,7 @@ class SalesController extends Controller
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "origin=153&destination=".$request->id."&weight=1000&courier=jne",
+        CURLOPT_POSTFIELDS => "origin=153&destination=".$shippingAddress->ship_city."&weight=1000&courier=jne",
         CURLOPT_HTTPHEADER => array(
             "content-type: application/x-www-form-urlencoded",
             "key: 6647e093d8e3502f18a50d44d52e032a"
@@ -219,25 +249,16 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
             $request->validate([
                 'inputAddress' => 'required',
-                'inputProvince' => 'required',
-                'inputCity' => 'required',
-                'inputZip' => 'required',
                 'inputShipping' => 'required',
             ],
             [
-                'inputAddress.required' => 'Alamat belum diisi',
-                'inputProvince.required' => 'Provinsi belum diisi',
-                'inputCity.required' => 'Kota/Kab belum diisi',
-                'inputZip.required' => 'Kode Pos belum diisi',
+                'inputAddress.required' => 'Alamat belum dipilih',
                 'inputShipping.required' => 'Shipping belum diisi',
             ]);
     
             $shipping = explode("-",$request->inputShipping);
     
-            $sales->ship_address = $request->inputAddress;
-            $sales->ship_province = $request->inputProvince;
-            $sales->ship_city = $request->inputCity;
-            $sales->ship_zip = $request->inputZip;
+            $sales->address_id = $request->inputAddress;
             $sales->ship_cost = $shipping[0];
             $sales->ship_method = $shipping[1];
             $sales->save();
@@ -256,6 +277,31 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         if($user->id == $sales->user_id) {
+            $curl = curl_init();
+        
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                "key: 6647e093d8e3502f18a50d44d52e032a"
+                ),
+            ));
+            
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            
+            curl_close($curl);
+            
+            $result = json_decode($response);
+    
+            $sales->shippingAddress->province = $result->rajaongkir->results->province;
+            $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+            
             return view('checkout.summary', compact('sales'));
         }
 

@@ -98,7 +98,7 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Shipping Address</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->ship_address}}, {{$sales->city}}, {{$sales->province}}, {{$sales->ship_zip}}" alt="-" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->shippingAddress->ship_address.', '.$sales->shippingAddress->city.', '.$sales->shippingAddress->province.' '.$sales->shippingAddress->ship_zip}}" alt="-" readonly>
         </div>
     </div>
     <div class="mb-1 row">

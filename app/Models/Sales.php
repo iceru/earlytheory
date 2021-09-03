@@ -26,4 +26,9 @@ class Sales extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function shippingAddress()
+    {
+        return $this->belongsTo(ShippingAddress::class, 'address_id', 'id');
+    }
 }
