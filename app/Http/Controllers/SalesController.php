@@ -79,7 +79,9 @@ class SalesController extends Controller
                 'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
             ]);
     
-            $sales->paymethod_id = $request->inputPayType;
+            // $sales->paymethod_id = $request->inputPayType;
+            $sales->relationship = $request->inputRelationship;
+            $sales->job = $request->inputPekerjaan;
     
             $item_id = $request->id;
             $item_question = $request->question;
@@ -90,9 +92,6 @@ class SalesController extends Controller
             }
             $sales->save();
 
-            $user->relationship = $request->inputRelationship;
-            $user->job = $request->inputPekerjaan;
-            $user->save();
     
             // Check product category in sales
             $is_product = 0;

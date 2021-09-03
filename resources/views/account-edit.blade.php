@@ -56,7 +56,7 @@
                                 name="birthdate" id="datepicker" required autocomplete="off">
                         </div>
 
-                        <div class="form-group col-12 col-lg-6 mb-3">
+                        {{-- <div class="form-group col-12 col-lg-6 mb-3">
                             <label for="relationship">Status Relationship</label>
                             <select class="form-select" name="relationship" id="relationship">
                                 <option selected disabled>Select</option>
@@ -84,7 +84,7 @@
                                 <option value="student" @if (old('job', optional($user)->job)=="student" ) {{ 'selected' }} @endif>
                                     Student</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="col-12">
                             <button type="submit" class="button primary">Submit</button>
                         </div>

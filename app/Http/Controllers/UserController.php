@@ -29,8 +29,8 @@ class UserController extends Controller
             'email' => 'required',
             'phone' => 'required',
             'birthdate' => 'nullable',
-            'job' => 'nullable',
-            'relationship' => 'nullable'
+            // 'job' => 'nullable',
+            // 'relationship' => 'nullable'
         ]);
 
         if ($validator->fails()) {
@@ -44,8 +44,8 @@ class UserController extends Controller
             'email' => $request->email,
             'birthdate' => $request->birthdate,
             'phone' => $request->phone,
-            'job' => $request->job,
-            'relationship' => $request->relationship,
+            // 'job' => $request->job,
+            // 'relationship' => $request->relationship,
         ])->save();
 
         return redirect()->route('user.account-edit')->with('success', 'Data berhasil terupdate!');
