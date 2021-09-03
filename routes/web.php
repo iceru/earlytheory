@@ -8,6 +8,7 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SlidersController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AdminTagsController;
@@ -63,6 +64,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');
     Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
     Route::get('/confirm-payment/submit', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
+    Route::post('/address/add-checkout', [AddressController::class, 'addCheckout'])->name('address.add-checkout');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function (){
