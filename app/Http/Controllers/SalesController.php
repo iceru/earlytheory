@@ -277,6 +277,31 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         if($user->id == $sales->user_id) {
+            $curl = curl_init();
+        
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                "key: 6647e093d8e3502f18a50d44d52e032a"
+                ),
+            ));
+            
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            
+            curl_close($curl);
+            
+            $result = json_decode($response);
+    
+            $sales->shippingAddress->province = $result->rajaongkir->results->province;
+            $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+            
             return view('checkout.summary', compact('sales'));
         }
 
