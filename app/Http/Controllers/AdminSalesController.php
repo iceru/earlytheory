@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use App\Models\Sales;
+use App\Models\ShippingAddress;
 use App\Models\PaymentMethods;
 use Illuminate\Http\Request;
 
@@ -20,12 +21,12 @@ class AdminSalesController extends Controller
     {
         $sales = Sales::find($id);
 
-        if($sales->ship_city != '') {
+        if($sales->shippingAddress->ship_city != '') {
             // foreach($sales as $s) {
                 $curl = curl_init();
         
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$sales->ship_city."&province=".$sales->ship_province,
+                  CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => "",
                   CURLOPT_MAXREDIRS => 10,
@@ -44,8 +45,8 @@ class AdminSalesController extends Controller
                 
                 $result = json_decode($response);
         
-                $sales->province = $result->rajaongkir->results->province;
-                $sales->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+                $sales->shippingAddress->province = $result->rajaongkir->results->province;
+                $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
             // }
         }
 
