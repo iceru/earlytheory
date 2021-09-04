@@ -139,9 +139,6 @@
             });
 
         });
-        
-
-        console.log(navigator.userAgent.includes("Instagram"));
     </script>
 </body>
 

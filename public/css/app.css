@@ -11640,9 +11640,6 @@ a {
   height: 6px;
   background-color: #c4c4c4;
 }
-.checkout .products > .row {
-  margin: 0;
-}
 .checkout .products .product-item-container {
   padding: 12px;
   border: 1px solid #c4c4c4;

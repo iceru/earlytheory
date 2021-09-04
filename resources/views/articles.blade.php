@@ -18,14 +18,14 @@
             @forelse ($articles as $article)
                 <div class="col-12 col-md-6 col-xxl-4 article">
                     <div class="row article-info">
-                        <div class="col-5 article-image">
+                        <div class="col-12 article-image">
                             <a href="/article-detail/{{$article->slug}}">
-                                <div class="ratio ratio-4x3">
+                                <div class="ratio ratio-16x9">
                                     <img src="{{Storage::url('article-image/'.$article->image)}}" alt="{{ $article->title }}" loading="lazy">
                                 </div>
                             </a>
                         </div>
-                        <div class="col-7">
+                        {{-- <div class="col-7">
                             <div class="tags">
                                 @forelse ($article->tags->slice(0, 6) as $tag)
                                     <a href="{{ route('tag.show', $tag->id) }}">
@@ -43,7 +43,7 @@
                                 <div class="circle"></div>
                                 <p>{{$article->time_read}} min read</p>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             @empty

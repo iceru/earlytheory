@@ -72,15 +72,21 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
 
             $request->validate([
+                'inputPhone' => 'required',
+                'inputBirthdate' => 'required',
                 'inputRelationship' => 'required',
                 'inputPekerjaan' => 'required',
             ],
             [
+                'inputPhone.required' => 'Nomor Telepon belum diisi',
+                'inputBirthdate.required' => 'Tanggal Lahir belum diisi',
                 'inputRelationship.required' => 'Status Relationship belum diisi',
                 'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
             ]);
     
             // $sales->paymethod_id = $request->inputPayType;
+            $sales->phone = $request->inputPhone;
+            $sales->inputBirthdate = $request->inputBirthdate;
             $sales->relationship = $request->inputRelationship;
             $sales->job = $request->inputPekerjaan;
     
@@ -425,8 +431,8 @@ class SalesController extends Controller
             $sales->paymethod_id = $request->inputPayType;
             $sales->save();
     
-            // Mail::send(new UserTransaction($sales));
-            // Mail::send(new AdminNotification($sales));
+            Mail::send(new UserTransaction($sales));
+            Mail::send(new AdminNotification($sales));
     
             return redirect()->route('sales.success', ['id' => $sales->sales_no]);
         }
