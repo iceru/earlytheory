@@ -74,13 +74,13 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Status Relationship</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->user->relationship}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->relationship}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Status Pekerjaan</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->user->job}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->job}}" readonly>
         </div>
     </div>
     {{-- <div class="mb-1 row">
@@ -95,6 +95,7 @@
             <img width=150 src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="-">
         </div>
     </div>
+    @if ($sales->address_id)
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Shipping Address</label>
         <div class="col-sm-9">
@@ -107,6 +108,7 @@
             <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->ship_method}}" alt="-" readonly>
         </div>
     </div>
+    @endif
 
     <h5 class="mb-2">Product Sales</h5>
     <div class="py-12">
