@@ -13,10 +13,10 @@
         <x-auth-validation-errors class="mb-4 alert alert-danger" :errors="$errors" />
         <div class="container mb-3">
             <a href="{{ url('auth/google') }}">
-                {{-- <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"> --}}
-                <div class="button inline primary">
+                <img src="/images/btn_google_signin_light_normal_web.png">
+                {{-- <div class="button inline primary">
                     <i class="fab fa-google me-2" aria-hidden="true"></i> Sign in with Google
-                </div>
+                </div> --}}
             </a>
         </div>
         <form method="POST" action="{{ route('login') }}" class="container">

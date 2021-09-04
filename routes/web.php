@@ -5,10 +5,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SlidersController;
-use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AdminTagsController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminDiscountController;
 use App\Http\Controllers\AdminProductsController;
+use App\Http\Controllers\AdminTrackingController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPaymentMethodsController;
 
@@ -65,9 +66,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
     Route::get('/confirm-payment/submit', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
     Route::post('/address/add-checkout', [AddressController::class, 'addCheckout'])->name('address.add-checkout');
-});
-
-Route::middleware(['auth', 'role:user'])->group(function (){
+    
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
     Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');
@@ -153,6 +152,10 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
 
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
     Route::get('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
+
+    Route::get('/admin/shipping', [AdminTrackingController::class, 'index'])->name('admin.tracking');
+    Route::get('/admin/shipping/update/{id}', [AdminTrackingController::class, 'update'])->name('admin.tracking.update');
+
 
     Route::get('/admin/discount', [AdminDiscountController::class, 'index'])->name('admin.discount');
     Route::get('/admin/discount/edit/{id}', [AdminDiscountController::class, 'edit'])->name('admin.discount.edit');

@@ -15,6 +15,9 @@
         <a href="{{ route('admin.confirm-payment') }}">
             <li class="{{ (request()->is('admin/confirm-payment')) ? 'active' : '' }}"><i class="fas fa-receipt fa-fw"></i> &nbsp; Payment Confirmation</li>
         </a>
+        <a href="{{ route('admin.tracking') }}">
+            <li class="{{ (request()->is('admin/shipping')) ? 'active' : '' }}"><i class="fas fa-truck-moving fa-fw"></i> &nbsp; Shipping</li>
+        </a>
         <a href="{{ route('admin.sliders') }}">
             <li class="{{ (request()->is('admin/sliders')) ? 'active' : '' }}"><i class="fas fa-images fa-fw"></i> &nbsp; Sliders Image</li>
         </a>

@@ -30,6 +30,18 @@
                 @csrf
                 <div class="form-payment col-12 mb-3">
                     <div class="row">
+                        @if (empty($sales->phone))
+                            <div class="form-group col-12 col-lg-6">
+                                <label for="inputPhone">Phone Number</label>
+                                <input class="form-control" type="text" id="inputPhone" name="inputPhone">
+                            </div>
+                        @endif
+                        @if (empty($sales->birthdate))
+                            <div class="form-group col-12 col-lg-6">
+                                <label for="inputBirthdate">Birthdate</label>
+                                <input class="form-control" type="text" id="datepicker" name="inputBirthdate">
+                            </div>
+                        @endif
                         <div class="form-group col-12 col-lg-6">
                             <label for="inputRelationship">Status Relationship</label>
                             <select class="form-select" name="inputRelationship" id="inputRelationship">
@@ -76,9 +88,7 @@
                                     </div>
                                 </div>
                                 <div class="col-8 col-lg-9 ps-2">
-                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.."  @if ($item->duration != "0" || $item->category == 'product') hidden @endif>
-                                        {{$item->pivot->question == ' ' ? '' : $item->pivot->question}}
-                                    </textarea>
+                                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.."  @if ($item->duration != "0" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
 
                                     @if ($item->duration != "0" || $item->category == 'product')
                                         <p>{!! $item->description_short !!}</p>

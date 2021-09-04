@@ -11,7 +11,9 @@
                 <i class="fas fa-share    "></i>
             </div> --}}
             <div class="back">
-                <i class="fas fa-chevron-left"></i>
+                <a href="{{ route('articles') }}">
+                    <i class="fas fa-chevron-left white-color"></i>
+                </a>
             </div>
 
             <div class="title" style="background-color: {{ $article->accent_color }}; opacity: 0.8">
