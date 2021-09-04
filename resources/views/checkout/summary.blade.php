@@ -16,9 +16,11 @@
                 <div class="line"></div>
                 <div class="circle"></div>
             </div>
+            @if ($sales->address_id)
             <div class="col-12">
                 <h5>Address: {{$sales->shippingAddress->ship_address.', '.$sales->shippingAddress->city.', '.$sales->shippingAddress->province.' '.$sales->shippingAddress->ship_zip}}</h5>
             </div>
+            @endif
             <div class="products col-12">
                 <div class="row">
                     @foreach ($sales->products as $item)
