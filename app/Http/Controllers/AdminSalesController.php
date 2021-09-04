@@ -21,7 +21,7 @@ class AdminSalesController extends Controller
     {
         $sales = Sales::find($id);
 
-        if($sales->shippingAddress->ship_city != '') {
+        if($sales->address_id) {
             // foreach($sales as $s) {
                 $curl = curl_init();
         
