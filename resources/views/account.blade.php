@@ -22,12 +22,6 @@
                     <div class="col-6 account-item">
                         <p><b>Phone Number: <br> </b>{{ $user->phone ? $user->phone : '-' }}</p>
                     </div>
-                    {{-- <div class="col-6 account-item">
-                        <p><b>Status Relationship: <br> </b>{{ $user->relationship ? $user->relationship : '-' }}</p>
-                    </div>
-                    <div class="col-6 account-item">
-                        <p><b>Status Pekerjaan: <br> </b>{{ $user->job ? $user->job : '-' }}</p>
-                    </div> --}}
                 </div>
                 <a href="{{ route('user.account-edit') }}" class="button primary">Edit Account <i class="ms-2 fas fa-edit"></i></a>
             </div>

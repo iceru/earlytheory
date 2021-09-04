@@ -28,9 +28,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'birthdate' => 'nullable',
-            // 'job' => 'nullable',
-            // 'relationship' => 'nullable'
+            'birthdate' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -43,9 +41,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'birthdate' => $request->birthdate,
-            'phone' => $request->phone,
-            // 'job' => $request->job,
-            // 'relationship' => $request->relationship,
+            'phone' => $request->phone
         ])->save();
 
         return redirect()->route('user.account-edit')->with('success', 'Data berhasil terupdate!');
@@ -56,12 +52,6 @@ class UserController extends Controller
         $orders = Sales::where('user_id', auth()->user()->id )->get();
         return view('orders', compact('orders'));
     }
-
-    // public function order($id)
-    // {
-    //     $order = Sales::where('id', $id)->firstOrFail();
-    //     return view('order-detail', compact('order'));
-    // }
 
     public function confirmPayment($id)
     {
