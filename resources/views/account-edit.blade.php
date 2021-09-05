@@ -55,6 +55,17 @@
                             <input type="text" class="form-control" value="{{ old('birthdate', optional($user)->birthdate) }}"
                                 name="birthdate" id="datepicker" required autocomplete="off">
                         </div>
+                        
+                        <h5 class="mb-3">Change Password</h5>
+                        <div class="form-group col-12 col-lg-6 mb-3">
+                            <label for="password">New Password</label>
+                            <input class="form-control" type="password" name="password" placeholder="Type new password" autocomplete="off">
+                        </div>
+                        <div class="form-group col-12 col-lg-6 mb-3">
+                            <label for="password_confirmation">Confirm New Password</label>
+                            <input class="form-control" type="password" name="password_confirmation" placeholder="Type new password again" autocomplete="off">
+                        </div>
+
                         <div class="col-12">
                             <button type="submit" class="button primary">Submit</button>
                         </div>

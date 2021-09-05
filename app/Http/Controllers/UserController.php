@@ -8,6 +8,8 @@ use App\Models\Sales;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethods;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -28,7 +30,9 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'birthdate' => 'required'
+            'birthdate' => 'required',
+            'password' => ['nullable', 'confirmed', Password::min(8)],
+            // 'currentPassword' => 'required_with:newPassword|current_password:api'
         ]);
 
         if ($validator->fails()) {
@@ -40,9 +44,15 @@ class UserController extends Controller
         $update = $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'birthdate' => $request->birthdate,
-            'phone' => $request->phone
+            'phone' => $request->phone,
+            'birthdate' => $request->birthdate
         ])->save();
+
+        if($request->password) {
+            $update = $user->fill([
+                'password' => Hash::make($request->password)
+            ])->save();
+        }
 
         return redirect()->route('user.account-edit')->with('success', 'Data berhasil terupdate!');
     }
