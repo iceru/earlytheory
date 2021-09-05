@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ShippingAddress;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class AddressController extends Controller
 {
@@ -42,51 +43,64 @@ class AddressController extends Controller
         $user = Auth::user();
         $address = ShippingAddress::where('user_id', $user->id)->get();
         foreach($address as $a) {
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                "key: 6647e093d8e3502f18a50d44d52e032a"
-            ),
-            ));
-
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-
-            curl_close($curl);
+            if(Cache::has('address_'.$a->ship_city.'_'.$a->ship_province)) {
+                $response = Cache::get('address_'.$a->ship_city.'_'.$a->ship_province);
+            }
+            else {
+                $curl = curl_init();
+    
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                    "key: 6647e093d8e3502f18a50d44d52e032a"
+                ),
+                ));
+    
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+    
+                curl_close($curl);
+                Cache::put('address_'.$a->ship_city.'_'.$a->ship_province, $response, now()->addMinutes(1440));
+            }
 
             $result = json_decode($response);
             $a->province = $result->rajaongkir->results->province;
             $a->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
             
         }
-            
-        $curl = curl_init();
+        
+        // if(Cache::has('select_province')) {
+        //     $response = Cache::get('select_province');
+        // }
+        // else {
+        //     $curl = curl_init();
+    
+        //     curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => "",
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => "GET",
+        //     CURLOPT_HTTPHEADER => array(
+        //         "key: 6647e093d8e3502f18a50d44d52e032a"
+        //     ),
+        //     ));
+    
+        //     $response = curl_exec($curl);
+        //     $err = curl_error($curl);
+    
+        //     curl_close($curl);
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => array(
-            "key: 6647e093d8e3502f18a50d44d52e032a"
-        ),
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
+        //     Cache::put('select_province', $response, now()->addMinutes(1440));
+        // }
 
         $prov = json_decode($response);
         $provinces = $prov->rajaongkir->results;
