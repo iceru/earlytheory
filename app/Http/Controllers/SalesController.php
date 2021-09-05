@@ -319,6 +319,7 @@ class SalesController extends Controller
     {
         $shippingAddress = ShippingAddress::where('id', $request->id)->firstOrFail();
 
+        //JNE
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -341,10 +342,47 @@ class SalesController extends Controller
 
         curl_close($curl);
 
-        $cost = json_decode($response);
-        $costs = $cost->rajaongkir->results[0]->costs;
+        $cost[] = json_decode($response);
 
-        return $costs;
+        //TIKI
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "origin=153&destination=".$shippingAddress->ship_city."&weight=1000&courier=tiki",
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded",
+                "key: ".env('RAJAONGKIR_KEY')
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        $cost[] = json_decode($response);
+        
+        //add courier name
+        $cost_jne = $cost[0]->rajaongkir->results[0]->costs;
+        foreach($cost_jne as $jne) {
+            $jne->courier = 'JNE';
+        }
+        $cost_tiki = $cost[1]->rajaongkir->results[0]->costs;
+        foreach($cost_tiki as $tiki) {
+            $tiki->courier = 'TIKI';
+        }
+
+        //merge
+        $shipcosts = array_merge($cost_jne, $cost_tiki);
+        
+        return $shipcosts;
     }
 
     public function addShipping(Request $request, $id)

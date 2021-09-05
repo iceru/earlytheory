@@ -334,10 +334,11 @@
                 url:'{!! URL::to('checkout/checkShippingCost') !!}',
                 data:{'id':addressSelect}
             }).done(function(data) {
+                console.log(data);
                 $('#shipping').removeAttr('hidden');
                 shipopt += '<option value="" selected disabled>Select Shipping</option>';
                 for (var i=0; i<data.length; i++) {
-                    shipopt += '<option value="'+data[i].cost[0].value+'-JNE '+data[i].service+'">JNE '+data[i].service+' ('+data[i].cost[0].etd+' Days) : Rp '+data[i].cost[0].value+'</option>';
+                    shipopt += '<option value="'+data[i].cost[0].value+'-'+data[i].courier+' '+data[i].service+'">'+data[i].courier+' '+data[i].service+' / '+data[i].cost[0].etd+' Day(s) : Rp '+data[i].cost[0].value+'</option>';
                 }
                 $('#inputAddress').val(addressSelect);
                 $('#ship').html(shipopt);
