@@ -88,7 +88,7 @@ class SalesController extends Controller
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => "GET",
                         CURLOPT_HTTPHEADER => array(
-                            "key: 6647e093d8e3502f18a50d44d52e032a"
+                            "key: ".env('RAJAONGKIR_KEY')
                         ),
                         ));
         
@@ -120,7 +120,7 @@ class SalesController extends Controller
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => "GET",
                     CURLOPT_HTTPHEADER => array(
-                        "key: 6647e093d8e3502f18a50d44d52e032a"
+                        "key: ".env('RAJAONGKIR_KEY')
                     ),
                     ));
         
@@ -236,7 +236,7 @@ class SalesController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "GET",
                 CURLOPT_HTTPHEADER => array(
-                    "key: 6647e093d8e3502f18a50d44d52e032a"
+                    "key: ".env('RAJAONGKIR_KEY')
                 ),
                 ));
 
@@ -262,7 +262,7 @@ class SalesController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
-                "key: 6647e093d8e3502f18a50d44d52e032a"
+                "key: ".env('RAJAONGKIR_KEY')
             ),
             ));
 
@@ -299,7 +299,7 @@ class SalesController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
-                "key: 6647e093d8e3502f18a50d44d52e032a"
+                "key: ".env('RAJAONGKIR_KEY')
             ),
             ));
     
@@ -332,7 +332,7 @@ class SalesController extends Controller
             CURLOPT_POSTFIELDS => "origin=153&destination=".$shippingAddress->ship_city."&weight=1000&courier=jne",
             CURLOPT_HTTPHEADER => array(
                 "content-type: application/x-www-form-urlencoded",
-                "key: 6647e093d8e3502f18a50d44d52e032a"
+                "key: ".env('RAJAONGKIR_KEY')
             ),
         ));
 
@@ -400,7 +400,7 @@ class SalesController extends Controller
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => "GET",
                         CURLOPT_HTTPHEADER => array(
-                        "key: 6647e093d8e3502f18a50d44d52e032a"
+                        "key: ".env('RAJAONGKIR_KEY')
                         ),
                     ));
                     

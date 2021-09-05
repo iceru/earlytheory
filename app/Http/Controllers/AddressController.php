@@ -58,7 +58,7 @@ class AddressController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "GET",
                 CURLOPT_HTTPHEADER => array(
-                    "key: 6647e093d8e3502f18a50d44d52e032a"
+                    "key: ".env('RAJAONGKIR_KEY')
                 ),
                 ));
     
@@ -90,7 +90,7 @@ class AddressController extends Controller
         //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         //     CURLOPT_CUSTOMREQUEST => "GET",
         //     CURLOPT_HTTPHEADER => array(
-        //         "key: 6647e093d8e3502f18a50d44d52e032a"
+        //         "key: ".env('RAJAONGKIR_KEY')
         //     ),
         //     ));
     
