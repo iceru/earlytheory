@@ -7,14 +7,14 @@
 .dashboard {
     padding-bottom: 3rem;
     .form-select {
-        @include breakpoint(large){
+        @include breakpoint(large) {
             width: 30%;
         }
     }
     .charts {
         display: none;
         .chart {
-            background: #F5F5F5;
+            background: #f5f5f5;
             padding: 1rem;
             border-radius: 2rem;
         }
@@ -22,39 +22,74 @@
 }
 
 .tab-article-desc {
-  img {
-    width: 100px;
-    height: auto;
-    object-fit: cover;
-  }
+    img {
+        width: 100px;
+        height: auto;
+        object-fit: cover;
+    }
 
-  p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 150px;
-  }
+    p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+    }
 }
 
 .table-overflow::-webkit-scrollbar {
     height: 8px;
-  }
+}
 
-  /* Track */
-  .table-overflow::-webkit-scrollbar-track {
+/* Track */
+.table-overflow::-webkit-scrollbar-track {
     background: white;
     width: 4px;
-  }
+}
 
-  /* Handle */
-  .table-overflow::-webkit-scrollbar-thumb {
+/* Handle */
+.table-overflow::-webkit-scrollbar-thumb {
     background: #888;
-      border-radius: 20px;
-      width: 3px;
-  }
+    border-radius: 20px;
+    width: 3px;
+}
 
-  /* Handle on hover */
-  .table-overflow::-webkit-scrollbar-thumb:hover {
+/* Handle on hover */
+.table-overflow::-webkit-scrollbar-thumb:hover {
     background: $primary;
-  }
+}
 
+.loading {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+.loading div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: 8px;
+    border: 4px solid black;
+    border-radius: 50%;
+    animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: black transparent transparent transparent;
+}
+.loading div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.loading div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.loading div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

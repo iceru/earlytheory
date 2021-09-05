@@ -8,13 +8,18 @@
     }
 
     .title-page {
-        font-size: 1.25rem;
         color: $primary;
         text-align: center;
         margin-bottom: 1.5rem;
 
+
         @include breakpoint(large) {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+
+            
+            h1 {
+                font-size: 2rem;
+            }
         }
     }
 
@@ -25,7 +30,7 @@
         align-items: center;
 
         @include breakpoint(large) {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .circle {

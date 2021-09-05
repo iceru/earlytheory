@@ -8,58 +8,67 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4 alert alert-secondary" :errors="$errors" />
-
+        <div class="container mb-3">
+            <a href="{{ url('auth/google') }}">
+                <img src="/images/btn_google_signin_light_normal_web.png">
+                {{-- <div class="button inline primary">
+                    <i class="fab fa-google me-2" aria-hidden="true"></i> Sign in with Google
+                </div> --}}
+            </a>
+        </div>
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
-            <!-- Name -->
-            <div class="row align-items-center me-0 mb-3">
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
-
-            <!-- Email Address -->
-            <div class="row align-items-center me-0 mb-3">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-            
-            <!-- Phone Number -->
-            <div class="row align-items-center me-0 mb-3">
-                <x-label for="phone" :value="__('Phone')" />
-
-                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
-            </div>
-            
-            <!-- Password -->
-            <div class="row align-items-center me-0 mb-3">
-                <x-label for="password" :value="__('Password')" />
+            <div class="container">
                 
-                <x-input id="password" class="block mt-1 w-full"
-                type="password"
-                name="password"
-                required autocomplete="new-password" />
-            </div>
-            
-            <!-- Confirm Password -->
-            <div class="row align-items-center me-0 mb-3">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <!-- Name -->
+                <div class="row align-items-center me-0 mb-3">
+                    <x-label for="name" :value="__('Name')" />
+
+                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                </div>
+
+                <!-- Email Address -->
+                <div class="row align-items-center me-0 mb-3">
+                    <x-label for="email" :value="__('Email')" />
+
+                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                </div>
                 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                type="password"
-                name="password_confirmation" required />
-            </div>
-            <div class="row mb-3 primary-color">
-               <div class="d-flex justify-content-between align-items-center">
-                    <a class="primary-color" href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
-                    </a>
-                    <x-button>
-                        {{ __('Register') }}
-                    </x-button>
-               </div>
+                <!-- Phone Number -->
+                <div class="row align-items-center me-0 mb-3">
+                    <x-label for="phone" :value="__('Phone')" />
+
+                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
+                </div>
+                
+                <!-- Password -->
+                <div class="row align-items-center me-0 mb-3">
+                    <x-label for="password" :value="__('Password')" />
+                    
+                    <x-input id="password" class="block mt-1 w-full"
+                    type="password"
+                    name="password"
+                    required autocomplete="new-password" />
+                </div>
+                
+                <!-- Confirm Password -->
+                <div class="row align-items-center me-0 mb-3">
+                    <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                    
+                    <x-input id="password_confirmation" class="block mt-1 w-full"
+                    type="password"
+                    name="password_confirmation" required />
+                </div>
+                <div class="row mb-3 primary-color">
+                <div class="d-flex justify-content-between align-items-center">
+                        <a class="primary-color" href="{{ route('login') }}">
+                            {{ __('Already registered?') }}
+                        </a>
+                        <x-button>
+                            {{ __('Register') }}
+                        </x-button>
+                </div>
+                </div>
             </div>
 
             

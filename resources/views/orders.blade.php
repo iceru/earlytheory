@@ -15,15 +15,31 @@
                     <div class="row order-item">
                         <div class="order-header ">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-6 mb-2">
                                     <h5>#{{ $order->sales_no }}</h5>
                                 </div>
                                 <div class="col-6">
                                     <h5 class="text-end">IDR {{ $order->total_price }}</h5>
                                 </div>
+                                <div class="col-6 fw-bold">
+                                    @if ($order->payment == '')
+                                        <p class="text-danger">Not Confirmed</p>
+                                    @else
+                                        @if ($order->tracking_no !== null)
+                                        <p class="text-success">Shipped</p>
+                                        <p>Tracking Number: {{ $order->tracking_no }}</p>
+                                        @else
+                                        <p class="text-success">Paid</p>      
+                                        @endif
+
+                                    @endif
+                                </div>
+                                <div class="col-6 grey-color  text-end ">
+                                    <p>{{date_format($order->created_at, 'd F Y ')}}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="order-products mb-2 mb-lg-4 col-12">
+                        <div class="order-products col-12">
                             @foreach ($order->products as $product)
                                 <div class="product-item">
                                    <div class="row">
@@ -57,13 +73,14 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="col-12">
+                        @if ($order->payment == '')
+                        <div class="col-12 mt-2 mt-lg-4">
                             <div class="d-flex">
-                                @if ($order->payment == '')
-                                    <a href="{{ route('user.confirm-payment', $order->sales_no) }}" class="button primary" style="display: inline-flex">Confirm Payment</a>
-                                @endif
+                                <a href="{{ route('sales.summary', $order->sales_no) }}" class="button secondary me-2"><i class="fas fa-edit me-2"></i>Edit Question</a>
+                                <a href="{{ route('user.confirm-payment', $order->sales_no) }}" class="button primary" style="display: inline-flex">Confirm Payment</a>
                             </div>
                         </div>
+                        @endif
                     </div>
                 @empty
                     <h5>There is no orders</h5>

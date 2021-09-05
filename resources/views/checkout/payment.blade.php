@@ -60,22 +60,16 @@
                     
                     @endforeach
                 </div>
-                {{-- <div class="qr-detail payment-detail">
-                    <div class="bank-method-item d-flex justify-content-center align-items-center mb-3">
-                        <div class="bank-image">
-                            <img src="{{Storage::url('payment-logo/'.$paymethods_qr->logo)}}" alt="">
-                        </div>
-                        {{-- <div class="bank-text">
-                            <span class="bank-number">16651232132</span> <br>
-                            <span> a/n John Doe</span>
-                        </div> --}}
-                   {{-- </div>
-                </div> --}}
 
             <div class="col-12 d-grid gap-2">
-                <a class="button secondary" href="/checkout/{{$sales->sales_no}}/confirm-payment">
-                    Lanjut ke Konfirmasi Pembayaran
-                </a>
+                <div class="d-flex justify-content-center">
+                    <a class="button primary me-3" href="/checkout/{{$sales->sales_no}}/confirm-payment">
+                        Konfirmasi Pembayaran Sekarang
+                    </a>
+                    <a class="button primary-line" href="/orders">
+                        Konfirmasi Lain Waktu
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -115,8 +109,7 @@
         <p><b>Total Payment (After Discount):</b> idr {{number_format($sales->total_price-$sales->discount)}}</p>
         @endif
 
-    </div>
- --}}
+    </div>--}}
     @section('js')
     <script>
         $(document).ready(function(){

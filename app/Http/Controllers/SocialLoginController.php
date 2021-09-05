@@ -46,7 +46,7 @@ class SocialLoginController extends Controller
             $newUser->name = $user->name;
             $newUser->email = $user->email;
             $newUser->google_id = $user->id;
-            $newUser->password = Hash::make('google-pass-auth');
+            $newUser->password = Hash::make(config('services.google.user_password'));
             $newUser->save();
             auth()->login($newUser, true);
         }

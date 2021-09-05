@@ -18,7 +18,34 @@
             </div>
             @if ($sales->address_id)
             <div class="col-12">
-                <h5>Address: {{$sales->shippingAddress->ship_address.', '.$sales->shippingAddress->city.', '.$sales->shippingAddress->province.' '.$sales->shippingAddress->ship_zip}}</h5>
+                <div class=" mb-3 pb-2 border-bottom border-dark">
+                    <h5 class="evogria">Shipping Address</h5>
+                </div>
+            </div>
+            <div class="col-12 mb-4">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <b>Address:</b> <br>
+                        {{ $sales->shippingAddress->ship_address }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <b>City:</b> <br>
+                        {{ $sales->shippingAddress->city }}
+                    </div>
+                    <div class="col-6">
+                        <b>Province:</b> <br>
+                        {{ $sales->shippingAddress->province }}
+                    </div>
+                    <div class="col-6">
+                        <b>Zip:</b> <br>
+                        {{ $sales->shippingAddress->ship_zip }}
+                    </div>
+                    <div class="col-12">
+                        <a class="btn button primary inline btn-sm mt-3 mt-lg-2" href="/checkout/{{$sales->sales_no}}/detail">
+                            <span><i class="fas fa-edit"></i> &nbsp;</span> Edit
+                        </a>
+                    </div>
+                </div>
             </div>
             @endif
             <div class="products col-12">

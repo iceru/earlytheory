@@ -65,7 +65,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');
     Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
     Route::get('/confirm-payment/submit', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
+
     Route::post('/address/add-checkout', [AddressController::class, 'addCheckout'])->name('address.add-checkout');
+    Route::get('/address/update-address', [AddressController::class, 'updateAddress'])->name('address.update-address');
     
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');

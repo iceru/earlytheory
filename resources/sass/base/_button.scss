@@ -19,8 +19,20 @@
         border: 1px solid $primary;
 
         &:hover {
-            background-color: $background;
-            color: $primary;
+            background-color: lighten($primary, 10%);
+            transition: .2s all ease-in;
+        }
+    }
+
+    &.primary-line {
+        background-color: $background;
+        color: $primary;
+        transition: .2s all ease-in;
+        border: 1px solid $primary;
+
+        &:hover {
+            color: lighten($primary, 10%);
+            border: 1px solid lighten($primary, 20%);
             transition: .2s all ease-in;
         }
     }
@@ -32,8 +44,7 @@
         border: 1px solid $secondary;
 
         &:hover {
-            background-color: $background;
-            color: $secondary;
+            background-color: lighten($secondary, 10%);
             transition: .2s all ease-in;
         }
     }

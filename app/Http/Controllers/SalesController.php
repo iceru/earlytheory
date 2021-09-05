@@ -54,8 +54,76 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
+        $is_product = 0;
+        $is_service = 0;
+
+        foreach ($sales->products as $item) {
+            if($item->category === 'product') {
+                $is_product += 1;
+            }
+
+            if($item->category === 'service') {
+                $is_service += 1;
+            }
+        }
+
         if($user->id == $sales->user_id) {
-            return view('checkout.detail', compact('sales', 'user'));
+            if($is_product > 0) {
+                $address = ShippingAddress::where('user_id', $user->id)->get();
+
+                foreach($address as $a) {
+                    $curl = curl_init();
+    
+                    curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                    CURLOPT_HTTPHEADER => array(
+                        "key: 6647e093d8e3502f18a50d44d52e032a"
+                    ),
+                    ));
+    
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+    
+                    curl_close($curl);
+    
+                    $result = json_decode($response);
+                    $a->province = $result->rajaongkir->results->province;
+                    $a->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+                    
+                }
+                    
+                $curl = curl_init();
+    
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                    "key: 6647e093d8e3502f18a50d44d52e032a"
+                ),
+                ));
+    
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+    
+                curl_close($curl);
+    
+                $prov = json_decode($response);
+                $provinces = $prov->rajaongkir->results;
+    
+                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service'));
+            }
+            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service'));
         }
 
         else {
@@ -70,23 +138,25 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         if($user->id == $sales->user_id) {
-
             $request->validate([
-                'inputPhone' => 'required',
-                'inputBirthdate' => 'required',
-                'inputRelationship' => 'required',
-                'inputPekerjaan' => 'required',
-            ],
-            [
-                'inputPhone.required' => 'Nomor Telepon belum diisi',
-                'inputBirthdate.required' => 'Tanggal Lahir belum diisi',
-                'inputRelationship.required' => 'Status Relationship belum diisi',
-                'inputPekerjaan.required' => 'Status Pekerjaan belum diisi',
+                'inputRelationship' => 'nullable',
+                'inputPhone' => 'nullable',
+                'inputBirthdate' => 'nullable',
+                'inputPekerjaan' => 'nullable',
             ]);
     
             // $sales->paymethod_id = $request->inputPayType;
-            $sales->phone = $request->inputPhone;
-            $sales->inputBirthdate = $request->inputBirthdate;
+           
+            if ($user->phone == '' || $user->birthdate == '') {
+                if($user->phone == '') {
+                    $user->phone = $request->inputPhone;
+                }
+                if($user->birthdate == '') {
+                    $user->birthdate = $request->inputBirthdate;
+                }    
+                $user->save();
+            }
+
             $sales->relationship = $request->inputRelationship;
             $sales->job = $request->inputPekerjaan;
     
@@ -97,7 +167,6 @@ class SalesController extends Controller
                 $product = Products::find($item_id[$key]);
                 $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
             }
-            $sales->save();
 
     
             // Check product category in sales
@@ -109,11 +178,24 @@ class SalesController extends Controller
             }
     
             if($is_product > 0) {
-                return redirect()->route('sales.shipping', ['id' => $sales->sales_no]);
+                $request->validate([
+                    'inputAddress' => 'required',
+                    'inputShipping' => 'required',
+                ],
+                [
+                    'inputAddress.required' => 'Alamat belum dipilih',
+                    'inputShipping.required' => 'Shipping belum diisi',
+                ]);
+        
+                $shipping = explode("-",$request->inputShipping);
+        
+                $sales->address_id = $request->inputAddress;
+                $sales->ship_cost = $shipping[0];
+                $sales->ship_method = $shipping[1];
             }
-            elseif($is_product == 0) {
-                return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
-            }
+            
+            $sales->save();
+            return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
         }
 
         else {
@@ -222,18 +304,18 @@ class SalesController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "origin=153&destination=".$shippingAddress->ship_city."&weight=1000&courier=jne",
-        CURLOPT_HTTPHEADER => array(
-            "content-type: application/x-www-form-urlencoded",
-            "key: 6647e093d8e3502f18a50d44d52e032a"
-        ),
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "origin=153&destination=".$shippingAddress->ship_city."&weight=1000&courier=jne",
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded",
+                "key: 6647e093d8e3502f18a50d44d52e032a"
+            ),
         ));
 
         $response = curl_exec($curl);
