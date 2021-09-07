@@ -25,7 +25,8 @@
                         <th>Order Date</th>
                         <th>Total Price</th>
                         <th>Name</th>
-                        <th>Products</th>
+                        {{-- <th>Products</th> --}}
+                        <th>Shipping Courier</th>
                         <th>Tracking Number</th>
                         <th>Options</th>
                     </tr>
@@ -39,7 +40,7 @@
                             <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
                             <td>{{number_format($sale->total_price-$sale->discount)}}</td>
                             <td>{{$sale->user->name}}</td>
-                            <td>
+                            {{-- <td>
                                 <ul class="ps-3 m-0">
                                     @foreach ($sale->products as $item)
                                         <li>
@@ -47,6 +48,9 @@
                                         </li>
                                     @endforeach
                                 </ul>
+                            </td> --}}
+                            <td>
+                                {{ $sale->ship_method }}
                             </td>
                             <td>
                                 <div class="form-group" id="tracking_no" @if (!empty($sale->tracking_no)) hidden @endif>

@@ -100,6 +100,7 @@ class SalesController extends Controller
                     }
     
                     $result = json_decode($response);
+                    
                     $a->province = $result->rajaongkir->results->province;
                     $a->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
                     
