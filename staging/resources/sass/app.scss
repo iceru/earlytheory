@@ -1,0 +1,47 @@
+@import "~bootstrap/scss/bootstrap";
+@import 'base/variable';
+@import 'base/accordion';
+@import 'base/button';
+@import 'base/font';
+@import 'components/footer';
+@import 'components/navbar';
+@import 'components/product';
+@import 'base/image';
+@import 'pages/articles';
+@import 'pages/article-detail';
+@import 'pages/auth';
+@import 'pages/cart';
+@import 'pages/checkout';
+@import 'pages/contact-us';
+@import 'pages/index';
+@import 'pages/admin';
+@import 'pages/account';
+@import 'pages/product-detail';
+@import "~sweetalert2/src/sweetalert2";
+@import "~shepherd.js/dist/css/shepherd.css";
+@import 'base/shepherd';
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    background: $background;
+    font-family: 'Apercu', sans-serif;
+}
+
+// .print {
+//     display: none;
+
+//     @media print {
+//         display: block;
+//     }
+// }
+
+.no-print {
+    @media print {
+        display: none;
+    }
+}
