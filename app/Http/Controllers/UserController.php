@@ -6,10 +6,12 @@ use Validator;
 use App\Models\User;
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -70,8 +72,11 @@ class UserController extends Controller
         return view('confirm-payment', compact('order', 'paymentMethods'));
     }
 
-    public function confirmSubmit(Request $request)
+    public function confirmSubmit(Request $request, $id)
     {
+        $user = Auth::user();
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
+
         $request->validate([
             'inputPayType' => 'required',
             'inputPayment' => 'max:5000'
@@ -93,8 +98,8 @@ class UserController extends Controller
         $sales->save();
 
         Mail::send(new UserTransaction($sales));
-        Mail::send(new AdminNotification($sales));
+        // Mail::send(new AdminNotification($sales));
 
-        return redirect()->route('user.confirm-payment')->with('success', 'Pembayaran berhasil. Kami akan konfirmasi orderanmu lewat Whatsapp!');
+        return redirect()->route('user.confirm-payment', $id)->with('success', 'Pembayaran berhasil. Kami akan konfirmasi orderanmu lewat Whatsapp!');
     }
 }

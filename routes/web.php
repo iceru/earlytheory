@@ -63,8 +63,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
     Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');
-    Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
-    Route::get('/confirm-payment/submit', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
+    Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');    
+    Route::post('/confirm-payment/submit/{id}', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
 
     Route::post('/address/add-checkout', [AddressController::class, 'addCheckout'])->name('address.add-checkout');
     Route::get('/address/update-address', [AddressController::class, 'updateAddress'])->name('address.update-address');
