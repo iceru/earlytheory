@@ -1,5 +1,5 @@
 require("./bootstrap");
 require ('./addToCart');
-require ('./tour');
+// require ('./tour');
 
 require("alpinejs");
