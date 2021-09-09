@@ -63,11 +63,9 @@ class UserController extends Controller
     {
         $orders = Sales::where('user_id', auth()->user()->id )->orderBy('created_at', 'desc')->get();
         $is_service = 0;
-        foreach ($orders as $order) {
-            foreach ($order->products as $item) {
-                if($item->category === 'service') {
-                    $is_service += 1;
-                }
+        foreach ($orders->products as $item) {
+            if($item->category === 'service') {
+                $is_service += 1;
             }
         }
 
