@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Sales;
 use App\Mail\TrackingNumber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminTrackingController extends Controller
 {
@@ -19,7 +19,7 @@ class AdminTrackingController extends Controller
 
         $sales = Sales::whereHas('products', function ($query) {
             return $query->where('category', 'product');
-        })->get();
+        })->orderBy('created_at', 'desc')->get();
 
         return view('admin.tracking.index', compact('sales'));
     }
@@ -81,7 +81,7 @@ class AdminTrackingController extends Controller
         $sales->tracking_no = $request->tracking_no;
         $sales->save();
 
-        // Mail::send(new TrackingNumber($sales));
+        Mail::send(new TrackingNumber($sales));
 
         return redirect()->route('admin.tracking');
     }

@@ -31,7 +31,7 @@ class TrackingNumber extends Mailable
     public function build()
     {
         return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
-        ->to($this->sales->email, $this->sales->name)
+        ->to($this->sales->user->email, $this->sales->user->name)
         ->subject('Pesanan telah dikirim (' . $this->sales->sales_no . ') - Early Theory')
         ->view('emails.tracking-number');
     }

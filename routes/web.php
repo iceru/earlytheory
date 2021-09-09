@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Sales;
+use App\Mail\UserTransaction;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
@@ -54,9 +57,21 @@ Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallba
 //     return view ('cart');
 // });
 
+Route::get('mail', function(){
+    $sales = Sales::where('sales_no', '1630512377')->firstOrFail();
+    return view('emails.admin-notification', compact('sales'));
+});
+
 Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 
 Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
+
+Route::get('send-mail', function () {
+    $sales = Sales::where('sales_no', '1630512377')->firstOrFail();
+    Mail::send(new UserTransaction($sales));
+   
+    dd("Email is Sent.");
+});
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
