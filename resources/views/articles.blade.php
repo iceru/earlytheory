@@ -53,7 +53,6 @@
         </div>
     </div>
 
-    @section('js')
     <script>
         $(document).ready(function(){
             $('.sliders').slick({
@@ -61,7 +60,6 @@
             });
         });
     </script>
-    @endsection
 </x-app-layout>
 
 

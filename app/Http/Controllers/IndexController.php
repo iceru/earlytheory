@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Newsletter;
 use App\Models\Sliders;
+use App\Models\Articles;
 use App\Models\Products;
 use Illuminate\Http\Request;
-use Newsletter;
 
 class IndexController extends Controller
 {
@@ -16,10 +17,12 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $products = Products::orderBy('ordernumber')->get();
+        $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
+        $products = Products::where('category', 'product')->orderBy('ordernumber')->get();
+        $articles = Articles::orderBy('created_at', 'desc')->paginate(20);
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
 
-        return view('index', compact('products', 'sliders'));
+        return view('index', compact('products', 'sliders', 'services', 'articles'));
     }
 
     /**

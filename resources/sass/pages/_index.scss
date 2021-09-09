@@ -64,3 +64,47 @@
 .addcart {
     cursor: pointer;
 }
+
+
+.page-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .tab {
+        background-color: $primary;
+        color: white;
+        width: 33%;
+        margin: 0 10px;
+        padding: 16px;
+        text-align: center;
+        border-radius: 10px;
+        transition: .2s all ease-in;
+        cursor: pointer;
+        letter-spacing: 1px;
+        font-weight: 800;
+        text-transform: uppercase;
+
+        &:hover {
+            background-color: lighten($primary, 10%);
+            transition: .2s all ease-in;
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.page {
+    display: none;
+
+    &.active {
+        display: flex;
+    }
+}
