@@ -15,12 +15,16 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
         $products = Products::where('category', 'product')->orderBy('ordernumber')->get();
-        $articles = Articles::orderBy('created_at', 'desc')->paginate(20);
+        $articles = Articles::orderBy('created_at', 'desc')->paginate(10);
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
+
+        if ($request->ajax()) {
+            return view('article-index', ['articles' => $articles])->render();  
+        }
 
         return view('index', compact('products', 'sliders', 'services', 'articles'));
     }

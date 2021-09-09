@@ -39,7 +39,7 @@ use App\Http\Controllers\AdminPaymentMethodsController;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::post('/newsletter', [IndexController::class, 'store'])->name('newsletter');
 
-Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
+Route::get('/articles', [IndexController::class, 'index'])->name('articles');
 Route::get('/article-detail/{slug}', [ArticleController::class, 'show'])->name('article-detail');
 
 Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->name('product-detail');

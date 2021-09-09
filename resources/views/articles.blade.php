@@ -56,7 +56,10 @@
     <script>
         $(document).ready(function(){
             $('.sliders').slick({
-                dots: true
+                dots: true,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                pauseOnHover: false,
             });
         });
     </script>
