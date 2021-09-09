@@ -3,7 +3,7 @@
         Early Theory - Homepage
     @endsection
     <div class="index col-12">
-        <div class="sliders-index">
+        <div class="sliders-index sliders">
             @foreach ($sliders as $slider)
             <a target="_blank" href="{{ $slider->link }}">
                 <div class="slider-item">
@@ -12,7 +12,6 @@
                     </div>
                 </div>
             </a>
-
             @endforeach
         </div>
 
@@ -27,8 +26,6 @@
                 <h4>Articles</h4>
             </div>
         </div>
-
-        <p>{{ url()->full() }}</p>
 
         <div class="products services row mt-3 page active" >
             @forelse ($services as $product)
@@ -154,6 +151,23 @@
             $('.'+page).addClass('active');
 
             ReinitSliders(page);
+        }
+
+        $('body').on('click', '.pagination a', function(e) {
+            debugger
+            e.preventDefault();
+            
+            var url = $(this).attr('href');
+            getArticles(url);
+            window.history.pushState("", "", url);
+        });
+
+        function getArticles(url) {
+            $.ajax({
+                url:url
+            }).done(function (data){
+                $('.article-index').html(data);
+            })
         }
 
     </script>

@@ -40,6 +40,10 @@
                         <b>Zip:</b> <br>
                         {{ $sales->shippingAddress->ship_zip }}
                     </div>
+                    <div class="col-6">
+                        <b>Shipping Method:</b> <br>
+                        {{ $sales->ship_method }}
+                    </div>
                     <div class="col-12">
                         <a class="btn button primary inline btn-sm mt-3 mt-lg-2" href="/checkout/{{$sales->sales_no}}/detail">
                             <span><i class="fas fa-edit"></i> &nbsp;</span> Edit
