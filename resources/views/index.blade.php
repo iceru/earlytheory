@@ -14,19 +14,20 @@
             </a>
             @endforeach
         </div>
+    </div>
 
-        <div class="page-tabs">
-            <div class="tab" onclick="ActivePage('services')">
-                <h4 >Tarot Services</h4>
-            </div>
-            <div class="tab"  onclick="ActivePage('items')">
-                <h4>Products</h4>
-            </div>
-            <div class="tab"  onclick="ActivePage('article-index')">
-                <h4>Articles</h4>
-            </div>
+    <div class="page-tabs">
+        <div class="tab" onclick="ActivePage('services')">
+            <h4 >Tarot Services</h4>
         </div>
-
+        <div class="tab"  onclick="ActivePage('items')">
+            <h4>Products</h4>
+        </div>
+        <div class="tab"  onclick="ActivePage('article-index')">
+            <h4>Articles</h4>
+        </div>
+    </div>
+    <div class="col-12 index">
         <div class="products services row mt-3 page active" >
             @forelse ($services as $product)
                 <div class="product-item-container col-6 col-md-4 col-lg-3">
@@ -91,6 +92,7 @@
         </div>
     </div>
 
+
     @section('js')
     <script>
 
@@ -122,6 +124,15 @@
                     icon: "warning"
                 })
             }
+
+            debugger
+
+            if(window.location.pathname == '/articles') {
+                ActivePage('article-index');
+                $('html, body').animate({
+                    scrollTop: $(".article-index").offset().top
+                }, 1000);
+            }
         });
 
         function ReinitSliders(page) {
@@ -145,6 +156,7 @@
                 });
             } 
         }
+        
 
         function ActivePage(page) {
             $('.page').removeClass('active');

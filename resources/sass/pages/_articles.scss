@@ -1,11 +1,11 @@
 .articles {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    // padding-top: 1.5rem;
+    // padding-bottom: 1.5rem;
 
-    @include breakpoint(large) {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
+    // @include breakpoint(large) {
+    //     padding-top: 2rem;
+    //     padding-bottom: 2rem;
+    // }
     .article {
         margin-bottom: 2rem;
         .article-info {

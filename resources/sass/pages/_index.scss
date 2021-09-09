@@ -40,6 +40,9 @@
     }
 }
 
+.slick-dotted.slick-slider {
+    margin-bottom: 0;
+}
 
 .sliders {
     width: 100%;
@@ -70,7 +73,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
 
     .tab {
         background-color: $primary;
@@ -97,6 +99,24 @@
 
         &:last-child {
             margin-right: 0;
+        }
+    }
+
+    @include breakpoint-down (small) {
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        white-space: nowrap;
+        margin-top: 1rem;
+        display: inline-block;
+
+        .tab {
+            width: 210px;
+            display: inline-block;
+            margin: 0 8px;
+            
+            h4 {
+                font-size: 1.15rem;
+            }
         }
     }
 }
