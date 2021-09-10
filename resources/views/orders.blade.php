@@ -76,9 +76,12 @@
                         @if ($order->payment == '')
                         <div class="col-12 mt-2 mt-lg-4">
                             <div class="d-flex">
-                                @if($is_service > 0)
-                                <a href="{{ route('sales.summary', $order->sales_no) }}" class="button secondary me-2"><i class="fas fa-edit me-2"></i>Edit Question</a>
-                                @endif
+                                @foreach ($order->products as $item)
+                                    @if($item->category === 'service')
+                                    <a href="{{ route('sales.summary', $order->sales_no) }}" class="button secondary me-2"><i class="fas fa-edit me-2"></i>Edit Question</a>
+                                    @break
+                                    @endif
+                                @endforeach
                                 <a href="{{ route('user.confirm-payment', $order->sales_no) }}" class="button primary" style="display: inline-flex">Confirm Payment</a>
                             </div>
                         </div>
