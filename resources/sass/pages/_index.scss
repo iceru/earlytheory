@@ -73,9 +73,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 70%;
+    margin: auto;
 
     .tab {
-        background-color: $primary;
+        background-color: $grey;
         color: white;
         width: 33%;
         margin: 0 10px;
@@ -93,6 +95,10 @@
             transition: .2s all ease-in;
         }
 
+        &.active {
+            background-color: lighten($primary, 10%);
+        }
+
         &:first-child {
             margin-left: 0;
         }
@@ -108,6 +114,7 @@
         white-space: nowrap;
         margin-top: 1rem;
         display: inline-block;
+        width: 100%;
 
         .tab {
             width: 210px;

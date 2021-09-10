@@ -62,14 +62,14 @@ class UserController extends Controller
     public function orders()
     {
         $orders = Sales::where('user_id', auth()->user()->id )->orderBy('created_at', 'desc')->get();
-        $is_service = 0;
-        foreach ($orders->products as $item) {
-            if($item->category === 'service') {
-                $is_service += 1;
-            }
-        }
+        // $is_service = 0;
+        // foreach ($orders->products as $item) {
+        //     if($item->category === 'service') {
+        //         $is_service += 1;
+        //     }
+        // }
 
-        return view('orders', compact('orders', 'is_service'));
+        return view('orders', compact('orders'));
     }
 
     public function confirmPayment($id)

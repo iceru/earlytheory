@@ -21,6 +21,9 @@
                 <a href="https://www.tiktok.com/@early.theory?">
                     <i class="fab fa-tiktok"></i>
                 </a>
+                <a href="https://www.youtube.com/channel/UCSmWL0opWxqbtO2qaQ1FUsg">
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
 

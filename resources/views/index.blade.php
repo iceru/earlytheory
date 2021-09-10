@@ -17,13 +17,13 @@
     </div>
 
     <div class="page-tabs">
-        <div class="tab" onclick="ActivePage('services')">
+        <div class="tab active" id="services" onclick="ActivePage('services')">
             <h4 >Tarot Services</h4>
         </div>
-        <div class="tab"  onclick="ActivePage('items')">
+        <div class="tab" id="items" onclick="ActivePage('items')">
             <h4>Products</h4>
         </div>
-        <div class="tab"  onclick="ActivePage('article-index')">
+        <div class="tab" id="article-index" onclick="ActivePage('article-index')">
             <h4>Articles</h4>
         </div>
     </div>
@@ -96,77 +96,59 @@
     @section('js')
     <script>
 
+        function options(){
+            return {
+                dots: false,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                pauseOnHover: false,
+            }
+        }
         $(document).ready(function(){
             $('.sliders-index').slick({
                 dots: true,
                 autoplay: true,
-                autoplaySpeed: 3000,
-                pauseOnHover: false,
-            });
-            $('.service-image').slick({
-                dots: false,
-                arrows: false,
-                autoplay: true,
                 autoplaySpeed: 5000,
                 pauseOnHover: false,
             });
-            $('.physical-image').slick({
-                dots: false,
-                arrows: false,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                pauseOnHover: false,
-            });
+            $('.service-image').slick(options());
+            $('.physical-image').slick(options());
             
-            if(navigator.userAgent.includes("Instagram") ){
-                Swal.fire({
-                    title: "Gunakan browser Chrome atau Safari untuk menghindari error dalam bertransaksi",
-                    icon: "warning"
-                })
-            }
-
-            debugger
 
             if(window.location.pathname == '/articles') {
                 ActivePage('article-index');
-                $('html, body').animate({
-                    scrollTop: $(".article-index").offset().top
-                }, 1000);
+                if(document.body.scrollTop === 0) {
+                    setTimeout(function() {
+                    $('html, body').animate({
+                        scrollTop: $(".article-index").offset().top - 70
+                    }, 100);
+                }, 1000)
+                }
             }
         });
 
         function ReinitSliders(page) {
             if (page == 'services') {
                 $('.service-image').slick('unslick');
-                $('.service-image').slick({
-                    dots: false,
-                    arrows: false,
-                    autoplay: true,
-                    autoplaySpeed: 5000,
-                    pauseOnHover: false,
-                });
+                $('.service-image').slick(options());
             } else if (page == 'items') {
                 $('.physical-image').slick('unslick')
-                $('.physical-image').slick({
-                    dots: false,
-                    arrows: false,
-                    autoplay: true,
-                    autoplaySpeed: 5000,
-                    pauseOnHover: false,
-                });
+                $('.physical-image').slick(options());
             } 
         }
         
 
         function ActivePage(page) {
             $('.page').removeClass('active');
+            $('.tab').removeClass('active');
             $('.'+page).addClass('active');
+            $('#'+page).addClass('active');
 
             ReinitSliders(page);
         }
 
         $('body').on('click', '.pagination a', function(e) {
-            debugger
             e.preventDefault();
             
             var url = $(this).attr('href');

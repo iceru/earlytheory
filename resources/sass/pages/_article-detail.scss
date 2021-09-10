@@ -30,6 +30,7 @@
             bottom: 0;
             left: 0;
             letter-spacing: 1px;
+            width: 100%;
 
             h1 {
                 font-family: 'Skylar Sans';
@@ -54,6 +55,12 @@
                     font-size: 2rem;
                 }
             }
+        }
+    }
+
+    .breadcrumb {
+        @include breakpoint-down(small) {
+            padding: 0 1rem;
         }
     }
 
@@ -92,6 +99,13 @@
         .article-text {
             margin-top: 1rem;
             text-align: justify;
+            
+            @include breakpoint-down(small){
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
         }
     }
 }

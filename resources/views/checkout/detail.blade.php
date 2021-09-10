@@ -265,7 +265,6 @@
         });
 
         $('#add_address').click(function (e) { 
-            debugger
             e.preventDefault();
             var address = $("input[name=address]").val();
             var city = $("select[name=city] :selected").val();
