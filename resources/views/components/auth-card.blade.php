@@ -3,7 +3,7 @@
         {{ $logo }}
     </div> --}}
 
-    <div class="auth-card px-3 py-4 m-2">
+    <div class="auth-card">
         {{ $slot }}
     </div>
 </div>

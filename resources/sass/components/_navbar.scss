@@ -10,6 +10,12 @@
     .hamburger {
         cursor: pointer;
         padding: 0;
+        position: relative;
+
+        .orders-alert {
+            left: 32px;
+            top: -10px;
+        }
     }
 
     .cart-icon {
@@ -34,20 +40,38 @@
     }
 }
 
+.dropdown {
+    .dropdown-toggle {
+        position: relative;
+    }
+}
+
+.orders-alert {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    right: -12px;
+    top: -2px;
+}
+
 .dropdown-menu {
     background-color: $background;
     padding: 0;
 
     .dropdown-item {
         padding: .5rem 1rem;
+        position: relative;
+
+        .orders-alert {
+            top: 10px;
+            left: 70px;
+        }
 
         &.active, &:active, &:hover, &:focus {
-            background-color: $primary;
-            color: white;
-
-            a {
-                color: white;
-            }
+            background-color: rgba($color: $primary, $alpha: .2);
         }
 
         a {
@@ -82,11 +106,10 @@
             &:hover {
                 color: $primary;
             }
+        }
 
-            &.active {
-                color: $primary;
-                font-weight: 600;
-            }
+        .active {
+            color: $primary;
         }
     }
 }
@@ -142,7 +165,13 @@
                 font-size: 1.5rem;
                 font-family: "Evogria";
                 text-transform: uppercase;
+                position: relative;
             }
+        }
+
+        .login-link {
+            padding-top: 1rem;
+            border-top: 1px solid rgba($color: #000000, $alpha: 0.2)
         }
     }
 

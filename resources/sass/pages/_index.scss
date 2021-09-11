@@ -109,20 +109,16 @@
     }
 
     @include breakpoint-down (small) {
-        flex-wrap: nowrap;
-        overflow-x: scroll;
-        white-space: nowrap;
         margin-top: 1rem;
-        display: inline-block;
-        width: 100%;
 
         .tab {
-            width: 210px;
-            display: inline-block;
-            margin: 0 8px;
+            width: 100%;
+            text-align: center;
+            margin: 0 6px;
+            padding: 8px 18px;
             
             h4 {
-                font-size: 1.15rem;
+                font-size: 1rem;
             }
         }
     }

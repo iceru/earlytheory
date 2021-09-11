@@ -68,7 +68,7 @@ class SalesController extends Controller
             }
         }
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             if($is_product > 0) {
                 $address = ShippingAddress::where('user_id', $user->id)->get();
 
@@ -151,7 +151,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $request->validate([
                 'inputRelationship' => 'nullable',
                 'inputPhone' => 'nullable',
@@ -222,7 +222,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
         
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $address = ShippingAddress::where('user_id', $user->id)->get();
 
             foreach($address as $a) {
@@ -391,7 +391,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $request->validate([
                 'inputAddress' => 'required',
                 'inputShipping' => 'required',
@@ -421,7 +421,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
 
             if($sales->address_id) {
                 if(Cache::has('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province)) {
@@ -469,7 +469,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
         
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             if($request->inputDiscount) {
                 $disc_code = strtoupper($request->inputDiscount);
                 $discount = Discount::where('code', $disc_code)->first();
@@ -526,7 +526,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $paymethods_bank = PaymentMethods::where('account_number', '!=', 'qr')->get();
             $paymethods_qr = PaymentMethods::where('account_number', '=', 'qr')->first();
             return view('checkout.payment', compact('sales', 'paymethods_bank', 'paymethods_qr'));
@@ -542,7 +542,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $paymentMethods = PaymentMethods::all();
     
             return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
@@ -558,7 +558,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $request->validate([
                 'inputPayType' => 'required',
                 'inputPayment' => 'max:5000'

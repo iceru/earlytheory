@@ -18,13 +18,13 @@
 
     <div class="page-tabs">
         <div class="tab active" id="services" onclick="ActivePage('services')">
-            <h4 >Tarot Services</h4>
+            <h4>Ramalan</h4>
         </div>
         <div class="tab" id="items" onclick="ActivePage('items')">
-            <h4>Products</h4>
+            <h4>Produk</h4>
         </div>
         <div class="tab" id="article-index" onclick="ActivePage('article-index')">
-            <h4>Articles</h4>
+            <h4>Artikel</h4>
         </div>
     </div>
     <div class="col-12 index">

@@ -2,10 +2,10 @@
     <div class="account-navigation">
         <ul class="sidebar-account">
             <li>
-                <a href="{{ route('user.account') }}">Account</a>
+                <a class="{{ (request()->is('account')) ? 'active' : '' }}" href="{{ route('user.account') }}">Account</a>
             </li>
             <li>
-                <a href="{{ route('user.orders') }}">Orders</a>
+                <a class="{{ (request()->is('orders')) ? 'active' : '' }}" href="{{ route('user.orders') }}">Orders</a>
             </li>
             <li>
                 <form method="POST" action="{{ route('logout') }}">
