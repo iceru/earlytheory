@@ -71,7 +71,7 @@
                                 @endforeach
                             </div>
                             <div class="col-7 col-lg-9 product-question"  >
-                                <div @if ($item->duration != "0" || $item->category == 'product') hidden @endif>
+                                <div @if ($item->question != 'yes' || $item->category == 'product') hidden @endif>
                                     <h5>Pertanyaan</h5>
                                     <p>{{nl2br($item->pivot->question)}}</p>
                                     <button class="button primary mt-3 mt-lg-2">
@@ -80,7 +80,7 @@
                                             Edit</span></a>
                                     </button>
                                 </div>
-                                @if ($item->duration != "0" || $item->category == 'product')
+                                @if ($item->question != 'yes' || $item->category == 'product')
                                     <p>{!! $item->description_short !!}</p>
                                 @endif
                             </div>

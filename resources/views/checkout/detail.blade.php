@@ -196,9 +196,9 @@
                                     </div>
                                     <div class="col-8 col-lg-9 ps-2">
                                         <textarea name="question[]" id="question"
-                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->duration != "0" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->question != "yes" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
 
-                                        @if ($item->duration != "0" || $item->category == 'product')
+                                        @if ($item->question != "yes" || $item->category == 'product')
                                         <p>{!! $item->description_short !!}</p>
                                         @endif
                                     </div>

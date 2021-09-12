@@ -98,6 +98,16 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Question</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Category" name="updateQuestion">
+                            <option selected disabled>Select Question Field</option>
+                            <option {{  $product->question === "yes" ? 'selected' : '' }} value="yes">Yes</option>
+                            <option {{  $product->question === "no" ? 'selected' : '' }} value="no">No</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputStock" name="updateStock" min="0" value="{{$product->stock}}">

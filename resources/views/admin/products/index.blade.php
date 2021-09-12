@@ -99,6 +99,16 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Question Field</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Category" name="inputQuestion">
+                            <option selected disabled>Select Question Field</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputStock" name="inputStock" min="0">
@@ -119,10 +129,11 @@
                         <th>Title</th>
                         <th>Price</th>
                         <th>Duration</th>
+                        <th>Question Field</th>
+                        <th>Stock</th>
                         <th>Short Description</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Stock</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -141,9 +152,7 @@
                         <td>{{$product->title}}</td>
                         <td>{{$product->price}}</td>
                         <td>{{$product->duration}}</td>
-                        <td>{{$product->description_short}}</td>
-                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
-                        <td>{{ucfirst($product->category)}}</td>
+                        <td>{{$product->question}}</td>
                         <td>
                             @if ($product->category == 'product')
                                 {{$product->stock}}
@@ -151,6 +160,9 @@
                                 -
                             @endif
                         </td>
+                        <td>{{$product->description_short}}</td>
+                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
+                        <td>{{ucfirst($product->category)}}</td>
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
                             <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center" href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>

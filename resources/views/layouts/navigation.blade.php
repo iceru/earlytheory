@@ -4,11 +4,11 @@
         <div class="dropdown">
             <a class="d-flex align-items-center me-3"  id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-2 primary-color" aria-hidden="true"></i>
-                <span class="dropdown-toggle grey-color fw-bold">{{ auth()->user()->name }} @if ($sales) <span class="orders-alert"></span> @endif </span>
+                <span class="dropdown-toggle grey-color fw-bold">{{ auth()->user()->name }} @if (count($sales) > 0) <span class="orders-alert"></span> @endif </span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="{{ route('user.account') }}">Account</a></li>
-                <li><a class="dropdown-item" href="{{ route('user.orders') }}">Orders @if ($sales) <span class="orders-alert"></span> @endif</a></li>
+                <li><a class="dropdown-item" href="{{ route('user.orders') }}">Orders @if (count($sales) > 0) <span class="orders-alert"></span> @endif</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -25,7 +25,7 @@
         @endauth
     </div>
     <div class="hamburger col-3 d-lg-none d-flex justify-content-start">
-        <img src="/images/svg/hamburger.svg" alt="menu"> @if ($sales) <span class="orders-alert"></span> @endif 
+        <img src="/images/svg/hamburger.svg" alt="menu"> @if (count($sales) > 0) <span class="orders-alert"></span> @endif 
     </div>
     <div class="logo col-6 d-flex justify-content-center d-lg-none">
         <a href="/">
@@ -80,7 +80,7 @@
             <a class="{{ (request()->is('account')) ? 'active' : '' }}" href="{{ route('user.account') }}">My Account</a>
         </li>
         <li>
-            <a class="{{ (request()->is('orders')) ? 'active' : '' }}" href="{{ route('user.orders') }}">My Orders <span class="orders-alert"></span></a>
+            <a class="{{ (request()->is('orders')) ? 'active' : '' }}" href="{{ route('user.orders') }}">My Orders  @if (count($sales) > 0) <span class="orders-alert"></span> @endif </a>
         </li>
         @else
         <li class="login-link">
