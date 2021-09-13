@@ -32,11 +32,11 @@
                         <b>City:</b> <br>
                         {{ $sales->shippingAddress->city }}
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 mb-3">
                         <b>Province:</b> <br>
                         {{ $sales->shippingAddress->province }}
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 mb-3">
                         <b>Zip:</b> <br>
                         {{ $sales->shippingAddress->ship_zip }}
                     </div>

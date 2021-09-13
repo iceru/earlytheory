@@ -59,7 +59,7 @@
             <div class="row mt-3">
                 <div class="col-12 text-center">
                     <a class="primary-color fw-bold" href="{{ route('register') }}">
-                        Doesn't have an account?
+                        Daftar sebagai pengguna baru
                     </a>
                 </div>
             </div>

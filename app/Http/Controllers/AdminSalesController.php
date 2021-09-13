@@ -13,8 +13,7 @@ class AdminSalesController extends Controller
 {
     public function index()
     {
-        $sales = Sales::all();
-
+        $sales = Sales::orderBy('created_at', 'desc')->get();
         return view('admin.sales.index', compact('sales'));
     }
 

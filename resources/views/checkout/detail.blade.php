@@ -81,9 +81,9 @@
                                 </div>
                                 <div class="col-12 d-grid gap-2">
                                     <div class="d-flex">
-                                        <a class="button primary me-3" id="add_address">Add
+                                        <a class="button primary me-3" style="cursor: pointer" id="add_address">Add
                                             Address</a>
-                                        <a class="button secondary" id="cancel_new_adr">Cancel</a>
+                                        <a class="button secondary" style="cursor: pointer" id="cancel_new_adr">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +249,6 @@
         $("#prov").on('change', function () {
             var prov_id=$(this).val();
             var cityopt="";
-            console.log(prov_id);
             $.ajax({
                 type:'get',
                 url:'{!! URL::to('checkout/findCityShipping') !!}',
@@ -301,7 +300,6 @@
 
                     updateAddress();
                 }, fail:function(data) {
-                    console.log(data);
                 }
             })
         });
@@ -337,7 +335,8 @@
                 $('#shipping').removeAttr('hidden');
                 shipopt += '<option value="" selected disabled>Select Shipping</option>';
                 for (var i=0; i<data.length; i++) {
-                    shipopt += '<option value="'+data[i].cost[0].value+'-'+data[i].courier+' '+data[i].service+'">'+data[i].courier+' '+data[i].service+' / '+data[i].cost[0].etd+' Day(s) : Rp '+data[i].cost[0].value+'</option>';
+                    if(data[i].service !== 'ECO')
+                        shipopt += '<option value="'+data[i].cost[0].value+'-'+data[i].courier+' '+data[i].service+'">'+data[i].courier+' '+data[i].service+' / '+data[i].cost[0].etd+' Day(s) : Rp '+data[i].cost[0].value+'</option>';
                 }
                 $('#inputAddress').val(addressSelect);
                 $('#ship').html(shipopt);

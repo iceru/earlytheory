@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         view()->composer(['layouts.navigation'], function ($view) {
-            $sales = null;
+            $sales = [];
 
             if (Auth::user()) {
                 $user = Auth::user();

@@ -23,7 +23,7 @@
                         <th>No</th>
                         <th>Sales Number</th>
                         <th>Order Date</th>
-                        <th>Total Price (After Discount + Shipping)</th>
+                        <th>Total Price</th>
                         <th>Name</th>
                         <th>Payment Type</th>
                         <th>Status</th>
@@ -39,7 +39,11 @@
                         <td>{{$sale->sales_no}}</td>
                         <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
                         <td>{{number_format($sale->total_price-$sale->discount+$sale->ship_cost)}}</td>
+                        @if($sale->user)
                         <td>{{$sale->user->name}}</td>
+                        @else
+                        <td>{{ $sale->name }}</td>
+                        @endif
                         @if ($sale->paymentmethods)
                         <td>{{$sale->paymentmethods->name}}</td>
                         @else

@@ -381,7 +381,7 @@ class SalesController extends Controller
         }
 
         //merge
-        $shipcosts = array_merge($cost_jne, $cost_tiki);
+        $shipcosts = $cost_tiki;
         
         return $shipcosts;
     }

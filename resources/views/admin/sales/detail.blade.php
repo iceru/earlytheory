@@ -42,25 +42,25 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Name</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->user->name}}" readonly>
+            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{$sales->user->name}}" @else value="{{$sales->name}}" @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Email</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->user->email}}" readonly>
+            <input type="text" class="form-control-plaintext"@if ($sales->user) value="{{$sales->user->email}}" @else value="{{$sales->email}}" @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Phone Number</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->user->phone}}" readonly>
+            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{$sales->user->phone}}" @else value="{{$sales->phone}}" @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Date of Birth</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{\Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}" readonly>
+            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{\Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}" @else value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" @endif  readonly>
         </div>
     </div>
     <div class="mb-1 row">

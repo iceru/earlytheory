@@ -21,7 +21,7 @@
             <h4>Ramalan</h4>
         </div>
         <div class="tab" id="items" onclick="ActivePage('items')">
-            <h4>Produk</h4>
+            <h4>Kristal</h4>
         </div>
         <div class="tab" id="article-index" onclick="ActivePage('article-index')">
             <h4>Artikel</h4>
