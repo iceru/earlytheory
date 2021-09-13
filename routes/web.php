@@ -165,6 +165,8 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
 
     Route::get('/admin/sales', [AdminSalesController::class, 'index'])->name('admin.sales');
     Route::get('/admin/sales/{id}', [AdminSalesController::class, 'detail'])->name('admin.sales.detail');
+    Route::get('/admin/sales/edit/{id}', [AdminSalesController::class, 'edit'])->name('admin.sales.edit');
+    Route::post('/admin/sales/update', [AdminSalesController::class, 'update'])->name('admin.sales.update');
     Route::get('/admin/sales/delete/{id}', [AdminSalesController::class, 'destroy'])->name('admin.sales.destroy');
 
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
