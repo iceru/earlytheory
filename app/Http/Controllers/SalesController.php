@@ -542,6 +542,19 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
+        $is_product = 0;
+        $is_service = 0;
+
+        foreach ($sales->products as $item) {
+            if($item->category === 'product') {
+                $is_product += 1;
+            }
+
+            if($item->category === 'service') {
+                $is_service += 1;
+            }
+        }
+
         if($user->id == $sales->user_id) {
             $paymentMethods = PaymentMethods::all();
             $is_soldout = 0;
@@ -552,7 +565,7 @@ class SalesController extends Controller
                 }
             }
     
-            return view('checkout.confirm-payment', compact('sales', 'paymentMethods', 'is_soldout'));
+            return view('checkout.confirm-payment', compact('sales', 'paymentMethods', 'is_soldout', 'is_service'));
         }
 
         else {
