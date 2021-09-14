@@ -8,6 +8,7 @@ use App\Models\ShippingAddress;
 use App\Models\PaymentMethods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class AdminSalesController extends Controller
 {
@@ -57,6 +58,31 @@ class AdminSalesController extends Controller
         }
 
         return view('admin.sales.detail', compact('sales'));
+    }
+
+    public function edit($id)
+    {
+        $sales = Sales::findOrFail($id);
+
+        return view('admin.sales.edit', compact('sales'));
+    }
+
+    public function update(Request $request)
+    {
+        $sales = Sales::find($request->id);
+
+        // $request->validate([
+        //     'updateName' => 'required'
+        // ]);
+
+        $sales->name = $request->updateName;
+        $sales->email = $request->updateEmail;
+        $sales->phone = $request->updatePhone;
+        $sales->birthdate = Carbon::parse($request->updateBirthdate)->format('Y-m-d');;;
+
+        $sales->save();
+
+        return redirect('/admin/sales');
     }
 
     public function destroy($id)

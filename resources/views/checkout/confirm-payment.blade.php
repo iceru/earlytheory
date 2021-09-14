@@ -27,6 +27,12 @@
             </div>
             @endif
 
+            @if (session('soldout') || $is_soldout === 1)
+            <div class="alert alert-danger">
+                Sorry, the product on your order already sold out.
+            </div>
+            @endif
+
             @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -67,38 +73,40 @@
                                     name="inputBirthdate" id="datepicker" readonly autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="inputRelationship" class="fw-bold">Status Relationship</label>
-                                <select class="form-control-plaintext" name="inputRelationship" id="inputRelationship" disabled>
-                                    <option selected disabled>Select</option>
-                                    <option value="single" @if ($sales->relationship == "single") {{ 'selected' }} @endif
-                                        disabled>Single</option>
-                                    <option value="pacaran" @if ($sales->relationship == "pacaran") {{ 'selected' }} @endif
-                                        disabled>Pacaran</option>
-                                    <option value="menikah" @if ($sales->relationship == "menikah") {{ 'selected' }} @endif
-                                        disabled>Menikah</option>
-                                    <option value="divorced" @if ($sales->relationship == "divorced") {{ 'selected' }} @endif
-                                        disabled>Divorced</option>
-                                </select>
+                        @if ($is_service > 0)
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group ">
+                                    <label for="inputRelationship" class="fw-bold">Status Relationship</label>
+                                    <select class="form-control-plaintext" name="inputRelationship" id="inputRelationship" disabled>
+                                        <option selected disabled>Select</option>
+                                        <option value="single" @if ($sales->relationship == "single") {{ 'selected' }} @endif
+                                            disabled>Single</option>
+                                        <option value="pacaran" @if ($sales->relationship == "pacaran") {{ 'selected' }} @endif
+                                            disabled>Pacaran</option>
+                                        <option value="menikah" @if ($sales->relationship == "menikah") {{ 'selected' }} @endif
+                                            disabled>Menikah</option>
+                                        <option value="divorced" @if ($sales->relationship == "divorced") {{ 'selected' }} @endif
+                                            disabled>Divorced</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="form-group ">
-                                <label for="inputPekerjaan" class="fw-bold">Status Pekerjaan</label>
-                                <select class="form-control-plaintext" name="inputPekerjaan" id="inputPekerjaan" disabled>
-                                    <option selected disabled>Select</option>
-                                    <option value="unemployed" @if ($sales->job == "unemployed") {{ 'selected' }} @endif
-                                        disabled>Unemployed</option>
-                                    <option value="employed" @if ($sales->job == "employed") {{ 'selected' }} @endif
-                                        disabled>Employed</option>
-                                    <option value="business" @if ($sales->job== "business") {{ 'selected' }} @endif
-                                        disabled>Business</option>
-                                    <option value="student" @if ($sales->job == "student") {{ 'selected' }} @endif
-                                        disabled>Student</option>
-                                </select>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group ">
+                                    <label for="inputPekerjaan" class="fw-bold">Status Pekerjaan</label>
+                                    <select class="form-control-plaintext" name="inputPekerjaan" id="inputPekerjaan" disabled>
+                                        <option selected disabled>Select</option>
+                                        <option value="unemployed" @if ($sales->job == "unemployed") {{ 'selected' }} @endif
+                                            disabled>Unemployed</option>
+                                        <option value="employed" @if ($sales->job == "employed") {{ 'selected' }} @endif
+                                            disabled>Employed</option>
+                                        <option value="business" @if ($sales->job== "business") {{ 'selected' }} @endif
+                                            disabled>Business</option>
+                                        <option value="student" @if ($sales->job == "student") {{ 'selected' }} @endif
+                                            disabled>Student</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="inputPayType">Tipe Pembayaran</label>
@@ -124,9 +132,9 @@
                     </p>
 
                     <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button secondary">
+                        <button type="submit"  @if ($is_soldout === 1) class="button disabled" disabled @else class="button secondary" @endif>
                             Submit
-                            </a>
+                        </button>
                     </div>
                 </div>
             </form>
