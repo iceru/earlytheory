@@ -38,7 +38,7 @@ class SalesController extends Controller
             foreach (\Cart::getContent() as $item) {
                 $product = Products::find($item->id);
                 $product->sales()->attach($sales, ['qty' => $item->quantity]);
-                $product->stock = $product->stock-$item->quantity;
+                // $product->stock = $product->stock-$item->quantity;
                 $product->save();
             }
 
@@ -544,8 +544,15 @@ class SalesController extends Controller
 
         if($user->id == $sales->user_id) {
             $paymentMethods = PaymentMethods::all();
+            $is_soldout = 0;
+            foreach($sales->products as $item) {
+                $product = Products::where('id', $item->id)->where('category', 'product')->where('stock', '<=', 0)->first();
+                if($product) {
+                    $is_soldout = 1;
+                }
+            }
     
-            return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
+            return view('checkout.confirm-payment', compact('sales', 'paymentMethods', 'is_soldout'));
         }
 
         else {
@@ -559,31 +566,53 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         if($user->id == $sales->user_id) {
-            $request->validate([
-                'inputPayType' => 'required',
-                'inputPayment' => 'max:5000'
-            ],
-            [
-                'inputPayType.required' => 'Tipe Pembayaran belum diisi',
-                // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
-                'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
-            ]);
-    
-            if ($request->hasFile('inputPayment')) {
-                $extension = $request->file('inputPayment')->getClientOriginalExtension();
-                $filename = $sales->sales_no.'_'.time().'.'.$extension;
-                $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
-                $sales->payment = $filename;
+
+            $is_soldout = 0;
+            foreach($sales->products as $item) {
+                $product = Products::where('id', $item->id)->where('category', 'product')->where('stock', '<=', 0)->first();
+                if($product) {
+                    $is_soldout = 1;
+                }
             }
+
+            if($is_soldout === 0) {
+                $request->validate([
+                    'inputPayType' => 'required',
+                    'inputPayment' => 'max:5000'
+                ],
+                [
+                    'inputPayType.required' => 'Tipe Pembayaran belum diisi',
+                    // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
+                    'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
+                ]);
+        
+                if ($request->hasFile('inputPayment')) {
+                    $extension = $request->file('inputPayment')->getClientOriginalExtension();
+                    $filename = $sales->sales_no.'_'.time().'.'.$extension;
+                    $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
+                    $sales->payment = $filename;
+                }
+        
+                $sales->paymethod_id = $request->inputPayType;
+                $sales->status = 'paid';
+                $sales->save();
     
-            $sales->paymethod_id = $request->inputPayType;
-            $sales->status = 'paid';
-            $sales->save();
     
-            Mail::send(new UserTransaction($sales));
-            Mail::send(new AdminNotification($sales));
-    
-            return redirect()->route('sales.success', ['id' => $sales->sales_no]);
+                foreach($sales->products as $item) {
+                    $product = Products::find($item->id);
+                    $product->stock = $product->stock-$item->pivot->qty;
+                    $product->save();
+                }
+        
+                Mail::send(new UserTransaction($sales));
+                Mail::send(new AdminNotification($sales));
+        
+                return redirect()->route('sales.success', ['id' => $sales->sales_no]);
+            }
+            elseif($is_soldout === 1) {
+                return redirect()->back()->with('soldout');
+            }
+
         }
 
         else {

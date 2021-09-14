@@ -27,6 +27,12 @@
             </div>
             @endif
 
+            @if (session('soldout') || $is_soldout === 1)
+            <div class="alert alert-danger">
+                Sorry, the product on your order already sold out, please contact us for a refund.
+            </div>
+            @endif
+
             @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -124,7 +130,10 @@
                     </p>
 
                     <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button secondary">
+                        <button type="submit" class="button secondary"
+                        @if ($is_soldout === 1)
+                            disabled
+                        @endif>
                             Submit
                             </a>
                     </div>

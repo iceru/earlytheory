@@ -20,6 +20,11 @@
                     <a class="button primary inline mt-3" href="{{ route('user.orders')}}">Kembali ke Orders</a>
                 </div>
                 @else
+                @if (session('soldout') || $is_soldout === 1)
+                <div class="alert alert-danger">
+                    Sorry, the product on your order already sold out, please contact us for a refund.
+                </div>
+                @endif
                 <h5 class="mb-3">Order ID: {{ $order->sales_no }}</h5>
                 <form action="{{ route('user.confirm-submit', $order->sales_no) }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -41,7 +46,10 @@
                     </div>
 
                     <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button primary">
+                        <button type="submit" class="button primary"
+                        @if ($is_soldout === 1)
+                            disabled
+                        @endif>
                             Submit
                         </button>
                     </div>
