@@ -56,7 +56,7 @@
                             <td>-</td>
                         @endif
                         <td><a href="/admin/sales/{{$sale->id}}" class="btn btn-primary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fa fa-info-circle" aria-hidden="true"></i> <span class="ms-1">Detail</span></a>
-                            <a href="/admin/sales/edit/{{$sale->id}}" class="btn btn-secondary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fas fa-edit me-1" aria-hidden="true"></i> <span class="ms-1">Edit</span></a>
+                            {{-- <a href="/admin/sales/edit/{{$sale->id}}" class="btn btn-secondary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fas fa-edit me-1" aria-hidden="true"></i> <span class="ms-1">Edit</span></a> --}}
                             <button onclick="deleteConfirmation({{$sale->id}})" class="btn btn-danger d-flex align-items-center btn-sm justify-content-center"><i class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button></td>
                     </tr>
                     @endforeach
