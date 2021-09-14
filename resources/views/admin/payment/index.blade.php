@@ -23,7 +23,7 @@
                         <th>No</th>
                         <th>Sales Number</th>
                         <th>Order Date</th>
-                        <th>Total Price (After Discount)</th>
+                        <th>Total Price</th>
                         <th>Name</th>
                         <th>Payment Type</th>
                         <th>Status</th>

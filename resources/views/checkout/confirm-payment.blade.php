@@ -29,7 +29,7 @@
 
             @if (session('soldout') || $is_soldout === 1)
             <div class="alert alert-danger">
-                Sorry, the product on your order already sold out, please contact us for a refund.
+                Sorry, the product on your order already sold out.
             </div>
             @endif
 

@@ -22,7 +22,7 @@
                 @else
                 @if (session('soldout') || $is_soldout === 1)
                 <div class="alert alert-danger">
-                    Sorry, the product on your order already sold out, please contact us for a refund.
+                    Sorry, the product on your order already sold out.
                 </div>
                 @endif
                 <h5 class="mb-3">Order ID: {{ $order->sales_no }}</h5>
@@ -46,10 +46,7 @@
                     </div>
 
                     <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button primary"
-                        @if ($is_soldout === 1)
-                            disabled
-                        @endif>
+                        <button type="submit" @if ($is_soldout === 1)  class="button disabled" disabled @else class="button primary" @endif  >
                             Submit
                         </button>
                     </div>
