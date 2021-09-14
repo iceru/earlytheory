@@ -130,12 +130,9 @@
                     </p>
 
                     <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button secondary"
-                        @if ($is_soldout === 1)
-                            disabled
-                        @endif>
+                        <button type="submit"  @if ($is_soldout === 1) class="button disabled" disabled @else class="button secondary" @endif>
                             Submit
-                            </a>
+                        </button>
                     </div>
                 </div>
             </form>
