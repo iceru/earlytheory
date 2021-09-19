@@ -30,13 +30,13 @@
                                 <p><b>Sales Number:</b> <br> {{$sales->sales_no}}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Name:</b> <br> {{$sales->user->name}}</p>
+                                <p><b>Nama Lengkap:</b> <br> {{$sales->user->name}}</p>
                             </div>
                             <div class="col-6">
                                 <p><b>Email:</b> <br> {{$sales->user->email}}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Nomor Telepon:</b> <br> {{$sales->user->phone}}</p>
+                                <p><b>No. Telepon:</b> <br> {{$sales->user->phone}}</p>
                             </div>
                             <div class="col-6">
                                 <p><b>Tanggal Lahir:</b> <br> {{ \Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}</p>
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="col-12 col-md-6 proof-image">
-                        <b>Proof of Payment:</b>
+                        <b>Bukti Pembayaran:</b>
                         <img src="{{Storage::url('payment-proof/'.$sales->payment)}}">
                     </div>
                 </div>

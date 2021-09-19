@@ -18,7 +18,7 @@
             </div>
             @if (count($errors) > 0)
             <div class="alert alert-danger">
-                <strong>Sorry !</strong> There were some problems with your input.<br><br>
+                <strong>Sorry !</strong> Terdapat masalah dalam input data.<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -29,7 +29,7 @@
 
             @if (session('soldout') || $is_soldout === 1)
             <div class="alert alert-danger">
-                Sorry, the product on your order already sold out.
+                Maaf, Produk tersebut sudah habis.
             </div>
             @endif
 
@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
-                                <label for="inputPhone" class="fw-bold">Nomor Telepon</label>
+                                <label for="inputPhone" class="fw-bold">No. Telepon</label>
                                 <input type="tel" class="form-control-plaintext" value="{{ $sales->user->phone }}" name="inputPhone"
                                     readonly>
                             </div>
@@ -111,7 +111,7 @@
                     <div class="form-group">
                         <label for="inputPayType">Tipe Pembayaran</label>
                         <select class="form-select" name="inputPayType" id="inputPayType">
-                            <option selected disabled>Select</option>
+                            <option selected disabled>Pilih Pembayaran</option>
                             @foreach ($paymentMethods as $payType)
                             <option {{old('inputPayType') == $payType->id ? 'selected' : ''}} value="{{$payType->id}}">
                                 {{$payType->name}}</option>

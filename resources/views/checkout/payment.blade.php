@@ -28,7 +28,7 @@
                 <button id="print" class="text-center button secondary">Print Invoice &nbsp; <i class="fa fa-print" aria-hidden="true"></i></button>
             </div> --}}
             <div class="total-payment">
-                <h4>Total Payment: idr {{number_format($sales->total_price-$sales->discount+$sales->ship_cost)}}</h4>
+                <h4>Jumlah yang harus dibayar: idr {{number_format($sales->total_price-$sales->discount+$sales->ship_cost)}}</h4>
             </div>
             <div class="disclaimer">
                 <h5 class="text-center text-danger mb-3"><b>Disclaimer:</b> Transaksi hanya akan diproses jika anda sudah melakukan konfirmasi pembayaran</h5>
