@@ -78,7 +78,7 @@ class AdminSalesController extends Controller
         $sales->name = $request->updateName;
         $sales->email = $request->updateEmail;
         $sales->phone = $request->updatePhone;
-        $sales->birthdate = Carbon::parse($request->updateBirthdate)->format('Y-m-d');;;
+        $sales->birthdate = Carbon::parse($request->updateBirthdate)->format('Y-m-d');
 
         $sales->save();
 

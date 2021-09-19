@@ -117,12 +117,18 @@ class UserController extends Controller
                 $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
                 $sales->payment = $filename;
             }
+
+            foreach($sales->products as $item) {
+                $product = Products::find($item->id);
+                $product->stock = $product->stock-$item->pivot->qty;
+                $product->save();
+            }
     
             $sales->paymethod_id = $request->inputPayType;
             $sales->save();
     
             Mail::send(new UserTransaction($sales));
-            // Mail::send(new AdminNotification($sales));
+            Mail::send(new AdminNotification($sales));
         }
         elseif($is_soldout === 1) {
             return redirect()->back()->with('soldout');

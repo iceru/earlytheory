@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="col-3 col-lg-2 product-total">
-                            <h5 class="primary-color">{{ $item->model->price * $item->quantity }}</h5>
+                            <h5 class="primary-color">idr {{ number_format($item->model->price * $item->quantity) }}</h5>
                         </div>
                         <div class="col-1">
                             <a href="/cart/remove/{{$item->id}}" onclick="return confirm('Are you sure you want to delete the item?');">
