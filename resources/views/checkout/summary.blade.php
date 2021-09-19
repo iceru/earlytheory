@@ -25,23 +25,23 @@
             <div class="col-12 mb-4">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <b>Address:</b> <br>
+                        <b>Alamat:</b> <br>
                         {{ $sales->shippingAddress->ship_address }}
                     </div>
                     <div class="col-6 mb-3">
-                        <b>City:</b> <br>
+                        <b>Kota:</b> <br>
                         {{ $sales->shippingAddress->city }}
                     </div>
                     <div class="col-6 mb-3">
-                        <b>Province:</b> <br>
+                        <b>Provinsi:</b> <br>
                         {{ $sales->shippingAddress->province }}
                     </div>
                     <div class="col-6 mb-3">
-                        <b>Zip:</b> <br>
+                        <b>Kode Pos:</b> <br>
                         {{ $sales->shippingAddress->ship_zip }}
                     </div>
                     <div class="col-6">
-                        <b>Shipping Method:</b> <br>
+                        <b>Metode Pengiriman:</b> <br>
                         {{ $sales->ship_method }}
                     </div>
                     <div class="col-12">

@@ -18,25 +18,25 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Total Price</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price-$sales->discount+$sales->ship_cost)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->total_price-$sales->discount+$sales->ship_cost)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Discount</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->discount)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->discount)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Shipping Cost</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->ship_cost)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->ship_cost)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Total Price (After Discount + Shipping)</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price-$sales->discount)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->total_price-$sales->discount)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">

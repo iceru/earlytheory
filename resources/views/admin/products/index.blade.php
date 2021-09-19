@@ -154,7 +154,7 @@
                         <td>{{$product->title}}</td>
                         <td>{{$product->price}}</td>
                         <td>{{$product->duration}}</td>
-                        <td>{{$product->question}}</td>
+                        <td>{{ucwords($product->question)}}</td>
                         <td>
                             @if ($product->category == 'product')
                                 {{$product->stock}}
