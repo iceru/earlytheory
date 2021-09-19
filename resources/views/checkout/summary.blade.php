@@ -19,7 +19,7 @@
             @if ($sales->address_id)
             <div class="col-12">
                 <div class=" mb-3 pb-2 border-bottom border-dark">
-                    <h5 class="evogria">Shipping Address</h5>
+                    <h5 class="evogria">Alamat Pengiriman</h5>
                 </div>
             </div>
             <div class="col-12 mb-4">
