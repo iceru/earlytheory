@@ -130,7 +130,7 @@
                         @if (empty($sales->user->birthdate))
                         <div class="form-group col-12 col-lg-6">
                             <label for="inputBirthdate">Tanggal Lahir</label>
-                            <input class="form-control" type="text" id="datepicker" name="inputBirthdate">
+                            <input class="form-control" type="text" id="datepicker" name="inputBirthdate" readonly="readonly">
                         </div>
                         @endif
                         @if($is_service > 0) 
