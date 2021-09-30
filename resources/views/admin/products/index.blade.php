@@ -141,7 +141,8 @@
                     @foreach ($products as $product)
                     <tr>
                         {{-- <td scope="row">{{$loop->iteration}}</td> --}}
-                        <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                        <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/{{$product->id}}/variant"><i class="fas fa-list me-1"></i></i> Variant</a>
+                            <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
                             <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center" href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                         <td>{{$product->ordernumber}}</td>
                         <td>
@@ -165,7 +166,6 @@
                         <td>{{$product->description_short}}</td>
                         <td>{{substr($product->description, 0, 100) . '...'}}</td>
                         <td>{{ucfirst($product->category)}}</td>
-                    
                     </tr>
                     @endforeach
                 </tbody>

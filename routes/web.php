@@ -24,6 +24,7 @@ use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminTrackingController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPaymentMethodsController;
+use App\Http\Controllers\AdminProductOptionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -144,6 +145,9 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/products/edit/{id}', [AdminProductsController::class, 'edit'])->name('admin.products.edit');
     Route::post('/admin/products/update', [AdminProductsController::class, 'update'])->name('admin.products.update');
     Route::get('/admin/products/delete/{id}', [AdminProductsController::class, 'destroy'])->name('admin.products.destroy');
+    
+    Route::get('/admin/products/{id}/variant', [AdminProductOptionsController::class, 'index'])->name('admin.product-options');
+    Route::post('/admin/product-variants/store', [AdminProductOptionsController::class, 'store'])->name('admin.product-options.store');
 
     Route::get('/admin/payment-methods', [AdminPaymentMethodsController::class, 'index'])->name('admin.paymentMethods');
     Route::post('/admin/payment-methods/store', [AdminPaymentMethodsController::class, 'store'])->name('admin.paymentMethods.store');
