@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
-use App\Models\Sales;
-use App\Models\ShippingAddress;
-use App\Models\PaymentMethods;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use App\Models\Sales;
+use App\Models\Products;
+use Illuminate\Http\Request;
+use App\Models\PaymentMethods;
+use App\Models\ShippingAddress;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Cache;
 
 class AdminSalesController extends Controller
 {
@@ -75,12 +76,15 @@ class AdminSalesController extends Controller
         //     'updateName' => 'required'
         // ]);
 
-        $sales->name = $request->updateName;
-        $sales->email = $request->updateEmail;
-        $sales->phone = $request->updatePhone;
-        $sales->birthdate = Carbon::parse($request->updateBirthdate)->format('Y-m-d');
+        $user_id = $sales->user_id;
+        $user = User::find($user_id);
 
-        $sales->save();
+        $user->name = $request->updateName;
+        $user->email = $request->updateEmail;
+        $user->phone = $request->updatePhone;
+        $user->birthdate = Carbon::parse($request->updateBirthdate)->format('Y-m-d');
+
+        $user->save();
 
         return redirect('/admin/sales');
     }

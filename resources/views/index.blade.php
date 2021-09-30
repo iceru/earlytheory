@@ -105,6 +105,18 @@
                 pauseOnHover: false,
             }
         }
+        function sameDiv() {
+            var maxHeight = 0
+            $(".product-item").each(function(){
+                if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+            });
+            $(".product-item").height(maxHeight);
+        }
+
+        $( window ).resize(function() {
+            sameDiv();
+        });
+      
         $(document).ready(function(){
             $('.sliders-index').slick({
                 dots: true,
@@ -126,6 +138,8 @@
                 }, 1000)
                 }
             }
+
+            sameDiv();
         });
 
         function ReinitSliders(page) {
@@ -163,7 +177,6 @@
                 $('.article-index').html(data);
             })
         }
-
     </script>
     @endsection
 </x-app-layout>
