@@ -27,25 +27,25 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Full Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="updateName" name="updateName" value="{{$sales->name}}">
+                        <input type="text" class="form-control" id="updateName" name="updateName" value="{{$sales->user->name}}">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="updateEmail" name="updateEmail" value="{{$sales->email}}">
+                        <input type="email" class="form-control" id="updateEmail" name="updateEmail" value="{{$sales->user->email}}">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Phone Number</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="updatePhone" name="updatePhone" value="{{$sales->phone}}">
+                        <input type="text" class="form-control" id="updatePhone" name="updatePhone" value="{{$sales->user->phone}}">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Birth Date</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="updateBirthdate" name="updateBirthdate" value="{{$sales->bỉrthdate}}">
+                        <input type="text" class="form-control" id="updateBirthdate" name="updateBirthdate" value="{{$sales->user->birthdate}}">
                     </div>
                 </div>
                 <button type="submit" class="button primary">Update</button>

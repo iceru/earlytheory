@@ -18,7 +18,7 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
-        $products = Products::where('category', 'product')->orderBy('ordernumber')->get();
+        $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(10);
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
 

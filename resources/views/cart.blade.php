@@ -14,19 +14,21 @@
                     </a>
                 </div>
             </div> --}}
-            <div class="col-12 col-lg-8 product-cart ">
+            <div class="col-12 @if(count($items) > 0) col-lg-8 @endif product-cart ">
                 <div class="products">
-                    <div class="row mb-3 products-header">
-                        <div class="col-8 col-lg-6">
-                            <h5 class="grey-color">Product</h5>
+                    @if (count($items) > 0)
+                        <div class="row mb-3 products-header">
+                            <div class="col-8 col-lg-6">
+                                <h5 class="grey-color">Product</h5>
+                            </div>
+                            <div class="col-3 qty-row">
+                                <h5 class="grey-color">Qty</h5>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <h5 class="grey-color">Total</h5>
+                            </div>
                         </div>
-                        <div class="col-3 qty-row">
-                            <h5 class="grey-color">Qty</h5>
-                        </div>
-                        <div class="col-3 col-lg-2">
-                            <h5 class="grey-color">Total</h5>
-                        </div>
-                    </div>
+                    @endif
                     
                     @forelse ($items as $item)
                     <div class="row product-item mb-3">
@@ -86,11 +88,17 @@
                         </div>
                     </div>
                     @empty
-                        <p class="my-3">No Item</p>
+                        <div class="row">
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <?xml version="1.0" ?><svg viewBox="0 0 24 24" class="cart-none" xmlns="http://www.w3.org/2000/svg"><g id="cart-delete"><path d="M8,17a2,2,0,1,0,2,2A2.002,2.002,0,0,0,8,17Zm0,3a1,1,0,1,1,1-1A1.0013,1.0013,0,0,1,8,20Z"/><path d="M18,17a2,2,0,1,0,2,2A2.002,2.002,0,0,0,18,17Zm0,3a1,1,0,1,1,1-1A1.0013,1.0013,0,0,1,18,20Z"/><path d="M14.353,10.646a.5.5,0,1,1-.707.707L12.5,10.207l-1.147,1.147a.5.5,0,0,1-.707-.707L11.793,9.5,10.6465,8.3535a.5.5,0,0,1,.707-.707L12.5,8.793l1.1465-1.1465a.5.5,0,0,1,.707.707L13.207,9.5Z"/><path d="M21.7505,7.7759l-.5557,5A2.4979,2.4979,0,0,1,18.71,15H8.5A2.503,2.503,0,0,1,6,12.5v-5A1.5017,1.5017,0,0,0,4.5,6h-2a.5.5,0,0,1,0-1h2A2.503,2.503,0,0,1,7,7.5v5A1.5017,1.5017,0,0,0,8.5,14H18.71a1.4986,1.4986,0,0,0,1.4907-1.3345l.5556-5a1.5023,1.5023,0,0,0-.373-1.166A1.482,1.482,0,0,0,19.2656,6H16.5a.5.5,0,0,1,0-1h2.7656a2.5008,2.5008,0,0,1,2.4849,2.7759Z"/></g></svg>
+                                <h5 class="text-center mb-3">No Items</h5>
+                                <a href="/" class="button primary inline m-auto">Continue Shopping</a>
+                            </div>
+                        </div>
                     @endforelse
                 </div>
             </div>
-
+            @if (count($items) > 0)
             <div class="col-12 col-lg-4 cart-summary">
                 <div class="total-price">
                     <h5>
@@ -107,6 +115,7 @@
                     @endif
                 </div>
             </div>
+            @endif
         </div>
     </div>
     @section('js')

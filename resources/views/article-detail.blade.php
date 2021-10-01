@@ -6,7 +6,8 @@
         <div class="breadcrumb mb-3 fw-normal">
             <a href="{{ route('articles') }}" class="primary-color">Articles</a><span>&nbsp; <span class="primary-color">/</span> &nbsp;{{ $article->title }}</span>
         </div>
-        <div class="article-image" style="background-image: url('{{Storage::url('article-image/'.$article->image)}}')">
+        <div class="article-image ratio ratio-16x9" style="background-image: url('')">
+            <img src="{{Storage::url('article-image/'.$article->image)}}" alt="">
             {{-- <div class="share">
                 <i class="fas fa-share    "></i>
             </div> --}}
@@ -16,9 +17,9 @@
                 </a>
             </div>
 
-            <div class="title" style="background-color: {{ $article->accent_color }}; opacity: 0.8">
+            {{-- <div class="title" style="background-color: {{ $article->accent_color }}; opacity: 0.8">
                 <h1>{{$article->title}}</h1>
-            </div>
+            </div> --}}
         </div>
         <div class="article-body">
             <div class="addthis_inline_share_toolbox mb-4"></div>
