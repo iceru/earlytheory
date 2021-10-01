@@ -196,8 +196,14 @@
                                     <div class="col-8 col-lg-9 ps-2">
                                         <textarea name="question[]" id="question"
                                             placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->question != "yes" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
-
-                                        @if ($item->question != "yes" || $item->category == 'product')
+                                        <div class="mb-2">
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
+                                                <option value="" selected disabled>Pilih Preferensi Gender</option>
+                                                <option value="pria">Pria</option>
+                                                <option value="wanita">Wanita</option>
+                                            </select>
+                                        </div>
+                                        @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
                                         <p>{!! $item->description_short !!}</p>
                                         @endif
                                     </div>
