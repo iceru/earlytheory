@@ -480,7 +480,7 @@ class SalesController extends Controller
                 $disc_code = strtoupper($request->inputDiscount);
                 $discount = Discount::where('code', $disc_code)->first();
     
-                if($discount && !$discount->products) {
+                if($discount && $discount->products->count() < 1) {
                     if($sales->total_price >= $discount->min_total) {
                         $nominal = $discount->nominal;
     
@@ -493,7 +493,7 @@ class SalesController extends Controller
                         return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
                     }
                 }
-                elseif($discount && $discount->products) {
+                elseif($discount && $discount->products->count() >= 1) {
                     foreach($sales->products as $product) {
                         foreach($discount->products as $disc_product) {
                             if($product->id == $disc_product->id) {
