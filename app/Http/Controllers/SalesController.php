@@ -480,7 +480,7 @@ class SalesController extends Controller
                 $disc_code = strtoupper($request->inputDiscount);
                 $discount = Discount::where('code', $disc_code)->first();
     
-                if($discount && !$discount->product_id) {
+                if($discount && !$discount->products) {
                     if($sales->total_price >= $discount->min_total) {
                         $nominal = $discount->nominal;
     
@@ -493,20 +493,22 @@ class SalesController extends Controller
                         return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
                     }
                 }
-                elseif($discount && $discount->product_id) {
+                elseif($discount && $discount->products) {
                     foreach($sales->products as $product) {
-                        if($product->id == $discount->product_id) {
-                            if($discount->products->price >= $discount->min_total) {
-                                $nominal = $discount->nominal;
-    
-                                $sales->discount = $nominal;
-                                $sales->save();
-    
-                                return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
+                        foreach($discount->products as $disc_product) {
+                            if($product->id == $disc_product->id) {
+                                if($disc_product->price >= $discount->min_total) {
+                                    $nominal = $discount->nominal;
+        
+                                    $sales->discount = $nominal;
+                                    $sales->save();
+        
+                                    return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
+                                }
                             }
-                        }
-                        else {
-                            $discproduct = 0;
+                            else {
+                                $discproduct = 0;
+                            }
                         }
                     }
                     if($discproduct == 0) {
