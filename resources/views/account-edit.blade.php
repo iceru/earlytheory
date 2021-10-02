@@ -53,7 +53,7 @@
                         <div class="form-group col-12 col-lg-6 mb-3">
                             <label for="inputBirthdate">Tanggal Lahir</label>
                             <input type="text" class="form-control" value="{{ old('birthdate', optional($user)->birthdate) }}"
-                                name="birthdate" id="datepicker" required autocomplete="off">
+                                name="birthdate" id="datepicker" required autocomplete="off" readonly="readonly">
                         </div>
                         
                         <h5 class="mb-3">Change Password</h5>
