@@ -3,10 +3,6 @@
         Product Variants Admin
     @endsection
 
-    @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
-    @endsection
-
     @if (count($errors) > 0)
     <div class="alert alert-danger">
       <strong>Sorry !</strong> There were some problems with your input.<br><br>
@@ -100,8 +96,6 @@
     </div>
 
     @section('js')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable();

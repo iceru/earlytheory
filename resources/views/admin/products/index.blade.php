@@ -3,10 +3,6 @@
         Products Admin
     @endsection
 
-    @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
-    @endsection
-
     @if (count($errors) > 0)
     <div class="alert alert-danger">
       <strong>Sorry !</strong> There were some problems with your input.<br><br>
@@ -121,10 +117,9 @@
 
     <div class="py-12 table-overflow">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <table class="table" id="table">
+            <table class="table display nowrap" id="table">
                 <thead>
                     <tr>
-                        <th>Options</th>
                         <th>Order Number</th>
                         <th>Image</th>
                         <th>Title</th>
@@ -135,15 +130,13 @@
                         <th>Short Description</th>
                         <th>Description</th>
                         <th>Category</th>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($products as $product)
                     <tr>
                         {{-- <td scope="row">{{$loop->iteration}}</td> --}}
-                        <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/{{$product->id}}/variant"><i class="fas fa-list me-1"></i></i> Variant</a>
-                            <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
-                            <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center" href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                         <td>{{$product->ordernumber}}</td>
                         <td>
                             @foreach ((array)json_decode($product->image) as $item)
@@ -166,6 +159,9 @@
                         <td>{{$product->description_short}}</td>
                         <td>{{substr($product->description, 0, 100) . '...'}}</td>
                         <td>{{ucfirst($product->category)}}</td>
+                        <td> {{-- <a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/{{$product->id}}/variant"><i class="fas fa-list me-1"></i></i> Variant</a> --}}
+                            <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                            <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center" href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -174,11 +170,11 @@
     </div>
 
     @section('js')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();
+            $('#table').DataTable({
+                responsive: true
+            });
 
             $(".btn-success").click(function(){
                 var html = $(".clone").html();

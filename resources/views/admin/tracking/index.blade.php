@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
     @section('css')
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
     @endsection
 
     <div class="py-12">
@@ -53,47 +52,47 @@
                                 {{ $sale->ship_method }}
                             </td>
                             <td>
-                                <div class="form-group" id="tracking_no" @if (!empty($sale->tracking_no)) hidden @endif>
+                                <div class="form-group" id="tracking_no_{{ $sale->id }}" @if (!empty($sale->tracking_no)) hidden @endif>
                                     <input type="text" class="form-control" name="tracking_no" 
                                     @if (!empty($sale->tracking_no)) value="{{ $sale->tracking_no }}" @endif placeholder="Tracking Number">
                                 </div> 
-                                <div id="tracking_ex">
+                                <div id="tracking_ex_{{ $sale->id }}">
                                     {{ $sale->tracking_no }}
                                 </div>
                             </td>
                             <td>
-                                <button type="submit" id="tracking_submit" class="btn btn-success justify-content-center d-flex align-items-center  btn-sm mb-2" 
+                                <button type="submit" id="tracking_submit_{{ $sale->id }}" class="btn btn-success justify-content-center d-flex align-items-center  btn-sm mb-2" 
                                 @if (!empty($sale->tracking_no)) style="display: none !important;" @endif> <i class="fa fa-paper-plane me-1"></i> Submit</button>
-                                <button class="btn btn-warning btn-sm mb-2" id="tracking_edit" type="button"><i class="fas fa-edit me-1"></i> Edit</button>
+                                <button @if (empty($sale->tracking_no)) style="display: none !important;" @endif class="btn btn-warning btn-sm mb-2" id="tracking_edit_{{ $sale->id }}" type="button"><i class="fas fa-edit me-1"></i> Edit</button>
                                 <a href="/admin/sales/{{$sale->id}}" type="submit" class="btn btn-primary justify-content-center d-flex align-items-center  btn-sm mb-2">
                                     <i class="fa fa-info-circle me-1"></i> Detail
                                 </a>
                             </td>
                         </form>
+
+                        <script>
+                             $('#tracking_edit_{{ $sale->id }}').click(function (e) { 
+                                e.preventDefault();
+                                $('#tracking_no_{{ $sale->id }}').removeAttr('hidden');
+                                $('#tracking_submit_{{ $sale->id }}').css('display', 'flex');
+                                $(this).hide();
+                                $('#tracking_ex_{{ $sale->id }}').hide();
+                            });
+                        </script>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
-
+    
     @section('js')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
         });
         
-        $('#tracking_edit').click(function (e) { 
-            e.preventDefault();
-            $('#tracking_no').removeAttr('hidden');
-            $('#tracking_submit').css('display', 'flex');
-            $(this).hide();
-            $('#tracking_ex').hide();
-        });
+       
 
         function deleteConfirmation(id) {
             Swal.fire({
