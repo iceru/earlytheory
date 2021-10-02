@@ -80,7 +80,17 @@
                                             Edit</span></a>
                                     </button>
                                 </div>
-                                @if ($item->question != 'yes' || $item->category == 'product')
+
+                                <div @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
+                                    <h5>Preferensi Gender</h5>
+                                    <p>{{(ucfirst($item->pivot->question))}}</p>
+                                    <button class="button primary mt-3 mt-lg-2">
+                                        <span><i class="fas fa-edit"></i> &nbsp;</span>
+                                        <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
+                                            Edit</span></a>
+                                    </button>
+                                </div>
+                                @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
                                     <p>{!! $item->description_short !!}</p>
                                 @endif
                             </div>

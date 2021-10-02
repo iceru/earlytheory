@@ -176,10 +176,16 @@ class SalesController extends Controller
     
             $item_id = $request->id;
             $item_question = $request->question;
+            $item_genderquestion = $request->genderQuestion;
     
             foreach ($item_id as $key => $i) {
                 $product = Products::find($item_id[$key]);
-                $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                if(strtolower($product->title) != 'mencari jodoh') {
+                    $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                }
+                else {
+                    $product->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion[$key]]);
+                }
             }
 
     
