@@ -9,22 +9,12 @@ class Options extends Model
 {
     protected $table = 'options';
 
-    /**
-     * Get the products that owns the Options
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function products(): BelongsTo
+    public function products()
     {
         return $this->belongsTo(Products::class, 'product_id', 'id');
     }
 
-    /**
-     * Get all of the optionvalues for the Options
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function optionvalues(): HasMany
+    public function optionvalues()
     {
         return $this->hasMany(OptionValues::class, 'option_id', 'id');
     }
