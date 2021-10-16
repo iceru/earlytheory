@@ -23,8 +23,7 @@ class AdminDiscountController extends Controller
         $request->validate([
             'inputCode' => 'required',
             'inputNominal' => 'required|integer',
-            'inputMin' => 'required|integer',
-            'inputProduct' => 'integer'
+            'inputMin' => 'required|integer'
         ]);
 
         if($request->inputProduct == "0") {
@@ -34,9 +33,22 @@ class AdminDiscountController extends Controller
         $discount->code = strtoupper($request->inputCode);
         $discount->nominal = $request->inputNominal;
         $discount->min_total = $request->inputMin;
-        $discount->product_id = $request->inputProduct;
 
         $savediscount = $discount->save();
+
+        $request->inputProduct = substr($request->inputProduct, 0, -1);
+        $productsArray = explode(', ', strtolower($request->inputProduct));
+        $products = array();
+
+        // dd($productsArray);
+
+        foreach($productsArray as $discountProduct) {
+            $product = Products::where('title', $discountProduct)->first();
+
+            $products[$product->id] = ['discount_id' => $discount->id];
+        }
+
+        $discount->products()->attach($products);
 
         return redirect('/admin/discount');
     }

@@ -146,9 +146,16 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::post('/admin/products/update', [AdminProductsController::class, 'update'])->name('admin.products.update');
     Route::get('/admin/products/delete/{id}', [AdminProductsController::class, 'destroy'])->name('admin.products.destroy');
     
-    // Route::get('/admin/products/{id}/variant', [AdminProductOptionsController::class, 'index'])->name('admin.product-options');
-    // Route::post('/admin/product-variants/store', [AdminProductOptionsController::class, 'store'])->name('admin.product-options.store');
-
+    Route::get('/admin/products/{id}/variant', [AdminProductOptionsController::class, 'index'])->name('admin.product-options');
+    Route::post('/admin/product-variants/store', [AdminProductOptionsController::class, 'store'])->name('admin.product-options.store');
+    Route::post('/admin/product-variants/store-sku', [AdminProductOptionsController::class, 'storeSKU'])->name('admin.product-options.store-sku');
+    Route::get('/admin/product-variant/{id}/edit', [AdminProductOptionsController::class, 'editVariant'])->name('admin.product-options.edit-variant');
+    Route::post('/admin/product-variants/update', [AdminProductOptionsController::class, 'updateVariant'])->name('admin.product-options.update-variant');
+    Route::get('/admin/product-variant/value/{id}/delete', [AdminProductOptionsController::class, 'deleteVariantValue'])->name('admin.product-options.delete-variantval');
+    Route::get('/admin/product-variant/{id}/delete', [AdminProductOptionsController::class, 'deleteVariant'])->name('admin.product-options.delete-variant');
+    Route::get('/admin/product-variant/sku/{id}/edit', [AdminProductOptionsController::class, 'editSKU'])->name('admin.product-options.edit-sku');
+    Route::post('/admin/product-variants/update-sku', [AdminProductOptionsController::class, 'updateSKU'])->name('admin.product-options.update-sku');
+    
     Route::get('/admin/payment-methods', [AdminPaymentMethodsController::class, 'index'])->name('admin.paymentMethods');
     Route::post('/admin/payment-methods/store', [AdminPaymentMethodsController::class, 'store'])->name('admin.paymentMethods.store');
     Route::get('/admin/payment-methods/edit/{id}', [AdminPaymentMethodsController::class, 'edit'])->name('admin.paymentMethods.edit');

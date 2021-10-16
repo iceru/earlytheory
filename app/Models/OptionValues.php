@@ -9,12 +9,7 @@ class OptionValues extends Model
 {
     protected $table = 'optionvalues';
 
-    /**
-     * Get the options that owns the OptionValues
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function options(): BelongsTo
+    public function options()
     {
         return $this->belongsTo(Options::class, 'option_id', 'id');
     }

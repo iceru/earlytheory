@@ -48,9 +48,9 @@
                         <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
                     @if ($product->stock <= 0 && $product->category == 'product')
-                        <div class="button disabled my-3" disabled>Out of Stock</div>
+                        <div class="button disabled my-3" disabled>STOK HABIS</div>
                     @else
-                        <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
+                        <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
                     @endif
                 </div>
             @empty
@@ -77,9 +77,9 @@
                     <div class="product-desc">{{ $product->description_short }}</div>
                 </div>
                 @if ($product->stock <= 0 && $product->category == 'product')
-                    <div class="button disabled my-3" disabled>Out of Stock</div>
+                    <div class="button disabled my-3" disabled>STOK HABIS</div>
                 @else
-                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
+                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
                 @endif
             </div>
         @empty

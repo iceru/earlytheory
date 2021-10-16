@@ -2,6 +2,7 @@
     
     @section('css')
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     @endsection
 
     @if (count($errors) > 0)
@@ -50,12 +51,13 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Product</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="inputProduct" id="inputProduct">
+                        <input type="text" class="form-control" id="inputProduct" name="inputProduct">
+                        {{-- <select class="form-select" name="inputProduct" id="inputProduct">
                             <option selected value="0">For all product</option>
                             @foreach ($products as $product)
                             <option value="{{$product->id}}">{{$product->title}}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                     </div>
                 </div>
                 <button type="submit" class="button primary">Submit</button>
@@ -83,11 +85,14 @@
                         <td>{{$disc->code}}</td>
                         <td>{{$disc->nominal}}</td>
                         <td>{{$disc->min_total}}</td>
-                        @if ($disc->products)
-                        <td>{{$disc->products->title}}</td>
-                        @else
-                        <td>All Product</td>
-                        @endif
+                        <td>
+                        @forelse ($disc->products as $product)
+                        {{$product->title}}<br>
+                        @empty
+                        All Products
+                        @endforelse
+                        </td>
+
                         <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
                             href="/admin/discount/edit/{{$disc->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
                         <a href="/admin/discount/delete/{{$disc->id}}"
@@ -104,6 +109,54 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
+        } );
+    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            var availableTags = [
+                @foreach ($products as $product)
+                "{{$product->title}}",
+                @endforeach
+            ];
+            function split( val ) {
+                return val.split( /,\s*/ );
+            }
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+    
+            $( "#inputProduct" )
+                // don't navigate away from the field on tab when selecting an item
+                .on( "keydown", function( event ) {
+                    if ( event.keyCode === $.ui.keyCode.TAB &&
+                            $( this ).autocomplete( "instance" ).menu.active ) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    minLength: 0,
+                    source: function( request, response ) {
+                        // delegate back to autocomplete, but extract the last term
+                        response( $.ui.autocomplete.filter(
+                            availableTags, extractLast( request.term ) ) );
+                    },
+                    focus: function() {
+                        // prevent value inserted on focus
+                        return false;
+                    },
+                    select: function( event, ui ) {
+                        var terms = split( this.value );
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push( ui.item.value );
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push( "" );
+                        this.value = terms.join( ", " );
+                        return false;
+                    }
+                });
         } );
     </script>
     @endsection

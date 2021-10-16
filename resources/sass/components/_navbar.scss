@@ -84,6 +84,28 @@
     padding-top: 0;
     padding-bottom: 1rem;
 
+    &.sticky {
+        background-color: transparent;
+        width: 65%;
+        margin: auto;
+        left: 50%;
+        box-shadow: none;
+        transform: translateX(-50%);
+        padding: 0;
+        padding-top: 1.15rem;
+
+        .logo-lg img {
+            width: 8vw;
+        }
+
+        @include breakpoint(xxlarge) {
+            width: 55%;
+            .logo-lg img {
+                width: 6vw;
+            }
+        }
+    }
+
     .logo-lg {
         img {
             width: 12vw;
@@ -212,5 +234,24 @@
             padding: 1rem;
             padding-left: 0;
         }
+    }
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background-color: $background;
+    width: 100%;
+    box-shadow: 3px 2px 8px rgba($color: #000000, $alpha: 0.2);
+    padding: 1rem 0;
+    @include breakpoint('large') {
+        padding: 2rem 0;
+    }
+
+    .sticky-container {
+        margin: auto;    
+        padding: 0 .85rem;
     }
 }

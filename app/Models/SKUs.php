@@ -9,13 +9,13 @@ class SKUs extends Model
 {
     protected $table = 'skus';
 
-    /**
-     * Get the products that owns the SKUs
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function products(): BelongsTo
+    public function products()
     {
         return $this->belongsTo(Products::class, 'product_id', 'id');
+    }
+
+    public function skuvalues()
+    {
+        return $this->hasMany(SKUvalues::class, 'sku_id', 'id');
     }
 }
