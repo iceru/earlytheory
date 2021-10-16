@@ -236,3 +236,22 @@
         }
     }
 }
+
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background-color: $background;
+    width: 100%;
+    box-shadow: 3px 2px 8px rgba($color: #000000, $alpha: 0.2);
+    padding: 1rem 0;
+    @include breakpoint('large') {
+        padding: 2rem 0;
+    }
+
+    .sticky-container {
+        margin: auto;    
+        padding: 0 .85rem;
+    }
+}
