@@ -98,6 +98,13 @@
         .logo-lg img {
             width: 8vw;
         }
+
+        @include breakpoint(xxlarge) {
+            width: 55%;
+            .logo-lg img {
+                width: 6vw;
+            }
+        }
     }
 
     .logo-lg {
