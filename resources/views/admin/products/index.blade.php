@@ -170,7 +170,6 @@
     </div>
 
     @section('js')
-    
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
