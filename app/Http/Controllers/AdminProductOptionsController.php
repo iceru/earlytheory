@@ -14,7 +14,7 @@ class AdminProductOptionsController extends Controller
 {
     public function index($id)
     {
-        $product = Products::find($id)->firstOrFail();
+        $product = Products::findOrFail($id);
         $variants = Options::where('product_id', $id)->get();
         $skus = SKUs::where('product_id', $id)->get();
         // dd($variants);

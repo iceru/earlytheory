@@ -44,6 +44,7 @@ Route::get('/articles', [IndexController::class, 'index'])->name('articles');
 Route::get('/article-detail/{slug}', [ArticleController::class, 'show'])->name('article-detail');
 
 Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->name('product-detail');
+Route::post('/get-sku', [ProductsController::class, 'getSku'])->name('get-sku');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 
@@ -120,7 +121,7 @@ Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.plus');
 Route::get('/cart/plus/{id}', [CartController::class, 'plus'])->name('cart.plus');
-Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){

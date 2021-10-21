@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Newsletter;
+use App\Models\SKUs;
 use App\Models\Sliders;
 use App\Models\Articles;
 use App\Models\Products;
@@ -21,12 +22,38 @@ class IndexController extends Controller
         $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(10);
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
+        $skus = SKUs::all();
+        $product_ids = array();
 
         if ($request->ajax()) {
             return view('article-index', ['articles' => $articles])->render();  
         }
 
-        return view('index', compact('products', 'sliders', 'services', 'articles'));
+        foreach ($skus as $key => $sku) {
+            foreach ($services as $key => $service) {
+                if($sku->product_id == $service->id) {
+                    array_push($product_ids, $sku);
+                }
+            }
+        }
+
+        $array = $product_ids;
+        $key = 'product_id';
+
+        $temp_array = array();
+        $i = 0;
+        $key_array = array();
+       
+        foreach($array as $val) {
+            if (!in_array($val[$key], $key_array)) {
+                $key_array[$i] = $val[$key];
+                $temp_array[$i] = $val;
+            }
+            $i++;
+        }
+        
+        $skus = json_encode($temp_array);
+        return view('index', compact('products', 'sliders', 'services', 'articles', 'skus'));
     }
 
     /**

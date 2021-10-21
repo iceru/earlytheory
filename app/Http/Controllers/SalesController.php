@@ -34,9 +34,9 @@ class SalesController extends Controller
             $sales->total_price = $total;
             $sales->user_id = $userid;
             $sales->save();
-
+            
             foreach (\Cart::getContent() as $item) {
-                $product = Products::find($item->id);
+                $product = Products::find($item->attributes->product_id);
                 $product->sales()->attach($sales, ['qty' => $item->quantity]);
                 // $product->stock = $product->stock-$item->quantity;
                 $product->save();

@@ -96,6 +96,17 @@
     @section('js')
     <script>
 
+        var skus = {!! $skus !!};
+        Object.keys(skus).forEach(function(element) {
+            debugger
+            $.each($('.addcart'), function (index, item) {
+                if (skus[element].product_id == $(item).attr('data-id')) {
+                    $(item).attr('data-price', skus[element].price);
+                    $(item).attr('data-sku', skus[element].id);
+                    // $(item).attr('data-values', element.values);
+                }
+            });
+        });
         function options(){
             return {
                 dots: false,
