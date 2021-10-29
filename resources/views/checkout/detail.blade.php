@@ -18,7 +18,7 @@
             </div>
             @if (count($errors) > 0)
             <div class="alert alert-danger">
-                <strong>Sorry !</strong> Terdapat kesalahan dalam input data.<br><br>
+                <strong>Sorry!</strong> Terdapat kesalahan dalam input data.<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -32,7 +32,7 @@
                 @if($is_product > 0) 
                 <div class="col-12">
                     <div class=" mb-3 pb-2 border-bottom border-dark">
-                        <h5 class="evogria">Shipping Address</h5>
+                        <h5 class="evogria">Alamat Pengiriman</h5>
                     </div>
                 </div>
                 <div class="col-12 mb-3">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-12 col-lg-6" style="margin-top: 24px">
                             <a class="button primary inline" href="#" id="newAddress"><i class="fa fa-plus-circle me-2"
-                                    aria-hidden="true"></i> Add New Address</a>
+                                    aria-hidden="true"></i> Tambah Alamat Baru</a>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div id="new" hidden>
@@ -81,9 +81,8 @@
                                 </div>
                                 <div class="col-12 d-grid gap-2">
                                     <div class="d-flex">
-                                        <a class="button primary me-3" id="add_address">Add
-                                            Address</a>
-                                        <a class="button secondary" id="cancel_new_adr">Cancel</a>
+                                        <a class="button primary me-3" style="cursor: pointer" id="add_address">Tambah Alamat</a>
+                                        <a class="button secondary" style="cursor: pointer" id="cancel_new_adr">Batal</a>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +100,7 @@
                             <input type="text" name="inputAddress" id="inputAddress" hidden>
                             <div class="row">
                                 <div class="form-group mb-0 col-12 col-lg-6">
-                                    <label for="inputShipping">Shipping Method</label>
+                                    <label for="inputShipping">Pengiriman</label>
                                     <select class="form-select" aria-label="Select Shipping" name="inputShipping"
                                         id="ship">
                                         <option value="" selected disabled>Pilih Provinsi & Kota/Kab Terlebih Dahulu
@@ -116,7 +115,7 @@
                 @if($is_service > 0 || empty($sales->user->phone) || empty($sales->user->birthdate)) 
                 <div class="col-12">
                     <div class=" mb-3 pb-2 border-bottom border-dark">
-                        <h5 class="evogria">Personal Information</h5>
+                        <h5 class="evogria">Data Pribadi</h5>
                     </div>
                 </div>
                 @endif
@@ -124,14 +123,14 @@
                     <div class="row">
                         @if (empty($sales->user->phone))
                         <div class="form-group col-12 col-lg-6">
-                            <label for="inputPhone">Phone Number</label>
+                            <label for="inputPhone">No. Telepon</label>
                             <input class="form-control" type="text" id="inputPhone" name="inputPhone">
                         </div>
                         @endif
                         @if (empty($sales->user->birthdate))
                         <div class="form-group col-12 col-lg-6">
-                            <label for="inputBirthdate">Birthdate</label>
-                            <input class="form-control" type="text" id="datepicker" name="inputBirthdate">
+                            <label for="inputBirthdate">Tanggal Lahir</label>
+                            <input class="form-control" type="text" id="datepicker" name="inputBirthdate" readonly="readonly">
                         </div>
                         @endif
                         @if($is_service > 0) 
@@ -168,7 +167,7 @@
                 </div>
                 <div class="col-12">
                     <div class=" mb-3 pb-2 border-bottom border-dark">
-                        <h5 class="evogria">Products</h5>
+                        <h5 class="evogria">Produk</h5>
                     </div>
                 </div>
                 <div class="products col-12">
@@ -196,9 +195,15 @@
                                     </div>
                                     <div class="col-8 col-lg-9 ps-2">
                                         <textarea name="question[]" id="question"
-                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->duration != "0" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
-
-                                        @if ($item->duration != "0" || $item->category == 'product')
+                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->question != "yes" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                        <div class="mb-2">
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
+                                                <option value="" selected disabled>Pilih Preferensi Gender</option>
+                                                <option value="pria">Pria</option>
+                                                <option value="wanita">Wanita</option>
+                                            </select>
+                                        </div>
+                                        @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
                                         <p>{!! $item->description_short !!}</p>
                                         @endif
                                     </div>
@@ -249,7 +254,6 @@
         $("#prov").on('change', function () {
             var prov_id=$(this).val();
             var cityopt="";
-            console.log(prov_id);
             $.ajax({
                 type:'get',
                 url:'{!! URL::to('checkout/findCityShipping') !!}',
@@ -301,7 +305,6 @@
 
                     updateAddress();
                 }, fail:function(data) {
-                    console.log(data);
                 }
             })
         });
@@ -337,7 +340,8 @@
                 $('#shipping').removeAttr('hidden');
                 shipopt += '<option value="" selected disabled>Select Shipping</option>';
                 for (var i=0; i<data.length; i++) {
-                    shipopt += '<option value="'+data[i].cost[0].value+'-'+data[i].courier+' '+data[i].service+'">'+data[i].courier+' '+data[i].service+' / '+data[i].cost[0].etd+' Day(s) : Rp '+data[i].cost[0].value+'</option>';
+                    if(data[i].service !== 'ECO')
+                        shipopt += '<option value="'+data[i].cost[0].value+'-'+data[i].courier+' '+data[i].service+'">'+data[i].courier+' '+data[i].service+' / '+data[i].cost[0].etd+' Day(s) : Rp '+data[i].cost[0].value+'</option>';
                 }
                 $('#inputAddress').val(addressSelect);
                 $('#ship').html(shipopt);

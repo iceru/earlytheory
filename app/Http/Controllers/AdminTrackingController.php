@@ -17,9 +17,7 @@ class AdminTrackingController extends Controller
     {
         // $sales = Sales::where('category', 'product')->where('tracking_no', '')->get();
 
-        $sales = Sales::whereHas('products', function ($query) {
-            return $query->where('category', 'product');
-        })->orderBy('created_at', 'desc')->get();
+        $sales = Sales::where('ship_method', '!=', '')->where('status', '!=', 'pending')->orderBy('created_at', 'desc')->get();
 
         return view('admin.tracking.index', compact('sales'));
     }

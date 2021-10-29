@@ -18,49 +18,49 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Total Price</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->total_price-$sales->discount+$sales->ship_cost)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Discount</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->discount)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->discount)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Shipping Cost</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->ship_cost)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->ship_cost)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Total Price (After Discount + Shipping)</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="idr {{number_format($sales->total_price-$sales->discount)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->total_price-$sales->discount)}}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Name</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->user->name}}" readonly>
+            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{$sales->user->name}}" @else value="{{$sales->name}}" @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Email</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->user->email}}" readonly>
+            <input type="text" class="form-control-plaintext"@if ($sales->user) value="{{$sales->user->email}}" @else value="{{$sales->email}}" @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Phone Number</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{$sales->user->phone}}" readonly>
+            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{$sales->user->phone}}" @else value="{{$sales->phone}}" @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Date of Birth</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="{{\Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}" readonly>
+            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{\Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}" @else value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" @endif  readonly>
         </div>
     </div>
     <div class="mb-1 row">
@@ -92,7 +92,11 @@
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label fw-bolder">Proof of Payment</label>
         <div class="col-sm-9">
-            <img width=150 src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="-">
+            @if ($sales->payment)
+                <img width=150 src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="Payment">
+            @else
+                -
+            @endif
         </div>
     </div>
     @if ($sales->address_id)
@@ -110,7 +114,7 @@
     </div>
     @endif
 
-    <h5 class="mb-2">Product Sales</h5>
+    <h5 class="mb-2 mt-5">Product Sales</h5>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <table class="table" id="table">
@@ -138,7 +142,13 @@
                         <td>{{$product->title}}</td>
                         <td>idr {{number_format($product->price)}}</td>
                         <td>{{$product->pivot->qty}}</td>
-                        <td>{{$product->duration}} menit</td>
+                        <td>
+                            @if ($product->duration > 0)
+                                {{$product->duration}} menit
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td>{{$product->description_short}}</td>
                         <td>{{$product->pivot->question}}</td>
                     </tr>
@@ -148,14 +158,7 @@
         </div>
     </div>
 
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
-
     @section('js')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable();

@@ -23,7 +23,7 @@
                         <th>No</th>
                         <th>Sales Number</th>
                         <th>Order Date</th>
-                        <th>Total Price (After Discount + Shipping)</th>
+                        <th>Total Price</th>
                         <th>Name</th>
                         <th>Payment Type</th>
                         <th>Status</th>
@@ -39,7 +39,11 @@
                         <td>{{$sale->sales_no}}</td>
                         <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
                         <td>{{number_format($sale->total_price-$sale->discount+$sale->ship_cost)}}</td>
+                        @if($sale->user)
                         <td>{{$sale->user->name}}</td>
+                        @else
+                        <td>{{ $sale->name }}</td>
+                        @endif
                         @if ($sale->paymentmethods)
                         <td>{{$sale->paymentmethods->name}}</td>
                         @else
@@ -52,6 +56,7 @@
                             <td>-</td>
                         @endif
                         <td><a href="/admin/sales/{{$sale->id}}" class="btn btn-primary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fa fa-info-circle" aria-hidden="true"></i> <span class="ms-1">Detail</span></a>
+                            {{-- <a href="/admin/sales/edit/{{$sale->id}}" class="btn btn-secondary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fas fa-edit me-1" aria-hidden="true"></i> <span class="ms-1">Edit</span></a> --}}
                             <button onclick="deleteConfirmation({{$sale->id}})" class="btn btn-danger d-flex align-items-center btn-sm justify-content-center"><i class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button></td>
                     </tr>
                     @endforeach
@@ -61,9 +66,6 @@
     </div>
 
     @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable();

@@ -23,7 +23,7 @@
                         <th>No</th>
                         <th>Sales Number</th>
                         <th>Order Date</th>
-                        <th>Total Price (After Discount)</th>
+                        <th>Total Price</th>
                         <th>Name</th>
                         <th>Payment Type</th>
                         <th>Status</th>
@@ -38,13 +38,19 @@
                         <td>{{$sale->sales_no}}</td>
                         <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
                         <td>{{number_format($sale->total_price-$sale->discount)}}</td>
-                        <td>{{$sale->user->name}}</td>
+                        <td>
+                            @if ($sale->user)
+                                {{$sale->user->name}}
+                            @else
+                                -
+                            @endif
+                        </td>
                         @if ($sale->paymentmethods)
                         <td>{{$sale->paymentmethods->name}}</td>
                         @else
                         <td></td>
                         @endif
-                        <td>{{$sale->status}}</td>
+                        <td>{{ ucwords($sale->status) }}</td>
                         @if ($sale->payment)
                             <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>
                         @else
@@ -59,12 +65,8 @@
             </table>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js" integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g==" crossorigin="anonymous"></script>
-
+    
     @section('js')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable();

@@ -12,41 +12,45 @@
 
             <div class="col-12 col-md-9 orders-content">
                 @if($order->payment)
-                <div class="text-center thank-you mb-3">
-                    <h3 class="mb-4">Pembayaran Berhasil</h3>
-                    <img src="/images/pay.svg" class="mb-3" width=300 alt="">
-                    <h5>Kami akan konfirmasi orderanmu lewat Whatsapp!</h5>
-                    <p>Pengiriman file dalam waktu 2-3 hari kerja</p>
-                    <a class="button primary inline mt-3" href="{{ route('user.orders')}}">Kembali ke Orders</a>
-                </div>
+                    <div class="text-center thank-you mb-3">
+                        <h3 class="mb-4">Pembayaran Berhasil</h3>
+                        <img src="/images/pay.svg" class="mb-3" width=300 alt="">
+                        <h5>Kami akan konfirmasi orderanmu lewat Whatsapp!</h5>
+                        <p>Pengiriman file dalam waktu 2-3 hari kerja</p>
+                        <a class="button primary inline mt-3" href="{{ route('user.orders')}}">Kembali ke Orders</a>
+                    </div>
                 @else
-                <h5 class="mb-3">Order ID: {{ $order->sales_no }}</h5>
-                <form action="{{ route('user.confirm-submit', $order->sales_no) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group mb-3">
-                        <label for="inputPayType">Tipe Pembayaran</label>
-                        <select class="form-select" name="inputPayType" id="inputPayType">
-                            <option selected disabled>Select</option>
-                            @foreach ($paymentMethods as $payType)
-                            <option {{old('inputPayType') == $payType->id ? 'selected' : ''}} value="{{$payType->id}}">
-                                {{$payType->name}}</option>
-                            @endforeach
-                        </select>
+                    @if (session('soldout') || $is_soldout === 1)
+                    <div class="alert alert-danger">
+                        Sorry, the product on your order already sold out.
                     </div>
-    
-                    <div class="form-group mb-3">
-                        <label for="inputPayment">Upload Bukti Transfer (Max. 5MB)</label>
-                        <input type="file" class="form-control" id="inputPayment" name="inputPayment"
-                            accept="image/jpeg,image/png,image/svg+xml" required>
-                    </div>
+                    @endif
+                    <h5 class="mb-3">Order ID: {{ $order->sales_no }}</h5>
+                    <form action="{{ route('user.confirm-submit', $order->sales_no) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group mb-3">
+                            <label for="inputPayType">Tipe Pembayaran</label>
+                            <select class="form-select" name="inputPayType" id="inputPayType">
+                                <option selected disabled>Select</option>
+                                @foreach ($paymentMethods as $payType)
+                                <option {{old('inputPayType') == $payType->id ? 'selected' : ''}} value="{{$payType->id}}">
+                                    {{$payType->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+        
+                        <div class="form-group mb-3">
+                            <label for="inputPayment">Upload Bukti Transfer (Max. 5MB)</label>
+                            <input type="file" class="form-control" id="inputPayment" name="inputPayment"
+                                accept="image/jpeg,image/png,image/svg+xml" required>
+                        </div>
 
-                    <div class="col-12 d-grid gap-2">
-                        <button type="submit" class="button primary">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-
+                        <div class="col-12 d-grid gap-2">
+                            <button type="submit" @if ($is_soldout === 1)  class="button disabled" disabled @else class="button primary" @endif  >
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 @endif
             </div>
         </div>

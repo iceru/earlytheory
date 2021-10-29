@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
+use Carbon\Carbon;
 use App\Models\Sales;
-use App\Models\ShippingAddress;
-use App\Models\PaymentMethods;
+use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethods;
+use App\Models\ShippingAddress;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Cache;
 
 class AdminSalesController extends Controller
 {
     public function index()
     {
-        $sales = Sales::all();
-
+        $sales = Sales::orderBy('created_at', 'desc')->get();
         return view('admin.sales.index', compact('sales'));
     }
 
@@ -58,6 +59,34 @@ class AdminSalesController extends Controller
         }
 
         return view('admin.sales.detail', compact('sales'));
+    }
+
+    public function edit($id)
+    {
+        $sales = Sales::findOrFail($id);
+
+        return view('admin.sales.edit', compact('sales'));
+    }
+
+    public function update(Request $request)
+    {
+        $sales = Sales::find($request->id);
+
+        // $request->validate([
+        //     'updateName' => 'required'
+        // ]);
+
+        $user_id = $sales->user_id;
+        $user = User::find($user_id);
+
+        $user->name = $request->updateName;
+        $user->email = $request->updateEmail;
+        $user->phone = $request->updatePhone;
+        $user->birthdate = Carbon::parse($request->updateBirthdate)->format('Y-m-d');
+
+        $user->save();
+
+        return redirect('/admin/sales');
     }
 
     public function destroy($id)

@@ -9,7 +9,8 @@ class Sales extends Model
 {
     protected $table = 'sales';
     protected $fillable = [
-        'birthdate'
+        'birthdate',
+        'user_id'
     ];
 
     public function products()

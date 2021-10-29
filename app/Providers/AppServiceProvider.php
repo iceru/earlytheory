@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\Sales;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        view()->composer(['layouts.navigation'], function ($view) {
+            $sales = [];
+
+            if (Auth::user()) {
+                $user = Auth::user();
+                $sales = Sales::where('user_id', $user->id)->where('payment', null)->get();
+            }
+            $view->with('sales', $sales);
+        });
     }
 }

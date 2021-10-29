@@ -3,10 +3,6 @@
         Products Admin
     @endsection
 
-    @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
-    @endsection
-
     @if (count($errors) > 0)
     <div class="alert alert-danger">
       <strong>Sorry !</strong> There were some problems with your input.<br><br>
@@ -99,6 +95,16 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Question Field</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Category" name="inputQuestion">
+                            <option selected disabled>Select Question Field</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputStock" name="inputStock" min="0">
@@ -111,7 +117,7 @@
 
     <div class="py-12 table-overflow">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <table class="table" id="table">
+            <table class="table display nowrap" id="table">
                 <thead>
                     <tr>
                         <th>Order Number</th>
@@ -119,10 +125,11 @@
                         <th>Title</th>
                         <th>Price</th>
                         <th>Duration</th>
+                        <th>Question Field</th>
+                        <th>Stock</th>
                         <th>Short Description</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Stock</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -141,9 +148,7 @@
                         <td>{{$product->title}}</td>
                         <td>{{$product->price}}</td>
                         <td>{{$product->duration}}</td>
-                        <td>{{$product->description_short}}</td>
-                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
-                        <td>{{ucfirst($product->category)}}</td>
+                        <td>{{ucwords($product->question)}}</td>
                         <td>
                             @if ($product->category == 'product')
                                 {{$product->stock}}
@@ -151,7 +156,11 @@
                                 -
                             @endif
                         </td>
-                        <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                        <td>{{$product->description_short}}</td>
+                        <td>{{substr($product->description, 0, 100) . '...'}}</td>
+                        <td>{{ucfirst($product->category)}}</td>
+                        <td> <a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/{{$product->id}}/variant"><i class="fas fa-list me-1"></i></i> Variant</a>
+                            <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2" href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
                             <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center" href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
                     </tr>
                     @endforeach
@@ -161,11 +170,11 @@
     </div>
 
     @section('js')
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();
+            $('#table').DataTable({
+                responsive: true
+            });
 
             $(".btn-success").click(function(){
                 var html = $(".clone").html();

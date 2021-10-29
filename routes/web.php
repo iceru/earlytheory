@@ -24,6 +24,7 @@ use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminTrackingController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPaymentMethodsController;
+use App\Http\Controllers\AdminProductOptionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::get('/articles', [IndexController::class, 'index'])->name('articles');
 Route::get('/article-detail/{slug}', [ArticleController::class, 'show'])->name('article-detail');
 
 Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->name('product-detail');
+Route::post('/get-sku', [ProductsController::class, 'getSku'])->name('get-sku');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 
@@ -119,7 +121,7 @@ Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.plus');
 Route::get('/cart/plus/{id}', [CartController::class, 'plus'])->name('cart.plus');
-Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){
@@ -144,7 +146,17 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/products/edit/{id}', [AdminProductsController::class, 'edit'])->name('admin.products.edit');
     Route::post('/admin/products/update', [AdminProductsController::class, 'update'])->name('admin.products.update');
     Route::get('/admin/products/delete/{id}', [AdminProductsController::class, 'destroy'])->name('admin.products.destroy');
-
+    
+    Route::get('/admin/products/{id}/variant', [AdminProductOptionsController::class, 'index'])->name('admin.product-options');
+    Route::post('/admin/product-variants/store', [AdminProductOptionsController::class, 'store'])->name('admin.product-options.store');
+    Route::post('/admin/product-variants/store-sku', [AdminProductOptionsController::class, 'storeSKU'])->name('admin.product-options.store-sku');
+    Route::get('/admin/product-variant/{id}/edit', [AdminProductOptionsController::class, 'editVariant'])->name('admin.product-options.edit-variant');
+    Route::post('/admin/product-variants/update', [AdminProductOptionsController::class, 'updateVariant'])->name('admin.product-options.update-variant');
+    Route::get('/admin/product-variant/value/{id}/delete', [AdminProductOptionsController::class, 'deleteVariantValue'])->name('admin.product-options.delete-variantval');
+    Route::get('/admin/product-variant/{id}/delete', [AdminProductOptionsController::class, 'deleteVariant'])->name('admin.product-options.delete-variant');
+    Route::get('/admin/product-variant/sku/{id}/edit', [AdminProductOptionsController::class, 'editSKU'])->name('admin.product-options.edit-sku');
+    Route::post('/admin/product-variants/update-sku', [AdminProductOptionsController::class, 'updateSKU'])->name('admin.product-options.update-sku');
+    
     Route::get('/admin/payment-methods', [AdminPaymentMethodsController::class, 'index'])->name('admin.paymentMethods');
     Route::post('/admin/payment-methods/store', [AdminPaymentMethodsController::class, 'store'])->name('admin.paymentMethods.store');
     Route::get('/admin/payment-methods/edit/{id}', [AdminPaymentMethodsController::class, 'edit'])->name('admin.paymentMethods.edit');
@@ -165,6 +177,8 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
 
     Route::get('/admin/sales', [AdminSalesController::class, 'index'])->name('admin.sales');
     Route::get('/admin/sales/{id}', [AdminSalesController::class, 'detail'])->name('admin.sales.detail');
+    Route::get('/admin/sales/edit/{id}', [AdminSalesController::class, 'edit'])->name('admin.sales.edit');
+    Route::post('/admin/sales/update', [AdminSalesController::class, 'update'])->name('admin.sales.update');
     Route::get('/admin/sales/delete/{id}', [AdminSalesController::class, 'destroy'])->name('admin.sales.destroy');
 
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');

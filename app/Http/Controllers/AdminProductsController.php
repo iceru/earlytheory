@@ -51,6 +51,7 @@ class AdminProductsController extends Controller
             'inputDesc' => 'required',
             'inputCategory' => 'required|in:product,service',
             'inputStock' => 'required',
+            'inputQuestion' => 'nullable',
         ]);
 
         if ($request->hasFile('inputImage')) {
@@ -78,6 +79,7 @@ class AdminProductsController extends Controller
         $product->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->inputTitle);
         $product->category = $request->inputCategory;
         $product->stock = $request->inputStock;
+        $product->question = $request->inputQuestion;
         
         $product->save();
 
@@ -139,6 +141,7 @@ class AdminProductsController extends Controller
             'updateDesc' => 'required',
             'updateCategory' => 'required|in:product,service',
             'updateStock' => 'required',
+            'updateQuestion' => 'nullable',
         ]);
 
         if ($request->hasFile('updateImage')) {
@@ -167,6 +170,7 @@ class AdminProductsController extends Controller
         $product->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->updateTitle);
         $product->category = $request->updateCategory;
         $product->stock = $request->updateStock;
+        $product->question = $request->updateQuestion;
 
         $product->save();
 

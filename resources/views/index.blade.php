@@ -18,13 +18,13 @@
 
     <div class="page-tabs">
         <div class="tab active" id="services" onclick="ActivePage('services')">
-            <h4 >Tarot Services</h4>
+            <h4>Ramalan</h4>
         </div>
         <div class="tab" id="items" onclick="ActivePage('items')">
-            <h4>Products</h4>
+            <h4>Kristal</h4>
         </div>
         <div class="tab" id="article-index" onclick="ActivePage('article-index')">
-            <h4>Articles</h4>
+            <h4>Artikel</h4>
         </div>
     </div>
     <div class="col-12 index">
@@ -48,9 +48,9 @@
                         <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
                     @if ($product->stock <= 0 && $product->category == 'product')
-                        <div class="button disabled my-3" disabled>Out of Stock</div>
+                        <div class="button disabled my-3" disabled>STOK HABIS</div>
                     @else
-                        <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
+                        <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
                     @endif
                 </div>
             @empty
@@ -77,9 +77,9 @@
                     <div class="product-desc">{{ $product->description_short }}</div>
                 </div>
                 @if ($product->stock <= 0 && $product->category == 'product')
-                    <div class="button disabled my-3" disabled>Out of Stock</div>
+                    <div class="button disabled my-3" disabled>STOK HABIS</div>
                 @else
-                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
+                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
                 @endif
             </div>
         @empty
@@ -96,6 +96,17 @@
     @section('js')
     <script>
 
+        var skus = {!! $skus !!};
+        Object.keys(skus).forEach(function(element) {
+            debugger
+            $.each($('.addcart'), function (index, item) {
+                if (skus[element].product_id == $(item).attr('data-id')) {
+                    $(item).attr('data-price', skus[element].price);
+                    $(item).attr('data-sku', skus[element].id);
+                    // $(item).attr('data-values', element.values);
+                }
+            });
+        });
         function options(){
             return {
                 dots: false,
@@ -105,6 +116,18 @@
                 pauseOnHover: false,
             }
         }
+        function sameDiv() {
+            var maxHeight = 0
+            $(".product-item").each(function(){
+                if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+            });
+            $(".product-item").height(maxHeight);
+        }
+
+        $( window ).resize(function() {
+            sameDiv();
+        });
+      
         $(document).ready(function(){
             $('.sliders-index').slick({
                 dots: true,
@@ -126,6 +149,8 @@
                 }, 1000)
                 }
             }
+
+            sameDiv();
         });
 
         function ReinitSliders(page) {
@@ -163,7 +188,6 @@
                 $('.article-index').html(data);
             })
         }
-
     </script>
     @endsection
 </x-app-layout>

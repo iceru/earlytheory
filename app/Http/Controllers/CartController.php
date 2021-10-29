@@ -16,18 +16,35 @@ class CartController extends Controller
         return view('cart', compact('items', 'total'));
     }
 
-    public function add($id)
+    public function add($id, Request $request)
     {
         $product = Products::findOrFail($id);
+        $price = (int) $request->price;
+        $product_price = $product->price;
+        if($price > 0 || $price) {
+            $product_price = $price;
+        }
+        $sku = (int) $request->sku;
+        $values = $request->values;
+        $product_id = $id;
+        if($sku) {
+            $id = 'sku-'.$sku;
+        }
 
+        
         \Cart::add(array(
             'id' => $id,
             'name' => $product->title,
-            'price' => $product->price,
+            'price' => $product_price,
             'quantity' => 1,
-            'attributes' => array(),
-            'associatedModel' => 'App\Models\Products'
+            'attributes' => array(
+                'product_id' => $product_id,
+                'values' => $values,
+            ),
+            'associatedModel' => $product
         ));
+
+
         $ctc = \Cart::getContent()->count();
         return \Response::json(['success' => 'Produk sukses ditambahkan ke keranjang', 'count' => $ctc]);
     }

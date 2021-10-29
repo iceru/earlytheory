@@ -13,4 +13,9 @@ class Products extends Model
     {
         return $this->belongsToMany(Sales::class, 'products_sales', 'product_id', 'sales_id')->withPivot('question', 'qty');
     }
+
+    public function discount()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_products', 'product_id', 'discount_id');
+    }
 }

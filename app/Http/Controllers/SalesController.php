@@ -34,11 +34,11 @@ class SalesController extends Controller
             $sales->total_price = $total;
             $sales->user_id = $userid;
             $sales->save();
-
+            
             foreach (\Cart::getContent() as $item) {
-                $product = Products::find($item->id);
+                $product = Products::find($item->attributes->product_id);
                 $product->sales()->attach($sales, ['qty' => $item->quantity]);
-                $product->stock = $product->stock-$item->quantity;
+                // $product->stock = $product->stock-$item->quantity;
                 $product->save();
             }
 
@@ -68,7 +68,7 @@ class SalesController extends Controller
             }
         }
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             if($is_product > 0) {
                 $address = ShippingAddress::where('user_id', $user->id)->get();
 
@@ -151,7 +151,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $request->validate([
                 'inputRelationship' => 'nullable',
                 'inputPhone' => 'nullable',
@@ -176,10 +176,16 @@ class SalesController extends Controller
     
             $item_id = $request->id;
             $item_question = $request->question;
+            $item_genderquestion = $request->genderQuestion;
     
             foreach ($item_id as $key => $i) {
                 $product = Products::find($item_id[$key]);
-                $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                if(strtolower($product->title) != 'mencari jodoh') {
+                    $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                }
+                else {
+                    $product->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion[$key]]);
+                }
             }
 
     
@@ -222,7 +228,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
         
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $address = ShippingAddress::where('user_id', $user->id)->get();
 
             foreach($address as $a) {
@@ -381,7 +387,7 @@ class SalesController extends Controller
         }
 
         //merge
-        $shipcosts = array_merge($cost_jne, $cost_tiki);
+        $shipcosts = $cost_tiki;
         
         return $shipcosts;
     }
@@ -391,7 +397,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $request->validate([
                 'inputAddress' => 'required',
                 'inputShipping' => 'required',
@@ -421,7 +427,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
 
             if($sales->address_id) {
                 if(Cache::has('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province)) {
@@ -469,12 +475,12 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
         
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             if($request->inputDiscount) {
                 $disc_code = strtoupper($request->inputDiscount);
                 $discount = Discount::where('code', $disc_code)->first();
     
-                if($discount && !$discount->product_id) {
+                if($discount && $discount->products->count() < 1) {
                     if($sales->total_price >= $discount->min_total) {
                         $nominal = $discount->nominal;
     
@@ -487,20 +493,22 @@ class SalesController extends Controller
                         return redirect()->back()->with('error', 'Minimum idr '.number_format($discount->min_total).' to use discount code!');
                     }
                 }
-                elseif($discount && $discount->product_id) {
+                elseif($discount && $discount->products->count() >= 1) {
                     foreach($sales->products as $product) {
-                        if($product->id == $discount->product_id) {
-                            if($discount->products->price >= $discount->min_total) {
-                                $nominal = $discount->nominal;
-    
-                                $sales->discount = $nominal;
-                                $sales->save();
-    
-                                return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
+                        foreach($discount->products as $disc_product) {
+                            if($product->id == $disc_product->id) {
+                                if($disc_product->price >= $discount->min_total) {
+                                    $nominal = $discount->nominal;
+        
+                                    $sales->discount = $nominal;
+                                    $sales->save();
+        
+                                    return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "'.$disc_code.'" applied (- idr '.number_format($nominal).')!');
+                                }
                             }
-                        }
-                        else {
-                            $discproduct = 0;
+                            else {
+                                $discproduct = 0;
+                            }
                         }
                     }
                     if($discproduct == 0) {
@@ -526,7 +534,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        if($user->id == $sales->user_id) {
             $paymethods_bank = PaymentMethods::where('account_number', '!=', 'qr')->get();
             $paymethods_qr = PaymentMethods::where('account_number', '=', 'qr')->first();
             return view('checkout.payment', compact('sales', 'paymethods_bank', 'paymethods_qr'));
@@ -542,10 +550,30 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
+        $is_product = 0;
+        $is_service = 0;
+
+        foreach ($sales->products as $item) {
+            if($item->category === 'product') {
+                $is_product += 1;
+            }
+
+            if($item->category === 'service') {
+                $is_service += 1;
+            }
+        }
+
+        if($user->id == $sales->user_id) {
             $paymentMethods = PaymentMethods::all();
+            $is_soldout = 0;
+            foreach($sales->products as $item) {
+                $product = Products::where('id', $item->id)->where('category', 'product')->where('stock', '<=', 0)->first();
+                if($product) {
+                    $is_soldout = 1;
+                }
+            }
     
-            return view('checkout.confirm-payment', compact('sales', 'paymentMethods'));
+            return view('checkout.confirm-payment', compact('sales', 'paymentMethods', 'is_soldout', 'is_service'));
         }
 
         else {
@@ -558,32 +586,60 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        if($user->id == $sales->user_id && $sales->status == 'pending') {
-            $request->validate([
-                'inputPayType' => 'required',
-                'inputPayment' => 'max:5000'
-            ],
-            [
-                'inputPayType.required' => 'Tipe Pembayaran belum diisi',
-                // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
-                'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
-            ]);
-    
-            if ($request->hasFile('inputPayment')) {
-                $extension = $request->file('inputPayment')->getClientOriginalExtension();
-                $filename = $sales->sales_no.'_'.time().'.'.$extension;
-                $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
-                $sales->payment = $filename;
+        if($user->id == $sales->user_id) {
+
+            $is_soldout = 0;
+            foreach($sales->products as $item) {
+                $product = Products::where('id', $item->id)->where('category', 'product')->where('stock', '<=', 0)->first();
+                if($product) {
+                    $is_soldout = 1;
+                }
             }
+
+            if($is_soldout === 0) {
+                $request->validate([
+                    'inputPayType' => 'required',
+                    'inputPayment' => 'max:5000'
+                ],
+                [
+                    'inputPayType.required' => 'Tipe Pembayaran belum diisi',
+                    // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
+                    'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
+                ]);
+        
+                if ($request->hasFile('inputPayment')) {
+                    $extension = $request->file('inputPayment')->getClientOriginalExtension();
+                    $filename = $sales->sales_no.'_'.time().'.'.$extension;
+                    $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
+                    $sales->payment = $filename;
+                }
+        
+                $sales->paymethod_id = $request->inputPayType;
+                $sales->status = 'paid';
+                $sales->save();
     
-            $sales->paymethod_id = $request->inputPayType;
-            $sales->status = 'paid';
-            $sales->save();
+                $sales->paymethod_id = $request->inputPayType;
+                $sales->status = 'paid';
+                $sales->save();
+        
+                // Mail::send(new UserTransaction($sales));
+                //Mail::send(new AdminNotification($sales));
     
-            Mail::send(new UserTransaction($sales));
-            //Mail::send(new AdminNotification($sales));
-    
-            return redirect()->route('sales.success', ['id' => $sales->sales_no]);
+                foreach($sales->products as $item) {
+                    $product = Products::find($item->id);
+                    $product->stock = $product->stock-$item->pivot->qty;
+                    $product->save();
+                }
+        
+                Mail::send(new UserTransaction($sales));
+                Mail::send(new AdminNotification($sales));
+        
+                return redirect()->route('sales.success', ['id' => $sales->sales_no]);
+            }
+            elseif($is_soldout === 1) {
+                return redirect()->back()->with('soldout');
+            }
+
         }
 
         else {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Models\User;
 use App\Models\Sales;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
@@ -76,7 +77,14 @@ class UserController extends Controller
     {
         $paymentMethods = PaymentMethods::all();
         $order = Sales::where('sales_no', $id)->firstOrFail();
-        return view('confirm-payment', compact('order', 'paymentMethods'));
+        $is_soldout = 0;
+        foreach($order->products as $item) {
+            $product = Products::where('id', $item->id)->where('category', 'product')->where('stock', '<=', 0)->first();
+            if($product) {
+                $is_soldout = 1;
+            }
+        }
+        return view('confirm-payment', compact('order', 'paymentMethods', 'is_soldout'));
     }
 
     public function confirmSubmit(Request $request, $id)
@@ -84,28 +92,48 @@ class UserController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
-        $request->validate([
-            'inputPayType' => 'required',
-            'inputPayment' => 'max:5000'
-        ],
-        [
-            'inputPayType.required' => 'Tipe Pembayaran belum diisi',
-            // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
-            'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
-        ]);
-
-        if ($request->hasFile('inputPayment')) {
-            $extension = $request->file('inputPayment')->getClientOriginalExtension();
-            $filename = $sales->sales_no.'_'.time().'.'.$extension;
-            $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
-            $sales->payment = $filename;
+        $is_soldout = 0;
+        foreach($sales->products as $item) {
+            $product = Products::where('id', $item->id)->where('category', 'product')->where('stock', '<=', 0)->first();
+            if($product) {
+                $is_soldout = 1;
+            }
         }
 
-        $sales->paymethod_id = $request->inputPayType;
-        $sales->save();
+        if($is_soldout === 0) {
+            $request->validate([
+                'inputPayType' => 'required',
+                'inputPayment' => 'max:5000'
+            ],
+            [
+                'inputPayType.required' => 'Tipe Pembayaran belum diisi',
+                // 'inputPayment.required' => 'Gambar bukti pembayaran belum diupload',
+                'inputPayment.max' => 'Gambar yang diupload terlalu besar. Maksimal ukuran gambar 5MB'
+            ]);
+    
+            if ($request->hasFile('inputPayment')) {
+                $extension = $request->file('inputPayment')->getClientOriginalExtension();
+                $filename = $sales->sales_no.'_'.time().'.'.$extension;
+                $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
+                $sales->payment = $filename;
+            }
 
-        Mail::send(new UserTransaction($sales));
-        // Mail::send(new AdminNotification($sales));
+            foreach($sales->products as $item) {
+                $product = Products::find($item->id);
+                $product->stock = $product->stock-$item->pivot->qty;
+                $product->save();
+            }
+    
+            $sales->paymethod_id = $request->inputPayType;
+            $sales->save();
+    
+            Mail::send(new UserTransaction($sales));
+            Mail::send(new AdminNotification($sales));
+        }
+        elseif($is_soldout === 1) {
+            return redirect()->back()->with('soldout');
+        }
+
 
         return redirect()->route('user.confirm-payment', $id)->with('success', 'Pembayaran berhasil. Kami akan konfirmasi orderanmu lewat Whatsapp!');
     }

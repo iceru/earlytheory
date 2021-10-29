@@ -4,6 +4,7 @@
     @endsection
     <div class="product-detail container main-content">
         <div class="product row">
+            
             <div class="col-12 col-lg-5 product-image ">
                 @foreach ((array)json_decode($product->image) as $item)
                     <img class="pb-2" src="{{Storage::url('product-image/'.$item)}}" alt="No Image">
@@ -16,6 +17,19 @@
                 <div class="product-price mb-4">
                     <p>idr {{number_format($product->price)}}</p>
                 </div>
+                @foreach ($values as $items)
+                <div class="variants mb-3">
+                    <p class="mb-2 skylar">{{ $items['option'] }}</p>
+
+                    <div class="values d-flex">
+                        @foreach ($items->slice(0, $items->count() - 1) as $item)
+                            <div class="value button primary-line hollow me-2" data-option="{{ $item->option_id }}" id={{ $item->id }}>
+                                {{ $item->value_name }}
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endforeach
                 <div class="product-desc mt-4 mb-3">
                     {!! $product->description !!}
                 </div>
@@ -48,7 +62,7 @@
                         <p class="product-desc">{{$product->description_short}}</p>
                     </div>
                     @if ($product->stock <= 0 && $product->category == 'product')
-                    <div class="button secondary my-3" disabled>Out of Stock</div>
+                    <div class="button disabled my-3" disabled>Out of Stock</div>
                     @else
                     <div data-id="{{$product->id}}" class="button primary my-3 addcart">Add To Cart</div>
                     @endif
@@ -60,6 +74,23 @@
 
     @section('js')
     <script>
+        var option_values = []
+        var id = $('.addcart').attr('data-id');
+        var price = {{ $product->price }}
+
+        function selectValue() {
+            option_values = [];
+            $('.value.selected').each(function(item) {
+                data_options = {
+                    "option": $(this).attr('data-option'),
+                    "value": $(this).attr('id'),
+                    "product_id": id
+                }
+
+                option_values.push(data_options);
+            })
+            getSku();
+        }
 
         $(document).ready(function(){
             $('.product-image').slick({
@@ -75,7 +106,48 @@
                 autoplay: true,
                 autoplaySpeed: 5000,
             });
+            if($('.variants').length > 0) {
+                $('.variants').find('.values').find('.value:first-child').addClass('selected');
+
+                selectValue();
+            }
         });
+
+        $('.value').click(function (e) { 
+            e.preventDefault();
+            if($(this).siblings('.selected')) {
+                $(this).closest('.values').children().removeClass('selected');
+            }
+            $(this).addClass('selected');
+
+            selectValue();
+        });
+
+        function getSku() {
+            $.ajax({
+                type: "POST",
+                url: "/get-sku",
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {'option_values': option_values, 'id': id },
+                success: function (response) {
+                    var data = response;
+                    $('.addcart').attr('data-price', data.price);
+                    $('.addcart').attr('data-sku', data.id);
+                    $('.addcart').attr('data-values', data.values);
+                    var price_data = 'idr '+(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                    var price_text = price_data.substring(0, price_data.length-3);
+                    $('.product-price p').text(price_text);
+                },
+                error: function(response) {
+                    alert('There is no stock/item for that variant');
+                    $('.value').removeClass('selected');
+                    $('.variants').find('.values').find('.value:first-child').addClass('selected');
+                    selectValue();
+                }
+            });
+        }
     </script>
     @endsection
 </x-app-layout>

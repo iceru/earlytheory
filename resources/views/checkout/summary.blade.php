@@ -19,29 +19,29 @@
             @if ($sales->address_id)
             <div class="col-12">
                 <div class=" mb-3 pb-2 border-bottom border-dark">
-                    <h5 class="evogria">Shipping Address</h5>
+                    <h5 class="evogria">Alamat Pengiriman</h5>
                 </div>
             </div>
             <div class="col-12 mb-4">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <b>Address:</b> <br>
+                        <b>Alamat:</b> <br>
                         {{ $sales->shippingAddress->ship_address }}
                     </div>
                     <div class="col-6 mb-3">
-                        <b>City:</b> <br>
+                        <b>Kota:</b> <br>
                         {{ $sales->shippingAddress->city }}
                     </div>
-                    <div class="col-6">
-                        <b>Province:</b> <br>
+                    <div class="col-6 mb-3">
+                        <b>Provinsi:</b> <br>
                         {{ $sales->shippingAddress->province }}
                     </div>
-                    <div class="col-6">
-                        <b>Zip:</b> <br>
+                    <div class="col-6 mb-3">
+                        <b>Kode Pos:</b> <br>
                         {{ $sales->shippingAddress->ship_zip }}
                     </div>
                     <div class="col-6">
-                        <b>Shipping Method:</b> <br>
+                        <b>Metode Pengiriman:</b> <br>
                         {{ $sales->ship_method }}
                     </div>
                     <div class="col-12">
@@ -71,7 +71,7 @@
                                 @endforeach
                             </div>
                             <div class="col-7 col-lg-9 product-question"  >
-                                <div @if ($item->duration != "0" || $item->category == 'product') hidden @endif>
+                                <div @if ($item->question != 'yes' || $item->category == 'product') hidden @endif>
                                     <h5>Pertanyaan</h5>
                                     <p>{{nl2br($item->pivot->question)}}</p>
                                     <button class="button primary mt-3 mt-lg-2">
@@ -80,7 +80,17 @@
                                             Edit</span></a>
                                     </button>
                                 </div>
-                                @if ($item->duration != "0" || $item->category == 'product')
+
+                                <div @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
+                                    <h5>Preferensi Gender</h5>
+                                    <p>{{(ucfirst($item->pivot->question))}}</p>
+                                    <button class="button primary mt-3 mt-lg-2">
+                                        <span><i class="fas fa-edit"></i> &nbsp;</span>
+                                        <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
+                                            Edit</span></a>
+                                    </button>
+                                </div>
+                                @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
                                     <p>{!! $item->description_short !!}</p>
                                 @endif
                             </div>
