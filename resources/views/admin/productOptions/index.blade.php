@@ -102,7 +102,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Price</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputPrice" name="inputPrice" value="" min="0">
+                        <input type="number" class="form-control" id="inputPrice" name="inputPrice" value="{{$product->price}}" min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -153,7 +153,7 @@
                         @endforeach</td>
                         <td>{{$sku->price}}</td>
                         <td>{{$sku->stock}}</td>
-                        {{-- <td><a href="/admin/product-variant/sku/{{$sku->id}}/edit">Update</a> | Delete</td> --}}
+                        <td><a href="/admin/product-variant/sku/{{$sku->id}}/edit">Update</a> | <a href="/admin/product-variant/sku/{{$sku->id}}/delete">Delete</a></td>
                     </tr>
                     @endforeach
                 </tbody>
