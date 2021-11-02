@@ -11,7 +11,7 @@
                 <div class="col-12 col-md-6 col-xxl-4 article">
                     <div class="row article-info">
                         <div class="col-5 article-image">
-                            <a href="/article-detail/{{$article->id}}">
+                            <a href="/article-detail/{{$article->slug}}">
                                 <div class="ratio ratio-4x3">
                                     <img src="{{Storage::url('article-image/'.$article->image)}}" alt="{{ $article->title }}">
                                 </div>

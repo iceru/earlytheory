@@ -172,12 +172,12 @@
                 </div>
                 <div class="products col-12">
                     <div class="row">
-                        @foreach ($sales->products as $item)
+                        @foreach ($sales->skus as $item)
                         <input type="text" name="id[]" value="{{$item->id}}" hidden>
                         <div class=" col-12 col-lg-6 ">
                             <div class="product-item-container row">
                                 <div class="product-title col-12">
-                                    <h4>{{$item->title}}</h4>
+                                    <h4>{{$item->products->title}}</h4>
                                 </div>
                                 <div class="product-price col-12">
                                     <p>IDR {{number_format($item->price)}}</p>
@@ -186,7 +186,7 @@
                                     {{-- <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5> --}}
                                     <div class="col-4 col-lg-3 ">
                                         <div class="product-image">
-                                            @foreach ((array)json_decode($item->image) as $image)
+                                            @foreach ((array)json_decode($item->products->image) as $image)
                                             <div class="ratio ratio-1x1">
                                                 <img src="{{Storage::url('product-image/'.$image)}}" alt="">
                                             </div>
@@ -195,7 +195,7 @@
                                     </div>
                                     <div class="col-8 col-lg-9 ps-2">
                                         <textarea name="question[]" id="question"
-                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->question != "yes" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                         <div class="mb-2">
                                             <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
                                                 <option value="" selected disabled>Pilih Preferensi Gender</option>

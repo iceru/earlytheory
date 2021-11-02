@@ -20,7 +20,7 @@ class IndexController extends Controller
     {
         $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
         $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
-        $articles = Articles::orderBy('created_at', 'desc')->paginate(10);
+        $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
         $skus = SKUs::all();
         $product_ids = array();

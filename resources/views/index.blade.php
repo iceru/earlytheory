@@ -98,7 +98,6 @@
 
         var skus = {!! $skus !!};
         Object.keys(skus).forEach(function(element) {
-            debugger
             $.each($('.addcart'), function (index, item) {
                 if (skus[element].product_id == $(item).attr('data-id')) {
                     $(item).attr('data-price', skus[element].price);

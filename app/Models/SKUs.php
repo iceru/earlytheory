@@ -18,4 +18,9 @@ class SKUs extends Model
     {
         return $this->hasMany(SKUvalues::class, 'sku_id', 'id');
     }
+
+    public function sales()
+    {
+        return $this->belongsToMany(Sales::class, 'skus_sales', 'sku_id', 'sales_id')->withPivot('question', 'qty');
+    }
 }
