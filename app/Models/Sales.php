@@ -18,6 +18,11 @@ class Sales extends Model
         return $this->belongsToMany(Products::class, 'products_sales', 'sales_id', 'product_id')->withPivot('question', 'qty');
     }
 
+    public function skus()
+    {
+        return $this->belongsToMany(SKUs::class, 'skus_sales', 'sales_id', 'sku_id')->withPivot('question', 'qty');
+    }
+
     public function paymentMethods()
     {
         return $this->belongsTo(PaymentMethods::class, 'paymethod_id', 'id');

@@ -43,6 +43,7 @@
                                         </div>
                                     @endforeach
                                 </div>
+                                {{-- <p>{{$item->attributes->sku_id}}</p> --}}
                                 <div class="col-8">
                                     <a href="/product/{{$item->associatedModel->slug}}">
                                         <div class="product-title"><h3>{{$item->associatedModel->title}}</h3></div>
