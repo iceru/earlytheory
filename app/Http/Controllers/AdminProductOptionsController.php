@@ -26,6 +26,13 @@ class AdminProductOptionsController extends Controller
     {
         $product = Products::find($request->product_id)->firstOrFail();
         
+        //Delete Default SKU
+        $have_variant = Options::where('product_id', $request->product_id)->get();
+        $have_sku = SKUs::where('product_id', $request->product_id)->get();
+        if($have_variant->isEmpty() && $have_sku->isNotEmpty()) {
+            $sku = SKUs::where('product_id', $request->product_id)->delete();
+        }
+
         $variant = new Options;
 
         $request->validate([
@@ -46,6 +53,7 @@ class AdminProductOptionsController extends Controller
             $variant_values->option_id = $variant->id;
             $variant_values->save();
         }
+
         
         // $total_variantval = 1;
         // $variant_collection = Options::where('product_id', $request->product_id)->get();

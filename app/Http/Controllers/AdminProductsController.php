@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\SKUs;
+use App\Models\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -82,6 +84,20 @@ class AdminProductsController extends Controller
         $product->question = $request->inputQuestion;
         
         $product->save();
+
+        // $request->validate([
+        //     'inputPrice' => 'required|numeric',
+        //     'inputStock' => 'required|numeric',
+        //     'inputvarval' => 'required'
+        // ]);
+
+        // dd($request->inputvarval);
+
+        $sku_new = new SKUs;
+        $sku_new->price = $request->inputPrice;
+        $sku_new->stock = $request->inputStock;
+        $sku_new->product_id = $product->id;
+        $sku_new->save();
 
 
         // if(strlen($request->inputDesc) > 40) {
@@ -173,6 +189,19 @@ class AdminProductsController extends Controller
         $product->question = $request->updateQuestion;
 
         $product->save();
+
+        $have_variant = Options::where('product_id', $request->id)->get();
+
+        // dd($have_variant);
+        if($have_variant->isEmpty()) {
+            $sku = SKUs::where('product_id', $request->id)->firstOrFail();
+            $sku->price = $request->updatePrice;
+            $sku->stock = $request->updateStock;
+            $sku->product_id = $product->id;
+
+            $sku->save();
+            // dd($request->updateStock);
+        }
 
         return redirect('/admin/products');
     }
