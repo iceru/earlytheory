@@ -42,7 +42,11 @@ class SalesController extends Controller
                 // // $product->stock = $product->stock-$item->quantity;
                 // $product->save();
                 $sku = SKUs::find($item->attributes->sku_id);
-                $sku->sales()->attach($sales, ['qty' => $item->quantity]);
+                if($sku) {
+                    $sku->sales()->attach($sales, ['qty' => $item->quantity]);
+                } else {
+                    return back()->withErrors('Product(s) not valid. Please contact us');
+                }
                 // $product->stock = $product->stock-$item->quantity;
                 $sku->save();
             }
@@ -140,8 +144,22 @@ class SalesController extends Controller
     
                 $prov = json_decode($response);
                 $provinces = $prov->rajaongkir->results;
+
+                $skuvalues = SKUvalues::all();
+                $values = array();
+                $values_collection = collect();
+                foreach ($skuvalues as $key => $skuvalue) {
+                    foreach($sales->skus as $key => $sku) {
+                        if($sku->id == $skuvalue->sku_id) {
+                            $value_datas = OptionValues::where('id', $skuvalue->value_id)->pluck('value_name');
+                            $value_name = $value_datas->implode(',', 'value_name');
+                            array_push($values, $value_name);
+                            $sku->setAttribute('variants', $values);
+                        }
+                    }
+                }
     
-                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service'));
+                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values'));
             }
             return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service'));
         }

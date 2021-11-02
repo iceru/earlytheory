@@ -120,7 +120,10 @@
             $(".product-item").each(function(){
                 if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
             });
-            $(".product-item").height(maxHeight);
+
+            if (maxHeigt > 0) {
+                $(".product-item").height(maxHeight);
+            }
         }
 
         $( window ).resize(function() {
