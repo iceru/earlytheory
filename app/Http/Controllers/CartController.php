@@ -39,6 +39,7 @@ class CartController extends Controller
             'quantity' => 1,
             'attributes' => array(
                 'product_id' => $product_id,
+                'sku_id' => $sku,
                 'values' => $values,
             ),
             'associatedModel' => $product

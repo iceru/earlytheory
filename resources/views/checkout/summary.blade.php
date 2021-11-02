@@ -54,24 +54,24 @@
             @endif
             <div class="products col-12">
                 <div class="row">
-                    @foreach ($sales->products as $item)
+                    @foreach ($sales->skus as $item)
                     <div class="col-12 col-lg-6">
                         <div class="row product-item-container">
                             <div class="product-title col-12">
-                                <h3>{{$item->title}}</h3>
+                                <h3>{{$item->products->title}}</h3>
                             </div>
                             <div class="product-price col-12">
                                 <p>idr {{number_format($item->price)}}</p>
                             </div>
                             <div class="col-5 col-lg-3 product-image">
-                                @foreach ((array)json_decode($item->image) as $image)
+                                @foreach ((array)json_decode($item->products->image) as $image)
                                 <div class="ratio ratio-1x1">
                                     <img src="{{Storage::url('product-image/'.$image)}}" alt="No Image">
                                 </div>
                                 @endforeach
                             </div>
                             <div class="col-7 col-lg-9 product-question"  >
-                                <div @if ($item->question != 'yes' || $item->category == 'product') hidden @endif>
+                                <div @if ($item->products->question != 'yes' || $item->products->category == 'product') hidden @endif>
                                     <h5>Pertanyaan</h5>
                                     <p>{{nl2br($item->pivot->question)}}</p>
                                     <button class="button primary mt-3 mt-lg-2">
@@ -81,7 +81,7 @@
                                     </button>
                                 </div>
 
-                                <div @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
+                                <div @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                     <h5>Preferensi Gender</h5>
                                     <p>{{(ucfirst($item->pivot->question))}}</p>
                                     <button class="button primary mt-3 mt-lg-2">
@@ -90,7 +90,7 @@
                                             Edit</span></a>
                                     </button>
                                 </div>
-                                @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
+                                @if (($item->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') || $item->products->category == 'product')
                                     <p>{!! $item->description_short !!}</p>
                                 @endif
                             </div>

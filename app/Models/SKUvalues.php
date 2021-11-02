@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class SKUvalues extends Model
 {
     protected $table = 'skuvalues';
+    // protected $primaryKey = 'sku_id';
+    // protected $primaryKey = [
+    //     'sku_id',
+    //     'option_id'
+    // ];
+    
+    protected $fillable = [
+        'sku_id',
+        'option_id',
+        'value_id'
+    ];
 
     public function skus()
     {

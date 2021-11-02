@@ -62,19 +62,43 @@
                         @endif
                     @endforeach
                 @endforeach --}}
-                @foreach ($variants as $variant)
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">{{$variant->option_name}}</label>
-                        <div class="col-sm-10">
-                            {{-- <input type="text" class="form-control" id="updateVariant" name="updateVariant"> --}}
-                            <select class="form-select" name="newskuval[]">
-                                <option selected disabled>Select {{$variant->option_name}} Value</option>
-                                @foreach($variant->optionvalues as $varval)
-                                <option value="{{$variant->id}}-{{$varval->id}}">{{$varval->value_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+
+                @foreach ($selectedVariants as $variant)
+                @foreach ($skuvalues as $skuval)
+                @if ($skuval->option_id == $variant->id)
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">{{$variant->option_name}}</label>
+                    <div class="col-sm-10">
+                        {{-- <input type="text" class="form-control" id="updateVariant" name="updateVariant"> --}}
+                        <select class="form-select" name="updatevarval[]" readonly>
+                            <option selected disabled>Select {{$variant->option_name}} Value</option>
+                            @foreach($variant->optionvalues as $varval)
+                            <option value="{{$variant->id}}-{{$varval->id}}" {{ $varval->id === $skuval->value_id ? "selected" : "" }}>{{$varval->value_name}}</option>
+                            @endforeach
+                        </select>
                     </div>
+                </div>
+                @endif
+                @endforeach
+                @endforeach
+
+                @foreach ($unselectedVariants as $variant)
+                {{-- @foreach ($skuvalues as $skuval)
+                @if ($skuval->option_id == $variant->id) --}}
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">{{$variant->option_name}}</label>
+                    <div class="col-sm-10">
+                        {{-- <input type="text" class="form-control" id="updateVariant" name="updateVariant"> --}}
+                        <select class="form-select" name="updatevarval[]">
+                            <option selected disabled>Select {{$variant->option_name}} Value</option>
+                            @foreach($variant->optionvalues as $varval)
+                            <option value="{{$variant->id}}-{{$varval->id}}">{{$varval->value_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                {{-- @endif
+                @endforeach --}}
                 @endforeach
                 <button type="submit" class="button primary">Update</button>
             </form>
