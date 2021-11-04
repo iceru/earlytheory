@@ -3,6 +3,16 @@
         Cart
     @endsection
     <div class="col-12 cart main-content">
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Sorry !</strong> There were some problems.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="row">
             <div class="col-12 mb-5 evogria">
                 <h2>MY CART</h2>
