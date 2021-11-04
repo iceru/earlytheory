@@ -194,6 +194,12 @@
                                         </div>
                                     </div>
                                     <div class="col-8 col-lg-9 ps-2">
+                                        <div class="d-flex">
+                                        <p class="me-2">Variants: </p>
+                                            @foreach ($item->variants as $variant)
+                                                <span class="variant-item me-2">{{ $variant }}</span>
+                                            @endforeach
+                                        </div>
                                         <textarea name="question[]" id="question"
                                             placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                         <div class="mb-2">
