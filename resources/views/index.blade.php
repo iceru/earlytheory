@@ -121,7 +121,7 @@
                 if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
             });
 
-            if (maxHeigt > 0) {
+            if (maxHeight > 0) {
                 $(".product-item").height(maxHeight);
             }
         }

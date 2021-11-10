@@ -74,6 +74,38 @@
                                        </div>
                                     </div>
                                 @endforeach
+                                @foreach ($order->products as $product)
+                                    <div class="product-item">
+                                    <div class="row">
+                                            <div class="col-3 product-image">
+                                                @foreach ((array)json_decode($product->image) as $image)
+                                                <img src="{{Storage::url('product-image/'.$image)}}" alt="">
+                                                @endforeach
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="d-block d-lg-flex align-items-start justify-content-between">
+                                                    <h4 class="skylar primary-color mb-1">{{ $product->title }}</h4>
+                                                    <p class="mb-1 mb-lg-0">Quantity: {{$product->pivot->qty}}</p>
+                                                </div>
+                                                <p class="mb-1 mb-lg-2">IDR {{ $product->price }}</p>
+                                                <div class="d-none d-lg-block">
+                                                    <p >{{$product->description_short}}</p>
+                                                    @if ($product->pivot->question != '')
+                                                    <h6>Question: </h6>
+                                                    <p>{{$product->pivot->question}}</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-block d-lg-none">
+                                                <p class="mb-2">{{$product->description_short}}</p>
+                                                @if ($product->pivot->question != '')
+                                                <h6>Question: </h6>
+                                                <p>{{$product->pivot->question}}</p>
+                                                @endif
+                                            </div>
+                                    </div>
+                                    </div>
+                                @endforeach
                             @else
                                 @foreach ($order->products as $product)
                                     <div class="product-item">

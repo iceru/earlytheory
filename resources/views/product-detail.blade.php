@@ -141,7 +141,7 @@
                     $('.product-price p').text(price_text);
                 },
                 error: function(response) {
-                    alert('There is no stock/item for that variant');
+                    alert('Tidak ada stok atau item untuk produk varian tersebut');
                     $('.value').removeClass('selected');
                     $('.variants').find('.values').find('.value:first-child').addClass('selected');
                     selectValue();

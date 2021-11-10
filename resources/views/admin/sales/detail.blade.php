@@ -155,6 +155,28 @@
                             <td>{{$item->pivot->question}}</td>
                         </tr>
                         @endforeach
+                        @foreach ($sales->products as $product)
+                        <tr>
+                            <td scope="row">{{$loop->iteration}}</td>
+                            <td>
+                                @foreach ((array)json_decode($product->image) as $item)
+                                    <img class="mb-1" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
+                                @endforeach
+                            </td>
+                            <td>{{$product->title}}</td>
+                            <td>idr {{number_format($product->price)}}</td>
+                            <td>{{$product->pivot->qty}}</td>
+                            <td>
+                                @if ($product->duration > 0)
+                                    {{$product->duration}} menit
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>{{$product->description_short}}</td>
+                            <td>{{$product->pivot->question}}</td>
+                        </tr>
+                        @endforeach
                     @else
                         @foreach ($sales->products as $product)
                         <tr>

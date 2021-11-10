@@ -21,16 +21,18 @@ class IndexController extends Controller
         $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
         $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
+
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
-        $skus = SKUs::all();
         $product_ids = array();
+
+        $skus = SKUs::all();
 
         if ($request->ajax()) {
             return view('article-index', ['articles' => $articles])->render();  
         }
 
         foreach ($skus as $key => $sku) {
-            foreach ($services as $key => $service) {
+            foreach ($products as $key => $service) {
                 if($sku->product_id == $service->id) {
                     array_push($product_ids, $sku);
                 }

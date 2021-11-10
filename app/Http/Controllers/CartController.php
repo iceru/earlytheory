@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\SKUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,10 +28,9 @@ class CartController extends Controller
         $sku = (int) $request->sku;
         $values = $request->values;
         $product_id = $id;
-        if($sku) {
+        if($sku > 0) {
             $id = 'sku-'.$sku;
         }
-
         
         \Cart::add(array(
             'id' => $id,

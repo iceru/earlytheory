@@ -7,6 +7,8 @@ use App\Models\Sales;
 use App\Models\Discount;
 use App\Models\Products;
 use App\Models\ShippingAddress;
+use App\Models\OptionValues;
+use App\Models\SKUvalues;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Cache;
 
 class SalesController extends Controller
 {
-    public function checkout()
+    public function checkout(Request $request)
     {
         if(!\Cart::isEmpty()) {
             $userid = Auth::id();
@@ -42,13 +44,19 @@ class SalesController extends Controller
                 // // $product->stock = $product->stock-$item->quantity;
                 // $product->save();
                 $sku = SKUs::find($item->attributes->sku_id);
-                if($sku) {
+                $product = Products::find($item->attributes->product_id);
+
+                if($sku && $item->associatedModel->category == 'product') {
                     $sku->sales()->attach($sales, ['qty' => $item->quantity]);
-                } else {
+                    $sku->save();
+                } elseif (!$sku) {
+                    $product->sales()->attach($sales, ['qty' => $item->quantity]);
+                    $product->save();
+                }
+                else {
                     return back()->withErrors('Product(s) not valid. Please contact us');
                 }
                 // $product->stock = $product->stock-$item->quantity;
-                $sku->save();
             }
 
             // \Cart::clear();
@@ -204,11 +212,13 @@ class SalesController extends Controller
     
             foreach ($item_id as $key => $i) {
                 $sku = SKUs::find($item_id[$key]);
-                if(strtolower($sku->products->title) != 'mencari jodoh') {
-                    $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
-                }
-                else {
-                    $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion[$key]]);
+                if($sku) {
+                    if(strtolower($sku->products->title) != 'mencari jodoh') {
+                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                    }
+                    else {
+                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion[$key]]);
+                    }
                 }
             }
 
@@ -485,6 +495,20 @@ class SalesController extends Controller
                 $sales->shippingAddress->province = $result->rajaongkir->results->province;
                 $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
             }
+
+            $skuvalues = SKUvalues::all();
+            $values = array();
+            $values_collection = collect();
+            foreach ($skuvalues as $key => $skuvalue) {
+                foreach($sales->skus as $key => $sku) {
+                    if($sku->id == $skuvalue->sku_id) {
+                        $value_datas = OptionValues::where('id', $skuvalue->value_id)->pluck('value_name');
+                        $value_name = $value_datas->implode(',', 'value_name');
+                        array_push($values, $value_name);
+                        $sku->setAttribute('variants', $values);
+                    }
+                }
+            }
             
             return view('checkout.summary', compact('sales'));
         }
@@ -658,8 +682,8 @@ class SalesController extends Controller
                     $sku->save();
                 }
         
-                Mail::send(new UserTransaction($sales));
-                Mail::send(new AdminNotification($sales));
+                // Mail::send(new UserTransaction($sales));
+                // Mail::send(new AdminNotification($sales));
         
                 return redirect()->route('sales.success', ['id' => $sales->sales_no]);
             }
