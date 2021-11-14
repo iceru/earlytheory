@@ -1,6 +1,5 @@
 
     $('.addcart').on('click', function(){
-        debugger
         var id = $(this).attr('data-id');
         var price = $(this).attr('data-price');
         var sku = $(this).attr('data-sku');
