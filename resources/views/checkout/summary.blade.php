@@ -72,10 +72,11 @@
                             </div>
                             <div class="col-7 col-lg-9 product-question"  >
                                 @if($item->variants)
-                                    <p class="me-2">Variants: </p>
-                                        @foreach ($item->variants as $variant)
-                                            <span class="variant-item me-2">{{ $variant }}</span>
-                                        @endforeach
+                                    <div>
+                                        <p class="me-2">Variants: </p>
+                                            @foreach ($item->variants as $variant)
+                                                <span class="variant-item me-2">{{ $variant }}</span>
+                                            @endforeach
                                     </div>
                                 @endif
                                 <div @if ($item->products->question != 'yes' || $item->products->category == 'product') hidden @endif>
@@ -104,7 +105,7 @@
                         </div>
                     </div>
                     @endforeach
-                </div>
+                    
                     @foreach ($sales->products as $item)
                     <div class="col-12 col-lg-6">
                         <div class="row product-item-container">
@@ -148,6 +149,7 @@
                         </div>
                     </div>
                     @endforeach
+                </div>
                 <div class="row">
                     <form action="/checkout/{{$sales->sales_no}}/discount" method="post">
                         @csrf

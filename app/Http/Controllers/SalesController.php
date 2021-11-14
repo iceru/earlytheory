@@ -154,17 +154,23 @@ class SalesController extends Controller
                 $provinces = $prov->rajaongkir->results;
 
                 $skuvalues = SKUvalues::all();
+                $optionvalues = OptionValues::all();
                 $values = array();
                 $values_collection = collect();
-                foreach ($skuvalues as $key => $skuvalue) {
-                    foreach($sales->skus as $key => $sku) {
+                foreach($sales->skus as $key => $sku) {
+                    foreach ($skuvalues as $key => $skuvalue) {
                         if($sku->id == $skuvalue->sku_id) {
-                            $value_datas = OptionValues::where('id', $skuvalue->value_id)->pluck('value_name');
-                            $value_name = $value_datas->implode(',', 'value_name');
-                            array_push($values, $value_name);
-                            $sku->setAttribute('variants', $values);
+                            foreach ($optionvalues as $key => $option) {
+                                if($skuvalue->option_id == $option->option_id && $skuvalue->value_id == $option->id) {
+                                    $value_datas = OptionValues::where('id', $skuvalue->value_id)->pluck('value_name');
+                                    $value_name = $value_datas->implode('', 'value_name');
+                                    array_push($values, $value_name);
+                                }
+                            }
                         }
                     }
+                    $sku->setAttribute('variants', $values);
+                    $values = array();
                 }
     
                 return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values'));

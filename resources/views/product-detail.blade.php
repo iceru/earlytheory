@@ -75,22 +75,8 @@
     @section('js')
     <script>
         var option_values = []
-        var id = $('.addcart').attr('data-id');
+        var id = $('.product .addcart').attr('data-id');
         var price = {{ $product->price }}
-
-        function selectValue() {
-            option_values = [];
-            $('.value.selected').each(function(item) {
-                data_options = {
-                    "option": $(this).attr('data-option'),
-                    "value": $(this).attr('id'),
-                    "product_id": id
-                }
-
-                option_values.push(data_options);
-            })
-            getSku();
-        }
 
         $(document).ready(function(){
             $('.product-image').slick({
@@ -107,9 +93,10 @@
                 autoplaySpeed: 5000,
             });
             if($('.variants').length > 0) {
-                $('.variants').find('.values').find('.value:first-child').addClass('selected');
+                $('.product .addcart').toggleClass('primary disabled');
+                // $('.variants').find('.values').find('.value:first-child').addClass('selected');
 
-                selectValue();
+                // selectValue();
             }
         });
 
@@ -119,9 +106,26 @@
                 $(this).closest('.values').children().removeClass('selected');
             }
             $(this).addClass('selected');
-
-            selectValue();
+            if ($('.variants').length == 1) {
+                selectValue();
+            } else if ($('.variants').length > 1 && $('.values').find('.selected').length == $('.values').length ) {
+                selectValue();
+            }
         });
+ 
+        function selectValue() {
+            option_values = [];
+            $('.value.selected').each(function(item) {
+                data_options = {
+                    "option": $(this).attr('data-option'),
+                    "value": $(this).attr('id'),
+                    "product_id": id
+                }
+
+                option_values.push(data_options);
+            })
+            getSku();
+        }
 
         function getSku() {
             $.ajax({
@@ -133,18 +137,23 @@
                 data: {'option_values': option_values, 'id': id },
                 success: function (response) {
                     var data = response;
-                    $('.addcart').attr('data-price', data.price);
-                    $('.addcart').attr('data-sku', data.id);
-                    $('.addcart').attr('data-values', data.values);
+                    $('.product .addcart').attr('data-price', data.price);
+                    $('.product .addcart').attr('data-sku', data.id);
+                    $('.product .addcart').attr('data-values', data.values);
                     var price_data = 'idr '+(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                     var price_text = price_data.substring(0, price_data.length-3);
                     $('.product-price p').text(price_text);
+                    $('.product .addcart').addClass('primary');
+                    $('.product .addcart').removeClass('disabled');
                 },
                 error: function(response) {
                     alert('Tidak ada stok atau item untuk produk varian tersebut');
                     $('.value').removeClass('selected');
-                    $('.variants').find('.values').find('.value:first-child').addClass('selected');
-                    selectValue();
+                    $('.product .addcart').removeClass('primary');
+                    $('.product .addcart').addClass('disabled');
+
+                    // $('.variants').find('.values').find('.value:first-child').addClass('selected');
+                    // selectValue();
                 }
             });
         }
