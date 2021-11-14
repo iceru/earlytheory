@@ -18,8 +18,9 @@ class AdminProductsController extends Controller
     public function index()
     {
         $products = Products::orderBy('ordernumber')->get();
+        $skus = SKUs::get();
 
-        return view('admin.products.index', compact('products'));
+        return view('admin.products.index', compact('products', 'skus'));
     }
 
     /**
@@ -219,5 +220,23 @@ class AdminProductsController extends Controller
 
         Products::find($id)->delete();
         return redirect('/admin/products');
+    }
+
+    public function generateSKU()
+    {
+        $products = Products::get();
+
+        foreach($products as $product) {
+            $have_sku = SKUs::where('product_id', $product->id)->get();
+            if($have_sku->isEmpty()) {
+                $sku_new = new SKUs;
+                $sku_new->price = $product->price;
+                $sku_new->stock = $product->stock;
+                $sku_new->product_id = $product->id;
+                $sku_new->save();
+            }
+        }
+
+        return redirect()->back();
     }
 }

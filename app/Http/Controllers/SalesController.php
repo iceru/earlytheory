@@ -46,16 +46,16 @@ class SalesController extends Controller
                 $sku = SKUs::find($item->attributes->sku_id);
                 $product = Products::find($item->attributes->product_id);
 
-                if($sku && $item->associatedModel->category == 'product') {
+                // if($sku && $item->associatedModel->category == 'product') {
                     $sku->sales()->attach($sales, ['qty' => $item->quantity]);
                     $sku->save();
-                } elseif (!$sku) {
-                    $product->sales()->attach($sales, ['qty' => $item->quantity]);
-                    $product->save();
-                }
-                else {
-                    return back()->withErrors('Product(s) not valid. Please contact us');
-                }
+                // } elseif (!$sku) {
+                //     $product->sales()->attach($sales, ['qty' => $item->quantity]);
+                //     $product->save();
+                // }
+                // else {
+                //     return back()->withErrors('Product(s) not valid. Please contact us');
+                // }
                 // $product->stock = $product->stock-$item->quantity;
             }
 
