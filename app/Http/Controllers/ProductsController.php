@@ -48,7 +48,8 @@ class ProductsController extends Controller
                     }
                 }
             }
-            $values_name = array_unique( array_diff_assoc( $values_name, array_unique( $values_name )));
+
+            $values_name = array_unique($values_name);
             $values_name = implode(", ", $values_name);
 
             $unique = array_unique( array_diff_assoc( $skus_selected, array_unique( $skus_selected )));
