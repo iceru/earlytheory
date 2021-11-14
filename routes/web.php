@@ -146,6 +146,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/products/edit/{id}', [AdminProductsController::class, 'edit'])->name('admin.products.edit');
     Route::post('/admin/products/update', [AdminProductsController::class, 'update'])->name('admin.products.update');
     Route::get('/admin/products/delete/{id}', [AdminProductsController::class, 'destroy'])->name('admin.products.destroy');
+    Route::get('/admin/products/generate-sku', [AdminProductsController::class, 'generateSKU'])->name('admin.products.generate-sku');
     
     Route::get('/admin/products/{id}/variant', [AdminProductOptionsController::class, 'index'])->name('admin.product-options');
     Route::post('/admin/product-variants/store', [AdminProductOptionsController::class, 'store'])->name('admin.product-options.store');
