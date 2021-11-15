@@ -194,9 +194,9 @@
                                         </div>
                                     </div>
                                     <div class="col-8 col-lg-9 ps-2">
-                                        <div class="d-flex">
                                         @if($item->variants)
-                                        <p class="me-2">Variants: </p>
+                                        <div class="d-flex">
+                                            <p class="me-2">Variants: </p>
                                             @foreach ($item->variants as $variant)
                                                 <span class="variant-item me-2">{{ $variant }}</span>
                                             @endforeach
