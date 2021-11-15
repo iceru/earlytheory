@@ -174,7 +174,7 @@
             $('.tab').removeClass('active');
             $('.'+page).addClass('active');
             $('#'+page).addClass('active');
-            checkSku();
+            // checkSku();
             ReinitSliders(page);
         }
 

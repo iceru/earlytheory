@@ -32,7 +32,7 @@ class ProductsController extends Controller
 
     public function getSku(Request $request) 
     {
-        if($request->ajax()) {
+        if($request->ajax() && $request->variants == 'variants') {
             $option_values = $request->option_values;
             $skusvalues = SKUvalues::get();
             $skus_selected = array();
@@ -67,6 +67,9 @@ class ProductsController extends Controller
             $object->values = $values_name;
 
             return response()->json($object);
+        } else {
+            $skus = SKUs::where('product_id', $request->id)->first();
+            return response()->json($skus);
         }
     }
 }

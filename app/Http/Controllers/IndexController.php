@@ -24,6 +24,8 @@ class IndexController extends Controller
         $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
 
+        $productsSku = Products::all();
+
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
         $product_ids = array();
 
@@ -36,12 +38,13 @@ class IndexController extends Controller
         }
 
         foreach ($skus as $key => $sku) {
-            foreach ($products as $key => $service) {
-                if($sku->product_id == $service->id) {
+            foreach ($productsSku as $key => $product) {
+                if($sku->product_id == $product->id) {
                     array_push($product_ids, $sku);
                 }
             }
         }
+
 
         $array = $product_ids;
         $key = 'product_id';

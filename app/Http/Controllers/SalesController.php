@@ -44,8 +44,7 @@ class SalesController extends Controller
                 // // $product->stock = $product->stock-$item->quantity;
                 // $product->save();
                 $sku = SKUs::find($item->attributes->sku_id);
-                $product = Products::find($item->attributes->product_id);
-
+                // $product = Products::find($item->attributes->product_id);
                 if($sku) {
                     $sku->sales()->attach($sales, ['qty' => $item->quantity]);
                     $sku->save();
