@@ -147,8 +147,8 @@
                     $('.product .addcart').removeClass('disabled');
                 },
                 error: function(response) {
-                    alert('Tidak ada stok atau item untuk produk varian tersebut');
-                    $('.value').removeClass('selected');
+                    alert(response.responseJSON.message);
+                    // $('.value').removeClass('selected');
                     $('.product .addcart').removeClass('primary');
                     $('.product .addcart').addClass('disabled');
 
