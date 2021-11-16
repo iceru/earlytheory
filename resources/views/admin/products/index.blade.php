@@ -151,7 +151,23 @@
                         <td>{{ucwords($product->question)}}</td>
                         <td>
                             @if ($product->category == 'product')
-                                {{$product->stock}}
+                                @foreach ($skus as $sku)
+                                    @if($sku->product_id == $product->id)
+                                        @foreach ($variants as $variant)
+                                            @if($variant->product_id == $sku->product_id)
+                                                Stock berdasarkan Variant
+                                                @break
+                                            @else
+                                                {{$sku->stock}}
+                                                @break
+                                            @endif
+                                        @endforeach
+                                        @break
+                                    @else
+                                        {{$product->stock}}
+                                        @break
+                                    @endif
+                                @endforeach
                             @else
                                 -
                             @endif
@@ -167,6 +183,9 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="mb-5">
+        <a class="button secondary" href="/admin/products/generate-sku">Generate Default SKU for Legacy Products</a>
     </div>
 
     @section('js')

@@ -19,8 +19,9 @@ class AdminProductsController extends Controller
     {
         $products = Products::orderBy('ordernumber')->get();
         $skus = SKUs::get();
+        $variants = Options::get();
 
-        return view('admin.products.index', compact('products', 'skus'));
+        return view('admin.products.index', compact('products', 'skus', 'variants'));
     }
 
     /**
