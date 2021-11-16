@@ -97,6 +97,8 @@
                 // $('.variants').find('.values').find('.value:first-child').addClass('selected');
 
                 // selectValue();
+            } else {
+                getSku('non-variants');
             }
         });
 
@@ -124,17 +126,17 @@
 
                 option_values.push(data_options);
             })
-            getSku();
+            getSku('variants');
         }
 
-        function getSku() {
+        function getSku(variants) {
             $.ajax({
                 type: "POST",
                 url: "/get-sku",
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: {'option_values': option_values, 'id': id },
+                data: {'option_values': option_values, 'id': id, variants: variants },
                 success: function (response) {
                     var data = response;
                     $('.product .addcart').attr('data-price', data.price);
@@ -147,8 +149,8 @@
                     $('.product .addcart').removeClass('disabled');
                 },
                 error: function(response) {
-                    alert('Tidak ada stok atau item untuk produk varian tersebut');
-                    $('.value').removeClass('selected');
+                    alert(response.responseJSON.message);
+                    // $('.value').removeClass('selected');
                     $('.product .addcart').removeClass('primary');
                     $('.product .addcart').addClass('disabled');
 

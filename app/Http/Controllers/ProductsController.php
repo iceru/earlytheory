@@ -32,7 +32,7 @@ class ProductsController extends Controller
 
     public function getSku(Request $request) 
     {
-        if($request->ajax()) {
+        if($request->ajax() && $request->variants == 'variants') {
             $option_values = $request->option_values;
             $skusvalues = SKUvalues::get();
             $skus_selected = array();
@@ -55,16 +55,21 @@ class ProductsController extends Controller
             $unique = array_unique( array_diff_assoc( $skus_selected, array_unique( $skus_selected )));
             $sku_id = (int) implode("", $unique);
 
-            $skus = SKUs::findOrFail($sku_id);
-            
-            if($skus->stock <= 0) {
-                return response()->json($skus, 404);
+            $skus = SKUs::with('products')->find($sku_id);
+
+            if(!$skus) {
+                return response()->json(['message' => 'Tidak ada item untuk produk tersebut'], 404);
+            } else if ($skus->stock <= 0 && $skus->products->category == 'product') {
+                return response()->json(['message' => 'Stok habis untuk item yang dipilih'], 404);
             }
 
             $object = json_decode($skus);
             $object->values = $values_name;
 
             return response()->json($object);
+        } else {
+            $skus = SKUs::where('product_id', $request->id)->first();
+            return response()->json($skus);
         }
     }
 }
