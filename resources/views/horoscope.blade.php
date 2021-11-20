@@ -3,7 +3,7 @@
     Horoscopes
     @endsection
     <div class="col-12 main-content">
-        <div class="row ">
+        <div class="row input-horoscope">
             <div class="col-12 text-center mb-5">
                 <h2 class="evogria">Horoscopes</h2>
             </div>
@@ -39,8 +39,22 @@
                     </div>
                 </div>
                 <div class="col-12" >
-                    <button style="width: 100%" id="submitHoroscope" class="button primary expanded">Get your Chart</button>
+                    <button style="width: 100%" id="submitHoroscope" class="button primary expanded">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                        Get your Chart
+                    </button>
                 </div>
+            </div>
+        </div>
+
+        <div class="results row">
+            <div class="col-12 col-lg-5">
+                <div class="identity mb-5">
+                </div>
+                <div class="row planets">
+                </div>
+            </div>
+            <div class="col-12 col-lg-7 wheel">
             </div>
         </div>
     </div>
@@ -55,8 +69,7 @@
                 yearRange: "1930:2021",
                 dateFormat: 'yy-mm-dd',
             });
-
-            
+            $('results').hide();
             $("#birthplace").autocomplete({
                 source: function(request, response) {
                     $.ajax({
@@ -106,6 +119,9 @@
                 "email": email,
             }
 
+            $(this).prop('disabled', true);
+            $('.spinner-border').removeAttr('hidden');
+
             $.ajax({
                 type: "POST",
                 url: "/horoscope/natal",
@@ -115,39 +131,36 @@
                 data: data,
                 
                 success: function (response) {
-                    console.log(response.data);
+                    console.log(response);
+                    history.pushState({
+                        horoscope: response,
+                    }, null, `natal/${response.intro.id}`)
+                    $('.input-horoscope').hide();
+                    $('.results').show();
+                    $('.identity').append(`
+                        <h5 class="skylar primary-color mb-1">Nama: ${response.profile.name}</h5>
+                        <p>Tempat Lahir: ${response.profile.cityName}</p>
+                        <p>Tanggal Lahir: ${response.profile.birthdate.date.slice(0,16)}</p>
+                    `);
+                   
+                    response.planets.forEach(item => {
+                        $(".planets").append(`
+                            <div class="col-12 col-lg-6 mb-4">
+                                <h3 class="skylar primary-color">${item.planetName}</h5>
+                                <h5 class="primary-color">House Position: ${item.housePosition}</h5>
+                                <p>${item.degrees}&#176; ${item.minutes}" ${item.seconds}'</p>
+                                <p>Sign Name: ${item.signName}</p>
+                                <p>Retrogade: ${item.retrograde}</p>
+                            </div>
+                        `)
+                    });
+
+                    $('.wheel').append(`<img src="${response.wheel}" class="w-100" alt="Wheel Natal Chart ${response.profile.name}" />`);
+                },
+                always: function() {
+                    $(this).prop('disabled', false);
                 }
             });
         });
-
-        // function delay(callback, ms) {
-        //     var timer = 0;
-        //     return function() {
-        //         var context = this, args = arguments;
-        //         clearTimeout(timer);
-        //         timer = setTimeout(function () {
-        //         callback.apply(context, args);
-        //         }, ms || 0);
-        //     };
-        // }
-
-        // $('#birthplace').keyup(delay(function (e) {
-        //     places(this.value);
-        // }, 500));
-
-        // function places(place) {
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/horoscope/places",
-        //         headers: {
-        //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        //         },
-        //         data: {"name": place},
-                
-        //         success: function (response) {
-        //             autocomplete(response.data)
-        //         }
-        //     });
-        // }
     </script>
 </x-app-layout>
