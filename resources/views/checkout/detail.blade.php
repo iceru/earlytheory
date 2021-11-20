@@ -205,13 +205,13 @@
                                         <textarea name="question[]" id="question"
                                             placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                         <div class="mb-2">
-                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
-                                                <option value="" selected disabled>Pilih Preferensi Gender</option>
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                                <option value="" selected hidden>Pilih Preferensi Gender</option>
                                                 <option value="pria">Pria</option>
                                                 <option value="wanita">Wanita</option>
                                             </select>
                                         </div>
-                                        @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
+                                        @if (($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') || $item->products->category == 'product')
                                         <p>{!! $item->description_short !!}</p>
                                         @endif
                                     </div>
