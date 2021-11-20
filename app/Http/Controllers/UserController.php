@@ -8,6 +8,7 @@ use App\Models\Sales;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
+use App\Mail\AdminNotification;
 use App\Models\PaymentMethods;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;

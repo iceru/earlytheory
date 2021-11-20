@@ -15,7 +15,7 @@ class AdminSalesController extends Controller
 {
     public function index()
     {
-        $sales = Sales::orderBy('created_at', 'desc')->get();
+        $sales = Sales::where('status', 'settlement')->orderBy('created_at', 'desc')->get();
         return view('admin.sales.index', compact('sales'));
     }
 
