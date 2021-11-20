@@ -15,6 +15,7 @@ use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AdminTagsController;
+use App\Http\Controllers\HoroscopeController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\AdminArticleController;
@@ -47,7 +48,10 @@ Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->nam
 Route::post('/get-sku', [ProductsController::class, 'getSku'])->name('get-sku');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
+Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 
+Route::get('/horoscope', [HoroscopeController::class, 'index'])->name('horoscope.index');
+Route::post('/horoscope/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
