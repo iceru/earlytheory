@@ -132,7 +132,7 @@
                 </thead>
                 <tbody>
                     {{-- cek created_at order sebelum perubahan dari products ke skus --}}
-                    @if($sales->created_at >= '2021-11-01')
+                    @if($sales->created_at >= '2021-11-20 10:00:00')
                         @foreach ($sales->skus as $item)
                         <tr>
                             <td scope="row">{{$loop->iteration}}</td>
