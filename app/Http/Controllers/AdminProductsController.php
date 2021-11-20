@@ -34,6 +34,8 @@ class AdminProductsController extends Controller
                     }
                 } else if ($product->category == 'service' || $product->category == null) {
                     $product->setAttribute('stock_data', '-');
+                } else {
+                    $product->setAttribute('stock_data', $product->stock);
                 }
             }
         }
