@@ -11,13 +11,13 @@
                 <div class="col-12 col-lg-6 mb-3">
                     <div>
                         <label for="" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" name="name" id="" placeholder="">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="">
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 mb-3">
                     <div>
                         <label for="" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="" placeholder="">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="">
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 mb-3">
@@ -29,7 +29,7 @@
                 <div class="col-12 col-lg-4 mb-4">
                     <div>
                         <label for="" class="form-label">Birth Time</label>
-                        <input  type="time" class="form-control" name="birthtime" id="" placeholder="">
+                        <input  type="time" class="form-control" name="birthtime" id="birthtime" placeholder="">
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 mb-4">
@@ -46,14 +46,14 @@
     </div>
 
     <script>
-        var timeout;
         var place;
+        var birthplace;
         $(document).ready(function(){
             $( "#datepicker" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
                 yearRange: "1930:2021",
-                altFormat: 'yy/mm/dd',
+                dateFormat: 'yy-mm-dd',
             });
 
             
@@ -84,7 +84,7 @@
                     return false;
                 },
                 select: function (event, ui) {
-                    console.log(ui.item.id);
+                    birthplace = ui.item.id
                     return false;
                 },
                 minLength: 3
@@ -93,7 +93,31 @@
 
         $('#submitHoroscope').click(function (e) { 
             e.preventDefault();
-            
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var birthdate = $('#datepicker').val();
+            var birthtime = $('#birthtime').val();
+
+            var data = {
+                "name": name,
+                "date": birthdate,
+                "time": birthtime,
+                "place_id": birthplace,
+                "email": email,
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/horoscope/natal",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                data: data,
+                
+                success: function (response) {
+                    console.log(response.data);
+                }
+            });
         });
 
         // function delay(callback, ms) {

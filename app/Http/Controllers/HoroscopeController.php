@@ -53,6 +53,35 @@ class HoroscopeController extends Controller
         return response()->json('Error', 400);
     }
 
+    public function natal(Request $request)
+    {
+        if($request->ajax()) {
+            $name = $request->name;
+            $token = '378083|mZUVK0Rvi5CbUw7697VHUYsVD3EMkBA0EZN5AMHn';
+            $client = new Client();
+
+            $response = $client->request('POST', 'https://api.bloom.be/api/natal', [
+                'headers' => [
+                    'Authorization' => 'Bearer '.$token,
+                    'Accept' => 'application/json',
+                ],
+                'form_params' => [
+                    'name' => $request->name,
+                    "date" => $request->date,
+                    "time" => $request->time,
+                    "place_id"=> $request->place_id,
+                    "lang" => "en",
+                    "system" => "p"
+                ]
+            ]);
+            $data = json_decode($response->getBody()->getContents());
+            return response()->json($data, 200);
+        }
+
+        return response()->json('Error', 400);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
