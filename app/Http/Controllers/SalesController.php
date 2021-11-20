@@ -675,9 +675,9 @@ class SalesController extends Controller
                 $sales->status = 'paid';
                 $sales->save();
     
-                $sales->paymethod_id = $request->inputPayType;
-                $sales->status = 'paid';
-                $sales->save();
+                // $sales->paymethod_id = $request->inputPayType;
+                // $sales->status = 'paid';
+                // $sales->save();
         
                 // Mail::send(new UserTransaction($sales));
                 //Mail::send(new AdminNotification($sales));
