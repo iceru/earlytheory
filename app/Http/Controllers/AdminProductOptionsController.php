@@ -271,7 +271,7 @@ class AdminProductOptionsController extends Controller
         $request->validate([
             'updatePrice' => 'required|numeric',
             'updateStock' => 'required|numeric',
-            'updatevarval' => 'required'
+            // 'updatevarval' => 'required'
         ]);
 
         // dd($request->updatevarval);
@@ -281,21 +281,23 @@ class AdminProductOptionsController extends Controller
         $sku->stock = $request->updateStock;
         $sku->save();
         
-        foreach($request->updatevarval as $varval) {
-            $variant_values = explode('-', $varval);
-
-            $skuval = SKUvalues::updateOrCreate(['sku_id' => $sku->id, 'option_id' => $variant_values[0]],
-                ['sku_id' => $sku->id,
-                'option_id' => $variant_values[0],
-                'value_id' => $variant_values[1]
-            ]);
-            // $skuval->value_id = $va  riant_values[1];
-            // $skuval->save();
-            // $skuval = SKUvalues::firstOrCreate(
-            //     ['sku_id' => $sku->id],
-            //     ['option_id' => $variant_values[0]],
-            //     ['value_id' => $variant_values[1]]
-            // );
+        if($request->updatevarval) {
+            foreach($request->updatevarval as $varval) {
+                $variant_values = explode('-', $varval);
+    
+                $skuval = SKUvalues::updateOrCreate(['sku_id' => $sku->id, 'option_id' => $variant_values[0]],
+                    ['sku_id' => $sku->id,
+                    'option_id' => $variant_values[0],
+                    'value_id' => $variant_values[1]
+                ]);
+                // $skuval->value_id = $va  riant_values[1];
+                // $skuval->save();
+                // $skuval = SKUvalues::firstOrCreate(
+                //     ['sku_id' => $sku->id],
+                //     ['option_id' => $variant_values[0]],
+                //     ['value_id' => $variant_values[1]]
+                // );
+            }
         }
 
 
