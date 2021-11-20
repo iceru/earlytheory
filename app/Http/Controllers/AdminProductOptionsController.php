@@ -268,34 +268,53 @@ class AdminProductOptionsController extends Controller
 
     public function updateSKU(Request $request)
     {
-        $request->validate([
-            'updatePrice' => 'required|numeric',
-            'updateStock' => 'required|numeric',
-            'updatevarval' => 'required'
-        ]);
+        $have_skuval = SKUvalues::where('sku_id', $request->id)->get();
 
-        // dd($request->updatevarval);
-
-        $sku = SKUs::find($request->id);
-        $sku->price = $request->updatePrice;
-        $sku->stock = $request->updateStock;
-        $sku->save();
-        
-        foreach($request->updatevarval as $varval) {
-            $variant_values = explode('-', $varval);
-
-            $skuval = SKUvalues::updateOrCreate(['sku_id' => $sku->id, 'option_id' => $variant_values[0]],
-                ['sku_id' => $sku->id,
-                'option_id' => $variant_values[0],
-                'value_id' => $variant_values[1]
+        if($have_skuval->isNotEmpty()) {
+            $request->validate([
+                'updatePrice' => 'required|numeric',
+                'updateStock' => 'required|numeric',
+                'updatevarval' => 'required'
             ]);
-            // $skuval->value_id = $va  riant_values[1];
-            // $skuval->save();
-            // $skuval = SKUvalues::firstOrCreate(
-            //     ['sku_id' => $sku->id],
-            //     ['option_id' => $variant_values[0]],
-            //     ['value_id' => $variant_values[1]]
-            // );
+    
+            // dd($request->updatevarval);
+    
+            $sku = SKUs::find($request->id);
+            $sku->price = $request->updatePrice;
+            $sku->stock = $request->updateStock;
+            $sku->save();
+            
+            foreach($request->updatevarval as $varval) {
+                $variant_values = explode('-', $varval);
+    
+                $skuval = SKUvalues::updateOrCreate(['sku_id' => $sku->id, 'option_id' => $variant_values[0]],
+                    ['sku_id' => $sku->id,
+                    'option_id' => $variant_values[0],
+                    'value_id' => $variant_values[1]
+                ]);
+                // $skuval->value_id = $va  riant_values[1];
+                // $skuval->save();
+                // $skuval = SKUvalues::firstOrCreate(
+                //     ['sku_id' => $sku->id],
+                //     ['option_id' => $variant_values[0]],
+                //     ['value_id' => $variant_values[1]]
+                // );
+            }
+        }
+
+        else {
+            $request->validate([
+                'updatePrice' => 'required|numeric',
+                'updateStock' => 'required|numeric',
+                // 'updatevarval' => 'required'
+            ]);
+    
+            // dd($request->updatevarval);
+    
+            $sku = SKUs::find($request->id);
+            $sku->price = $request->updatePrice;
+            $sku->stock = $request->updateStock;
+            $sku->save();
         }
 
 

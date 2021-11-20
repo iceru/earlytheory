@@ -18,10 +18,27 @@ class AdminProductsController extends Controller
     public function index()
     {
         $products = Products::orderBy('ordernumber')->get();
-        $skus = SKUs::get();
-        $variants = Options::get();
+        $skus = SKUs::all();
+        $options = Options::all();
 
-        return view('admin.products.index', compact('products', 'skus', 'variants'));
+        foreach ($skus as $key => $sku) {
+            foreach ($products as $key => $product) {
+                if($sku->product_id == $product->id && $product->category == 'product') {
+                    foreach ($options as $key => $option) {
+                        if($option->product_id == $product->id) {
+                            $product->setAttribute('stock_data', 'Stock berdasarkan variants');
+                            break;
+                        } else {
+                            $product->setAttribute('stock_data', $product->stock);
+                        }
+                    }
+                } else if ($product->category == 'service' || $product->category == null) {
+                    $product->setAttribute('stock_data', '-');
+                }
+            }
+        }
+
+        return view('admin.products.index', compact('products', 'skus', 'options'));
     }
 
     /**

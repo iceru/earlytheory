@@ -150,27 +150,7 @@
                         <td>{{$product->duration}}</td>
                         <td>{{ucwords($product->question)}}</td>
                         <td>
-                            @if ($product->category == 'product')
-                                @foreach ($skus as $sku)
-                                    @if($sku->product_id == $product->id)
-                                        @foreach ($variants as $variant)
-                                            @if($variant->product_id == $sku->product_id)
-                                                Stock berdasarkan Variant
-                                                @break
-                                            @else
-                                                {{$sku->stock}}
-                                                @break
-                                            @endif
-                                        @endforeach
-                                        @break
-                                    @else
-                                        {{$product->stock}}
-                                        @break
-                                    @endif
-                                @endforeach
-                            @else
-                                -
-                            @endif
+                            {{$product->stock_data}}
                         </td>
                         <td>{{$product->description_short}}</td>
                         <td>{{substr($product->description, 0, 100) . '...'}}</td>

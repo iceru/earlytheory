@@ -6,6 +6,7 @@ use Validator;
 use App\Models\User;
 use App\Models\Sales;
 use App\Models\Products;
+use App\Models\SKUs;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Mail\AdminNotification;
@@ -119,17 +120,24 @@ class UserController extends Controller
                 $sales->payment = $filename;
             }
 
-            foreach($sales->products as $item) {
-                $product = Products::find($item->id);
-                $product->stock = $product->stock-$item->pivot->qty;
-                $product->save();
-            }
+            // foreach($sales->products as $item) {
+            //     $product = Products::find($item->id);
+            //     $product->stock = $product->stock-$item->pivot->qty;
+            //     $product->save();
+            // }
     
             $sales->paymethod_id = $request->inputPayType;
+            $sales->status = 'paid';
             $sales->save();
-    
-            Mail::send(new UserTransaction($sales));
-            Mail::send(new AdminNotification($sales));
+
+            foreach($sales->skus as $item) {
+                $sku = SKUs::find($item->id);
+                $sku->stock = $sku->stock-$item->pivot->qty;
+                $sku->save();
+            }
+
+            // Mail::send(new UserTransaction($sales));
+            // Mail::send(new AdminNotification($sales));
         }
         elseif($is_soldout === 1) {
             return redirect()->back()->with('soldout');
