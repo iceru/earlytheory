@@ -24,6 +24,7 @@ class AdminProductsController extends Controller
         foreach ($skus as $key => $sku) {
             foreach ($products as $key => $product) {
                 if($sku->product_id == $product->id && $product->category == 'product') {
+                    $product->setAttribute('stock_data', $product->stock);
                     foreach ($options as $key => $option) {
                         if($option->product_id == $product->id) {
                             $product->setAttribute('stock_data', 'Stock berdasarkan variants');
@@ -34,8 +35,6 @@ class AdminProductsController extends Controller
                     }
                 } else if ($product->category == 'service' || $product->category == null) {
                     $product->setAttribute('stock_data', '-');
-                } else {
-                    $product->setAttribute('stock_data', $product->stock);
                 }
             }
         }
