@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Sales;
 use App\Models\Products;
+use App\Models\SKUs;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethods;
 use App\Models\ShippingAddress;
@@ -21,7 +22,11 @@ class AdminSalesController extends Controller
 
     public function detail($id)
     {
-        $sales = Sales::find($id);
+        $sales = Sales::findOrFail($id);
+
+        // foreach($sales->skus as $item) {
+        //     dd($item->products->title);
+        // }
 
         if($sales->address_id) {
             // foreach($sales as $s) {

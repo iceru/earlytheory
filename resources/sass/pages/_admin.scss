@@ -93,3 +93,8 @@
         transform: rotate(360deg);
     }
 }
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+    top: 18px;
+    left: 0;
+}

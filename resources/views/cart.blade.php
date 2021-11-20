@@ -3,6 +3,16 @@
         Cart
     @endsection
     <div class="col-12 cart main-content">
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Sorry !</strong> There were some problems.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="row">
             <div class="col-12 mb-5 evogria">
                 <h2>MY CART</h2>
@@ -35,15 +45,23 @@
                         <div class="col-8 col-lg-6 ">
                             <div class="row">
                                 <div class="col-4 product-image">
-                                    @foreach ((array)json_decode($item->model->image) as $image)
+                                    @foreach ((array)json_decode($item->associatedModel->image) as $image)
                                         <div class="ratio ratio-1x1">
-                                            <img src="{{Storage::url('product-image/'.$image)}}" alt="{{ $item->title }}">
+                                            <a href="/product/{{$item->associatedModel->slug}}">
+                                                <img src="{{Storage::url('product-image/'.$image)}}" alt="{{ $item->title }}">
+                                            </a>
                                         </div>
                                     @endforeach
                                 </div>
+                                {{-- <p>{{$item->attributes->sku_id}}</p> --}}
                                 <div class="col-8">
-                                    <div class="product-title"><h3>{{$item->model->title}}</h3></div>
-                                    <p class="product-price mb-2 mb-lg-0">idr {{number_format($item->model->price)}}</p>
+                                    <a href="/product/{{$item->associatedModel->slug}}">
+                                        <div class="product-title"><h3>{{$item->associatedModel->title}}</h3></div>
+                                    </a>
+                                    @if ($item->attributes->values)
+                                    <p class="mb-1">Variant: {{ $item->attributes->values }}</p>
+                                    @endif
+                                    <p class="product-price mb-2 mb-lg-0">idr {{number_format($item->price)}}</p>
 
                                     <div class="qty-mobile">
                                         <div class="qty-spinner d-flex">
@@ -79,7 +97,7 @@
                             </div>
                         </div>
                         <div class="col-3 col-lg-2 product-total">
-                            <h5 class="primary-color">idr {{ number_format($item->model->price * $item->quantity) }}</h5>
+                            <h5 class="primary-color">idr {{ number_format($item->price * $item->quantity) }}</h5>
                         </div>
                         <div class="col-1">
                             <a href="/cart/remove/{{$item->id}}" onclick="return confirm('Are you sure you want to delete the item?');">

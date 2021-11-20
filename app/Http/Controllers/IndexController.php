@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Newsletter;
+use App\Models\SKUs;
 use App\Models\Sliders;
 use App\Models\Articles;
 use App\Models\Products;
+use App\Models\SKUvalues;
+use App\Models\OptionValues;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -19,14 +22,65 @@ class IndexController extends Controller
     {
         $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
         $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
-        $articles = Articles::orderBy('created_at', 'desc')->paginate(10);
+        $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
+
+        $productsSku = Products::all();
+
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
+        $product_ids = array();
+
+        $skus = SKUs::all();
+        $skusvalues = SKUvalues::get();
+        $optionvalues = OptionValues::get();
 
         if ($request->ajax()) {
             return view('article-index', ['articles' => $articles])->render();  
         }
 
-        return view('index', compact('products', 'sliders', 'services', 'articles'));
+        foreach ($skus as $key => $sku) {
+            foreach ($productsSku as $key => $product) {
+                if($sku->product_id == $product->id) {
+                    array_push($product_ids, $sku);
+                }
+            }
+        }
+
+
+        $array = $product_ids;
+        $key = 'product_id';
+
+        $temp_array = array();
+        $i = 0;
+        $key_array = array();
+       
+        foreach($array as $val) {
+            if (!in_array($val[$key], $key_array)) {
+                $key_array[$i] = $val[$key];
+                $temp_array[$i] = $val;
+            }
+            $i++;
+        }
+
+        $values_name = array();
+
+        foreach ($temp_array as $key => $sku) {
+            foreach ($skusvalues as $key => $value) {
+                if($sku->id == $value->sku_id) {
+                    foreach ($optionvalues as $key => $option) {
+                        if($value->option_id == $option->option_id && $value->value_id == $option->id) {
+                            $value_datas = OptionValues::where('id', $value->value_id)->pluck('value_name');
+                            $value_name = $value_datas->implode('', 'value_name');
+                            array_push($values_name, $value_name);
+                        }
+                    }
+                }
+            }
+            $sku->setAttribute('values', $values_name);
+            $values_name = array();
+        }
+        
+        $skus = json_encode($temp_array);
+        return view('index', compact('products', 'sliders', 'services', 'articles', 'skus'));
     }
 
     /**

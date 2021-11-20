@@ -172,7 +172,58 @@
                 </div>
                 <div class="products col-12">
                     <div class="row">
-                        @foreach ($sales->products as $item)
+                        @foreach ($sales->skus as $item)
+                        <input type="text" name="id[]" value="{{$item->id}}" hidden>
+                        <div class=" col-12 col-lg-6 ">
+                            <div class="product-item-container row">
+                                <div class="product-title col-12">
+                                    <h4>{{$item->products->title}}</h4>
+                                </div>
+                                <div class="product-price col-12">
+                                    <p>IDR {{number_format($item->price)}}</p>
+                                </div>
+                                <div class="row g-0">
+                                    {{-- <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5> --}}
+                                    <div class="col-4 col-lg-3 ">
+                                        <div class="product-image">
+                                            @foreach ((array)json_decode($item->products->image) as $image)
+                                            <div class="ratio ratio-1x1">
+                                                <img src="{{Storage::url('product-image/'.$image)}}" alt="">
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="col-8 col-lg-9 ps-2">
+                                        @if($item->variants)
+                                        <div class="d-flex">
+                                            <p class="me-2">Variants: </p>
+                                            @foreach ($item->variants as $variant)
+                                                <span class="variant-item me-2">{{ $variant }}</span>
+                                            @endforeach
+                                        </div>
+                                        @endif
+                                        <textarea name="question[]" id="question"
+                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                        <div class="mb-2">
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
+                                                <option value="" selected disabled>Pilih Preferensi Gender</option>
+                                                <option value="pria">Pria</option>
+                                                <option value="wanita">Wanita</option>
+                                            </select>
+                                        </div>
+                                        @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
+                                        <p>{!! $item->description_short !!}</p>
+                                        @endif
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        @endforeach
+
+                    </div>
+                    
+                    @foreach ($sales->products as $item)
                         <input type="text" name="id[]" value="{{$item->id}}" hidden>
                         <div class=" col-12 col-lg-6 ">
                             <div class="product-item-container row">
@@ -194,6 +245,14 @@
                                         </div>
                                     </div>
                                     <div class="col-8 col-lg-9 ps-2">
+                                        <div class="d-flex">
+                                        @if($item->variants)
+                                        <p class="me-2">Variants: </p>
+                                            @foreach ($item->variants as $variant)
+                                                <span class="variant-item me-2">{{ $variant }}</span>
+                                            @endforeach
+                                        </div>
+                                        @endif
                                         <textarea name="question[]" id="question"
                                             placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->question != "yes" || $item->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                         <div class="mb-2">
@@ -212,7 +271,6 @@
                             </div>
                         </div>
                         @endforeach
-                    </div>
                 </div>
                 <div class="col-12 d-grid gap-2">
                     <button type="submit" class="button secondary">Konfirmasi</button>
@@ -223,6 +281,7 @@
 
     <script>
         $(document).ready(function(){
+            console.log({!! $sales->products !!})
             $('.product-image').slick({
                 dots: false,
                 arrows: false,

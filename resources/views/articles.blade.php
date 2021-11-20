@@ -16,7 +16,7 @@
                 </div>
             </div>
             @forelse ($articles as $article)
-                <div class="col-12 col-md-6 col-xxl-4 article">
+                <div class="col-12 col-md-4 article">
                     <div class="row article-info">
                         <div class="col-12 article-image">
                             <a href="/article-detail/{{$article->slug}}">

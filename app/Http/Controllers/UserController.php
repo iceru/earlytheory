@@ -11,9 +11,9 @@ use App\Mail\UserTransaction;
 use App\Mail\AdminNotification;
 use App\Models\PaymentMethods;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {

@@ -44,6 +44,7 @@ Route::get('/articles', [IndexController::class, 'index'])->name('articles');
 Route::get('/article-detail/{slug}', [ArticleController::class, 'show'])->name('article-detail');
 
 Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->name('product-detail');
+Route::post('/get-sku', [ProductsController::class, 'getSku'])->name('get-sku');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 
@@ -79,7 +80,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
     Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');
-    Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');    
+    Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
     Route::post('/confirm-payment/submit/{id}', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
 
     Route::post('/address/add-checkout', [AddressController::class, 'addCheckout'])->name('address.add-checkout');
@@ -120,7 +121,7 @@ Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.plus');
 Route::get('/cart/plus/{id}', [CartController::class, 'plus'])->name('cart.plus');
-Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){
@@ -145,6 +146,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/products/edit/{id}', [AdminProductsController::class, 'edit'])->name('admin.products.edit');
     Route::post('/admin/products/update', [AdminProductsController::class, 'update'])->name('admin.products.update');
     Route::get('/admin/products/delete/{id}', [AdminProductsController::class, 'destroy'])->name('admin.products.destroy');
+    Route::get('/admin/products/generate-sku', [AdminProductsController::class, 'generateSKU'])->name('admin.products.generate-sku');
     
     Route::get('/admin/products/{id}/variant', [AdminProductOptionsController::class, 'index'])->name('admin.product-options');
     Route::post('/admin/product-variants/store', [AdminProductOptionsController::class, 'store'])->name('admin.product-options.store');
@@ -155,6 +157,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/product-variant/{id}/delete', [AdminProductOptionsController::class, 'deleteVariant'])->name('admin.product-options.delete-variant');
     Route::get('/admin/product-variant/sku/{id}/edit', [AdminProductOptionsController::class, 'editSKU'])->name('admin.product-options.edit-sku');
     Route::post('/admin/product-variants/update-sku', [AdminProductOptionsController::class, 'updateSKU'])->name('admin.product-options.update-sku');
+    Route::get('/admin/product-variant/sku/{id}/delete', [AdminProductOptionsController::class, 'deleteSKU'])->name('admin.product-options.delete-sku');
     
     Route::get('/admin/payment-methods', [AdminPaymentMethodsController::class, 'index'])->name('admin.paymentMethods');
     Route::post('/admin/payment-methods/store', [AdminPaymentMethodsController::class, 'store'])->name('admin.paymentMethods.store');

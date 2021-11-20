@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\SKUs;
+use App\Models\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,8 +18,10 @@ class AdminProductsController extends Controller
     public function index()
     {
         $products = Products::orderBy('ordernumber')->get();
+        $skus = SKUs::get();
+        $variants = Options::get();
 
-        return view('admin.products.index', compact('products'));
+        return view('admin.products.index', compact('products', 'skus', 'variants'));
     }
 
     /**
@@ -82,6 +86,20 @@ class AdminProductsController extends Controller
         $product->question = $request->inputQuestion;
         
         $product->save();
+
+        // $request->validate([
+        //     'inputPrice' => 'required|numeric',
+        //     'inputStock' => 'required|numeric',
+        //     'inputvarval' => 'required'
+        // ]);
+
+        // dd($request->inputvarval);
+
+        $sku_new = new SKUs;
+        $sku_new->price = $request->inputPrice;
+        $sku_new->stock = $request->inputStock;
+        $sku_new->product_id = $product->id;
+        $sku_new->save();
 
 
         // if(strlen($request->inputDesc) > 40) {
@@ -174,6 +192,19 @@ class AdminProductsController extends Controller
 
         $product->save();
 
+        $have_variant = Options::where('product_id', $request->id)->get();
+
+        // dd($have_variant);
+        if($have_variant->isEmpty()) {
+            $sku = SKUs::where('product_id', $request->id)->firstOrFail();
+            $sku->price = $request->updatePrice;
+            $sku->stock = $request->updateStock;
+            $sku->product_id = $product->id;
+
+            $sku->save();
+            // dd($request->updateStock);
+        }
+
         return redirect('/admin/products');
     }
 
@@ -190,5 +221,23 @@ class AdminProductsController extends Controller
 
         Products::find($id)->delete();
         return redirect('/admin/products');
+    }
+
+    public function generateSKU()
+    {
+        $products = Products::get();
+
+        foreach($products as $product) {
+            $have_sku = SKUs::where('product_id', $product->id)->get();
+            if($have_sku->isEmpty()) {
+                $sku_new = new SKUs;
+                $sku_new->price = $product->price;
+                $sku_new->stock = $product->stock;
+                $sku_new->product_id = $product->id;
+                $sku_new->save();
+            }
+        }
+
+        return redirect()->back();
     }
 }

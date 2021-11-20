@@ -7,17 +7,20 @@ use App\Models\Sales;
 use App\Models\Discount;
 use App\Models\Products;
 use App\Models\ShippingAddress;
+use App\Models\OptionValues;
+use App\Models\SKUvalues;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
 use App\Mail\AdminNotification;
+use App\Models\SKUs;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class SalesController extends Controller
 {
-    public function checkout()
+    public function checkout(Request $request)
     {
         if(!\Cart::isEmpty()) {
             $userid = Auth::id();
@@ -34,12 +37,26 @@ class SalesController extends Controller
             $sales->total_price = $total;
             $sales->user_id = $userid;
             $sales->save();
-
+            
             foreach (\Cart::getContent() as $item) {
-                $product = Products::find($item->id);
-                $product->sales()->attach($sales, ['qty' => $item->quantity]);
+                // $product = Products::find($item->attributes->product_id);
+                // $product->sales()->attach($sales, ['qty' => $item->quantity]);
+                // // $product->stock = $product->stock-$item->quantity;
+                // $product->save();
+                $sku = SKUs::find($item->attributes->sku_id);
+                // $product = Products::find($item->attributes->product_id);
+                if($sku) {
+                    $sku->sales()->attach($sales, ['qty' => $item->quantity]);
+                    $sku->save();
+                } 
+                // elseif (!$sku) {
+                //     $product->sales()->attach($sales, ['qty' => $item->quantity]);
+                //     $product->save();
+                // }
+                else {
+                    return back()->withErrors('Product(s) not valid. Please contact us');
+                }
                 // $product->stock = $product->stock-$item->quantity;
-                $product->save();
             }
 
             // \Cart::clear();
@@ -58,12 +75,13 @@ class SalesController extends Controller
         $is_product = 0;
         $is_service = 0;
 
-        foreach ($sales->products as $item) {
-            if($item->category === 'product') {
+        // dd($sales->skus->products->name);
+        foreach ($sales->skus as $item) {
+            if($item->products->category === 'product') {
                 $is_product += 1;
             }
 
-            if($item->category === 'service') {
+            if($item->products->category === 'service') {
                 $is_service += 1;
             }
         }
@@ -134,8 +152,28 @@ class SalesController extends Controller
     
                 $prov = json_decode($response);
                 $provinces = $prov->rajaongkir->results;
+
+                $skuvalues = SKUvalues::all();
+                $optionvalues = OptionValues::all();
+                $values = array();
+                $values_collection = collect();
+                foreach($sales->skus as $key => $sku) {
+                    foreach ($skuvalues as $key => $skuvalue) {
+                        if($sku->id == $skuvalue->sku_id) {
+                            foreach ($optionvalues as $key => $option) {
+                                if($skuvalue->option_id == $option->option_id && $skuvalue->value_id == $option->id) {
+                                    $value_datas = OptionValues::where('id', $skuvalue->value_id)->pluck('value_name');
+                                    $value_name = $value_datas->implode('', 'value_name');
+                                    array_push($values, $value_name);
+                                }
+                            }
+                        }
+                    }
+                    $sku->setAttribute('variants', $values);
+                    $values = array();
+                }
     
-                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service'));
+                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values'));
             }
             return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service'));
         }
@@ -179,20 +217,22 @@ class SalesController extends Controller
             $item_genderquestion = $request->genderQuestion;
     
             foreach ($item_id as $key => $i) {
-                $product = Products::find($item_id[$key]);
-                if(strtolower($product->title) != 'mencari jodoh') {
-                    $product->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
-                }
-                else {
-                    $product->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion[$key]]);
+                $sku = SKUs::find($item_id[$key]);
+                if($sku) {
+                    if(strtolower($sku->products->title) != 'mencari jodoh') {
+                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                    }
+                    else {
+                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion[$key]]);
+                    }
                 }
             }
 
     
             // Check product category in sales
             $is_product = 0;
-            foreach ($sales->products as $item) {
-                if($item->category === 'product') {
+            foreach ($sales->skus as $item) {
+                if($item->products->category === 'product') {
                     $is_product += 1;
                 }
             }
@@ -461,6 +501,20 @@ class SalesController extends Controller
                 $sales->shippingAddress->province = $result->rajaongkir->results->province;
                 $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
             }
+
+            $skuvalues = SKUvalues::all();
+            $values = array();
+            $values_collection = collect();
+            foreach ($skuvalues as $key => $skuvalue) {
+                foreach($sales->skus as $key => $sku) {
+                    if($sku->id == $skuvalue->sku_id) {
+                        $value_datas = OptionValues::where('id', $skuvalue->value_id)->pluck('value_name');
+                        $value_name = $value_datas->implode(',', 'value_name');
+                        array_push($values, $value_name);
+                        $sku->setAttribute('variants', $values);
+                    }
+                }
+            }
             
             return view('checkout.summary', compact('sales'));
         }
@@ -494,9 +548,9 @@ class SalesController extends Controller
                     }
                 }
                 elseif($discount && $discount->products->count() >= 1) {
-                    foreach($sales->products as $product) {
+                    foreach($sales->skus as $item) {
                         foreach($discount->products as $disc_product) {
-                            if($product->id == $disc_product->id) {
+                            if($item->products->id == $disc_product->id) {
                                 if($disc_product->price >= $discount->min_total) {
                                     $nominal = $discount->nominal;
         
@@ -589,10 +643,13 @@ class SalesController extends Controller
         if($user->id == $sales->user_id) {
 
             $is_soldout = 0;
-            foreach($sales->products as $item) {
-                $product = Products::where('id', $item->id)->where('category', 'product')->where('stock', '<=', 0)->first();
+            foreach($sales->skus as $item) {
+                $product = Products::where('id', $item->products->id)->where('category', 'product')->first();
                 if($product) {
-                    $is_soldout = 1;
+                    $sku_stock = SKUs::where('id', $item->id)->where('stock', '<=', 0)->first();
+                    if($sku_stock) {
+                        $is_soldout = 1;
+                    }
                 }
             }
 
@@ -618,15 +675,21 @@ class SalesController extends Controller
                 $sales->status = 'paid';
                 $sales->save();
     
+                $sales->paymethod_id = $request->inputPayType;
+                $sales->status = 'paid';
+                $sales->save();
+        
+                // Mail::send(new UserTransaction($sales));
+                //Mail::send(new AdminNotification($sales));
     
-                foreach($sales->products as $item) {
-                    $product = Products::find($item->id);
-                    $product->stock = $product->stock-$item->pivot->qty;
-                    $product->save();
+                foreach($sales->skus as $item) {
+                    $sku = SKUs::find($item->id);
+                    $sku->stock = $sku->stock-$item->pivot->qty;
+                    $sku->save();
                 }
         
-                Mail::send(new UserTransaction($sales));
-                Mail::send(new AdminNotification($sales));
+                // Mail::send(new UserTransaction($sales));
+                // Mail::send(new AdminNotification($sales));
         
                 return redirect()->route('sales.success', ['id' => $sales->sales_no]);
             }

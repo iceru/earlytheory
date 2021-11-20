@@ -1,10 +1,18 @@
 
     $('.addcart').on('click', function(){
-        var id = $(this).data('id');
+        var id = $(this).attr('data-id');
+        var price = $(this).attr('data-price');
+        var sku = $(this).attr('data-sku');
+        var values = $(this).attr('data-values');
+        
         if(id) {
             $.ajax({
             url:"/cart/add/"+id,
-                type:"GET",
+                type:"POST",
+                data: {'price': price, 'sku': sku, 'values': values},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 dataType:"json",
                 success:function(data) {
                     $('#cartcount').html(data.count);

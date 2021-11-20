@@ -1,0 +1,64 @@
+.button {
+    padding: 8px 16px;
+    border-radius: 5px;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-family: 'Apercu', sans-serif;
+
+    &.inline {
+        display: inline-flex;
+    }
+
+    &.primary {
+        background-color: $primary;
+        color: white;
+        transition: .2s all ease-in;
+        border: 1px solid $primary;
+
+        &:hover {
+            background-color: lighten($primary, 10%);
+            transition: .2s all ease-in;
+        }
+    }
+
+    &.primary-line {
+        background-color: $background;
+        color: $primary;
+        transition: .2s all ease-in;
+        border: 1px solid $primary;
+
+        &:hover {
+            color: lighten($primary, 10%);
+            border: 1px solid lighten($primary, 20%);
+            transition: .2s all ease-in;
+        }
+    }
+
+    &.secondary {
+        background-color: $secondary;
+        color: white;
+        transition: .2s all ease-in;
+        border: 1px solid $secondary;
+
+        &:hover {
+            background-color: lighten($secondary, 10%);
+            transition: .2s all ease-in;
+        }
+    }
+
+    &.disabled {
+        background-color: lightgray;
+        color: black;
+        transition: .2s all ease-in;
+        border: 1px solid lightgray;
+    }
+}
+
+.form-input {
+    border: none;
+    border-radius: 5px;
+    padding: .2rem .5rem;
+}

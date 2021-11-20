@@ -14,7 +14,7 @@ class AdminProductOptionsController extends Controller
 {
     public function index($id)
     {
-        $product = Products::find($id)->firstOrFail();
+        $product = Products::findOrFail($id);
         $variants = Options::where('product_id', $id)->get();
         $skus = SKUs::where('product_id', $id)->get();
         // dd($variants);
@@ -26,6 +26,13 @@ class AdminProductOptionsController extends Controller
     {
         $product = Products::find($request->product_id)->firstOrFail();
         
+        //Delete Default SKU
+        $have_variant = Options::where('product_id', $request->product_id)->get();
+        $have_sku = SKUs::where('product_id', $request->product_id)->get();
+        if($have_variant->isEmpty() && $have_sku->isNotEmpty()) {
+            $sku = SKUs::where('product_id', $request->product_id)->delete();
+        }
+
         $variant = new Options;
 
         $request->validate([
@@ -46,6 +53,7 @@ class AdminProductOptionsController extends Controller
             $variant_values->option_id = $variant->id;
             $variant_values->save();
         }
+
         
         // $total_variantval = 1;
         // $variant_collection = Options::where('product_id', $request->product_id)->get();
@@ -244,11 +252,18 @@ class AdminProductOptionsController extends Controller
     {
         $sku = SKUs::findOrFail($id);
         $skuvalues = SKUvalues::where('sku_id', $sku->id)->get();
-        $variants = Options::where('product_id', $sku->product_id)->get();
+        $skuvar = array();
+        foreach($skuvalues as $skuvalue) {
+            array_push($skuvar, $skuvalue->option_id);
+        }
+        
+        $selectedVariants = Options::where('product_id', $sku->product_id)->whereIn('id', $skuvar)->get();
+        $unselectedVariants = Options::where('product_id', $sku->product_id)->whereNotIn('id', $skuvar)->get();
+        // dd($selectedVariants);
 
         // dd($skuvalues);
 
-        return view('admin.productOptions.editsku', compact('sku', 'skuvalues', 'variants'));
+        return view('admin.productOptions.editsku', compact('sku', 'skuvalues', 'selectedVariants', 'unselectedVariants'));
     }
 
     public function updateSKU(Request $request)
@@ -259,7 +274,7 @@ class AdminProductOptionsController extends Controller
             'updatevarval' => 'required'
         ]);
 
-        // dd($request->inputvarval);
+        // dd($request->updatevarval);
 
         $sku = SKUs::find($request->id);
         $sku->price = $request->updatePrice;
@@ -269,15 +284,30 @@ class AdminProductOptionsController extends Controller
         foreach($request->updatevarval as $varval) {
             $variant_values = explode('-', $varval);
 
-            $skuval = SKUvalues::updateOrCreate(
-                ['sku_id' => $sku->id],
-                ['option_id' => $variant_values[0]]
-            );
-            $skuval->value_id = $variant_values[1];
-            $skuval->save();
+            $skuval = SKUvalues::updateOrCreate(['sku_id' => $sku->id, 'option_id' => $variant_values[0]],
+                ['sku_id' => $sku->id,
+                'option_id' => $variant_values[0],
+                'value_id' => $variant_values[1]
+            ]);
+            // $skuval->value_id = $va  riant_values[1];
+            // $skuval->save();
+            // $skuval = SKUvalues::firstOrCreate(
+            //     ['sku_id' => $sku->id],
+            //     ['option_id' => $variant_values[0]],
+            //     ['value_id' => $variant_values[1]]
+            // );
         }
 
 
         return redirect()->route('admin.product-options', ['id' => $sku->product_id]);
+    }
+
+    public function deleteSKU($id)
+    {
+        // $product = Products::find($id)->firstOrFail();
+        $variant = SKUs::find($id)->delete();
+        // dd($variant);
+        
+        return redirect()->back();
     }
 }
