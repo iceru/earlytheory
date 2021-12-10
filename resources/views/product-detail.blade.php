@@ -62,7 +62,6 @@
                         <p class="product-desc">{{$product_related->description_short}}</p>
                     </div>
                     <div data-id="{{$product_related->id}}" class="button primary my-3 addcart addcart-related">Add To Cart</div>
-                    @endif
                 </div>
                 @endforeach
             </div>
@@ -90,7 +89,6 @@
                 autoplaySpeed: 5000,
             });
             if($('.variants').length > 0) {
-                debugger
                 $('.product .addcart').toggleClass('primary disabled');
                 $('.product .addcart').attr('disable', true);
                 // $('.variants').find('.values').find('.value:first-child').addClass('selected');
@@ -158,13 +156,13 @@
                 },
                 data: {'option_values': option_values, 'id': id, variants: variants },
                 success: function (response) {
-                    debugger
                     var data = response;
                     if(data.stock > 0){
                         $('.product .addcart').attr('data-price', data.price);
                         $('.product .addcart').attr('data-sku', data.id);
                         $('.product .addcart').attr('data-values', data.values);
                         $('.product .addcart').attr('data-id', data.product_id);
+                        $('.product .addcart').attr('data-stock', data.stock);
                         var price_data = 'idr '+(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                         var price_text = price_data.substring(0, price_data.length-3);
                         $('.product-price p').text(price_text);
