@@ -281,7 +281,6 @@
 
     <script>
         $(document).ready(function(){
-            console.log({!! $sales->products !!})
             $('.product-image').slick({
                 dots: false,
                 arrows: false,
@@ -291,7 +290,7 @@
             $( "#datepicker" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1930:2021",
+                yearRange: "1970:2001",
                 altFormat: 'yy/mm/dd',
             });
         });
@@ -395,7 +394,6 @@
                 url:'{!! URL::to('checkout/checkShippingCost') !!}',
                 data:{'id':addressSelect}
             }).done(function(data) {
-                console.log(data);
                 $('#shipping').removeAttr('hidden');
                 shipopt += '<option value="" selected disabled>Select Shipping</option>';
                 for (var i=0; i<data.length; i++) {

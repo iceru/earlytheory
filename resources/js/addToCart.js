@@ -41,6 +41,6 @@
                 },
             });
         } else {
-        alert('Error');
+        alert('Stok Habis / Error');
         }
     });

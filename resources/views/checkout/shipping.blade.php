@@ -128,7 +128,6 @@
         $("#prov").on('change', function () {
             var prov_id=$(this).val();
             var cityopt="";
-            console.log(prov_id);
             $.ajax({
                 type:'get',
                 url:'{!! URL::to('checkout/findCityShipping') !!}',
@@ -152,8 +151,6 @@
         //         url:'{!! URL::to('checkout/checkShippingCost') !!}',
         //         data:{'id':city_id},
         //         success:function(data) {
-        //             console.log('success');
-        //             console.log(data);
         //             shipopt += '<option value="" selected disabled>Select Shipping</option>';
         //             for (var i=0; i<data.length; i++) {
         //                 shipopt += '<option value="'+data[i].cost[0].value+'-JNE '+data[i].service+'">JNE '+data[i].service+' ('+data[i].cost[0].etd+' Days) : Rp '+data[i].cost[0].value+'</option>';
@@ -172,8 +169,6 @@
                 url:'{!! URL::to('checkout/checkShippingCost') !!}',
                 data:{'id':addressSelect},
                 success:function(data) {
-                    console.log('success');
-                    console.log(data);
                     $('#shipping').removeAttr('hidden');
                     shipopt += '<option value="" selected disabled>Select Shipping</option>';
                     for (var i=0; i<data.length; i++) {
@@ -201,7 +196,6 @@
         //             'sno':'{{$sales->sales_no}}' 
         //         },
         //         success:function(response) {
-        //             console.log(response);
         //             $('#addressForm').attr('hidden', true);
         //             var shipopt="";
         //             $.ajax({
@@ -212,8 +206,6 @@
         //                     'weight':'{{$sales->totalweight}}'
         //                 },
         //                 success:function(data) {
-        //                     console.log('success');
-        //                     // console.log(data);
         //                     $('#shipMethod').removeAttr('hidden');
         //                     shipopt += '<option value="" selected disabled>Select Shipping Method</option>';
         //                     // shipadr += '<div class="form-group"><label for="">Shipping</label><select id="ship" class="form-control"><option value="" selected disabled>Select Shipping Method</option>'

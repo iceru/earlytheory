@@ -114,7 +114,6 @@
             var mv3 =  {!!json_encode($mostVisited3)!!}
             var pageTitle3 = [];
             var pageViews3 = [];
-            console.log(mv3);
             mv3.forEach(element => {
                 pageTitle3.push(element.pageTitle.substr(0, 20))
                 pageViews3.push(element.pageViews)

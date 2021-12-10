@@ -24,11 +24,10 @@ class IndexController extends Controller
         $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
 
-        $productsSku = Products::all();
-
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
-        $product_ids = array();
 
+        $product_ids = array();
+        $productsSku = Products::all();
         $skus = SKUs::all();
         $skusvalues = SKUvalues::get();
         $optionvalues = OptionValues::get();
@@ -39,12 +38,11 @@ class IndexController extends Controller
 
         foreach ($skus as $key => $sku) {
             foreach ($productsSku as $key => $product) {
-                if($sku->product_id == $product->id) {
+                if($sku->product_id == $product->id && ($product->category == 'service' || $sku->stock > 0)) {
                     array_push($product_ids, $sku);
                 }
             }
         }
-
 
         $array = $product_ids;
         $key = 'product_id';
