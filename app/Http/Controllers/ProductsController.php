@@ -13,9 +13,9 @@ class ProductsController extends Controller
 {
     public function productDetail($slug)
     {
-        $product = Products::where('slug', $slug)->firstOrFail();
+        $product_detail = Products::where('slug', $slug)->firstOrFail();
         $related = Products::where('slug', '!=', $slug)->where('category', 'service')->take(4)->get();
-        $options = Options::where('product_id', $product->id)->pluck('id', 'option_name');
+        $options = Options::where('product_id', $product_detail->id)->pluck('id', 'option_name');
 
         $values = collect();
         foreach ($options as $key => $option) {
@@ -23,11 +23,57 @@ class ProductsController extends Controller
             $optionsValues->put('option', $key);
             $values->push($optionsValues);
         }
-        // dd($skusvalues);
-        if($product->category == 'product') {
-            $related = Products::where('slug', '!=', $slug)->where('category', 'product')->take(4)->get();
+        $related = Products::where('slug', '!=', $slug)->where('category', 'product')->take(4)->get();
+
+        $product_ids = array();
+        $productsSku = Products::all();
+        $skus = SKUs::all();
+        $skusvalues = SKUvalues::get();
+        $optionvalues = OptionValues::get();
+
+        foreach ($skus as $key => $sku) {
+            foreach ($productsSku as $key => $product) {
+                if($sku->product_id == $product->id && ($product->category == 'service' || $sku->stock > 0)) {
+                    array_push($product_ids, $sku);
+                }
+            }
         }
-        return view('product-detail', compact('product', 'related', 'values'));
+
+        $array = $product_ids;
+        $key = 'product_id';
+
+        $temp_array = array();
+        $i = 0;
+        $key_array = array();
+        
+        foreach($array as $val) {
+            if (!in_array($val[$key], $key_array)) {
+                $key_array[$i] = $val[$key];
+                $temp_array[$i] = $val;
+            }
+            $i++;
+        }
+
+        $values_name = array();
+
+        foreach ($temp_array as $key => $sku) {
+            foreach ($skusvalues as $key => $value) {
+                if($sku->id == $value->sku_id) {
+                    foreach ($optionvalues as $key => $option) {
+                        if($value->option_id == $option->option_id && $value->value_id == $option->id) {
+                            $value_datas = OptionValues::where('id', $value->value_id)->pluck('value_name');
+                            $value_name = $value_datas->implode('', 'value_name');
+                            array_push($values_name, $value_name);
+                        }
+                    }
+                }
+            }
+            $sku->setAttribute('values', $values_name);
+            $values_name = array();
+        }
+        
+        $skus = json_encode($temp_array);
+        return view('product-detail', compact('product_detail', 'related', 'values', 'skus'));
     }
 
     public function getSku(Request $request) 

@@ -107,7 +107,7 @@
                           </select>
                     </div>
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3 row" hidden>
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputStock" name="updateStock" min="0" value="{{$product->stock}}">

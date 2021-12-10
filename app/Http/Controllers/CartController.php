@@ -21,6 +21,7 @@ class CartController extends Controller
     {
         $product = Products::findOrFail($id);
         $price = (int) $request->price;
+        $stock = (int) $request->stock;
         $product_price = $product->price;
         if($price > 0 || $price) {
             $product_price = $price;
@@ -41,6 +42,7 @@ class CartController extends Controller
                 'product_id' => $product_id,
                 'sku_id' => $sku,
                 'values' => $values,
+                'stock' => $stock,
             ),
             'associatedModel' => $product
         ));

@@ -47,11 +47,7 @@
                         <p class="product-price">idr {{number_format($product->price)}} @if($product->duration > 0) <span> / {{ $product->duration }} menit  </span> @endif </p>
                         <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
-                    @if ($product->stock <= 0 && $product->category == 'product')
-                        <div class="button disabled my-3" disabled>STOK HABIS</div>
-                    @else
-                        <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
-                    @endif
+                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
                 </div>
             @empty
                 <h4 class="evogria">No Product</h4>
@@ -76,11 +72,7 @@
                     <p class="product-price">idr {{number_format($product->price)}} @if($product->duration > 0) <span> / {{ $product->duration }} menit  </span> @endif </p>
                     <div class="product-desc">{{ $product->description_short }}</div>
                 </div>
-                @if ($product->stock <= 0 && $product->category == 'product')
-                    <div class="button disabled my-3" disabled>STOK HABIS</div>
-                @else
-                    <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
-                @endif
+                <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
             </div>
         @empty
             <h4 class="evogria">No Product</h4>
@@ -97,16 +89,24 @@
     <script>
         function checkSku() {
             var skus = {!! $skus !!};
-            console.log(skus);
-            Object.keys(skus).forEach(function(element) {
-                $.each($('.addcart'), function (index, item) {
+            $.each($('.addcart'), function (index, item) {
+                Object.keys(skus).forEach(function(element) {
                     if (skus[element].product_id == $(item).attr('data-id')) {
                         $(item).attr('data-price', skus[element].price);
                         $(item).attr('data-sku', skus[element].id);
                         $(item).attr('data-values',  skus[element].values);
                         // $(item).attr('data-values', element.values);
-                    }
+                    } 
                 });
+                if(!$(item).attr('data-price')) {
+                    $(item).removeClass('primary');
+                    $(item).removeClass('addcart');
+                    $(item).removeAttr('data-id');
+                    $(item).addClass('disabled');
+                    $(item).text('STOK HABIS');
+                    $(item).attr('disabled', true);
+                    $(item).parent().insertAfter($('.product-item-container').last());
+                }
             });
         }
         function options(){

@@ -124,7 +124,7 @@
             $( "#datepicker" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1930:2021",
+                yearRange: "1970:2001",
                 altFormat: 'yy/mm/dd',
             });
         } );

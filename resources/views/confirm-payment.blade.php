@@ -16,7 +16,7 @@
                         <h3 class="mb-4">Pembayaran Berhasil</h3>
                         <img src="/images/pay.svg" class="mb-3" width=300 alt="">
                         <h5>Kami akan konfirmasi orderanmu lewat Whatsapp!</h5>
-                        <p>Pengiriman file dalam waktu 4-5 hari kerja</p>
+                        <p>Pengiriman file dalam waktu 2-3 hari kerja</p>
                         <a class="button primary inline mt-3" href="{{ route('user.orders')}}">Kembali ke Orders</a>
                     </div>
                 @else
