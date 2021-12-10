@@ -13,9 +13,9 @@ class ProductsController extends Controller
 {
     public function productDetail($slug)
     {
-        $product = Products::where('slug', $slug)->firstOrFail();
+        $product_detail = Products::where('slug', $slug)->firstOrFail();
         $related = Products::where('slug', '!=', $slug)->where('category', 'service')->take(4)->get();
-        $options = Options::where('product_id', $product->id)->pluck('id', 'option_name');
+        $options = Options::where('product_id', $product_detail->id)->pluck('id', 'option_name');
 
         $values = collect();
         foreach ($options as $key => $option) {
@@ -24,6 +24,7 @@ class ProductsController extends Controller
             $values->push($optionsValues);
         }
         $related = Products::where('slug', '!=', $slug)->where('category', 'product')->take(4)->get();
+
         $product_ids = array();
         $productsSku = Products::all();
         $skus = SKUs::all();
@@ -72,7 +73,7 @@ class ProductsController extends Controller
         }
         
         $skus = json_encode($temp_array);
-        return view('product-detail', compact('product', 'related', 'values', 'skus'));
+        return view('product-detail', compact('product_detail', 'related', 'values', 'skus'));
     }
 
     public function getSku(Request $request) 

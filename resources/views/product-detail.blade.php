@@ -1,21 +1,21 @@
 <x-app-layout>
     @section('title')
-        {{$product->title}}
+        {{$product_detail->title}}
     @endsection
     <div class="product-detail container main-content">
         <div class="product row">
             
             <div class="col-12 col-lg-5 product-image ">
-                @foreach ((array)json_decode($product->image) as $item)
+                @foreach ((array)json_decode($product_detail->image) as $item)
                     <img class="pb-2" src="{{Storage::url('product-image/'.$item)}}" alt="No Image">
                 @endforeach
             </div>
             <div class="col-12 col-lg-7">
                 <div class="product-title mb-2">
-                    <h3>{{$product->title}}</h3>
+                    <h3>{{$product_detail->title}}</h3>
                 </div>
                 <div class="product-price mb-4">
-                    <p>idr {{number_format($product->price)}}</p>
+                    <p>idr {{number_format($product_detail->price)}}</p>
                 </div>
                 @foreach ($values as $items)
                 <div class="variants mb-3">
@@ -31,7 +31,7 @@
                 </div>
                 @endforeach
                 <div class="product-desc mt-4 mb-3">
-                    {!! $product->description !!}
+                    {!! $product_detail->description !!}
                 </div>
                 <div class="add-to-cart">
                     <div class="button primary my-3 addcart">Add To Cart</div>
@@ -44,10 +44,10 @@
                 @foreach ($related as $product_related)
                 <div class="product-item-container col-6 col-md-3">
                     <div class="product-images related mb-3">
-                        @foreach ((array)json_decode($product_related->image) as $item)
+                        @foreach ((array)json_decode($product_related->image) as $item_related)
                             <a href="/product/{{$product_related->slug}}">
                                 <div class="ratio ratio-1x1">
-                                    <img src="{{Storage::url('product-image/'.$item)}}" loading="lazy" alt="{{ $product_related->title }}">
+                                    <img src="{{Storage::url('product-image/'.$item_related)}}" loading="lazy" alt="{{ $product_related->title }}">
                                 </div>
                             </a>
                         @endforeach
@@ -71,8 +71,8 @@
     @section('js')
     <script>
         var option_values = []
-        var id = {!! $product->id !!};
-        var price = {{ $product->price }}
+        var id = {!! $product_detail->id !!};
+        var price = {{ $product_detail->price }}
 
         $(document).ready(function(){
             $('.product-image').slick({
