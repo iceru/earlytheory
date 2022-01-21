@@ -76,7 +76,7 @@
             $("#birthplace").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        type: "POST",
+                        type: "GET",
                         url: "/horoscope/places",
                         headers: {
                             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

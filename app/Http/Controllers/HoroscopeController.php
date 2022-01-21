@@ -45,16 +45,19 @@ class HoroscopeController extends Controller
     {
         if($request->ajax()) {
             $name = $request->name;
-            $token = '378083|mZUVK0Rvi5CbUw7697VHUYsVD3EMkBA0EZN5AMHn';
+            $token = '7zep2FuuT1alaVjYtgiyFV2noJvjOIwYzvAOXHCUOfpI0p3D';
             $client = new Client();
 
-            $response = $client->request('POST', 'https://api.bloom.be/api/places', [
+            $response = $client->request('GET', 'https://astroapp.com/astro/apis/locations/name', [
                 'headers' => [
                     'Authorization' => 'Bearer '.$token,
                     'Accept' => 'application/json',
+                    'content-type' => 'application/json'
                 ],
                 'form_params' => [
-                    'name' => $name
+                    'cityName' => 'Jakarta',
+                    'countryID' => 'id',
+                    'stateCode' => '' 
                 ]
             ]);
             $data = json_decode($response->getBody()->getContents());
@@ -68,10 +71,10 @@ class HoroscopeController extends Controller
     {
         if($request->ajax()) {
             $name = $request->name;
-            $token = '378083|mZUVK0Rvi5CbUw7697VHUYsVD3EMkBA0EZN5AMHn';
+            $token = '7zep2FuuT1alaVjYtgiyFV2noJvjOIwYzvAOXHCUOfpI0p3D';
             $client = new Client();
 
-            $response = $client->request('POST', 'https://api.bloom.be/api/natal', [
+            $response = $client->request('POST', 'https://astroapp.com/astro/apis/chart', [
                 'headers' => [
                     'Authorization' => 'Bearer '.$token,
                     'Accept' => 'application/json',
