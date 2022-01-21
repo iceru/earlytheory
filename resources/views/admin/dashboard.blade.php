@@ -114,7 +114,6 @@
             var mv3 =  {!!json_encode($mostVisited3)!!}
             var pageTitle3 = [];
             var pageViews3 = [];
-            console.log(mv3);
             mv3.forEach(element => {
                 pageTitle3.push(element.pageTitle.substr(0, 20))
                 pageViews3.push(element.pageViews)
@@ -297,7 +296,6 @@
                 pageViews7.push(element.pageViews)
                 urlMv7.push(element.url)
             });
-            console.log(mv7);
             var ctx7 = document.getElementById("mostviewed7").getContext("2d");
             window.myBar = new Chart(ctx7, {
                 type: 'pie',

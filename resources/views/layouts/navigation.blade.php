@@ -1,11 +1,11 @@
 <nav class="navbar-mobile no-print">
     <div class="row align-items-center">
-        <div class="col-lg-6 d-none d-lg-block justify-content-start">
+        <div class="col-lg-6 d-none d-lg-block justify-content-start ">
             @auth
             <div class="dropdown">
                 <a class="d-flex align-items-center me-3"  id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-user me-2 primary-color" aria-hidden="true"></i>
-                    <span class="dropdown-toggle grey-color fw-bold">{{ auth()->user()->name }} @if (count($sales) > 0) <span class="orders-alert"></span> @endif </span>
+                    <span class="dropdown-toggle grey-color fw-bold"><span class="name-section">{{ auth()->user()->name }} @if (count($sales) > 0) </span><span class="orders-alert"></span> @endif </span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="userDropdown">
                     <li><a class="dropdown-item" href="{{ route('user.account') }}">Account</a></li>
@@ -111,10 +111,12 @@
             if (scroll > topDist.top) {
                 $('.navbar-mobile').addClass('sticky');
                 $('.navbar').addClass('sticky');
+                $('.name-section').hide();
                 $('.navbar-mobile .row').addClass('container sticky-container');
             } else {
                 $('.navbar-mobile').removeClass('sticky');
                 $('.navbar').removeClass('sticky');
+                $('.name-section').show();
                 $('.navbar-mobile .row').removeClass('container sticky-container');
             }
         });

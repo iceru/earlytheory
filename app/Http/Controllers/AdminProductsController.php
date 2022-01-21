@@ -216,7 +216,7 @@ class AdminProductsController extends Controller
         if($have_variant->isEmpty()) {
             $sku = SKUs::where('product_id', $request->id)->firstOrFail();
             $sku->price = $request->updatePrice;
-            $sku->stock = $request->updateStock;
+            // $sku->stock = $request->updateStock;
             $sku->product_id = $product->id;
 
             $sku->save();
