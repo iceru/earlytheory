@@ -205,13 +205,13 @@
                                         <textarea name="question[]" id="question"
                                             placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                         <div class="mb-2">
-                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
-                                                <option value="" selected disabled>Pilih Preferensi Gender</option>
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                                <option value="" selected hidden>Pilih Preferensi Gender</option>
                                                 <option value="pria">Pria</option>
                                                 <option value="wanita">Wanita</option>
                                             </select>
                                         </div>
-                                        @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
+                                        @if (($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') || $item->products->category == 'product')
                                         <p>{!! $item->description_short !!}</p>
                                         @endif
                                     </div>
@@ -281,7 +281,6 @@
 
     <script>
         $(document).ready(function(){
-            console.log({!! $sales->products !!})
             $('.product-image').slick({
                 dots: false,
                 arrows: false,
@@ -291,7 +290,7 @@
             $( "#datepicker" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1930:2021",
+                yearRange: "1970:2001",
                 altFormat: 'yy/mm/dd',
             });
         });
@@ -395,7 +394,6 @@
                 url:'{!! URL::to('checkout/checkShippingCost') !!}',
                 data:{'id':addressSelect}
             }).done(function(data) {
-                console.log(data);
                 $('#shipping').removeAttr('hidden');
                 shipopt += '<option value="" selected disabled>Select Shipping</option>';
                 for (var i=0; i<data.length; i++) {

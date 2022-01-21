@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Horoscope;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Products;
+use App\Models\SKUs;
 
 class HoroscopeController extends Controller
 {
@@ -15,35 +19,45 @@ class HoroscopeController extends Controller
      */
     public function index()
     {
-        $client = new Client();
-        $token = '378083|mZUVK0Rvi5CbUw7697VHUYsVD3EMkBA0EZN5AMHn';
-        $response = $client->request('POST', 'https://api.bloom.be/api/places', [
-            'headers' => [
-                'Authorization' => 'Bearer '.$token,
-                'Accept' => 'application/json',
-            ],
-            'form_params' => [
-                'name' => 'Depok'
-            ]
-        ]);
+        $user = Auth::user();
 
-        return view('horoscope', compact('response'));
+        $horoscope_product = Products::where('title', 'horoscope')->first();
+        $skus = SKUs::where('product_id', $horoscope_product->id)->get();
+
+        // dd($horoscope_product);
+
+        // $client = new Client();
+        // $token = '378083|mZUVK0Rvi5CbUw7697VHUYsVD3EMkBA0EZN5AMHn';
+        // $response = $client->request('POST', 'https://api.bloom.be/api/places', [
+        //     'headers' => [
+        //         'Authorization' => 'Bearer '.$token,
+        //         'Accept' => 'application/json',
+        //     ],
+        //     'form_params' => [
+        //         'name' => 'Depok'
+        //     ]
+        // ]);
+        
+        return view('horoscope', compact('user', 'horoscope_product', 'skus'));
     }
 
     public function places(Request $request)
     {
         if($request->ajax()) {
             $name = $request->name;
-            $token = '378083|mZUVK0Rvi5CbUw7697VHUYsVD3EMkBA0EZN5AMHn';
+            $token = '7zep2FuuT1alaVjYtgiyFV2noJvjOIwYzvAOXHCUOfpI0p3D';
             $client = new Client();
 
-            $response = $client->request('POST', 'https://api.bloom.be/api/places', [
+            $response = $client->request('GET', 'https://astroapp.com/astro/apis/locations/name', [
                 'headers' => [
                     'Authorization' => 'Bearer '.$token,
                     'Accept' => 'application/json',
+                    'content-type' => 'application/json'
                 ],
                 'form_params' => [
-                    'name' => $name
+                    'cityName' => 'Jakarta',
+                    'countryID' => 'id',
+                    'stateCode' => '' 
                 ]
             ]);
             $data = json_decode($response->getBody()->getContents());
@@ -57,10 +71,10 @@ class HoroscopeController extends Controller
     {
         if($request->ajax()) {
             $name = $request->name;
-            $token = '378083|mZUVK0Rvi5CbUw7697VHUYsVD3EMkBA0EZN5AMHn';
+            $token = '7zep2FuuT1alaVjYtgiyFV2noJvjOIwYzvAOXHCUOfpI0p3D';
             $client = new Client();
 
-            $response = $client->request('POST', 'https://api.bloom.be/api/natal', [
+            $response = $client->request('POST', 'https://astroapp.com/astro/apis/chart', [
                 'headers' => [
                     'Authorization' => 'Bearer '.$token,
                     'Accept' => 'application/json',
@@ -74,7 +88,8 @@ class HoroscopeController extends Controller
                     "system" => "p"
                 ]
             ]);
-            $data = json_decode($response->getBody()->getContents());
+            // $data = json_decode($response->getBody()->getContents());
+            $data = $response->getBody()->getContents();
             return response()->json($data, 200);
         }
 

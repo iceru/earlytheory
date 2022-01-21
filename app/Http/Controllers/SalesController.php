@@ -45,14 +45,13 @@ class SalesController extends Controller
                 // $product->save();
                 $sku = SKUs::find($item->attributes->sku_id);
                 // $product = Products::find($item->attributes->product_id);
-                if($sku) {
+                if($sku && $sku->stock > 0 && $sku->stock >= $item->quantity) {
                     $sku->sales()->attach($sales, ['qty' => $item->quantity]);
                     $sku->save();
                 } 
-                // elseif (!$sku) {
-                //     $product->sales()->attach($sales, ['qty' => $item->quantity]);
-                //     $product->save();
-                // }
+                elseif($sku->stock <= 0) {
+                    return back()->withErrors('Stok Produk Habis');
+                }
                 else {
                     return back()->withErrors('Product(s) not valid. Please contact us');
                 }
@@ -675,9 +674,9 @@ class SalesController extends Controller
                 $sales->status = 'paid';
                 $sales->save();
     
-                $sales->paymethod_id = $request->inputPayType;
-                $sales->status = 'paid';
-                $sales->save();
+                // $sales->paymethod_id = $request->inputPayType;
+                // $sales->status = 'paid';
+                // $sales->save();
         
                 // Mail::send(new UserTransaction($sales));
                 //Mail::send(new AdminNotification($sales));

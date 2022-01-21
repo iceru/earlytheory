@@ -51,7 +51,7 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 
 Route::get('/horoscope', [HoroscopeController::class, 'index'])->name('horoscope.index');
-Route::post('/horoscope/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
+Route::get('/horoscope/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
 Route::post('/horoscope/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');

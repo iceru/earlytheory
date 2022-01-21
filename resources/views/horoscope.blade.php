@@ -11,19 +11,19 @@
                 <div class="col-12 col-lg-6 mb-3">
                     <div>
                         <label for="" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ $user ? $user->name : "" }}">
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 mb-3">
                     <div>
                         <label for="" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{ $user ? $user->email : "" }}">
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 mb-3">
                     <div>
                         <label for="" class="form-label">Birth Date</label>
-                        <input  type="text" class="form-control" name="birthdate" id="datepicker" placeholder="" readonly>
+                        <input  type="text" class="form-control" name="birthdate" id="datepicker" placeholder="" value="{{ $user ? $user->birthdate : "" }}" readonly>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 mb-4">
@@ -57,6 +57,9 @@
             <div class="col-12 col-lg-7 wheel">
             </div>
         </div>
+
+        <div class="atc row">            
+        </div>
     </div>
 
     <script>
@@ -73,7 +76,7 @@
             $("#birthplace").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        type: "POST",
+                        type: "GET",
                         url: "/horoscope/places",
                         headers: {
                             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -131,19 +134,20 @@
                 data: data,
                 
                 success: function (response) {
+                    var obj = JSON.parse(response);
                     console.log(response);
                     history.pushState({
-                        horoscope: response,
-                    }, null, `natal/${response.intro.id}`)
+                        horoscope: obj,
+                    }, null, `natal/${obj.intro.id}`)
                     $('.input-horoscope').hide();
                     $('.results').show();
                     $('.identity').append(`
-                        <h5 class="skylar primary-color mb-1">Nama: ${response.profile.name}</h5>
-                        <p>Tempat Lahir: ${response.profile.cityName}</p>
-                        <p>Tanggal Lahir: ${response.profile.birthdate.date.slice(0,16)}</p>
+                        <h5 class="skylar primary-color mb-1">Nama: ${obj.profile.name}</h5>
+                        <p>Tempat Lahir: ${obj.profile.cityName}</p>
+                        <p>Tanggal Lahir: ${obj.profile.birthdate.date.slice(0,16)}</p>
                     `);
                    
-                    response.planets.forEach(item => {
+                    obj.planets.forEach(item => {
                         $(".planets").append(`
                             <div class="col-12 col-lg-6 mb-4">
                                 <h3 class="skylar primary-color">${item.planetName}</h5>
@@ -155,12 +159,30 @@
                         `)
                     });
 
-                    $('.wheel').append(`<img src="${response.wheel}" class="w-100" alt="Wheel Natal Chart ${response.profile.name}" />`);
+                    $('.wheel').append(`<img src="${obj.wheel}" class="w-100" alt="Wheel Natal Chart ${obj.profile.name}" />`);
+
+                    var productid = {!! $horoscope_product->id !!}
+                    $('.atc').append(`<div data-id="${productid}" class="button primary my-3 addcart">Ingin Tau Lebih Lanjut? Masukan Ke Keranjang</div>`)
                 },
                 always: function() {
                     $(this).prop('disabled', false);
                 }
             });
         });
+
+        function checkSku() {
+            var skus = {!! $skus !!};
+            console.log(skus);
+            Object.keys(skus).forEach(function(element) {
+                $.each($('.addcart'), function (index, item) {
+                    if (skus[element].product_id == $(item).attr('data-id')) {
+                        $(item).attr('data-price', skus[element].price);
+                        $(item).attr('data-sku', skus[element].id);
+                        $(item).attr('data-values',  skus[element].values);
+                        // $(item).attr('data-values', element.values);
+                    }
+                });
+            });
+        }
     </script>
 </x-app-layout>
