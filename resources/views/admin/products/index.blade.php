@@ -127,12 +127,14 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link button primary-line active" id="services-tab" data-bs-toggle="tab" data-bs-target="#services" type="button"
-                role="tab" aria-controls="services" aria-selected="true">Services</button>
+            <button class="nav-link button primary-line active" id="services-tab" data-bs-toggle="tab"
+                data-bs-target="#services" type="button" role="tab" aria-controls="services"
+                aria-selected="true">Services</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link button primary-line" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button"
-                role="tab" aria-controls="products" aria-selected="false">Products</button>
+            <button class="nav-link button primary-line" id="products-tab" data-bs-toggle="tab"
+                data-bs-target="#products" type="button" role="tab" aria-controls="products"
+                aria-selected="false">Products</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -179,10 +181,12 @@
                                 <td>{{substr($service->description, 0, 100) . '...'}}</td>
                                 <td>{{ucfirst($service->category)}}</td>
                                 <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
-                                        href="/admin/products/{{$service->id}}/variant"><i class="fas fa-list me-1"></i></i>
+                                        href="/admin/products/{{$service->id}}/variant"><i
+                                            class="fas fa-list me-1"></i></i>
                                         Variant</a>
                                     <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
-                                        href="/admin/products/edit/{{$service->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                                        href="/admin/products/edit/{{$service->id}}"><i class="fas fa-edit me-1"></i>
+                                        Edit</a>
                                     <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
                                         href="/admin/products/delete/{{$service->id}}"><i class="fa fa-trash me-1"
                                             aria-hidden="true"></i> Delete</a>
@@ -236,10 +240,21 @@
                                     <td>{{substr($product->description, 0, 100) . '...'}}</td>
                                     <td>{{ucfirst($product->category)}}</td>
                                     <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
-                                            href="/admin/products/{{$product->id}}/variant"><i class="fas fa-list me-1"></i></i>
+                                            href="/admin/products/{{$product->id}}/variant"><i
+                                                class="fas fa-list me-1"></i></i>
                                             Variant</a>
                                         <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
-                                            href="/admin/products/edit/{{$product->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
+                                            href="/admin/products/edit/{{$product->id}}"><i
+                                                class="fas fa-edit me-1"></i> Edit</a>
+                                        @if($product->hide == false)
+                                        <a class="btn btn-warning btn-small d-flex align-items-center justify-content-center mb-2"
+                                            href="/admin/products/hide/{{$product->id}}"><i
+                                                class="fas fa-eye-slash me-1" aria-hidden="true"></i> Hide</a>
+                                        @elseif($product->hide == true)
+                                        <a class="btn btn-success btn-small d-flex align-items-center justify-content-center mb-2"
+                                            href="/admin/products/unhide/{{$product->id}}"><i class="fas fa-eye me-1"
+                                                aria-hidden="true"></i> Unhide (Show)</a>
+                                        @endif
                                         <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
                                             href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1"
                                                 aria-hidden="true"></i> Delete</a>

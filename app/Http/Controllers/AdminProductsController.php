@@ -246,6 +246,24 @@ class AdminProductsController extends Controller
         return redirect('/admin/products');
     }
 
+    public function hide($id)
+    {
+        $product = Products::find($id);
+        $product->hide = 1;
+        $product->save();
+
+        return redirect('/admin/products');
+    }
+
+    public function unhide($id)
+    {
+        $product = Products::find($id);
+        $product->hide = 0;
+        $product->save();
+
+        return redirect('/admin/products');
+    }
+
     public function generateSKU()
     {
         $products = Products::get();
