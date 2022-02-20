@@ -18,7 +18,7 @@
             </div>
             @if (count($errors) > 0)
             <div class="alert alert-danger">
-                <strong>Sorry!</strong> Terdapat kesalahan dalam input data.<br><br>
+                <strong>Maaf!</strong> Terdapat kesalahan dalam input data.<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -136,8 +136,8 @@
                         @if($is_service > 0) 
                         <div class="form-group col-12 col-lg-6">
                             <label for="inputRelationship">Status Relationship</label>
-                            <select class="form-select" name="inputRelationship" id="inputRelationship">
-                                <option selected disabled>Select</option>
+                            <select class="form-select" name="inputRelationship" id="inputRelationship" required>
+                                <option selected disabled value="">Select</option>
                                 <option value="single" @if (old('inputRelationship')=="single" || $sales->relationship
                                     == "single") {{ 'selected' }} @endif>Single</option>
                                 <option value="pacaran" @if (old('inputRelationship')=="pacaran" || $sales->relationship
@@ -150,8 +150,8 @@
                         </div>
                         <div class="form-group col-12 col-lg-6">
                             <label for="inputPekerjaan">Status Pekerjaan</label>
-                            <select class="form-select" name="inputPekerjaan" id="inputPekerjaan">
-                                <option selected disabled>Select</option>
+                            <select class="form-select" name="inputPekerjaan" id="inputPekerjaan" required>
+                                <option selected disabled value="">Select</option>
                                 <option value="unemployed" @if (old('inputPekerjaan')=="unemployed" || $sales->job ==
                                     "unemployed") {{ 'selected' }} @endif>Unemployed</option>
                                 <option value="employed" @if (old('inputPekerjaan')=="employed" || $sales->job ==
@@ -203,10 +203,10 @@
                                         </div>
                                         @endif
                                         <textarea name="question[]" id="question"
-                                            placeholder="Jabarkan Pertanyaanmu Disini.." @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                            placeholder="{{ $item->products->question_title }}" @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                         <div class="mb-2">
                                             <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                <option value="" selected hidden>Pilih Preferensi Gender</option>
+                                                <option value="" selected hidden>{{ $item->products->question_title }}</option>
                                                 <option value="pria">Pria</option>
                                                 <option value="wanita">Wanita</option>
                                             </select>
