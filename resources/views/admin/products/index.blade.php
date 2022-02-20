@@ -187,6 +187,15 @@
                                     <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
                                         href="/admin/products/edit/{{$service->id}}"><i class="fas fa-edit me-1"></i>
                                         Edit</a>
+                                    @if($service->hide == false)
+                                    <a class="btn btn-warning btn-small d-flex align-items-center justify-content-center mb-2"
+                                        href="/admin/products/hide/{{$service->id}}"><i class="fas fa-eye-slash me-1"
+                                            aria-hidden="true"></i> Hide</a>
+                                    @elseif($service->hide == true)
+                                    <a class="btn btn-success btn-small d-flex align-items-center justify-content-center mb-2"
+                                        href="/admin/products/unhide/{{$service->id}}"><i class="fas fa-eye me-1"
+                                            aria-hidden="true"></i> Unhide (Show)</a>
+                                    @endif
                                     <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
                                         href="/admin/products/delete/{{$service->id}}"><i class="fa fa-trash me-1"
                                             aria-hidden="true"></i> Delete</a>

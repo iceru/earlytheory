@@ -14,7 +14,7 @@ class ProductsController extends Controller
     public function productDetail($slug)
     {
         $product_detail = Products::where('slug', $slug)->firstOrFail();
-        $related = Products::where('slug', '!=', $slug)->where('category', 'service')->take(4)->get();
+        // $related = Products::where('slug', '!=', $slug)->where('hide', 0)->where('category', 'service')->take(4)->get();
         $options = Options::where('product_id', $product_detail->id)->pluck('id', 'option_name');
 
         $values = collect();
@@ -23,7 +23,7 @@ class ProductsController extends Controller
             $optionsValues->put('option', $key);
             $values->push($optionsValues);
         }
-        $related = Products::where('slug', '!=', $slug)->where('category', 'product')->take(4)->get();
+        $related = Products::where('slug', '!=', $slug)->where('hide', 0)->where('category', 'product')->take(4)->get();
 
         $product_ids = array();
         $productsSku = Products::all();
