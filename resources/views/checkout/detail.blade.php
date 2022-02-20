@@ -398,7 +398,7 @@
                 shipopt += '<option value="" selected disabled>Select Shipping</option>';
                 for (var i=0; i<data.length; i++) {
                     if(data[i].service !== 'ECO')
-                        shipopt += '<option value="'+data[i].cost[0].value+'-'+data[i].courier+' '+data[i].service+'">'+data[i].courier+' '+data[i].service+' / '+data[i].cost[0].etd+' Day(s) : Rp '+data[i].cost[0].value+'</option>';
+                        shipopt += '<option value="'+data[i].cost[0].value+'-'+data[i].description+' '+data[i].service+'">'+data[i].description+' ('+data[i].service+') / '+data[i].cost[0].etd+' Day(s) : Rp '+data[i].cost[0].value+'</option>';
                 }
                 $('#inputAddress').val(addressSelect);
                 $('#ship').html(shipopt);
