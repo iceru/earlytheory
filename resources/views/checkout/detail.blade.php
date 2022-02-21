@@ -203,10 +203,10 @@
                                         </div>
                                         @endif
                                         <textarea name="question[]" id="question"
-                                            placeholder="{{ $item->products->question_title }}" @if ($item->products->question != "yes" || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
-                                        <div class="mb-2">
-                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                <option value="" selected hidden>{{ $item->products->question_title }}</option>
+                                            placeholder="{{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}" @if ($item->products->question != "yes" || strtolower($item->products->title) === 'mencari jodoh' || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
+                                        <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                            <label class="form-label" >{{ $item->products->question_title ? $item->products->question_title : 'Kamu Mencari' }}</label>
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion">
                                                 <option value="pria">Pria</option>
                                                 <option value="wanita">Wanita</option>
                                             </select>
