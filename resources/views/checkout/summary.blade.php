@@ -80,7 +80,7 @@
                                     @endforeach
                                 </div>
                                 @endif
-                                <div @if ($item->products->question != 'yes' || $item->products->category == 'product')
+                                <div @if ($item->products->question != 'yes' || $item->products->category == 'product' || strtolower($item->products->title) === 'mencari jodoh')
                                     hidden @endif>
                                     <h5>Pertanyaan</h5>
                                     <p>{{nl2br($item->pivot->question)}}</p>
