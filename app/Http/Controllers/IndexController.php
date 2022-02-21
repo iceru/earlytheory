@@ -10,6 +10,7 @@ use App\Models\Products;
 use App\Models\SKUvalues;
 use App\Models\OptionValues;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -23,6 +24,10 @@ class IndexController extends Controller
         $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
         $products = Products::where('category', 'product')->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
+        $user = Auth::user();
+
+        $horoscope_product = Products::where('title', 'horoscope')->first();
+        $skus_horoscope = SKUs::where('product_id', $horoscope_product->id)->get();
 
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
 
@@ -78,7 +83,7 @@ class IndexController extends Controller
         }
         
         $skus = json_encode($temp_array);
-        return view('index', compact('products', 'sliders', 'services', 'articles', 'skus'));
+        return view('index', compact('products', 'sliders', 'services', 'articles', 'skus', 'user', 'horoscope_product', 'skus_horoscope'));
     }
 
     /**

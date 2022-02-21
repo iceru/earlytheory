@@ -23,7 +23,7 @@
                 <div class="col-12 col-lg-4 mb-3">
                     <div>
                         <label for="" class="form-label">Birth Date</label>
-                        <input  type="text" class="form-control" name="birthdate" id="datepicker" placeholder="" value="{{ $user ? $user->birthdate : "" }}" readonly>
+                        <input  type="text" class="form-control" name="birthdate" id="datepicker" placeholder="" value="{{ $user ? \Carbon\Carbon::parse($user->birthdate)->toDateString() : "" }}" readonly>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 mb-4">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-12" >
                     <button style="width: 100%" id="submitHoroscope" class="button primary expanded">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" hidden></span>
                         Get your Chart
                     </button>
                 </div>
@@ -65,6 +65,7 @@
     <script>
         var place;
         var birthplace;
+        var user = '{!! $user !!}'
         $(document).ready(function(){
             $( "#datepicker" ).datepicker({
                 changeMonth: true,
@@ -134,11 +135,17 @@
                 data: data,
                 
                 success: function (response) {
-                    var obj = JSON.parse(response);
-                    console.log(response);
+                    const obj = JSON.parse(response);
+                    const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
+
                     history.pushState({
                         horoscope: obj,
-                    }, null, `natal/${obj.intro.id}`)
+                    }, null, `horoscope/show/${uid}`);
+
+                    if(user) {
+                        storeHoroscope(uid, obj)
+                    }
+
                     $('.input-horoscope').hide();
                     $('.results').show();
                     $('.identity').append(`
@@ -169,6 +176,29 @@
                 }
             });
         });
+
+        function storeHoroscope(id, obj) {
+            userid = '{!! $user ? $user->id : '' !!}'
+            const data = {
+                user_id: parseInt(userid),
+                link_id: id,
+                data: obj
+            }
+            $.ajax({
+                type: "POST",
+                url: "/horoscope/store",
+                data: data,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+            });
+        }
 
         function checkSku() {
             var skus = {!! $skus !!};

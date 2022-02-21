@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Horoscope extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id'];
+    protected $casts = [
+        'data' => 'array',
+    ];
 }

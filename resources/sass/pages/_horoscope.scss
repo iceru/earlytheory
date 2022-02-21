@@ -1,0 +1,54 @@
+.horoscope-detail {
+    .header {
+        margin-bottom: 2rem;
+        .hr-name {
+            font-family: 'Evogria', sans-serif;
+            text-transform: uppercase;
+            font-size: 2rem;
+            margin-bottom: .5rem;
+        }
+    
+        .hr-date, .hr-city {
+            margin-right: .5rem;
+            align-items: center;
+            display: flex;
+            color: $primary;
+    
+            i {
+                margin-right: .25rem;
+            }
+        }
+    }
+    
+    .hr-chart {
+        position: sticky;
+        top: 6rem;
+    }
+
+    .planet {
+        margin-bottom: 2rem;
+        
+        .planet-degree {
+            font-size: .9rem;
+            font-weight: bold;
+            margin-bottom: .25rem;
+        }
+
+        .planet-name {
+            background-color: $primary;
+            padding: .5rem 1rem;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: .25rem;
+            font-family: 'Skylar Sans';
+            letter-spacing: 1px;
+            width: 85%;
+        }
+
+        .planet-house {
+            font-weight: bold;
+            color: $primary;
+            font-size: 1.15rem;
+        }
+    }
+}

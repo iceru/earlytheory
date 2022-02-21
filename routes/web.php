@@ -53,6 +53,8 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 Route::get('/horoscope', [HoroscopeController::class, 'index'])->name('horoscope.index');
 Route::post('/horoscope/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
 Route::post('/horoscope/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
+Route::post('/horoscope/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
+Route::get('/horoscope/show/{link_id}', [HoroscopeController::class, 'show'])->name('horoscope.show');
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');

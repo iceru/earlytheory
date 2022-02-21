@@ -15,6 +15,10 @@ class CreateHoroscopesTable extends Migration
     {
         Schema::create('horoscopes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->text('data');
+            $table->text('link_id');
             $table->timestamps();
         });
     }
