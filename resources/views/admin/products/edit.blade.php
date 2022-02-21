@@ -47,6 +47,16 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Category" name="updateCategory">
+                            <option selected disabled>Select Category</option>
+                            <option {{  $product->category === "product" ? 'selected' : '' }} value="product">Product</option>
+                            <option {{  $product->category === "service" ? 'selected' : '' }} value="service">Service</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="mb-3 row" id="duration">
                     <label class="col-sm-2 col-form-label">Duration</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="updateDuration" name="updateDuration" min="0"
@@ -88,16 +98,6 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Category</label>
-                    <div class="col-sm-10">
-                        <select class="form-select" aria-label="Select Category" name="updateCategory">
-                            <option selected disabled>Select Category</option>
-                            <option {{  $product->category === "product" ? 'selected' : '' }} value="product">Product</option>
-                            <option {{  $product->category === "service" ? 'selected' : '' }} value="service">Service</option>
-                          </select>
-                    </div>
-                </div>
-                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Question</label>
                     <div class="col-sm-10">
                         <select class="form-select" aria-label="Select Category" name="updateQuestion">
@@ -105,6 +105,12 @@
                             <option {{  $product->question === "yes" ? 'selected' : '' }} value="yes">Yes</option>
                             <option {{  $product->question === "no" ? 'selected' : '' }} value="no">No</option>
                           </select>
+                    </div>
+                </div>
+                <div class="mb-3 row" id="question_title">
+                    <label class="col-sm-2 col-form-label">Question Title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="updateQuestionTitle" name="updateQuestionTitle">
                     </div>
                 </div>
                 <div class="mb-3 row" hidden>
@@ -124,10 +130,33 @@
                 var html = $(".clone").html();
                 $(".clone").after(html);
             });
+            if($('select[name=updateCategory]').val() !== 'service') {
+                $('#duration').hide();
+            }
+
+            if($('select[name=updateQuestion]').val() !== 'yes') {
+                $('#question_title').hide();
+            }
 
             $('body').on("click", ".btn-danger", function() {
                 $(this).parents(".control-group").remove();
             });
+        });
+
+        $('select[name=updateCategory]').change(function () {
+            if ($(this).val() == 'service') {
+                $('#duration').show();
+            } else {
+                $('#duration').hide();
+            }
+        });
+
+        $('select[name=updateQuestion]').change(function () {
+            if ($(this).val() == 'yes') {
+                $('#question_title').show();
+            } else {
+                $('#question_title').hide();
+            }
         });
     </script>
     @endsection

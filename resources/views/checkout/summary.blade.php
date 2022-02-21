@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title')
-        Summary - {{$sales->sales_no}}
+    Summary - {{$sales->sales_no}}
     @endsection
     <div class="col-12 checkout">
         <div class="row">
@@ -45,7 +45,8 @@
                         {{ $sales->ship_method }}
                     </div>
                     <div class="col-12">
-                        <a class="btn button primary inline btn-sm mt-3 mt-lg-2" href="/checkout/{{$sales->sales_no}}/detail">
+                        <a class="btn button primary inline btn-sm mt-3 mt-lg-2"
+                            href="/checkout/{{$sales->sales_no}}/detail">
                             <span><i class="fas fa-edit"></i> &nbsp;</span> Edit
                         </a>
                     </div>
@@ -70,23 +71,26 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <div class="col-7 col-lg-9 product-question"  >
+                            <div class="col-7 col-lg-9 product-question">
                                 @if($item->variants)
-                                    <div>
-                                        <p class="me-2">Variants: </p>
-                                            @foreach ($item->variants as $variant)
-                                                <span class="variant-item me-2">{{ $variant }}</span>
-                                            @endforeach
-                                    </div>
+                                <div>
+                                    <p class="me-2">Variants: </p>
+                                    @foreach ($item->variants as $variant)
+                                    <span class="variant-item me-2">{{ $variant }}</span>
+                                    @endforeach
+                                </div>
                                 @endif
-                                <div @if ($item->products->question != 'yes' || $item->products->category == 'product') hidden @endif>
+                                <div @if ($item->products->question != 'yes' || $item->products->category == 'product' || strtolower($item->products->title) === 'mencari jodoh')
+                                    hidden @endif>
                                     <h5>Pertanyaan</h5>
                                     <p>{{nl2br($item->pivot->question)}}</p>
-                                    <button class="button primary mt-3 mt-lg-2">
-                                        <span><i class="fas fa-edit"></i> &nbsp;</span>
-                                        <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
-                                            Edit</span></a>
-                                    </button>
+                                    <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail">
+                                        <button class="button primary mt-3 mt-lg-2">
+                                            <span><i class="fas fa-edit"></i> &nbsp;</span>
+                                            <span>
+                                                Edit</span>
+                                        </button>
+                                    </a>
                                 </div>
 
                                 <div @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
@@ -95,17 +99,18 @@
                                     <button class="button primary mt-3 mt-lg-2">
                                         <span><i class="fas fa-edit"></i> &nbsp;</span>
                                         <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
-                                            Edit</span></a>
+                                                Edit</span></a>
                                     </button>
                                 </div>
-                                @if (($item->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') || $item->products->category == 'product')
-                                    <p>{!! $item->description_short !!}</p>
+                                @if (($item->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh')
+                                || $item->products->category == 'product')
+                                <p>{!! $item->description_short !!}</p>
                                 @endif
                             </div>
                         </div>
                     </div>
                     @endforeach
-                    
+
                     @foreach ($sales->products as $item)
                     <div class="col-12 col-lg-6">
                         <div class="row product-item-container">
@@ -122,14 +127,14 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <div class="col-7 col-lg-9 product-question"  >
+                            <div class="col-7 col-lg-9 product-question">
                                 <div @if ($item->question != 'yes' || $item->category == 'product') hidden @endif>
                                     <h5>Pertanyaan</h5>
                                     <p>{{nl2br($item->pivot->question)}}</p>
                                     <button class="button primary mt-3 mt-lg-2">
                                         <span><i class="fas fa-edit"></i> &nbsp;</span>
                                         <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
-                                            Edit</span></a>
+                                                Edit</span></a>
                                     </button>
                                 </div>
 
@@ -139,11 +144,12 @@
                                     <button class="button primary mt-3 mt-lg-2">
                                         <span><i class="fas fa-edit"></i> &nbsp;</span>
                                         <a class="white-color" href="/checkout/{{$sales->sales_no}}/detail"><span>
-                                            Edit</span></a>
+                                                Edit</span></a>
                                     </button>
                                 </div>
-                                @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
-                                    <p>{!! $item->description_short !!}</p>
+                                @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') ||
+                                $item->category == 'product')
+                                <p>{!! $item->description_short !!}</p>
                                 @endif
                             </div>
                         </div>
@@ -159,7 +165,8 @@
                                 {{ session('error') }}
                             </div>
                             @endif
-                            <input type="text" class="form-control mb-3" placeholder="Discount Code" name="inputDiscount">
+                            <input type="text" class="form-control mb-3" placeholder="Discount Code"
+                                name="inputDiscount">
                         </div>
                         <div class="col-12 d-grid gap-2">
                             <button type="submit" class="button secondary">Lanjut ke Pembayaran</button>
@@ -173,7 +180,6 @@
         </div>
 
         <script>
-
             $(document).ready(function(){
                 $('.product-image').slick({
                     dots: false,

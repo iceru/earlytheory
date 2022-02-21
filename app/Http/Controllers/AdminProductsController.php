@@ -17,7 +17,8 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = Products::orderBy('ordernumber')->get();
+        $products = Products::where('category', 'product')->orderBy('ordernumber')->get();
+        $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
         $skus = SKUs::all();
         $options = Options::all();
 
@@ -39,7 +40,7 @@ class AdminProductsController extends Controller
             }
         }
 
-        return view('admin.products.index', compact('products', 'skus', 'options'));
+        return view('admin.products.index', compact('products', 'skus', 'options', 'services'));
     }
 
     /**
@@ -74,6 +75,7 @@ class AdminProductsController extends Controller
             'inputCategory' => 'required|in:product,service',
             'inputStock' => 'required',
             'inputQuestion' => 'nullable',
+            'inputQuestionTitle' => 'nullable',
         ]);
 
         if ($request->hasFile('inputImage')) {
@@ -102,6 +104,7 @@ class AdminProductsController extends Controller
         $product->category = $request->inputCategory;
         $product->stock = $request->inputStock;
         $product->question = $request->inputQuestion;
+        $product->question_title = $request->inputQuestionTitle;
         
         $product->save();
 
@@ -178,6 +181,7 @@ class AdminProductsController extends Controller
             'updateCategory' => 'required|in:product,service',
             'updateStock' => 'required',
             'updateQuestion' => 'nullable',
+            'updateQuestionTitle' => 'nullable',
         ]);
 
         if ($request->hasFile('updateImage')) {
@@ -207,6 +211,7 @@ class AdminProductsController extends Controller
         $product->category = $request->updateCategory;
         $product->stock = $request->updateStock;
         $product->question = $request->updateQuestion;
+        $product->question_title = $request->updateQuestionTitle;
 
         $product->save();
 
@@ -238,6 +243,24 @@ class AdminProductsController extends Controller
         Storage::disk('public')->delete('product-image/'.$product->image);
 
         Products::find($id)->delete();
+        return redirect('/admin/products');
+    }
+
+    public function hide($id)
+    {
+        $product = Products::find($id);
+        $product->hide = 1;
+        $product->save();
+
+        return redirect('/admin/products');
+    }
+
+    public function unhide($id)
+    {
+        $product = Products::find($id);
+        $product->hide = 0;
+        $product->save();
+
         return redirect('/admin/products');
     }
 

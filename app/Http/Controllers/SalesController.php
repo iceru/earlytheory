@@ -97,7 +97,7 @@ class SalesController extends Controller
                         $curl = curl_init();
         
                         curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
+                        CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$a->ship_city."&province=".$a->ship_province,
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,
@@ -130,7 +130,7 @@ class SalesController extends Controller
                     $curl = curl_init();
         
                     curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+                    CURLOPT_URL => "https://pro.rajaongkir.com/api/province",
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => "",
                     CURLOPT_MAXREDIRS => 10,
@@ -274,7 +274,7 @@ class SalesController extends Controller
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
+                CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$a->ship_city."&province=".$a->ship_province,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -300,7 +300,7 @@ class SalesController extends Controller
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+            CURLOPT_URL => "https://pro.rajaongkir.com/api/province",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -337,7 +337,7 @@ class SalesController extends Controller
             $curl = curl_init();
     
             curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=".$request->id,
+            CURLOPT_URL => "https://pro.rajaongkir.com/api/city?province=".$request->id,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -365,43 +365,18 @@ class SalesController extends Controller
     {
         $shippingAddress = ShippingAddress::where('id', $request->id)->firstOrFail();
 
-        //JNE
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "origin=153&destination=".$shippingAddress->ship_city."&weight=1000&courier=jne",
-            CURLOPT_HTTPHEADER => array(
-                "content-type: application/x-www-form-urlencoded",
-                "key: ".env('RAJAONGKIR_KEY')
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        $cost[] = json_decode($response);
-
         //TIKI
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_URL => "https://pro.rajaongkir.com/api/cost",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "origin=153&destination=".$shippingAddress->ship_city."&weight=1000&courier=tiki",
+            CURLOPT_POSTFIELDS => "origin=153&originType=city&destination=".$shippingAddress->ship_city."&destinationType=city&weight=1000&courier=anteraja",
             CURLOPT_HTTPHEADER => array(
                 "content-type: application/x-www-form-urlencoded",
                 "key: ".env('RAJAONGKIR_KEY')
@@ -413,22 +388,22 @@ class SalesController extends Controller
 
         curl_close($curl);
 
-        $cost[] = json_decode($response);
-        
-        //add courier name
-        $cost_jne = $cost[0]->rajaongkir->results[0]->costs;
-        foreach($cost_jne as $jne) {
-            $jne->courier = 'JNE';
-        }
-        $cost_tiki = $cost[1]->rajaongkir->results[0]->costs;
-        foreach($cost_tiki as $tiki) {
-            $tiki->courier = 'TIKI';
-        }
+        $cost = json_decode($response);
+        $costs = $cost->rajaongkir->results[0]->costs;
+        // //add courier name
+        // $cost_jne = $cost[0]->rajaongkir->results[0]->costs;
+        // foreach($cost_jne as $jne) {
+        //     $jne->courier = 'JNE';
+        // }
+        // $cost_tiki = $cost[1]->rajaongkir->results[0]->costs;
+        // foreach($cost_tiki as $tiki) {
+        //     $tiki->courier = 'TIKI';
+        // }
 
-        //merge
-        $shipcosts = $cost_tiki;
+        // //merge
+        // $shipcosts = $cost_tiki;
         
-        return $shipcosts;
+        return $costs;
     }
 
     public function addShipping(Request $request, $id)
@@ -476,7 +451,7 @@ class SalesController extends Controller
                     $curl = curl_init();
                 
                     curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
+                        CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,
