@@ -70,7 +70,8 @@ class HoroscopeController extends Controller
                     "time" => $request->time,
                     "place_id"=> $request->place_id,
                     "lang" => "en",
-                    "system" => "p"
+                    "system" => "p",
+                    "wheelSettings" => $request->wheelSettings,
                 ]
             ]);
             // $data = json_decode($response->getBody()->getContents());
@@ -131,8 +132,10 @@ class HoroscopeController extends Controller
     public function show($link_id)
     {
         $horoscope = Horoscope::where('link_id', $link_id)->firstOrFail();
+        $horoscope_product = Products::where('title', 'horoscope')->first();
+        $skus = SKUs::where('product_id', $horoscope_product->id)->get();
         // dd($horoscope->data);
-        return view('horoscope-detail', compact('horoscope'));
+        return view('horoscope-detail', compact('horoscope', 'skus', 'horoscope_product'));
     }
 
     /**

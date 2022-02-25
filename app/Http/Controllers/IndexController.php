@@ -7,6 +7,7 @@ use App\Models\SKUs;
 use App\Models\Sliders;
 use App\Models\Articles;
 use App\Models\Products;
+use App\Models\Horoscope;
 use App\Models\SKUvalues;
 use App\Models\OptionValues;
 use Illuminate\Http\Request;

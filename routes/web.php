@@ -41,6 +41,7 @@ use App\Http\Controllers\AdminProductOptionsController;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/birth-chart', [IndexController::class, 'index'])->name('horoscope');
 Route::get('/articles', [IndexController::class, 'index'])->name('articles');
+Route::get('/products', [IndexController::class, 'index'])->name('products');
 Route::post('/newsletter', [IndexController::class, 'store'])->name('newsletter');
 
 Route::get('/articles-page', [ArticleController::class, 'index'])->name('articles.index');

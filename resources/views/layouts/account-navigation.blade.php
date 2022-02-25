@@ -8,6 +8,9 @@
                 <a class="{{ (request()->is('orders')) ? 'active' : '' }}" href="{{ route('user.orders') }}">Orders</a>
             </li>
             <li>
+                <a class="{{ (request()->is('account-horoscope')) ? 'active' : '' }}" href="{{ route('user.horoscopes') }}">Birth Chart</a>
+            </li>
+            <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <a class="text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
