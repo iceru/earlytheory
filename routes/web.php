@@ -39,24 +39,24 @@ use App\Http\Controllers\AdminProductOptionsController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/birth-chart', [IndexController::class, 'index'])->name('horoscope');
+Route::get('/articles', [IndexController::class, 'index'])->name('articles');
 Route::post('/newsletter', [IndexController::class, 'store'])->name('newsletter');
 
-Route::get('/articles', [IndexController::class, 'index'])->name('articles');
+Route::get('/articles-page', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/article-detail/{slug}', [ArticleController::class, 'show'])->name('article-detail');
 
 Route::get('/product/{slug}', [ProductsController::class, 'productDetail'])->name('product-detail');
 Route::post('/get-sku', [ProductsController::class, 'getSku'])->name('get-sku');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
-Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 
-Route::get('/horoscope', [HoroscopeController::class, 'index'])->name('horoscope.index');
-Route::post('/horoscope/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
-Route::post('/horoscope/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
-Route::post('/horoscope/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
-Route::get('/horoscope/show/{link_id}', [HoroscopeController::class, 'show'])->name('horoscope.show');
+Route::get('/birth-chart/show/{link_id}', [HoroscopeController::class, 'show'])->name('horoscope.show');
+Route::post('/birth-chart/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
+Route::post('/birth-chart/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
+Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
   
-Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
+Route::get('auth/le', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 // Route::get('/product', function(){
 //     return view ('product-detail');
@@ -82,11 +82,16 @@ Route::get('send-mail', function () {
     dd("Email is Sent.");
 });
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('/horoscope/show/{link_id}', [HoroscopeController::class, 'show'])->name('horoscope.show');
+});
+
 Route::middleware(['auth'])->group(function(){
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
     Route::get('/orders', [UserController::class, 'orders'])->name('user.orders');
+    Route::get('/account/horoscopes', [UserController::class, 'horoscopes'])->name('user.horoscopes');
     Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
     Route::post('/confirm-payment/submit/{id}', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
 
