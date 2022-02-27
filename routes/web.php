@@ -57,7 +57,7 @@ Route::post('/birth-chart/places', [HoroscopeController::class, 'places'])->name
 Route::post('/birth-chart/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
 Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
   
-Route::get('auth/le', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
+Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 // Route::get('/product', function(){
 //     return view ('product-detail');

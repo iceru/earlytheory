@@ -19,6 +19,9 @@ class CreateHoroscopesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->text('data');
             $table->text('link_id');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->text('places');
             $table->timestamps();
         });
     }

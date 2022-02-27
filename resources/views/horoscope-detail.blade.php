@@ -11,8 +11,10 @@
     <div class="horoscope-detail">
         <div class="row align-items-center mb-5">
             <div class="col-12 col-lg-6 image-wrapper text-center">
-                <img class="hr-chart" src="{{ Storage::url('horoscopes/horoscope_'.$horoscope->link_id.'.svg') }}"
+                <a class="popup-image" href="{{ Storage::url('horoscopes/horoscope_'.$horoscope->link_id.'.svg') }}">
+                    <img class="hr-chart" src="{{ Storage::url('horoscopes/horoscope_'.$horoscope->link_id.'.svg') }}"
                     alt="{{ $horoscope->data['profile']['name'] }} Wheel">
+                </a>
             </div>
             <div class="col-12 col-lg-6">
                 <div class="header">
@@ -37,44 +39,44 @@
                         <div class="col-12 col-lg-6 mb-3">
                             <div>
                                 <label for="" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" name="name" id="name_edit" placeholder="" value="{{ $user ? $user->name : "" }}">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ $user ? $user->name : $horoscope->name }}">
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 mb-3">
                             <div>
                                 <label for="" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email_edit" placeholder="" value="{{ $user ? $user->email : "" }}">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{ $user ? $user->email : $horoscope->email }}">
                             </div>
                         </div>
                         <div class="col-12 col-lg-4 mb-3">
                             <div>
                                 <label for="" class="form-label">Tanggal Lahir</label>
-                                <input  type="text" class="form-control" name="birthdate" id="datepicker_edit" placeholder="" value="{{ $user ? \Carbon\Carbon::parse($user->birthdate)->toDateString() : "" }}" readonly>
+                                <input  type="text" class="form-control" name="birthdate" id="datepicker" placeholder="" value="{{ $user ? \Carbon\Carbon::parse($user->birthdate)->toDateString() : "" }}" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4 mb-4">
                             <div>
                                 <label for="" class="form-label">Waktu Lahir</label>
-                                <input  type="time" class="form-control" name="birthtime" id="birthtime_edit" placeholder="">
+                                <input  type="time" class="form-control" name="birthtime" id="birthtime" placeholder="">
                             </div>
                         </div>
                         <div class="col-12 col-lg-4 mb-4">
                             <div class="birthplace-wrapper">
                                 <label for="" class="form-label">Tempat Lahir</label>
-                                <input  type="text" class="form-control" name="birthplace" id="birthplace_edit" placeholder="" autocomplete="false">
+                                <input  type="text" class="form-control" name="birthplace" id="birthplace" placeholder="" autocomplete="false">
                                 <div class="spinner">
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-6">
+                            <button style="width: 100%" class="button secondary expanded" id="cancel">Cancel</button>
+                        </div>
                         <div class="col-6" >
-                            <button style="width: 100%" id="editHoroscope" class="button primary expanded text-uppercase">
+                            <button style="width: 100%" id="edit_horoscope" class="button primary expanded text-uppercase">
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" hidden></span>
                                 Get your Chart
                             </button>
-                        </div>
-                        <div class="col-6">
-                            <button style="width: 100%" class="button secondary expanded" id="cancel_edit">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -194,9 +196,14 @@
         </div>
     </div>
     <script>
+        var birthplaceLabel;
+        var birthplace;
         $(document).ready(function () {
-
-            $( "#datepicker_edit" ).datepicker({
+            $('.popup-image').magnificPopup({
+                type: 'image'
+                // other options
+            });
+            $( "#datepicker" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
                 yearRange: "1970:2004",
@@ -204,7 +211,7 @@
             });
             $('.form-horoscope-edit').hide();
 
-            $("#birthplace_edit").autocomplete({
+            $("#birthplace").autocomplete({
                 source: function(request, response) {
                 $('.birthplace-wrapper .spinner-border').removeAttr('hidden');
                     $.ajax({
@@ -228,11 +235,13 @@
                     });
                 },
                 focus: function(event, ui) {
-                    $('#birthplace_edit').val(ui.item.label);
+                    $('#birthplace').val(ui.item.label);
                     return false;
                 },
                 select: function (event, ui) {
-                    birthplaceEdit = ui.item.id
+                    birthplace = ui.item.id
+                    birthplaceLabel = ui.item.label;
+
                     return false;
                 },
                 minLength: 3
@@ -247,101 +256,134 @@
             $('.birth-date').hide();
         });
 
-        $('#cancel_edit').click(function (e) { 
+        $('#cancel').click(function (e) { 
             e.preventDefault();
             $('.form-horoscope-edit').hide();
             $('#edit_button').show();
             $('.birth-date').show();
         });
 
-        $('#editHoroscope').click(function (e) { 
-            e.preventDefault();
-            var nameEdit = $('#name_edit').val();
-            var emailEdit = $('#email_edit').val();
-            var birthdateEdit = $('#datepicker_edit').val();
-            var birthtimeEdit = $('#birthtime_edit').val();
+        $('#edit_horoscope').click(function (e) { 
+        e.preventDefault();
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var birthdate = $('#datepicker').val();
+        var birthtime = $('#birthtime').val();
+        
+        debugger;
 
-            if(nameEdit === '' || emailEdit === '' || birthdateEdit === '' || birthtimeEdit === '') {
-                Swal.fire({
-                    icon: "error",
-                    title: "Isi form terlebih dahulu",
-                });
-                return
-            }
-
-            if(!birthplaceEdit) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Tempat kelahiran belum diisi dengan benar",
-                });
-                return
-            }
-
-            var data = {
-                "name": nameEdit,
-                "date": birthdateEdit,
-                "time": birthtimeEdit,
-                "place_id": birthplaceEdit,
-                "email": emailEdit,
-                "wheelSettings": {
-                    "POINTS_TEXT_SIZE": 14,
-                    "SYMBOL_SCALE": 1.5,
-                }
-            }
-
-            $(this).prop('disabled', true);
-            $('.spinner-border').removeAttr('hidden');
-
-            $.ajax({
-                type: "POST",
-                url: "/birth-chart/natal",
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                data: data,
-                
-                success: function (response) {
-                    const obj = JSON.parse(response);
-                    const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
-
-                    if(user) {
-                        storeHoroscope(uid, obj)
-                    } else {
-                        window.location = `/birth-chart/show/${uid}`
-                    }
-                    
-                    var productid = {!! $horoscope_product->id !!}
-                },
-                always: function() {
-                    $(this).prop('disabled', false);
-                },
-                error: function(err) {
-                    alert(err);
-                }
+        if(name === '' || email === '' || birthdate === '' || birthtime === '') {
+            Swal.fire({
+                icon: "error",
+                title: "Isi form terlebih dahulu",
             });
-        });
-
-        function storeHoroscope(id, obj) {
-            userid = '{!! $user ? $user->id : '' !!}'
-            const data = {
-                user_id: parseInt(userid),
-                link_id: id,
-                data: obj
-            }
-            $.ajax({
-                type: "POST",
-                url: "/birth-chart/store",
-                data: data,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                success: function (response) {
-                    window.location = `/birth-chart/show/${id}`
-                },
-                error: function(err) {
-                    alert(err)
-                }
-            });
+            return
         }
+
+        if(!birthplace) {
+            Swal.fire({
+                icon: "error",
+                title: "Tempat kelahiran belum diisi dengan benar",
+            });
+            return
+        }
+
+        var data = {
+            "name": name,
+            "date": birthdate,
+            "time": birthtime,
+            "place_id": birthplace,
+            "email": email,
+            "wheelSettings": {
+                "POINTS_TEXT_SIZE": 14,
+                "SYMBOL_SCALE": 1.5,
+                "COLOR_BACKGROUND": "#a183d3",
+
+                "SIGNS_COLOR_ARIES": "#FFF",
+                "SIGNS_COLOR_TAURUS": "#FFF",
+                "SIGNS_COLOR_GEMINI": "#FFF",
+                "SIGNS_COLOR_CANCER": "#FFF",
+                "SIGNS_COLOR_LEO": "#FFF",
+                "SIGNS_COLOR_VIRGO": "#FFF",
+                "SIGNS_COLOR_LIBRA": "#FFF",
+                "SIGNS_COLOR_SCORPIO": "#FFF",
+                "SIGNS_COLOR_SAGITTARIUS": "#FFF",
+                "SIGNS_COLOR_CAPRICORN": "#FFF",
+                "SIGNS_COLOR_AQUARIUS": "#FFF",
+                "SIGNS_COLOR_PISCES": "#FFF",
+                
+                "BACKGROUND_ARIES": "#4A2984",
+                "BACKGROUND_TAURUS": "#4A2984",
+                "BACKGROUND_GEMINI": "#4A2984",
+                "BACKGROUND_CANCER": "#4A2984",
+                "BACKGROUND_LEO": "#4A2984",
+                "BACKGROUND_VIRGO": "#4A2984",
+                "BACKGROUND_LIBRA": "#4A2984",
+                "BACKGROUND_SCORPIO": "#4A2984",
+                "BACKGROUND_SAGITTARIUS": "#4A2984",
+                "BACKGROUND_CAPRICORN": "#4A2984",
+                "BACKGROUND_AQUARIUS": "#4A2984",
+                "BACKGROUND_PISCES": "#4A2984",
+            }
+        }
+
+        $(this).prop('disabled', true);
+        $('.spinner-border').removeAttr('hidden');
+
+        $.ajax({
+            type: "POST",
+            url: "/birth-chart/natal",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            data: data,
+            
+            success: function (response) {
+                const obj = JSON.parse(response);
+                const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
+                
+                storeHoroscope(uid, obj, name, email)
+
+                var productid = {!! $horoscope_product->id !!}
+            },
+            always: function() {
+                $(this).prop('disabled', false);
+            },
+            error: function(err) {
+                alert(err);
+            }
+        });
+    });
+
+    function storeHoroscope(id, obj, name, email) {
+        userid = '{!! $user ? $user->id : '' !!}'
+        userIdStore = userid ? parseInt(userid) : null
+        birthplaceData = {
+            id: birthplace,
+            label: birthplaceLabel
+        }
+        const data = {
+            user_id: userIdStore,
+            link_id: id,
+            data: obj,
+            name: name,
+            email: email,
+            places: JSON.stringify(birthplaceData)
+        }
+        $.ajax({
+            type: "POST",
+            url: "/birth-chart/store",
+            data: data,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                window.location = `/birth-chart/show/${id}`
+            },
+            error: function(err) {
+                alert(err)
+            }
+        });
+    }
     </script>
 </x-app-layout>

@@ -104,7 +104,7 @@ class HoroscopeController extends Controller
         $horoscope = new Horoscope;
 
         $request->validate([
-            'user_id' => 'required',
+            'user_id' => 'nullable',
             'data' => 'required',
             'link_id' => 'required',
             'name' => 'nullable',
@@ -141,6 +141,7 @@ class HoroscopeController extends Controller
         $horoscope = Horoscope::where('link_id', $link_id)->firstOrFail();
         $horoscope_product = Products::where('title', 'horoscope')->first();
         $skus = SKUs::where('product_id', $horoscope_product->id)->get();
+        
         // dd($horoscope->data);
         return view('horoscope-detail', compact('horoscope', 'skus', 'horoscope_product', 'user'));
     }

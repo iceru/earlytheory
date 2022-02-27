@@ -89,13 +89,9 @@
 
 
 <script>
-    // var alertList = document.querySelectorAll('.alert');
-    // alertList.forEach(function (alert) {
-    //     new bootstrap.Alert(alert)
-    // })
-    
-    var place;
     var birthplace;
+    var birthplaceLabel;
+
     var user = '{!! $user !!}'
     $(document).ready(function(){
         $( "#datepicker" ).datepicker({
@@ -103,6 +99,7 @@
             changeYear: true,
             yearRange: "1970:2004",
             dateFormat: 'yy-mm-dd',
+            defaultDate: "-22y"
         });
         history.replaceState('', '', '/');
         $('.results').hide();
@@ -126,6 +123,7 @@
                             }
                         })
                         response(results.slice(0, 10));
+                        console.log(results.slice(0, 10));
                     },
                 });
             },
@@ -134,7 +132,8 @@
                 return false;
             },
             select: function (event, ui) {
-                birthplace = ui.item.id
+                birthplace = ui.item.id;
+                birthplaceLabel = ui.item.label;
                 return false;
             },
             minLength: 3
@@ -147,7 +146,7 @@
         var email = $('#email').val();
         var birthdate = $('#datepicker').val();
         var birthtime = $('#birthtime').val();
-
+        
         if(name === '' || email === '' || birthdate === '' || birthtime === '') {
             Swal.fire({
                 icon: "error",
@@ -173,9 +172,33 @@
             "wheelSettings": {
                 "POINTS_TEXT_SIZE": 14,
                 "SYMBOL_SCALE": 1.5,
-                "COLOR_BACKGROUND": "#4A2984",
-                "POINTS_COLOR": "#FFF",
-                "SIGNS_COLOR": "#FFF"
+                "COLOR_BACKGROUND": "#a183d3",
+
+                "SIGNS_COLOR_ARIES": "#FFF",
+                "SIGNS_COLOR_TAURUS": "#FFF",
+                "SIGNS_COLOR_GEMINI": "#FFF",
+                "SIGNS_COLOR_CANCER": "#FFF",
+                "SIGNS_COLOR_LEO": "#FFF",
+                "SIGNS_COLOR_VIRGO": "#FFF",
+                "SIGNS_COLOR_LIBRA": "#FFF",
+                "SIGNS_COLOR_SCORPIO": "#FFF",
+                "SIGNS_COLOR_SAGITTARIUS": "#FFF",
+                "SIGNS_COLOR_CAPRICORN": "#FFF",
+                "SIGNS_COLOR_AQUARIUS": "#FFF",
+                "SIGNS_COLOR_PISCES": "#FFF",
+                
+                "BACKGROUND_ARIES": "#4A2984",
+                "BACKGROUND_TAURUS": "#4A2984",
+                "BACKGROUND_GEMINI": "#4A2984",
+                "BACKGROUND_CANCER": "#4A2984",
+                "BACKGROUND_LEO": "#4A2984",
+                "BACKGROUND_VIRGO": "#4A2984",
+                "BACKGROUND_LIBRA": "#4A2984",
+                "BACKGROUND_SCORPIO": "#4A2984",
+                "BACKGROUND_SAGITTARIUS": "#4A2984",
+                "BACKGROUND_CAPRICORN": "#4A2984",
+                "BACKGROUND_AQUARIUS": "#4A2984",
+                "BACKGROUND_PISCES": "#4A2984",
             }
         }
 
@@ -193,138 +216,8 @@
             success: function (response) {
                 const obj = JSON.parse(response);
                 const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
-
-                // history.pushState({
-                //     horoscope: obj,
-                // }, null, `/birth-chart/show/${uid}`);
                 
-                storeHoroscope(uid, obj)
-
-                // const birth = new Date(obj.profile.birthdate.date);
-                // const birthDateText = birth.toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric'}).replace(/\//g, ' ');;
-                // const birthTimeText = birth.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
-                // $('.input-horoscope').hide();
-                // $('.results').show();
-                // $('.header-horoscope').append(`
-                //     <div class="col-12 col-lg-6 image-wrapper text-center">
-                //         <img class="hr-chart" src="${obj.wheel}"
-                //             alt="${obj.profile.name} Wheel">
-                //     </div>
-                //     <div class="col-12 col-lg-6">
-                //         <div class="header">
-                //             <div class="hr-name">
-                //                 ${obj.profile.name}
-                //             </div>
-                //             <div class="row birth-date">
-                //                 <div class="col-4">
-                //                     ${birthDateText}
-                //                 </div>
-                //                 <div class="col-4">
-                //                     ${birthTimeText}
-                //                 </div>
-                //                 <div class="col-4">
-                //                     <p>${obj.profile.cityName}</p>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     </div>
-                // `);
-            
-                // obj.planets.slice(0,2).forEach(item => {
-                //     $(".planets").append(`
-                //         <div class="col-6 col-lg-4">
-                //             <div class="row planet">
-                //                 <div class="col-4">
-                //                     <img class="w-100" src="/images/planets/${item.planetName}.png" alt="${item.planetName}">
-                //                 </div>
-                //                 <div class="col-8">
-                //                     <div class="title">
-                //                         <div class="planet-name">${item.planetName}</div>
-                //                         <div class="planet-degree">${item.degrees} &#176; ${item.minutes}" 
-                //                             ${item.seconds}'</div>
-                //                     </div>
-                //                     <div class="planet-sign">
-                //                         ${item.signName}
-                //                     </div>
-                //                     <div class="planet-house">House ${item.housePosition}</div>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     `)
-                // });
-                // $('.planets').append(`
-                //     <div class="col-6 col-lg-4">
-                //         <div class="row planet">
-                //             <div class="col-4">
-                //                 <img class="w-100" src='/images/planets/Ascendant.png' alt="Ascendant">
-                //             </div>
-                //             <div class="col-8">
-                //                 <div class="title">
-                //                     <div class="planet-name">Ascendant</div>
-                //                     <div class="planet-degree">${obj.ascendant.degrees} &#176; ${obj.ascendant.minutes}" 
-                //                         ${obj.ascendant.seconds}'</div>
-                //                 </div>
-                //                 <div class="planet-sign">
-                //                     ${obj.ascendant.signName}
-                //                 </div>
-                //                 <div class="planet-house">House ${obj.ascendant.housePosition}</div>
-                //             </div>
-                //         </div>
-                //     </div>
-                //     <div class="col-6 col-lg-4">
-                //         <div class="row planet">
-                //             <div class="col-4">
-                //                 <img class="w-100" src='/images/planets/Midheaven.png' alt="Midheaven">
-                //             </div>
-                //             <div class="col-8">
-                //                 <div class="title">
-                //                     <div class="planet-name">Midheaven</div>
-                //                     <div class="planet-degree">${obj.midheaven.degrees} &#176; ${obj.midheaven.minutes}" 
-                //                         ${obj.midheaven.seconds}'</div>
-                //                 </div>
-                //                 <div class="planet-sign">
-                //                     ${obj.midheaven.signName}
-                //                 </div>
-                //                 <div class="planet-house">House ${obj.midheaven.housePosition}</div>
-                //             </div>
-                //         </div>
-                //     </div>
-                // `)
-                // obj.planets.slice(2,12).forEach(item => {
-                //     $(".planets").append(`
-                //         <div class="col-6 col-lg-4">
-                //             <div class="row planet">
-                //                 <div class="col-4">
-                //                     <img class="w-100" src=/images/planets/${item.planetName}.png alt="${item.planetName}">
-                //                 </div>
-                //                 <div class="col-8">
-                //                     <div class="title">
-                //                         <div class="planet-name">${item.planetName}</div>
-                //                         <div class="planet-degree">${item.degrees} &#176; ${item.minutes}" 
-                //                             ${item.seconds}'</div>
-                //                     </div>
-                //                     <div class="planet-sign">
-                //                         ${item.signName}
-                //                     </div>
-                //                     <div class="planet-house">House ${item.housePosition}</div>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     `)
-                // });
-
-                // obj.aspects.forEach(item => {
-                //     $('.aspects').append(`
-                //         <tr>
-                //             <td class="image"><img src="/images/planets/${item.planet1Name}.png" alt="${item.planet1Name}"></td>
-                //             <td>${item.planet1Name}</td>
-                //             <td>${item.aspectName}</td>
-                //             <td class="image"><img src="/images/planets/${item.planet2Name}.png" alt="${item.planet2Name}"></td>
-                //             <td>${item.planet2Name}</td>
-                //             <td>${item.degrees}&#176; ${item.seconds.slice(0,2)}'</td>
-                //         </tr>
-                //     `)
-                // });
+                storeHoroscope(uid, obj, name, email)
 
                 var productid = {!! $horoscope_product->id !!}
             },
@@ -337,15 +230,20 @@
         });
     });
 
-    function storeHoroscope(id, obj) {
+    function storeHoroscope(id, obj, name, email) {
         userid = '{!! $user ? $user->id : '' !!}'
+        userIdStore = userid ? parseInt(userid) : null
+        birthplaceData = {
+            id: birthplace,
+            label: birthplaceLabel
+        }
         const data = {
-            user_id: parseInt(userid),
+            user_id: userIdStore,
             link_id: id,
             data: obj,
             name: name,
             email: email,
-            places: birthplace
+            places: JSON.stringify(birthplaceData)
         }
         $.ajax({
             type: "POST",
