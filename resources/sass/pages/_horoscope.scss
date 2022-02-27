@@ -12,15 +12,31 @@
             font-weight: bold;
             line-height: 3.5rem;
             letter-spacing: 3px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            > div {
+                margin-right: .5rem;
+            }
+        }
+
+        .notes {
+            color: grey;
         }
 
         .birth-date {
+            padding: 0 1rem;
             > div {
+                font-family: 'Apercu Mono';
                 padding: .25rem 1rem;
                 border: 2px solid black;
                 text-align: center;
                 font-size: 1.35rem;
                 text-transform: uppercase;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 &:first-child {
                     border-right: 0;
@@ -37,6 +53,10 @@
         img {
             width: 80%;
         }
+    }
+
+    .screenshot {
+        cursor: pointer;
     }
 
     .planet {
@@ -85,6 +105,7 @@
 
     @include breakpoint-down(small) {
         .header {
+            margin-bottom: 0;
             .hr-name {
                 font-size: 2.5rem;
                 line-height: 2.5rem;
@@ -128,7 +149,27 @@
     }
 }
 
+.edit-button {
+    font-size: .85rem;
+    color: black;
+
+    &:hover {
+        color: $secondary;
+    }
+}
+
 .table-aspect {
+    tr td, tr th {
+       vertical-align: middle;
+       font-family: 'Apercu Mono';
+       font-size: .9rem;
+    }
+    .image {
+        width: 1%;
+        img {
+            width: 70px;
+        }
+    }
     @include breakpoint(large) {
         width: 70%;
         margin: auto;
@@ -137,17 +178,8 @@
             font-size: 1.25rem;
         }
     }
-    tr td, tr th {
-       vertical-align: middle;
-    }
-    .image {
-        width: 1%;
-        img {
-            width: 70px;
-        }
-    }
 }
 
 .mfp-figure {
-    background-color: white;
+    background-color: $background;
 }

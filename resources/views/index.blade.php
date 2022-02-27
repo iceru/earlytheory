@@ -55,6 +55,9 @@
 
             <hr>
 
+            <div class="col-12 products-title d-flex">
+                Gelang Kristal by <img src="/images/Logo-tokomejik.png" alt="Toko Mejik">
+            </div>
             @forelse ($products as $product)
             <div class="product-item-container col-6 col-md-4 col-lg-3 mt-4">
                 <div class="product-image physical-image" id="product_image">

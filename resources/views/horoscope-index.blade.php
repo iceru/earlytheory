@@ -8,45 +8,47 @@
         </div>
     </div>
     @endif
-    <div class="row form-horoscopes">
-        <div class="col-12 col-lg-6 mb-3">
-            <div>
-                <label for="" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ $user ? $user->name : "" }}">
-            </div>
-        </div>
-        <div class="col-12 col-lg-6 mb-3">
-            <div>
-                <label for="" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{ $user ? $user->email : "" }}">
-            </div>
-        </div>
-        <div class="col-12 col-lg-4 mb-3">
-            <div>
-                <label for="" class="form-label">Tanggal Lahir</label>
-                <input  type="text" class="form-control" name="birthdate" id="datepicker" placeholder="" value="{{ $user ? \Carbon\Carbon::parse($user->birthdate)->toDateString() : "" }}" readonly>
-            </div>
-        </div>
-        <div class="col-12 col-lg-4 mb-4">
-            <div>
-                <label for="" class="form-label">Waktu Lahir</label>
-                <input  type="time" class="form-control" name="birthtime" id="birthtime" placeholder="">
-            </div>
-        </div>
-        <div class="col-12 col-lg-4 mb-4">
-            <div class="birthplace-wrapper">
-                <label for="" class="form-label">Tempat Lahir</label>
-                <input  type="text" class="form-control" name="birthplace" id="birthplace" placeholder="" autocomplete="false">
-                <div class="spinner">
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+    <div class="form-horoscopes">
+        <div class="row">
+            <div class="col-12 col-lg-6 mb-3">
+                <div>
+                    <label for="" class="form-label">Nama Lengkap</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ $user ? $user->name : "" }}">
                 </div>
             </div>
-        </div>
-        <div class="col-12" >
-            <button style="width: 100%" id="submitHoroscope" class="button primary expanded text-uppercase">
-                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" hidden></span>
-                Get your Chart
-            </button>
+            <div class="col-12 col-lg-6 mb-3">
+                <div>
+                    <label for="" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{ $user ? $user->email : "" }}">
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 mb-3">
+                <div>
+                    <label for="" class="form-label">Tanggal Lahir</label>
+                    <input  type="text" class="form-control" name="birthdate" id="datepicker" placeholder="" value="{{ $user ? \Carbon\Carbon::parse($user->birthdate)->toDateString() : "" }}" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 mb-4">
+                <div>
+                    <label for="" class="form-label">Waktu Lahir</label>
+                    <input  type="time" class="form-control" name="birthtime" id="birthtime" placeholder="">
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 mb-4">
+                <div class="birthplace-wrapper">
+                    <label for="" class="form-label">Tempat Lahir</label>
+                    <input  type="text" class="form-control" name="birthplace" id="birthplace" placeholder="" autocomplete="false">
+                    <div class="spinner">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" >
+                <button style="width: 100%" id="submitHoroscope" class="button primary expanded text-uppercase">
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" hidden></span>
+                    Get your Chart
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -172,7 +174,7 @@
             "wheelSettings": {
                 "POINTS_TEXT_SIZE": 14,
                 "SYMBOL_SCALE": 1.5,
-                "COLOR_BACKGROUND": "#a183d3",
+                "COLOR_BACKGROUND": "#e7e7e7",
 
                 "SIGNS_COLOR_ARIES": "#FFF",
                 "SIGNS_COLOR_TAURUS": "#FFF",

@@ -6,6 +6,7 @@ use File;
 use App\Models\SKUs;
 use App\Models\User;
 use GuzzleHttp\Client;
+use App\Models\Sliders;
 use App\Models\Products;
 use App\Models\Horoscope;
 use Illuminate\Http\Request;
@@ -141,9 +142,10 @@ class HoroscopeController extends Controller
         $horoscope = Horoscope::where('link_id', $link_id)->firstOrFail();
         $horoscope_product = Products::where('title', 'horoscope')->first();
         $skus = SKUs::where('product_id', $horoscope_product->id)->get();
+        $sliders =  Sliders::where('category', 'birthchart')->orderBy('ordernumber')->get();
         
         // dd($horoscope->data);
-        return view('horoscope-detail', compact('horoscope', 'skus', 'horoscope_product', 'user'));
+        return view('horoscope-detail', compact('horoscope', 'skus', 'horoscope_product', 'user', 'sliders'));
     }
 
     /**
