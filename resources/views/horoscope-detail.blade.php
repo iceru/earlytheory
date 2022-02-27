@@ -6,10 +6,11 @@
     @section('additional_header')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" integrity="sha512-IsNh5E3eYy3tr/JiX2Yx4vsCujtkhwl7SLqgnwLNgf04Hrt9BT9SXlLlZlWx+OK4ndzAoALhsMNcCmkggjZB1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @endsection
 
     <div class="horoscope-detail">
-        <div class="row align-items-center mb-5">
+        <div class="row align-items-center mb-3">
             <div class="col-12 col-lg-6 image-wrapper text-center">
                 <a class="popup-image" href="{{ Storage::url('horoscopes/horoscope_'.$horoscope->link_id.'.svg') }}">
                     <img class="hr-chart" src="{{ Storage::url('horoscopes/horoscope_'.$horoscope->link_id.'.svg') }}"
@@ -19,7 +20,10 @@
             <div class="col-12 col-lg-6">
                 <div class="header">
                     <div class="hr-name">
-                        {{ $horoscope->data['profile']['name'] }}
+                        <div>
+                            {{ $horoscope->data['profile']['name'] }}
+                        </div>
+                        <a href="#" class="edit-button" id="edit_button"><i class="fas fa-edit"></i></a>
                     </div>
                     <div class="row birth-date">
                         <div class="col-4">
@@ -32,9 +36,12 @@
                             <p>{{ $horoscope->data['profile']['cityName'] }}</p>
                         </div>
                     </div>
-                    <div>
-                        <div style="display: inline-flex" class="button primary mt-3" id="edit_button">Edit <i class="fas fa-edit fa-fw ms-2"></i></div>
+                    <div class="mt-3 notes">
+                        <p>Natal Chart ini menggunakan system [Placidus] sehingga ukuran house tidak sejajar 30 derajat.</p>
                     </div>
+                    {{-- <div>
+                        <div style="display: inline-flex" class="button primary mt-3" id="edit_button">Edit <i class="fas fa-edit fa-fw ms-2"></i></div>
+                    </div> --}}
                     <div class="row form-horoscope-edit mt-3">
                         <div class="col-12 col-lg-6 mb-3">
                             <div>
@@ -73,9 +80,9 @@
                             <button style="width: 100%" class="button secondary expanded" id="cancel">Cancel</button>
                         </div>
                         <div class="col-6" >
-                            <button style="width: 100%" id="edit_horoscope" class="button primary expanded text-uppercase">
+                            <button style="width: 100%" id="edit_horoscope" class="button primary expanded">
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" hidden></span>
-                                Get your Chart
+                                Submit
                             </button>
                         </div>
                     </div>
@@ -83,11 +90,11 @@
 
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3" id="planets">
             <div class="col-12">
                 <div class="row">
                     @foreach (array_slice($horoscope->data['planets'], 0, 2) as $planet)
-                    <div class="col-6 col-lg-4">
+                    <div class="col-6 col-lg-4 screenshot">
                         <div class="row planet">
                             <div class="col-4">
                                 <img class="w-100" src={{ '/images/planets/'.$planet['planetName'].'.png' }} alt="{{ $planet['planetName'] }}">
@@ -106,7 +113,7 @@
                         </div>
                     </div>
                     @endforeach
-                    <div class="col-6 col-lg-4">
+                    <div class="col-6 col-lg-4 screenshot">
                         <div class="row planet">
                             <div class="col-4">
                                 <img class="w-100" src={{ '/images/planets/Ascendant.png' }} alt="Ascendant">
@@ -123,7 +130,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-6 col-lg-4 screenshot">
                         <div class="row planet">
                             <div class="col-4">
                                 <img class="w-100" src={{ '/images/planets/Midheaven.png' }} alt="Midheaven">
@@ -171,19 +178,19 @@
                     <table class="table table-aspect table-bordered border-dark ">
                         <thead>
                             <tr>
-                                <th colspan="2">Planet</th>
+                                <th>Planet</th>
                                 <th>Aspect</th>
-                                <th colspan="2">Planet</th>
+                                <th>Planet</th>
                                 <th>Orb</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($horoscope->data['aspects'] as $aspect)
                             <tr>
-                                <td class="image"><img src="{{ '/images/planets/'.str_replace(' ', '', $aspect['planet1Name']).'.png' }}" alt="{{ $aspect['planet1Name']}}"></td>
+                                {{-- <td class="image"><img src="{{ '/images/planets/'.str_replace(' ', '', $aspect['planet1Name']).'.png' }}" alt="{{ $aspect['planet1Name']}}"></td> --}}
                                 <td>{{ $aspect['planet1Name']}}</td>
                                 <td>{{ $aspect['aspectName'] }}</td>
-                                <td class="image"><img src="{{ '/images/planets/'.str_replace(' ', '', $aspect['planet2Name']).'.png' }}" alt="{{ $aspect['planet2Name']}}"></td>
+                                {{-- <td class="image"><img src="{{ '/images/planets/'.str_replace(' ', '', $aspect['planet2Name']).'.png' }}" alt="{{ $aspect['planet2Name']}}"></td> --}}
                                 <td>{{ $aspect['planet2Name']}}</td>
                                 <td>{{ $aspect['degrees'] }}&#176; {{ Str::substr($aspect['seconds'], 0, 2) }}'</td>
                             </tr>
@@ -194,11 +201,41 @@
             </div>
             
         </div>
+        
+        <div class="sliders mt-5">
+            @foreach ($sliders as $slider)
+            <a href="{{ $slider->link }}">
+                <div class="slider-item">
+                    <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="">
+                </div>
+            </a>
+            @endforeach
+        </div>
     </div>
     <script>
         var birthplaceLabel;
         var birthplace;
+
+        $('.screenshot').click(function (e) { 
+            html2canvas(document.getElementById("planets"),
+			{
+				allowTaint: true,
+				useCORS: true
+			}).then(function (canvas) {
+				var anchorTag = document.createElement("a");
+				document.body.appendChild(anchorTag);
+				anchorTag.download = "Birth Chart.jpg";
+				anchorTag.href = canvas.toDataURL();
+				anchorTag.target = '_blank';
+				anchorTag.click();
+			});
+        });
+        
         $(document).ready(function () {
+            $('.sliders').slick({
+                dots: true
+            });
+
             $('.popup-image').magnificPopup({
                 type: 'image'
                 // other options
