@@ -10,6 +10,8 @@
                 <ul class="dropdown-menu" aria-labelledby="userDropdown">
                     <li><a class="dropdown-item" href="{{ route('user.account') }}">Account</a></li>
                     <li><a class="dropdown-item" href="{{ route('user.orders') }}">Orders @if (count($sales) > 0) <span class="orders-alert"></span> @endif</a></li>
+                    <li><a class="dropdown-item" href="{{ route('user.horoscopes') }}">Birth Chart</a></li>
+                
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -44,7 +46,7 @@
 <nav class="navbar align-items-center row d-none d-lg-flex">
     <div class="col-4 nav-links">
         <a class="{{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('index') }}">Products</a>
-        <a class="{{ (request()->is('articles')) ? 'active' : '' }}" href="{{ route('articles') }}" class="article-link">Articles</a>
+        <a class="{{ (request()->is('articles-page')) ? 'active' : '' }}" href="{{ route('articles.index') }}" class="article-link">Articles</a>
     </div>
     <div class="col-4 logo-lg text-center">
         <a href="/">
@@ -69,7 +71,7 @@
             <a class="{{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('index') }}">Products</a>
         </li>
         <li class="article-link">
-            <a class="{{ (request()->is('articles')) ? 'active' : '' }}" href="{{ route('articles') }}">Articles</a>
+            <a class="{{ (request()->is('articles-page')) ? 'active' : '' }}" href="{{ route('articles.index') }}">Articles</a>
         </li>
         <li>
             <a class="{{ (request()->is('contact-us')) ? 'active' : '' }}" href="{{ route('contact-us') }}">Contact Us</a>

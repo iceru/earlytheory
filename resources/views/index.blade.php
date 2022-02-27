@@ -17,18 +17,18 @@
     </div>
 
     <div class="page-tabs">
-        <div class="tab active" id="services" onclick="ActivePage('services')">
-            <h4>Ramalan</h4>
+        <div class="tab active" id="products" onclick="ActivePage('products')">
+            <h4>Produk</h4>
         </div>
-        <div class="tab" id="items" onclick="ActivePage('items')">
-            <h4>Kristal</h4>
+        <div class="tab" id="birth-chart" onclick="ActivePage('birth-chart')">
+            <h4>Birth Chart</h4>
         </div>
-        <div class="tab" id="article-index" onclick="ActivePage('article-index')">
+        <div class="tab" id="articles" onclick="ActivePage('articles')">
             <h4>Artikel</h4>
         </div>
     </div>
     <div class="col-12 index">
-        <div class="products services row mt-3 page active" >
+        <div class="products row mt-3 page active" >
             @forelse ($services as $product)
                 <div class="product-item-container col-6 col-md-4 col-lg-3">
                     <div class="product-image service-image">
@@ -52,10 +52,11 @@
             @empty
                 <h4 class="evogria">No Product</h4>
             @endforelse
-        </div>
-        <div class="products items row mt-3 page">
+
+            <hr>
+
             @forelse ($products as $product)
-            <div class="product-item-container col-6 col-md-4 col-lg-3">
+            <div class="product-item-container col-6 col-md-4 col-lg-3 mt-4">
                 <div class="product-image physical-image" id="product_image">
                     @foreach ((array)json_decode($product->image) as $item)
                         <a href="/product/{{$product->slug}}">
@@ -74,12 +75,15 @@
                 </div>
                 <div data-id="{{$product->id}}" class="button primary my-3 addcart">PESAN SEKARANG</div>
             </div>
-        @empty
-            <h4 class="evogria">No Product</h4>
-        @endforelse
+            @empty
+                <h4 class="evogria">No Product</h4>
+            @endforelse
+        </div>
+        <div class="birth-chart row mt-3 page">
+            @include('horoscope-index')
         </div>
 
-        <div class="article-index page mt-3">
+        <div class="articles page mt-3">
             @include('article-index')
         </div>
     </div>
@@ -144,54 +148,77 @@
             $('.physical-image').slick(options());
             
             checkSku();
+            // setTimeout(() => {
+            //     if(window.location.pathname === '/')
+            //         ActivePage('products');
+            //     else
+            //         ActivePage(page);
+            // }, 1000);
+            window.history.pushState({page: 'products'}, "", '/');
+
+            if(window.location.pathname == '/birth-chart') {
+                ActivePage('birth-chart');
+            }
+            
             if(window.location.pathname == '/articles') {
-                ActivePage('article-index');
-                if(document.body.scrollTop === 0) {
-                    setTimeout(function() {
-                    $('html, body').animate({
-                        scrollTop: $(".article-index").offset().top - 70
-                    }, 100);
-                }, 1000)
-                }
+                ActivePage('articles');
             }
 
             sameDiv();
         });
 
         function ReinitSliders(page) {
-            if (page == 'services') {
+            if (page == 'products') {
                 $('.service-image').slick('unslick');
                 $('.service-image').slick(options());
-            } else if (page == 'items') {
+            } else if (page == 'birth-chart') {
                 $('.physical-image').slick('unslick')
                 $('.physical-image').slick(options());
             } 
         }
         
 
+        const pagestate = window.location.pathname.slice(1);
+
         function ActivePage(page) {
             $('.page').removeClass('active');
             $('.tab').removeClass('active');
             $('.'+page).addClass('active');
             $('#'+page).addClass('active');
+            window.history.pushState({article: '', page: pagestate}, "", '/'+page);
+            if(page === 'articles') {
+                getArticles(window.location.origin+window.location.pathname)
+            }
             // checkSku();
             ReinitSliders(page);
         }
 
         $('body').on('click', '.pagination a', function(e) {
             e.preventDefault();
-            
             var url = $(this).attr('href');
             getArticles(url);
-            window.history.pushState("", "", url);
         });
 
         function getArticles(url) {
             $.ajax({
                 url:url
             }).done(function (data){
-                $('.article-index').html(data);
+                $('.articles').html(data);
+                const urlParse = new URL(url);
+                history.pushState({article: url, page: pagestate}, "", urlParse.pathname + urlParse.search)
             })
+        }
+
+        window.onpopstate = function(e) {
+            const data = e.state.article;
+            const page = e.state.page;
+
+            dataUrl = new URL(data);
+
+            if((data || !dataUrl.search) && pagestate === 'articles')
+                ActivePage(page)
+            else
+                getArticles(data);
         }
     </script>
     @endsection

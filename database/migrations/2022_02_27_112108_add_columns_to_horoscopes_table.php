@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHoroscopesTable extends Migration
+class AddColumnsToHoroscopesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,10 @@ class CreateHoroscopesTable extends Migration
      */
     public function up()
     {
-        Schema::create('horoscopes', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->text('data');
-            $table->text('link_id');
+        Schema::table('horoscopes', function (Blueprint $table) {
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->text('places');
-            $table->timestamps();
         });
     }
 
@@ -33,6 +27,10 @@ class CreateHoroscopesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('horoscopes');
+        Schema::table('horoscopes', function (Blueprint $table) {
+            $table->dropColumn('name');
+            $table->dropColumn('email');
+            $table->dropColumn('places');
+        });
     }
 }

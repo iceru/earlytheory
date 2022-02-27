@@ -45,7 +45,7 @@
         </div>
 
         <div class="footer-copyright col-12 mb-3">
-            <p class="text-center">Copyrights Reserved. Early Theory 2021</p>
+            <p class="text-center">Copyrights Reserved. Early Theory {{ now()->year }}</p>
         </div>
     </div>
 </div>

@@ -80,7 +80,7 @@ class SalesController extends Controller
                         $curl = curl_init();
         
                         curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
+                        CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$a->ship_city."&province=".$a->ship_province,
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,
@@ -112,7 +112,7 @@ class SalesController extends Controller
                     $curl = curl_init();
         
                     curl_setopt_array($curl, array(
-                    CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+                    CURLOPT_URL => "https://pro.rajaongkir.com/api/province",
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => "",
                     CURLOPT_MAXREDIRS => 10,
@@ -228,7 +228,7 @@ class SalesController extends Controller
                 $curl = curl_init();
 
                 curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$a->ship_city."&province=".$a->ship_province,
+                CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$a->ship_city."&province=".$a->ship_province,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -254,7 +254,7 @@ class SalesController extends Controller
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+            CURLOPT_URL => "https://pro.rajaongkir.com/api/province",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -291,7 +291,7 @@ class SalesController extends Controller
             $curl = curl_init();
     
             curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=".$request->id,
+            CURLOPT_URL => "https://pro.rajaongkir.com/api/city?province=".$request->id,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -323,7 +323,7 @@ class SalesController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_URL => "https://pro.rajaongkir.com/api/cost",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -348,7 +348,7 @@ class SalesController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_URL => "https://pro.rajaongkir.com/api/cost",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -430,7 +430,7 @@ class SalesController extends Controller
                     $curl = curl_init();
                 
                     curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
+                        CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,

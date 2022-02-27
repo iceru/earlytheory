@@ -2,6 +2,7 @@
     overflow: auto;
     padding-bottom: 1rem;
     margin-bottom: 2rem;
+    width: 100% !important;
 }
 
 .dashboard {
@@ -97,4 +98,20 @@
 table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     top: 18px;
     left: 0;
+    background-color: $primary;
+}
+
+.nav-tabs {
+    justify-content: center;
+    margin-bottom: 1rem;
+    border-bottom: none;
+
+    .nav-link {
+        margin: 0 .5rem;
+        min-width: 150px;
+        &:hover, &.active {
+            background-color: $primary;
+            color: white;
+        }
+    }
 }
