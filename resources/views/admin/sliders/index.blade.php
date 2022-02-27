@@ -52,7 +52,8 @@
                         <select name="inputCategory" class="form-select" id="inputCategory">
                             <option value="" disabled selected>Select Category</option>
                             <option value="products">Products</option>
-                            <option value="articles">Articles</option>
+                            {{-- <option value="articles">Articles</option> --}}
+                            <option value="birthchart">Birth Chart</option>
                             <option value="article-detail">Article Detail</option>
                         </select>
                     </div>

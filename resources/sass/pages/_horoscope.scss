@@ -1,0 +1,185 @@
+.horoscope-detail {
+    padding: 1rem;
+    .header {
+        margin-bottom: 2rem;
+        position: relative;
+        text-align: center;
+
+        .hr-name {
+            font-family: 'Skylar Sans', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            line-height: 3.5rem;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            > div {
+                margin-right: .5rem;
+            }
+        }
+
+        .notes {
+            color: grey;
+        }
+
+        .birth-date {
+            padding: 0 1rem;
+            > div {
+                font-family: 'Apercu Mono';
+                padding: .25rem 1rem;
+                border: 2px solid black;
+                text-align: center;
+                font-size: 1.35rem;
+                text-transform: uppercase;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:first-child {
+                    border-right: 0;
+                }
+                &:last-child {
+                    border-left: 0;
+                }
+            }
+        }
+    }
+    
+
+    .image-wrapper {
+        img {
+            width: 80%;
+        }
+    }
+
+    .screenshot {
+        cursor: pointer;
+    }
+
+    .planet {
+        margin-bottom: 2rem;
+
+        > div:first-child {
+            padding-right: .5rem;
+        }
+        .title {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+        }
+        .planet-name {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            margin-right: .5rem;
+        }
+
+        .planet-degree {
+            font-style: italic;
+            font-size: 1.15rem;
+        }
+
+        .planet-sign {
+            font-size: 1.35rem;
+            font-weight: 500;
+        }
+
+        .planet-house {
+            font-style: italic;
+            font-size: 1.25rem;
+        }
+    }
+
+    @include breakpoint-down(large) {
+        .image-wrapper {
+            margin-bottom: 1rem;
+
+            img {
+                width: 70%;
+            }
+        }
+    }
+
+    @include breakpoint-down(small) {
+        .header {
+            margin-bottom: 0;
+            .hr-name {
+                font-size: 2.5rem;
+                line-height: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .birth-date {
+                > div {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        .image-wrapper {
+            margin-bottom: 1rem;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .planet {
+            .planet-name, .planet-sign {
+                font-size: 1.25rem;
+            }
+
+            .planet-degree, .planet-house {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.birthplace-wrapper {
+    position: relative;
+    .spinner {
+        position: absolute;
+        top: 75%;
+        transform: translateY(-50%);
+        right: 1rem;
+    }
+}
+
+.edit-button {
+    font-size: .85rem;
+    color: black;
+
+    &:hover {
+        color: $secondary;
+    }
+}
+
+.table-aspect {
+    tr td, tr th {
+       vertical-align: middle;
+       font-family: 'Apercu Mono';
+       font-size: .9rem;
+    }
+    .image {
+        width: 1%;
+        img {
+            width: 70px;
+        }
+    }
+    @include breakpoint(large) {
+        width: 70%;
+        margin: auto;
+
+        tr td, tr th {
+            font-size: 1.25rem;
+        }
+    }
+}
+
+.mfp-figure {
+    background-color: $background;
+}
