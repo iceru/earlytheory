@@ -12472,6 +12472,14 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table
   font-size: 1.25rem;
 }
 @media (max-width: 992px) {
+  .horoscope-detail .image-wrapper {
+    margin-bottom: 1rem;
+  }
+  .horoscope-detail .image-wrapper img {
+    width: 70%;
+  }
+}
+@media (max-width: 576px) {
   .horoscope-detail .header .hr-name {
     font-size: 2.5rem;
     line-height: 2.5rem;

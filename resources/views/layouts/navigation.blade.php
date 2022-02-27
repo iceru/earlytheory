@@ -46,7 +46,7 @@
 <nav class="navbar align-items-center row d-none d-lg-flex">
     <div class="col-4 nav-links">
         <a class="{{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('index') }}">Products</a>
-        <a class="{{ (request()->is('articles')) ? 'active' : '' }}" href="{{ route('articles') }}" class="article-link">Articles</a>
+        <a class="{{ (request()->is('articles-page')) ? 'active' : '' }}" href="{{ route('articles.index') }}" class="article-link">Articles</a>
     </div>
     <div class="col-4 logo-lg text-center">
         <a href="/">

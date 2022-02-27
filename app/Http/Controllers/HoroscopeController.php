@@ -107,11 +107,17 @@ class HoroscopeController extends Controller
             'user_id' => 'required',
             'data' => 'required',
             'link_id' => 'required',
+            'name' => 'nullable',
+            'email' => 'nullable',
+            'places' => 'required',
         ]);
 
         $horoscope->user_id = $request->user_id;
         $horoscope->data = $request->data;
         $horoscope->link_id = $request->link_id;
+        $horoscope->name = $request->name;
+        $horoscope->email = $request->email;
+        $horoscope->places = $request->places;
 
         $horoscope->save();
         
@@ -131,11 +137,12 @@ class HoroscopeController extends Controller
      */
     public function show($link_id)
     {
+        $user = Auth::user();
         $horoscope = Horoscope::where('link_id', $link_id)->firstOrFail();
         $horoscope_product = Products::where('title', 'horoscope')->first();
         $skus = SKUs::where('product_id', $horoscope_product->id)->get();
         // dd($horoscope->data);
-        return view('horoscope-detail', compact('horoscope', 'skus', 'horoscope_product'));
+        return view('horoscope-detail', compact('horoscope', 'skus', 'horoscope_product', 'user'));
     }
 
     /**

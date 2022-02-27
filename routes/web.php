@@ -83,9 +83,6 @@ Route::get('send-mail', function () {
     dd("Email is Sent.");
 });
 
-Route::middleware(['auth'])->group(function() {
-    Route::get('/horoscope/show/{link_id}', [HoroscopeController::class, 'show'])->name('horoscope.show');
-});
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/account', [UserController::class, 'account'])->name('user.account');

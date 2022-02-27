@@ -181,7 +181,6 @@
         const pagestate = window.location.pathname.slice(1);
 
         function ActivePage(page) {
-            debugger
             $('.page').removeClass('active');
             $('.tab').removeClass('active');
             $('.'+page).addClass('active');
@@ -196,7 +195,6 @@
 
         $('body').on('click', '.pagination a', function(e) {
             e.preventDefault();
-            debugger;
             var url = $(this).attr('href');
             getArticles(url);
         });
@@ -212,7 +210,6 @@
         }
 
         window.onpopstate = function(e) {
-            debugger
             const data = e.state.article;
             const page = e.state.page;
 
