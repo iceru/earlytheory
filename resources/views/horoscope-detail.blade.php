@@ -111,6 +111,7 @@
                         </div>
                     </div>
                     @endforeach
+                    @if (isset($horoscope->data['ascendant']))
                     <div class="col-6 col-lg-4 screenshot">
                         <div class="row planet">
                             <div class="col-4">
@@ -128,6 +129,8 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+                    @if (isset($horoscope->data['midheaven']))
                     <div class="col-6 col-lg-4 screenshot">
                         <div class="row planet">
                             <div class="col-4">
@@ -145,6 +148,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @foreach (array_slice($horoscope->data['planets'], 2, 12) as $planet)
                     <div class="col-6 col-lg-4">
                         <div class="row planet">
@@ -243,6 +247,7 @@
                 changeYear: true,
                 yearRange: "1970:2004",
                 dateFormat: 'yy-mm-dd',
+                defaultDate: "-22y"
             });
             $('.form-horoscope-edit').hide();
 
@@ -305,8 +310,6 @@
         var birthdate = $('#datepicker').val();
         var birthtime = $('#birthtime').val();
         
-        debugger;
-
         if(name === '' || email === '' || birthdate === '' || birthtime === '') {
             Swal.fire({
                 icon: "error",
@@ -391,17 +394,20 @@
     function storeHoroscope(id, obj, name, email) {
         userid = '{!! $user ? $user->id : '' !!}'
         userIdStore = userid ? parseInt(userid) : null
-        birthplaceData = {
+        var birthplaceData = {
             id: birthplace,
             label: birthplaceLabel
         }
+
+        var birthplaces = JSON.stringify(birthplaceData);
+
         const data = {
             user_id: userIdStore,
             link_id: id,
-            data: obj,
             name: name,
             email: email,
-            places: JSON.stringify(birthplaceData)
+            places: birthplaces,
+            data: obj,
         }
         $.ajax({
             type: "POST",

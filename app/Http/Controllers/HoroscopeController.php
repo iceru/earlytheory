@@ -110,8 +110,8 @@ class HoroscopeController extends Controller
             'link_id' => 'required',
             'name' => 'nullable',
             'email' => 'nullable',
-            'places' => 'required',
         ]);
+
 
         $horoscope->user_id = $request->user_id;
         $horoscope->data = $request->data;

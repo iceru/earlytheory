@@ -233,17 +233,19 @@
     function storeHoroscope(id, obj, name, email) {
         userid = '{!! $user ? $user->id : '' !!}'
         userIdStore = userid ? parseInt(userid) : null
-        birthplaceData = {
+        var birthplaceData = {
             id: birthplace,
             label: birthplaceLabel
         }
+        var birthplaces = JSON.stringify(birthplaceData);
+
         const data = {
             user_id: userIdStore,
             link_id: id,
-            data: obj,
             name: name,
             email: email,
-            places: JSON.stringify(birthplaceData)
+            places: birthplaces,
+            data: obj,
         }
         $.ajax({
             type: "POST",
