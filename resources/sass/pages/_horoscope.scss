@@ -21,6 +21,12 @@
         .notes {
             color: grey;
             font-style: italic;
+
+            @include breakpoint-down (medium) {
+                p {
+                    font-size: .85rem;
+                }
+            }
         }
 
         .birth-date {
