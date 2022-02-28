@@ -23,6 +23,7 @@
 
         .notes {
             color: grey;
+            font-style: italic;
         }
 
         .birth-date {
@@ -150,7 +151,7 @@
 }
 
 .edit-button {
-    font-size: .85rem;
+    font-size: 1rem;
     color: black;
 
     &:hover {
