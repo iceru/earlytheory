@@ -108,5 +108,24 @@
             padding: 1rem;
         }
     }
+
+    .account-horoscope {
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid $primary;
+
+        .name {
+            font-family: 'Skylar Sans';
+            margin-bottom: .5rem;
+            font-size: 1.75rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .date, .city {
+            font-family: 'Evogria';
+            text-transform: uppercase;
+        }
+    }
 }
 

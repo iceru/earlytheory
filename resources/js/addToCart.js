@@ -5,12 +5,13 @@
         var sku = $(this).attr('data-sku');
         var values = $(this).attr('data-values');
         var stock = $(this).attr('data-stock');
+        var link = $(this).attr('data-link');
         
         if(id) {
             $.ajax({
             url:"/cart/add/"+id,
                 type:"POST",
-                data: {'price': price, 'sku': sku, 'values': values, 'stock': stock},
+                data: {'price': price, 'sku': sku, 'values': values, 'stock': stock, 'link': link},
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },

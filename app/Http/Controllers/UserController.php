@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use Validator;
+use App\Models\SKUs;
 use App\Models\User;
 use App\Models\Sales;
 use App\Models\Products;
-use App\Models\SKUs;
+use App\Models\Horoscope;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
-use App\Mail\AdminNotification;
 use App\Models\PaymentMethods;
+use App\Mail\AdminNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -73,6 +74,13 @@ class UserController extends Controller
         // }
 
         return view('orders', compact('orders'));
+    }
+
+    public function horoscopes()
+    {
+        $horoscopes = Horoscope::where('user_id', auth()->user()->id )->orderBy('created_at', 'desc')->get();
+
+        return view('account-horoscopes', compact('horoscopes'));
     }
 
     public function confirmPayment($id)

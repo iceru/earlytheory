@@ -227,7 +227,7 @@
             $( "#datepicker" ).datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1970:2001",
+                yearRange: "1970:2004",
                 altFormat: 'yy/mm/dd',
             });
         });
