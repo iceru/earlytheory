@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="mt-3 notes">
-                        <p>Natal Chart ini menggunakan system [Placidus] sehingga ukuran house tidak sejajar 30 derajat.</p>
+                        <p>Natal Chart ini menggunakan system [Placidus] sehingga ukuran house tidak sejajar dengan area zodiak. Whole Sign House System coming soon.</p>
                     </div>
                     {{-- <div>
                         <div style="display: inline-flex" class="button primary mt-3" id="edit_button">Edit <i class="fas fa-edit fa-fw ms-2"></i></div>
