@@ -140,12 +140,12 @@ class HoroscopeController extends Controller
     {
         $user = Auth::user();
         $horoscope = Horoscope::where('link_id', $link_id)->firstOrFail();
-        $horoscope_product = Products::where('title', 'horoscope')->first();
-        $skus = SKUs::where('product_id', $horoscope_product->id)->get();
+        // $horoscope_product = Products::where('title', 'horoscope')->first();
+        // $skus = SKUs::where('product_id', $horoscope_product->id)->get();
         $sliders =  Sliders::where('category', 'birthchart')->orderBy('ordernumber')->get();
         
         // dd($horoscope->data);
-        return view('horoscope-detail', compact('horoscope', 'skus', 'horoscope_product', 'user', 'sliders'));
+        return view('horoscope-detail', compact('horoscope', 'user', 'sliders'));
     }
 
     /**

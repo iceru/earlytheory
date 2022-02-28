@@ -220,8 +220,6 @@
                 const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
                 
                 storeHoroscope(uid, obj, name, email)
-
-                var productid = {!! $horoscope_product->id !!}
             },
             always: function() {
                 $(this).prop('disabled', false);
