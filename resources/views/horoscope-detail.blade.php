@@ -332,7 +332,7 @@
             "wheelSettings": {
                 "POINTS_TEXT_SIZE": 14,
                 "SYMBOL_SCALE": 1.5,
-                "COLOR_BACKGROUND": "#a183d3",
+                "COLOR_BACKGROUND": "#e7e7e7",
 
                 "SIGNS_COLOR_ARIES": "#FFF",
                 "SIGNS_COLOR_TAURUS": "#FFF",
