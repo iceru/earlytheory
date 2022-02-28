@@ -12,12 +12,9 @@
             font-weight: bold;
             line-height: 3.5rem;
             letter-spacing: 3px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
 
-            > div {
-                margin-right: .5rem;
+            > span {
+                font-size: 1rem;
             }
         }
 
