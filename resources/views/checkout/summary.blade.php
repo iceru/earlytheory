@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                    <h5>Preferensi Gender</h5>
+                                    {{-- <h5>Preferensi Gender</h5> --}}
                                     <p>{{(ucfirst($item->pivot->question))}}</p>
                                     <button class="button primary mt-3 mt-lg-2">
                                         <span><i class="fas fa-edit"></i> &nbsp;</span>

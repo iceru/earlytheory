@@ -20,10 +20,8 @@
             <div class="col-12 col-lg-6">
                 <div class="header">
                     <div class="hr-name">
-                        <div>
-                            {{ $horoscope->data['profile']['name'] }}
-                        </div>
-                        <a href="#" class="edit-button" id="edit_button"><i class="fas fa-edit"></i></a>
+                        {{ $horoscope->data['profile']['name'] }}
+                        <span><a href="#" class="edit-button" id="edit_button"><i class="fas fa-edit"></i></a></span>                    
                     </div>
                     <div class="row birth-date">
                         <div class="col-4">
@@ -334,7 +332,7 @@
             "wheelSettings": {
                 "POINTS_TEXT_SIZE": 14,
                 "SYMBOL_SCALE": 1.5,
-                "COLOR_BACKGROUND": "#a183d3",
+                "COLOR_BACKGROUND": "#e7e7e7",
 
                 "SIGNS_COLOR_ARIES": "#FFF",
                 "SIGNS_COLOR_TAURUS": "#FFF",

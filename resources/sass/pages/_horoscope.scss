@@ -12,17 +12,21 @@
             font-weight: bold;
             line-height: 3.5rem;
             letter-spacing: 3px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
 
-            > div {
-                margin-right: .5rem;
+            > span {
+                font-size: 1rem;
             }
         }
 
         .notes {
             color: grey;
+            font-style: italic;
+
+            @include breakpoint-down (medium) {
+                p {
+                    font-size: .85rem;
+                }
+            }
         }
 
         .birth-date {
@@ -150,7 +154,7 @@
 }
 
 .edit-button {
-    font-size: .85rem;
+    font-size: 1rem;
     color: black;
 
     &:hover {
