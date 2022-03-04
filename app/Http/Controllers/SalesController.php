@@ -213,7 +213,9 @@ class SalesController extends Controller
     
             $item_id = $request->id;
             $item_question = $request->question;
-            $item_genderquestion = $request->genderQuestion;
+            $item_genderquestion = 'Saya '.$request->genderQuestion[0].', mencari '.$request->genderQuestion2[0];
+            // $item_genderquestion = $request->genderQuestion;
+            // dd($item_genderquestion);
     
             foreach ($item_id as $key => $i) {
                 $sku = SKUs::find($item_id[$key]);
@@ -222,7 +224,7 @@ class SalesController extends Controller
                         $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
                     }
                     else {
-                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion[$key]]);
+                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion]);
                     }
                 }
             }
