@@ -206,16 +206,18 @@
                                             placeholder="{{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}" @if ($item->products->question != "yes" || strtolower($item->products->title) === 'mencari jodoh' || $item->products->category == 'product') hidden @endif>{{$item->pivot->question == ' ' ? '' : $item->pivot->question}}</textarea>
                                         <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                             <label class="form-label" >Kamu</label>
-                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion">
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion" required>
+                                                <option value="" disabled selected>Pilih</option>
                                                 <option value="pria">Pria</option>
                                                 <option value="wanita">Wanita</option>
                                             </select>
                                         </div>
                                         <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                             <label class="form-label" >Mencari</label>
-                                            <select class="form-select" name="genderQuestion2[]" id="genderQuestion">
-                                                <option value="wanita">Wanita</option>
+                                            <select class="form-select" name="genderQuestion2[]" id="genderQuestion" required>
+                                                <option value="" disabled selected>Pilih</option>
                                                 <option value="pria">Pria</option>
+                                                <option value="wanita">Wanita</option>
                                             </select>
                                         </div>
                                         @if (($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') || $item->products->category == 'product')
