@@ -213,10 +213,10 @@ class SalesController extends Controller
     
             $item_id = $request->id;
             $item_question = $request->question;
-            $item_genderquestion = 'Saya '.$request->genderQuestion[0].', mencari '.$request->genderQuestion2[0];
-            // $item_genderquestion = $request->genderQuestion;
-            // dd($item_genderquestion);
-    
+            if($request->genderQuestion && $request->genderQuestion2) {
+                $item_genderquestion = 'Saya '.$request->genderQuestion[0].', mencari '.$request->genderQuestion2[0];
+            }
+
             foreach ($item_id as $key => $i) {
                 $sku = SKUs::find($item_id[$key]);
                 if($sku) {
