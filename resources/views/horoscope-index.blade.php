@@ -225,7 +225,7 @@
                 $(this).prop('disabled', false);
             },
             error: function(err) {
-                alert(err);
+                alert('There is an Error: '+err.message);
             }
         });
     });
@@ -258,7 +258,7 @@
                 window.location = `/birth-chart/show/${id}`
             },
             error: function(err) {
-                alert(err)
+                alert('There is an Error: '+err.message)
             }
         });
     }

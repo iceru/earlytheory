@@ -410,7 +410,7 @@
                 $(this).prop('disabled', false);
             },
             error: function(err) {
-                alert(err);
+                alert(err.message);
             }
         });
     });
@@ -444,7 +444,7 @@
                 window.location = `/birth-chart/show/${id}`
             },
             error: function(err) {
-                alert(err)
+                alert(err.message)
             }
         });
     }
