@@ -112,9 +112,10 @@ class HoroscopeController extends Controller
             'email' => 'nullable',
         ]);
 
+        $data = json_decode($request->data);
 
         $horoscope->user_id = $request->user_id;
-        $horoscope->data = $request->data;
+        $horoscope->data = $data;
         $horoscope->link_id = $request->link_id;
         $horoscope->name = $request->name;
         $horoscope->email = $request->email;
@@ -122,7 +123,7 @@ class HoroscopeController extends Controller
 
         $horoscope->save();
         
-        $url = $request->data['wheel'];
+        $url = $data->wheel;
         $contents = file_get_contents($url);
         $name = 'public/horoscopes/horoscope_'.$request->link_id.'.svg';
         Storage::put($name, $contents);

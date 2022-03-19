@@ -401,10 +401,10 @@
             data: data,
             
             success: function (response) {
-                const obj = JSON.parse(response);
+                // const obj = JSON.parse(response);
                 const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
-                
-                storeHoroscope(uid, obj, name, email)
+                // console.log(obj);
+                storeHoroscope(uid, response, name, email)
             },
             always: function() {
                 $(this).prop('disabled', false);
