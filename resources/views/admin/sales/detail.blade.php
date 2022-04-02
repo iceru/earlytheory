@@ -60,7 +60,7 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Date of Birth</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{\Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}" @else value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" @endif  readonly>
+            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{$sales->user->birthdate}}" @else value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" @endif  readonly>
         </div>
     </div>
     <div class="mb-1 row">
