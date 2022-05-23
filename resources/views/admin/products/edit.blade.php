@@ -39,6 +39,22 @@
                             value="{{$product->title}}">
                     </div>
                 </div>
+                @if($product->discount_price)
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Base Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updatePrice" name="updatePrice" min="0"
+                            value="{{$product->base_price}}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updateDiscPrice" name="updateDiscPrice" min="0"
+                            value="{{$product->discount_price}}">
+                    </div>
+                </div>
+                @else
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Price</label>
                     <div class="col-sm-10">
@@ -46,6 +62,13 @@
                             value="{{$product->price}}">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updateDiscPrice" name="updateDiscPrice" min="0">
+                    </div>
+                </div>
+                @endif
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Category</label>
                     <div class="col-sm-10">

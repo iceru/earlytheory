@@ -67,6 +67,7 @@ class AdminProductsController extends Controller
             'inputTitle' => 'required',
             'inputOrdernumber' => 'required',
             'inputPrice' => 'required|integer',
+            'inputDiscPrice' => 'nullable|integer',
             'inputDuration' => 'nullable|integer',
             'inputImage' => 'required',
             'inputImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -96,7 +97,17 @@ class AdminProductsController extends Controller
         
         $product->title = $request->inputTitle;
         $product->ordernumber = $request->inputOrdernumber;
-        $product->price = $request->inputPrice;
+
+        //check discount price
+        if($request->inputDiscPrice) {
+            $product->price = $request->inputDiscPrice;
+            $product->discount_price = $request->inputDiscPrice;
+            $product->base_price = $request->inputPrice;
+        }
+        else {
+            $product->price = $request->inputPrice;
+        }
+
         $product->duration = $request->inputDuration;
         $product->description = $request->inputDesc;
         $product->description_short = $request->inputShortDesc;
@@ -174,6 +185,7 @@ class AdminProductsController extends Controller
             'updateTitle' => 'required',
             'updateOrdernumber' => 'required',
             'updatePrice' => 'required|integer',
+            'updateDiscPrice' => 'nullable|integer',
             'updateDuration' => 'nullable|integer',
             'updateImage' => 'nullable',
             'updateImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -203,6 +215,17 @@ class AdminProductsController extends Controller
         $product->title = $request->updateTitle;
         $product->ordernumber = $request->updateOrdernumber;
         $product->price = $request->updatePrice;
+
+        //check discount price
+        if($request->updateDiscPrice) {
+            $product->price = $request->updateDiscPrice;
+            $product->discount_price = $request->updateDiscPrice;
+            $product->base_price = $request->updatePrice;
+        }
+        else {
+            $product->price = $request->updatePrice;
+        }
+        
         $product->duration = $request->updateDuration;
         $product->description = $request->updateDesc;
 

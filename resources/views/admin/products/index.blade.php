@@ -41,9 +41,15 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Price</label>
+                    <label class="col-sm-2 col-form-label">Base Price</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputPrice" name="inputPrice" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputDiscPrice" name="inputDiscPrice" min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -148,6 +154,7 @@
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Price</th>
+                                <th>Base Price</th>
                                 <th>Duration</th>
                                 <th>Question Field</th>
                                 <th>Question Title</th>
@@ -171,6 +178,7 @@
                                 </td>
                                 <td>{{$service->title}}</td>
                                 <td>{{$service->price}}</td>
+                                <td>{{$service->base_price}}</td>
                                 <td>{{$service->duration}}</td>
                                 <td>{{ucwords($service->question)}}</td>
                                 <td>{{ $service->question_title }}</td>
@@ -218,6 +226,7 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Price</th>
+                                    <th>Base Price</th>
                                     <th>Question Field</th>
                                     <th>Question Title</th>
                                     <th>Stock</th>
@@ -240,6 +249,7 @@
                                     </td>
                                     <td>{{$product->title}}</td>
                                     <td>{{$product->price}}</td>
+                                    <td>{{$product->base_price}}</td>
                                     <td>{{ucwords($product->question)}}</td>
                                     <td>{{ $product->question_title }}</td>
                                     <td>
