@@ -32,9 +32,15 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Price</label>
+                    <label class="col-sm-2 col-form-label">Base Price</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="updatePrice" name="updatePrice" value="{{$sku->price}}" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updatePrice" name="updateDiscPrice" min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">

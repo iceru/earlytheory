@@ -128,7 +128,18 @@ class AdminProductsController extends Controller
         // dd($request->inputvarval);
 
         $sku_new = new SKUs;
-        $sku_new->price = $request->inputPrice;
+        // $sku_new->price = $request->inputPrice;
+
+        //check discount price
+        if($request->inputDiscPrice) {
+            $sku_new->price = $request->inputDiscPrice;
+            $sku_new->discount_price = $request->inputDiscPrice;
+            $sku_new->base_price = $request->inputPrice;
+        }
+        else {
+            $sku_new->price = $request->inputPrice;
+        }
+        
         $sku_new->stock = $request->inputStock;
         $sku_new->product_id = $product->id;
         $sku_new->save();
@@ -295,7 +306,18 @@ class AdminProductsController extends Controller
             $have_sku = SKUs::where('product_id', $product->id)->get();
             if($have_sku->isEmpty()) {
                 $sku_new = new SKUs;
-                $sku_new->price = $product->price;
+                // $sku_new->price = $product->price;
+                        
+                //check discount price
+                if($product->discount_price) {
+                    $sku_new->price = $product->price;
+                    $sku_new->discount_price = $product->discount_price;
+                    $sku_new->base_price = $product->base_price;
+                }
+                else {
+                    $sku_new->price = $product->price;
+                }
+                
                 $sku_new->stock = $product->stock;
                 $sku_new->product_id = $product->id;
                 $sku_new->save();

@@ -162,6 +162,7 @@ class AdminProductOptionsController extends Controller
     {
         $request->validate([
             'inputPrice' => 'required|numeric',
+            'inputDiscPrice' => 'nullable|numeric',
             'inputStock' => 'required|numeric',
             'inputvarval' => 'required'
         ]);
@@ -169,7 +170,18 @@ class AdminProductOptionsController extends Controller
         // dd($request->inputvarval);
 
         $sku_new = new SKUs;
-        $sku_new->price = $request->inputPrice;
+        // $sku_new->price = $request->inputPrice;
+
+        //check discount price
+        if($request->inputDiscPrice) {
+            $sku_new->price = $request->inputDiscPrice;
+            $sku_new->discount_price = $request->inputDiscPrice;
+            $sku_new->base_price = $request->inputPrice;
+        }
+        else {
+            $sku_new->price = $request->inputPrice;
+        }
+
         $sku_new->stock = $request->inputStock;
         $sku_new->product_id = $request->product_id;
         $sku_new->save();
@@ -273,6 +285,7 @@ class AdminProductOptionsController extends Controller
         if($have_skuval->isNotEmpty()) {
             $request->validate([
                 'updatePrice' => 'required|numeric',
+                'updateDiscPrice' => 'nullable|numeric',
                 'updateStock' => 'required|numeric',
                 'updatevarval' => 'required'
             ]);
@@ -280,7 +293,18 @@ class AdminProductOptionsController extends Controller
             // dd($request->updatevarval);
     
             $sku = SKUs::find($request->id);
-            $sku->price = $request->updatePrice;
+            // $sku->price = $request->updatePrice;
+
+            //check discount price
+            if($request->updateDiscPrice) {
+                $sku->price = $request->updateDiscPrice;
+                $sku->discount_price = $request->updateDiscPrice;
+                $sku->base_price = $request->updatePrice;
+            }
+            else {
+                $sku->price = $request->updatePrice;
+            }
+            
             $sku->stock = $request->updateStock;
             $sku->save();
             
