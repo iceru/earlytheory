@@ -162,6 +162,16 @@
                                     "student") {{ 'selected' }} @endif>Student</option>
                             </select>
                         </div>
+                        <div class="form-group col-12 col-lg-6">
+                            <label for="inputGender">Jenis Kelamin</label>
+                            <select class="form-select" name="inputGender" id="inputGender" required>
+                                <option selected disabled value="">Select</option>
+                                <option value="male" @if (old('inputGender')=="male" || $sales->job ==
+                                    "male") {{ 'selected' }} @endif>Male</option>
+                                <option value="female" @if (old('inputGender')=="female" || $sales->job ==
+                                    "female") {{ 'selected' }} @endif>Female</option>
+                            </select>
+                        </div>
                         @endif
                     </div>
                 </div>

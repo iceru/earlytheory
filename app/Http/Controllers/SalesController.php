@@ -194,6 +194,7 @@ class SalesController extends Controller
                 'inputPhone' => 'nullable',
                 'inputBirthdate' => 'nullable',
                 'inputPekerjaan' => 'nullable',
+                'inputGender' => 'nullable|in:male,female',
             ]);
     
             // $sales->paymethod_id = $request->inputPayType;
@@ -210,6 +211,7 @@ class SalesController extends Controller
 
             $sales->relationship = $request->inputRelationship;
             $sales->job = $request->inputPekerjaan;
+            $sales->gender = $request->inputGender;
     
             $item_id = $request->id;
             $item_question = $request->question;
