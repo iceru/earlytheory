@@ -23,7 +23,7 @@
         <div class="tab" id="birth-chart" onclick="ActivePage('birth-chart')">
             <h4>Birth Chart</h4>
         </div>
-        <div class="tab" id="articles" onclick="ActivePage('articles')">
+        <div class="tab" id="kristal" onclick="ActivePage('kristal')">
             <h4>Kristal</h4>
         </div>
     </div>
@@ -67,9 +67,9 @@
             @include('horoscope-index')
         </div>
 
-        <div class="articles page mt-3">
+        <div class="kristal page mt-3">
             {{-- @include('article-index') --}}
-            <div class="row">
+            <div class="row products">
                 <div class="col-12 products-title d-flex">
                     Gelang Kristal by <img src="/images/Logo-tokomejik.png" alt="Toko Mejik">
                 </div>
@@ -176,28 +176,33 @@
                 //     else
                 //         ActivePage(page);
                 // }, 1000);
-                window.history.pushState({
-                    page: 'products'
-                }, "", '/');
+                // window.history.pushState({
+                //     page: 'products'
+                // }, "", '/');
 
-                if (window.location.pathname == '/birth-chart') {
-                    ActivePage('birth-chart');
-                }
+                // if (window.location.pathname == '/birth-chart') {
+                //     ActivePage('birth-chart');
+                // }
 
-                if (window.location.pathname == '/articles') {
-                    ActivePage('articles');
-                }
+                // if (window.location.pathname == '/kristal') {
+                //     ActivePage('kristal');
+                // }
+
+                // if (window.location.pathname == '/articles') {
+                //     ActivePage('articles');
+                // }
 
                 sameDiv();
             });
 
             function ReinitSliders(page) {
-                if (page == 'articles') {
+                debugger;
+                if (page == 'products') {
                     $('.service-image').slick('unslick');
-                    $('.physical-image').slick(options());
-                } else if (page == 'products') {
-                    $('.physical-image').slick('unslick');
                     $('.service-image').slick(options());
+                } else if (page == 'kristal') {
+                    $('.physical-image').slick('unslick')
+                    $('.physical-image').slick(options());
                 }
             }
 
@@ -209,10 +214,10 @@
                 $('.tab').removeClass('active');
                 $('.' + page).addClass('active');
                 $('#' + page).addClass('active');
-                window.history.pushState({
-                    article: '',
-                    page: pagestate
-                }, "", '/' + page);
+                // window.history.pushState({
+                //     article: '',
+                //     page: pagestate
+                // }, "", '/' + page);
                 // if (page === 'articles') {
                 //     getArticles(window.location.origin + window.location.pathname)
                 // }

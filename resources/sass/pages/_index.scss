@@ -1,3 +1,8 @@
+* {
+    min-height: 0;
+    min-width: 0;
+}
+
 .index {
     @include breakpoint(large) {
         padding: 2rem 0;
@@ -6,15 +11,19 @@
     .products {
         .product-item-container {
             margin-bottom: 2rem;
+
             .product-image {
                 margin-bottom: 0.5rem;
+                width: 100%;
             }
+
             .product-item {
                 text-align: center;
                 color: $primary;
                 padding: 12px;
                 border: 1px solid $background-secondary;
                 border-radius: 5px;
+
                 .product-title {
                     h3 {
                         font-size: 1.25rem;
@@ -25,9 +34,11 @@
                         }
                     }
                 }
+
                 .product-price {
                     margin-bottom: 6px;
                 }
+
                 .product-desc {
                     font-size: 0.85rem;
 
@@ -121,6 +132,7 @@
             text-align: center;
             margin: 0 3px;
             padding: 8px 18px;
+
             h4 {
                 font-size: 1rem;
             }
