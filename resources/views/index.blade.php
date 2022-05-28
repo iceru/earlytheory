@@ -41,13 +41,27 @@
                             </a>
                         @endforeach
                     </div>
+                    @if ($product->discount_price)
+                        <div class="sale">
+                            SALE
+                        </div>
+                    @endif
                     <div class="product-item">
                         <div class="product-title">
                             <a href="/product/{{ $product->slug }}">
                                 <h3>{{ $product->title }}</h3>
                             </a>
                         </div>
-                        <p class="product-price">idr {{ number_format($product->price) }} @if ($product->duration > 0)
+                        @if (!$product->discount_price)
+                            <p class="product-price">idr {{ number_format($product->price) }}
+                            </p>
+                        @else
+                            <p class="product-price">idr {{ number_format($product->discount_price) }} <span
+                                    class="striked">idr {{ number_format($product->base_price) }}</span>
+                            </p>
+                        @endif
+                        <p>
+                            @if ($product->duration > 0)
                                 <span> / {{ $product->duration }} menit </span>
                             @endif
                         </p>
@@ -196,7 +210,6 @@
             });
 
             function ReinitSliders(page) {
-                debugger;
                 if (page == 'products') {
                     $('.service-image').slick('unslick');
                     $('.service-image').slick(options());

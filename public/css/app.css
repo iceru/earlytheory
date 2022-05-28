@@ -11972,6 +11972,16 @@ a {
 }
 .index .products .product-item-container {
   margin-bottom: 2rem;
+  position: relative;
+}
+.index .products .product-item-container .sale {
+  position: absolute;
+  padding: 0.25rem 1.25rem;
+  border-radius: 100px;
+  color: white;
+  background-color: red;
+  top: 1rem;
+  right: 1.5rem;
 }
 .index .products .product-item-container .product-image {
   margin-bottom: 0.5rem;
@@ -11992,6 +12002,11 @@ a {
   .index .products .product-item-container .product-item .product-title h3, .index .products .product-item-container .product-item .product-title .h3 {
     font-size: 1.5rem;
   }
+}
+.index .products .product-item-container .product-item .striked {
+  text-decoration: line-through;
+  font-size: 14px;
+  color: grey;
 }
 .index .products .product-item-container .product-item .product-price {
   margin-bottom: 6px;

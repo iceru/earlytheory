@@ -11,6 +11,17 @@
     .products {
         .product-item-container {
             margin-bottom: 2rem;
+            position: relative;
+
+            .sale {
+                position: absolute;
+                padding: .25rem 1.25rem;
+                border-radius: 100px;
+                color: white;
+                background-color: red;
+                top: 1rem;
+                right: 1.5rem;
+            }
 
             .product-image {
                 margin-bottom: 0.5rem;
@@ -33,6 +44,12 @@
                             font-size: 1.5rem;
                         }
                     }
+                }
+
+                .striked {
+                    text-decoration: line-through;
+                    font-size: 14px;
+                    color: grey;
                 }
 
                 .product-price {
