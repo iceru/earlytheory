@@ -194,9 +194,9 @@
             function ReinitSliders(page) {
                 if (page == 'articles') {
                     $('.service-image').slick('unslick');
-                    $('.service-image').slick(options());
+                    $('.physical-image').slick(options());
                 } else if (page == 'products') {
-                    $('.service-image').slick('unslick');
+                    $('.physical-image').slick('unslick');
                     $('.service-image').slick(options());
                 }
             }
@@ -220,36 +220,36 @@
                 ReinitSliders(page);
             }
 
-            $('body').on('click', '.pagination a', function(e) {
-                e.preventDefault();
-                var url = $(this).attr('href');
-                getArticles(url);
-            });
+            // $('body').on('click', '.pagination a', function(e) {
+            //     e.preventDefault();
+            //     var url = $(this).attr('href');
+            //     getArticles(url);
+            // });
 
-            function getArticles(url) {
-                $.ajax({
-                    url: url
-                }).done(function(data) {
-                    $('.articles').html(data);
-                    const urlParse = new URL(url);
-                    history.pushState({
-                        article: url,
-                        page: pagestate
-                    }, "", urlParse.pathname + urlParse.search)
-                })
-            }
+            // function getArticles(url) {
+            //     $.ajax({
+            //         url: url
+            //     }).done(function(data) {
+            //         $('.articles').html(data);
+            //         const urlParse = new URL(url);
+            //         history.pushState({
+            //             article: url,
+            //             page: pagestate
+            //         }, "", urlParse.pathname + urlParse.search)
+            //     })
+            // }
 
-            window.onpopstate = function(e) {
-                const data = e.state.article;
-                const page = e.state.page;
+            // window.onpopstate = function(e) {
+            //     const data = e.state.article;
+            //     const page = e.state.page;
 
-                dataUrl = new URL(data);
+            //     dataUrl = new URL(data);
 
-                if ((data || !dataUrl.search) && pagestate === 'articles')
-                    ActivePage(page)
-                else
-                    getArticles(data);
-            }
+            //     if ((data || !dataUrl.search) && pagestate === 'articles')
+            //         ActivePage(page)
+            //     else
+            //         getArticles(data);
+            // }
         </script>
     @endsection
 </x-app-layout>
