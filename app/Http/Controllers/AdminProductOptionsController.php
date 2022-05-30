@@ -296,10 +296,15 @@ class AdminProductOptionsController extends Controller
             // $sku->price = $request->updatePrice;
 
             //check discount price
-            if($request->updateDiscPrice && $request->updateDiscPrice >= 0) {
+            if($request->updateDiscPrice) {
                 $sku->price = $request->updateDiscPrice;
                 $sku->discount_price = $request->updateDiscPrice;
                 $sku->base_price = $request->updatePrice;
+            }
+            elseif($request->updateDiscPrice == 0) {
+                $sku->price = $sku->base_price;
+                $sku->discount_price = NULL;
+                $sku->base_price = NULL;
             }
             else {
                 $sku->price = $request->updatePrice;
