@@ -77,6 +77,10 @@
 
                 .product-price {
                     margin-bottom: 6px;
+
+                    &.discount {
+                        color: red;
+                    }
                 }
 
                 .product-desc {

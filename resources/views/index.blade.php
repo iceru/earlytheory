@@ -62,7 +62,8 @@
                             </div>
                         @else
                             <div class="prices">
-                                <p class="product-price mb-0">idr {{ number_format($product->discount_price) }}
+                                <p class="product-price discount mb-0">idr
+                                    {{ number_format($product->discount_price) }}
                                 </p>
                                 <span class="striked">idr {{ number_format($product->base_price) }}</span>
                             </div>
@@ -128,7 +129,8 @@
                                 </div>
                             @else
                                 <div class="prices">
-                                    <p class="product-price mb-0">idr {{ number_format($product->discount_price) }}
+                                    <p class="product-price discount mb-0">idr
+                                        {{ number_format($product->discount_price) }}
                                     </p>
                                     <span class="striked">idr {{ number_format($product->base_price) }}</span>
                                 </div>
@@ -165,6 +167,8 @@
                                 '.product-price').text('idr ' + (
                                 skus[element].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
                             if (skus[element].base_price) {
+                                $(item).siblings('.product-item').children('.prices.skus').children(
+                                    '.product-price').addClass('discount')
                                 $(item).siblings('.product-item').children('.prices.skus').append(
                                     `<span class="striked">idr ${skus[element].base_price}</span>`);
                                 $(item).siblings('.sale').addClass('active');
