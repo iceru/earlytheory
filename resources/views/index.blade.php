@@ -106,6 +106,14 @@
                                 </a>
                             @endforeach
                         </div>
+                        <div class="sale">
+                            <img src="/images/PROMOSTAR.png" alt="Promo">
+                        </div>
+                        @if ($product->discount_price)
+                            <div class="sale active">
+                                <img src="/images/PROMOSTAR.png" alt="Promo">
+                            </div>
+                        @endif
                         <div class="product-item">
                             <div class="product-title">
                                 <a href="/product/{{ $product->slug }}">
