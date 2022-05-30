@@ -259,7 +259,23 @@ class AdminProductsController extends Controller
         // dd($have_variant);
         if($have_variant->isEmpty()) {
             $sku = SKUs::where('product_id', $request->id)->firstOrFail();
-            $sku->price = $request->updatePrice;
+            // $sku->price = $request->updatePrice;
+
+            //check discount price
+            if($request->updateDiscPrice) {
+                $sku->price = $request->updateDiscPrice;
+                $sku->discount_price = $request->updateDiscPrice;
+                $sku->base_price = $request->updatePrice;
+            }
+            elseif($request->updateDiscPrice == 0) {
+                $sku->price = $sku->base_price;
+                $sku->discount_price = NULL;
+                $sku->base_price = NULL;
+            }
+            else {
+                $sku->price = $request->updatePrice;
+            }
+
             // $sku->stock = $request->updateStock;
             $sku->product_id = $product->id;
 
