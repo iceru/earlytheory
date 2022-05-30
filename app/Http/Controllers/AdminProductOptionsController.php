@@ -9,6 +9,7 @@ use App\Models\SKUs;
 use App\Models\SKUvalues;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AdminProductOptionsController extends Controller
 {
@@ -296,15 +297,17 @@ class AdminProductOptionsController extends Controller
             // $sku->price = $request->updatePrice;
 
             //check discount price
-            if($request->updateDiscPrice) {
-                $sku->price = $request->updateDiscPrice;
-                $sku->discount_price = $request->updateDiscPrice;
-                $sku->base_price = $request->updatePrice;
-            }
-            elseif($request->updateDiscPrice == 0) {
-                $sku->price = $sku->base_price;
-                $sku->discount_price = NULL;
-                $sku->base_price = NULL;
+            if($sku->discount_price) {
+                if($request->updateDiscPrice) {
+                    $sku->price = $request->updateDiscPrice;
+                    $sku->discount_price = $request->updateDiscPrice;
+                    $sku->base_price = $request->updatePrice;
+                }
+                elseif($request->updateDiscPrice == 0) {
+                    $sku->price = $sku->base_price;
+                    $sku->discount_price = NULL;
+                    $sku->base_price = NULL;
+                }
             }
             else {
                 $sku->price = $request->updatePrice;
@@ -315,12 +318,25 @@ class AdminProductOptionsController extends Controller
             
             foreach($request->updatevarval as $varval) {
                 $variant_values = explode('-', $varval);
-    
-                $skuval = SKUvalues::updateOrCreate(['sku_id' => $sku->id, 'option_id' => $variant_values[0]],
+
+                // $skuval = SKUvalues::updateOrCreate(
+                //     ['sku_id' => $sku->id,
+                //     'option_id' => $variant_values[0]],
+                //     ['sku_id' => $sku->id,
+                //     'option_id' => $variant_values[0],
+                //     'value_id' => $variant_values[1]
+                // ]);
+
+                $skuval = DB::table('skuvalues')->updateOrInsert(
+                    ['sku_id' => $sku->id,
+                    'option_id' => $variant_values[0]],
                     ['sku_id' => $sku->id,
                     'option_id' => $variant_values[0],
-                    'value_id' => $variant_values[1]
-                ]);
+                    'value_id' => $variant_values[1],
+                    'created_at' =>  \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                    ]
+                );
                 // $skuval->value_id = $va  riant_values[1];
                 // $skuval->save();
                 // $skuval = SKUvalues::firstOrCreate(
@@ -334,6 +350,7 @@ class AdminProductOptionsController extends Controller
         else {
             $request->validate([
                 'updatePrice' => 'required|numeric',
+                'updateDiscPrice' => 'nullable|numeric',
                 'updateStock' => 'required|numeric',
                 // 'updatevarval' => 'required'
             ]);
