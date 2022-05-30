@@ -41,7 +41,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Discount Price</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="updatePrice" name="updateDiscPrice" min="0" value="{{ $sku->discount_price }}">
+                        <input type="number" class="form-control" id="updateDiscPrice" name="updateDiscPrice" min="0" value="{{ $sku->discount_price }}">
                     </div>
                 </div>
                 @else
@@ -54,7 +54,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Discount Price</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="updatePrice" name="updateDiscPrice" min="0">
+                        <input type="number" class="form-control" id="updateDiscPrice" name="updateDiscPrice" min="0">
                     </div>
                 </div>
                 @endif
