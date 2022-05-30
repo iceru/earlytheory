@@ -11,17 +11,15 @@
                         <img class="pb-2" src="{{ Storage::url('product-image/' . $item) }}" alt="No Image">
                     @endforeach
                 </div>
-                @if ($product_detail->discount_price)
-                    <div class="sale">
-                        <img src="/images/PROMOSTAR.png" alt="Promo">
-                    </div>
-                @endif
+                <div class="sale">
+                    <img src="/images/PROMOSTAR.png" alt="Promo">
+                </div>
             </div>
             <div class="col-12 col-lg-7">
                 <div class="product-title mb-2">
                     <h3>{{ $product_detail->title }}</h3>
                 </div>
-                @if ($product_detail->discount_price)
+                {{-- @if ($product_detail->discount_price)
                     <div class="product-price-discount">
                         <p>idr {{ number_format($product_detail->price) }} <span class="striked">idr
                                 {{ number_format($product_detail->base_price) }}</span>
@@ -31,7 +29,11 @@
                     <div class="product-price mb-4">
                         <p>idr {{ number_format($product_detail->price) }}</p>
                     </div>
-                @endif
+                @endif --}}
+                <div class="product-price mb-4 d-flex align-items-end">
+                    <p class="me-2">idr {{ number_format($product_detail->price) }} </p>
+                    <span class="striked"></span>
+                </div>
                 @foreach ($values as $items)
                     <div class="variants mb-3">
                         <p class="mb-2 skylar">{{ $items['option'] }}</p>
@@ -63,8 +65,8 @@
                             @foreach ((array) json_decode($product_related->image) as $item_related)
                                 <a href="/product/{{ $product_related->slug }}">
                                     <div class="ratio ratio-1x1">
-                                        <img src="{{ Storage::url('product-image/' . $item_related) }}"
-                                            loading="lazy" alt="{{ $product_related->title }}">
+                                        <img src="{{ Storage::url('product-image/' . $item_related) }}" loading="lazy"
+                                            alt="{{ $product_related->title }}">
                                     </div>
                                 </a>
                             @endforeach
@@ -189,6 +191,10 @@
                             var price_data = 'idr ' + (data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                             var price_text = price_data.substring(0, price_data.length - 3);
                             $('.product-price p').text(price_text);
+                            if (data.discount_price) {
+                                $('.product-price .striked').text(`idr ${data.base_price}`);
+                                $('.sale').addClass('active');
+                            }
                             $('.product .addcart').addClass('primary');
                             $('.product .addcart').addClass('addcart');
                             $('.product .addcart').removeClass('disabled');
@@ -198,6 +204,7 @@
                             $('.product .addcart').addClass('disabled');
                             $('.product .addcart').text('Stok Habis');
                             $('.product .addcart').removeAttr('data-id');
+                            $('.sale').removeClass('active');
                         }
                     },
                     error: function(response) {
@@ -206,8 +213,9 @@
                         $('.product .addcart').removeClass('primary');
                         $('.product .addcart').addClass('disabled');
                         $('.product .addcart').removeClass('addcart');
-                        $('.product .addcart').text('Stok Habis');
+                        $('.product .addcart .button').text('Stok Habis');
                         $('.product .addcart').attr('disabled', true);
+                        $('.sale').removeClass('active');
                         // $('.variants').find('.values').find('.value:first-child').addClass('selected');
                         // selectValue();
                     }

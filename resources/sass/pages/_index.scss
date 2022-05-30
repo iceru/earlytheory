@@ -7,6 +7,11 @@
     position: absolute;
     top: .75rem;
     right: 1rem;
+    display: none;
+
+    &.active {
+        display: block;
+    }
 
     img {
         width: 140px;
@@ -19,8 +24,23 @@
     text-decoration: line-through;
     font-size: 14px;
     color: grey;
+    font-family: "Apercu mono";
+    margin-left: .5rem;
 }
 
+.prices {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.duration {
+    font-size: 14px;
+    font-family: "Apercu mono";
+    margin-bottom: 6px;
+    margin-top: -3px;
+}
 
 .index {
     @include breakpoint(large) {

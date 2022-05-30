@@ -41,8 +41,11 @@
                             </a>
                         @endforeach
                     </div>
+                    <div class="sale">
+                        <img src="/images/PROMOSTAR.png" alt="Promo">
+                    </div>
                     @if ($product->discount_price)
-                        <div class="sale">
+                        <div class="sale active">
                             <img src="/images/PROMOSTAR.png" alt="Promo">
                         </div>
                     @endif
@@ -53,18 +56,22 @@
                             </a>
                         </div>
                         @if (!$product->discount_price)
-                            <p class="product-price">idr {{ number_format($product->price) }}
-                            </p>
+                            <div class="prices skus">
+                                <p class="product-price mb-0">idr {{ number_format($product->price) }}
+                                </p>
+                            </div>
                         @else
-                            <p class="product-price">idr {{ number_format($product->discount_price) }} <span
-                                    class="striked">idr {{ number_format($product->base_price) }}</span>
+                            <div class="prices">
+                                <p class="product-price mb-0">idr {{ number_format($product->discount_price) }}
+                                </p>
+                                <span class="striked">idr {{ number_format($product->base_price) }}</span>
+                            </div>
+                        @endif
+                        @if ($product->duration > 0)
+                            <p class="duration">
+                                {{ $product->duration }} menit
                             </p>
                         @endif
-                        <p>
-                            @if ($product->duration > 0)
-                                <span> / {{ $product->duration }} menit </span>
-                            @endif
-                        </p>
                         <div class="product-desc">{{ $product->description_short }}</div>
                     </div>
                     <div data-id="{{ $product->id }}" class="button primary my-3 addcart">PESAN SEKARANG</div>
@@ -105,10 +112,24 @@
                                     <h3>{{ $product->title }}</h3>
                                 </a>
                             </div>
-                            <p class="product-price">idr {{ number_format($product->price) }} @if ($product->duration > 0)
-                                    <span> / {{ $product->duration }} menit </span>
-                                @endif
-                            </p>
+                            @if (!$product->discount_price)
+                                <div class="prices skus">
+                                    <p class="product-price mb-0">idr {{ number_format($product->price) }}
+                                    </p>
+
+                                </div>
+                            @else
+                                <div class="prices">
+                                    <p class="product-price mb-0">idr {{ number_format($product->discount_price) }}
+                                    </p>
+                                    <span class="striked">idr {{ number_format($product->base_price) }}</span>
+                                </div>
+                            @endif
+                            @if ($product->duration > 0)
+                                <p class="duration">
+                                    {{ $product->duration }} menit
+                                </p>
+                            @endif
                             <div class="product-desc">{{ $product->description_short }}</div>
                         </div>
                         <div data-id="{{ $product->id }}" class="button primary my-3 addcart">PESAN SEKARANG</div>
@@ -125,12 +146,21 @@
         <script>
             function checkSku() {
                 var skus = {!! $skus !!};
+                console.log(skus);
                 $.each($('.addcart'), function(index, item) {
                     Object.keys(skus).forEach(function(element) {
                         if (skus[element].product_id == $(item).attr('data-id')) {
                             $(item).attr('data-price', skus[element].price);
                             $(item).attr('data-sku', skus[element].id);
                             $(item).attr('data-values', skus[element].values);
+                            $(item).siblings('.product-item').children('.prices.skus').children(
+                                '.product-price').text('idr ' + (
+                                skus[element].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+                            if (skus[element].base_price) {
+                                $(item).siblings('.product-item').children('.prices.skus').append(
+                                    `<span class="striked">idr ${skus[element].base_price}</span>`);
+                                $(item).siblings('.sale').addClass('active');
+                            }
                             // $(item).attr('data-values', element.values);
                         }
                     });

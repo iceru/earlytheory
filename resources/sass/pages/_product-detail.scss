@@ -7,6 +7,14 @@
         padding-bottom: 3rem;
     }
 
+    .sale {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+
     .slick-prev {
         left: 20px;
     }
