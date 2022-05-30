@@ -93,12 +93,16 @@ class ProductsController extends Controller
                         array_push($values_name, $value_name);
                     }
                 }
-            }
-
+            }      
+            
             $values_name = array_unique($values_name);
             $values_name = implode(", ", $values_name);
 
-            $unique = array_unique( array_diff_assoc( $skus_selected, array_unique( $skus_selected )));
+            if(count($skus_selected) > 1) {
+                $unique = array_unique( array_diff_assoc( $skus_selected, array_unique( $skus_selected )));  
+            } else {
+                $unique = $skus_selected;
+            }
             $sku_id = (int) implode("", $unique);
 
             $skus = SKUs::with('products')->find($sku_id);

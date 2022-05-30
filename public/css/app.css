@@ -11969,6 +11969,10 @@ a {
   position: absolute;
   top: 0.75rem;
   right: 1rem;
+  display: none;
+}
+.sale.active {
+  display: block;
 }
 .sale img {
   width: 140px;
@@ -11980,6 +11984,22 @@ a {
   text-decoration: line-through;
   font-size: 14px;
   color: grey;
+  font-family: "Apercu mono";
+  margin-left: 0.5rem;
+}
+
+.prices {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.duration {
+  font-size: 14px;
+  font-family: "Apercu mono";
+  margin-bottom: 6px;
+  margin-top: -3px;
 }
 
 @media (min-width: 992px) {
@@ -12382,6 +12402,12 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
+}
+.product-detail .sale {
+  display: none;
+}
+.product-detail .sale.active {
+  display: block;
 }
 .product-detail .slick-prev {
   left: 20px;
