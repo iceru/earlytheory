@@ -228,17 +228,15 @@ class AdminProductsController extends Controller
         $product->price = $request->updatePrice;
 
         //check discount price
-        if($product->discount_price) {
-            if($request->updateDiscPrice) {
-                $product->price = $request->updateDiscPrice;
-                $product->discount_price = $request->updateDiscPrice;
-                $product->base_price = $request->updatePrice;
-            }
-            elseif($request->updateDiscPrice == 0) {
-                $product->price = $product->base_price;
-                $product->discount_price = NULL;
-                $product->base_price = NULL;
-            }
+        if($request->updateDiscPrice) {
+            $product->price = $request->updateDiscPrice;
+            $product->discount_price = $request->updateDiscPrice;
+            $product->base_price = $request->updatePrice;
+        }
+        elseif($product->discount_price && $request->updateDiscPrice == 0) {
+            $product->price = $product->base_price;
+            $product->discount_price = NULL;
+            $product->base_price = NULL;
         }
         else {
             $product->price = $request->updatePrice;
@@ -264,17 +262,15 @@ class AdminProductsController extends Controller
             // $sku->price = $request->updatePrice;
 
             //check discount price
-            if($sku->discount_price) {
-                if($request->updateDiscPrice) {
-                    $sku->price = $request->updateDiscPrice;
-                    $sku->discount_price = $request->updateDiscPrice;
-                    $sku->base_price = $request->updatePrice;
-                }
-                elseif($request->updateDiscPrice == 0) {
-                    $sku->price = $sku->base_price;
-                    $sku->discount_price = NULL;
-                    $sku->base_price = NULL;
-                }
+            if($request->updateDiscPrice) {
+                $sku->price = $request->updateDiscPrice;
+                $sku->discount_price = $request->updateDiscPrice;
+                $sku->base_price = $request->updatePrice;
+            }
+            elseif($sku->discount_price && $request->updateDiscPrice == 0) {
+                $sku->price = $sku->base_price;
+                $sku->discount_price = NULL;
+                $sku->base_price = NULL;
             }
             else {
                 $sku->price = $request->updatePrice;
