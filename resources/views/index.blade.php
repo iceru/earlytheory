@@ -43,7 +43,7 @@
                     </div>
                     @if ($product->discount_price)
                         <div class="sale">
-                            SALE
+                            <img src="/images/PROMOSTAR.png" alt="Promo">
                         </div>
                     @endif
                     <div class="product-item">

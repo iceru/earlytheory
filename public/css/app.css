@@ -11965,6 +11965,23 @@ a {
   min-width: 0;
 }
 
+.sale {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+}
+.sale img {
+  width: 140px;
+  height: auto;
+  transform: rotate(15deg);
+}
+
+.striked {
+  text-decoration: line-through;
+  font-size: 14px;
+  color: grey;
+}
+
 @media (min-width: 992px) {
   .index {
     padding: 2rem 0;
@@ -11973,15 +11990,6 @@ a {
 .index .products .product-item-container {
   margin-bottom: 2rem;
   position: relative;
-}
-.index .products .product-item-container .sale {
-  position: absolute;
-  padding: 0.25rem 1.25rem;
-  border-radius: 100px;
-  color: white;
-  background-color: red;
-  top: 1rem;
-  right: 1.5rem;
 }
 .index .products .product-item-container .product-image {
   margin-bottom: 0.5rem;
@@ -12002,11 +12010,6 @@ a {
   .index .products .product-item-container .product-item .product-title h3, .index .products .product-item-container .product-item .product-title .h3 {
     font-size: 1.5rem;
   }
-}
-.index .products .product-item-container .product-item .striked {
-  text-decoration: line-through;
-  font-size: 14px;
-  color: grey;
 }
 .index .products .product-item-container .product-item .product-price {
   margin-bottom: 6px;
@@ -12400,8 +12403,12 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table
 .product-detail .product .product-title h3, .product-detail .product .product-title .h3 {
   font-size: 2rem;
 }
+.product-detail .product .product-image-container {
+  position: relative;
+}
 .product-detail .product .product-image {
   text-align: center;
+  position: relative;
 }
 .product-detail .product .product-image img {
   width: 80%;
@@ -12414,13 +12421,19 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table
     margin-bottom: 0;
   }
 }
-.product-detail .product .product-price {
+.product-detail .product .product-price,
+.product-detail .product .product-price-discount {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #c4c4c4;
 }
-.product-detail .product .product-price p {
+.product-detail .product .product-price p,
+.product-detail .product .product-price-discount p {
   font-size: 1.25rem;
+}
+.product-detail .product .product-price .striked,
+.product-detail .product .product-price-discount .striked {
+  font-size: 18px;
 }
 .product-detail .product .product-desc {
   margin-bottom: 1rem;
