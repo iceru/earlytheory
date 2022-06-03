@@ -23,7 +23,7 @@ class ProductsController extends Controller
             $optionsValues->put('option', $key);
             $values->push($optionsValues);
         }
-        $related = Products::where('slug', '!=', $slug)->where('hide', 0)->where('category', 'product')->take(4)->get();
+        $related = Products::where('slug', '!=', $slug)->where('hide', 0)->where('category', $product_detail->category)->inRandomOrder()->take(4)->get();
 
         $product_ids = array();
         $productsSku = Products::all();
