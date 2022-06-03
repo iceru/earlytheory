@@ -10,8 +10,15 @@
     .sale {
         display: none;
 
+
         &.active {
             display: block;
+        }
+    }
+
+    @include breakpoint-down(medium) {
+        .sale img {
+            width: 140px;
         }
     }
 
