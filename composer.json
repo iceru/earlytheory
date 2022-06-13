@@ -17,7 +17,8 @@
         "lorisleiva/laravel-deployer": "^0.3.5",
         "santigarcor/laratrust": "^6.3",
         "spatie/laravel-analytics": "^3.11",
-        "spatie/laravel-newsletter": "^4.9"
+        "spatie/laravel-newsletter": "^4.9",
+        "usefomo/fomo-php-sdk": "^1.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
