@@ -12,6 +12,8 @@ use App\Models\SKUvalues;
 use App\Models\OptionValues;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Fomo\FomoClient;
+use Fomo\FomoEventBasic;
 
 class IndexController extends Controller
 {
@@ -117,6 +119,18 @@ class IndexController extends Controller
         }
     }
 
+    public function retrieveEvents()
+    {
+        $authToken = "QX5Wju-BOAd6917NiHCS8w";
+        $client = new FomoClient($authToken);
+        $event = new FomoEventBasic();
+
+        $client->order_by = 'created_at ';
+        $client->order_direction = 'desc';
+        $fomoEvents = $client->getEvents(10);
+
+        return $fomoEvents;
+    }
     /**
      * Display the specified resource.
      *
