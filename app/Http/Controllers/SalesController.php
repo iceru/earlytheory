@@ -196,7 +196,7 @@ class SalesController extends Controller
                 'inputPhone' => 'nullable',
                 'inputBirthdate' => 'nullable',
                 'inputPekerjaan' => 'nullable',
-                'inputGender' => 'nullable|in:male,female',
+                'inputGender' => 'nullable|in:laki-laki,perempuan',
             ]);
     
             // $sales->paymethod_id = $request->inputPayType;
