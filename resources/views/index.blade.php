@@ -1,4 +1,5 @@
 <x-app-layout>
+    <script type="text/javascript" src="https://load.fomo.com/api/v1/IhMO5nZyJEKBov48ENAs6Q/load.js" async></script>
     @section('title')
         Early Theory - Homepage
     @endsection
@@ -151,12 +152,10 @@
         </div>
     </div>
 
-
     @section('js')
         <script>
             function checkSku() {
                 var skus = {!! $skus !!};
-                console.log(skus);
                 $.each($('.addcart'), function(index, item) {
                     Object.keys(skus).forEach(function(element) {
                         if (skus[element].product_id == $(item).attr('data-id')) {
@@ -216,6 +215,14 @@
             });
 
             $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "/retrieve-events",
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+
                 $('.sliders-index').slick({
                     dots: true,
                     autoplay: true,
