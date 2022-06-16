@@ -215,13 +215,6 @@
             });
 
             $(document).ready(function() {
-                $.ajax({
-                    type: "GET",
-                    url: "/retrieve-events",
-                    success: function(response) {
-                        console.log(response);
-                    }
-                });
 
                 $('.sliders-index').slick({
                     dots: true,
