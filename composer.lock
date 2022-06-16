@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "41aceac1dd07695cf79ded01264e2e97",
+    "content-hash": "7ad2fb70debc48cac35465f146612b63",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7091,6 +7091,59 @@
             "time": "2020-07-13T06:12:54+00:00"
         },
         {
+            "name": "usefomo/fomo-php-sdk",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/usefomo/fomo-php-sdk.git",
+                "reference": "5f961961f97a9ec01adf11e15630d3de95790c25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/usefomo/fomo-php-sdk/zipball/5f961961f97a9ec01adf11e15630d3de95790c25",
+                "reference": "5f961961f97a9ec01adf11e15630d3de95790c25",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fomo\\": "src/Fomo"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "fomo",
+                    "email": "hello@fomo.com",
+                    "homepage": "https://fomo.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "Fomo PHP SDK is the official SDK wrapper for the Fomo API service",
+            "homepage": "https://fomo.com",
+            "keywords": [
+                "api",
+                "fomo",
+                "notifications",
+                "social proof",
+                "wrapper"
+            ],
+            "support": {
+                "docs": "https://github.com/usefomo/fomo-php-sdk/blob/master/README.md",
+                "email": "hello@fomo.com",
+                "issues": "https://github.com/usefomo/fomo-php-sdk/issues",
+                "source": "https://github.com/usefomo/fomo-php-sdk"
+            },
+            "time": "2019-02-08T23:58:28+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.3.0",
             "source": {
@@ -9870,5 +9923,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }

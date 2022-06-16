@@ -144,8 +144,8 @@ class UserController extends Controller
                 $sku->save();
             }
 
-            // Mail::send(new UserTransaction($sales));
-            // Mail::send(new AdminNotification($sales));
+            Mail::send(new UserTransaction($sales));
+            Mail::send(new AdminNotification($sales));
         }
         elseif($is_soldout === 1) {
             return redirect()->back()->with('soldout');

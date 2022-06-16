@@ -17,6 +17,8 @@ use App\Models\SKUs;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Fomo\FomoClient;
+use Fomo\FomoEventBasic;
 
 class SalesController extends Controller
 {
@@ -194,6 +196,7 @@ class SalesController extends Controller
                 'inputPhone' => 'nullable',
                 'inputBirthdate' => 'nullable',
                 'inputPekerjaan' => 'nullable',
+                'inputGender' => 'nullable|in:male,female',
             ]);
     
             // $sales->paymethod_id = $request->inputPayType;
@@ -210,13 +213,14 @@ class SalesController extends Controller
 
             $sales->relationship = $request->inputRelationship;
             $sales->job = $request->inputPekerjaan;
+            $sales->gender = $request->inputGender;
     
             $item_id = $request->id;
             $item_question = $request->question;
-            $item_genderquestion = 'Saya '.$request->genderQuestion[0].', mencari '.$request->genderQuestion2[0];
-            // $item_genderquestion = $request->genderQuestion;
-            // dd($item_genderquestion);
-    
+            if($request->genderQuestion && $request->genderQuestion2) {
+                $item_genderquestion = 'Saya '.$request->genderQuestion[0].', mencari '.$request->genderQuestion2[0];
+            }
+
             foreach ($item_id as $key => $i) {
                 $sku = SKUs::find($item_id[$key]);
                 if($sku) {
@@ -582,7 +586,7 @@ class SalesController extends Controller
 
         $is_product = 0;
         $is_service = 0;
-
+        
         foreach ($sales->products as $item) {
             if($item->category === 'product') {
                 $is_product += 1;
@@ -664,8 +668,59 @@ class SalesController extends Controller
                     $sku->save();
                 }
         
-                // Mail::send(new UserTransaction($sales));
-                // Mail::send(new AdminNotification($sales));
+                Mail::send(new UserTransaction($sales));
+                Mail::send(new AdminNotification($sales));
+
+                //get city name
+                if(Cache::has('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province)) {
+                    $response = Cache::get('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province);
+                }
+                else {
+                    $curl = curl_init();
+            
+                    curl_setopt_array($curl, array(
+                      CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
+                      CURLOPT_RETURNTRANSFER => true,
+                      CURLOPT_ENCODING => "",
+                      CURLOPT_MAXREDIRS => 10,
+                      CURLOPT_TIMEOUT => 30,
+                      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                      CURLOPT_CUSTOMREQUEST => "GET",
+                      CURLOPT_HTTPHEADER => array(
+                        "key: 6647e093d8e3502f18a50d44d52e032a"
+                      ),
+                    ));
+                    
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+                    
+                    curl_close($curl);
+                    Cache::put('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province, $response, now()->addMinutes(1440));
+                }
+                
+                $result = json_decode($response);
+        
+                $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+
+                //Fomo create event
+
+                $authToken = "QX5Wju-BOAd6917NiHCS8w";
+                $client = new FomoClient($authToken);
+
+                $event = new FomoEventBasic();
+
+                $event->event_type_id = "164817 "; // Find ID in Fomo > Templates > Template ID
+                $event->title = $sales->skus->first()->products->title;
+                $event->url = 'https://earlytheory.com/product/'.$sales->skus->first()->products->slug;
+                $event->first_name = $user->name;
+                $event->city = $sales->shippingAddress->city;
+                // for additional parameters check code documentation
+
+                // Add custom attributes to an event
+                $event->addCustomEventField('variable_name', 'value');
+
+                $client->createEvent($event);
+
         
                 return redirect()->route('sales.success', ['id' => $sales->sales_no]);
             }

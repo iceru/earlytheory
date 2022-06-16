@@ -67,6 +67,7 @@ class AdminProductsController extends Controller
             'inputTitle' => 'required',
             'inputOrdernumber' => 'required',
             'inputPrice' => 'required|integer',
+            'inputDiscPrice' => 'nullable|integer',
             'inputDuration' => 'nullable|integer',
             'inputImage' => 'required',
             'inputImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -96,7 +97,17 @@ class AdminProductsController extends Controller
         
         $product->title = $request->inputTitle;
         $product->ordernumber = $request->inputOrdernumber;
-        $product->price = $request->inputPrice;
+
+        //check discount price
+        if($request->inputDiscPrice) {
+            $product->price = $request->inputDiscPrice;
+            $product->discount_price = $request->inputDiscPrice;
+            $product->base_price = $request->inputPrice;
+        }
+        else {
+            $product->price = $request->inputPrice;
+        }
+
         $product->duration = $request->inputDuration;
         $product->description = $request->inputDesc;
         $product->description_short = $request->inputShortDesc;
@@ -117,7 +128,18 @@ class AdminProductsController extends Controller
         // dd($request->inputvarval);
 
         $sku_new = new SKUs;
-        $sku_new->price = $request->inputPrice;
+        // $sku_new->price = $request->inputPrice;
+
+        //check discount price
+        if($request->inputDiscPrice) {
+            $sku_new->price = $request->inputDiscPrice;
+            $sku_new->discount_price = $request->inputDiscPrice;
+            $sku_new->base_price = $request->inputPrice;
+        }
+        else {
+            $sku_new->price = $request->inputPrice;
+        }
+        
         $sku_new->stock = $request->inputStock;
         $sku_new->product_id = $product->id;
         $sku_new->save();
@@ -174,6 +196,7 @@ class AdminProductsController extends Controller
             'updateTitle' => 'required',
             'updateOrdernumber' => 'required',
             'updatePrice' => 'required|integer',
+            'updateDiscPrice' => 'nullable|integer',
             'updateDuration' => 'nullable|integer',
             'updateImage' => 'nullable',
             'updateImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -203,6 +226,22 @@ class AdminProductsController extends Controller
         $product->title = $request->updateTitle;
         $product->ordernumber = $request->updateOrdernumber;
         $product->price = $request->updatePrice;
+
+        //check discount price
+        if($request->updateDiscPrice) {
+            $product->price = $request->updateDiscPrice;
+            $product->discount_price = $request->updateDiscPrice;
+            $product->base_price = $request->updatePrice;
+        }
+        elseif($product->discount_price && $request->updateDiscPrice == 0) {
+            $product->price = $product->base_price;
+            $product->discount_price = NULL;
+            $product->base_price = NULL;
+        }
+        else {
+            $product->price = $request->updatePrice;
+        }
+        
         $product->duration = $request->updateDuration;
         $product->description = $request->updateDesc;
 
@@ -220,7 +259,23 @@ class AdminProductsController extends Controller
         // dd($have_variant);
         if($have_variant->isEmpty()) {
             $sku = SKUs::where('product_id', $request->id)->firstOrFail();
-            $sku->price = $request->updatePrice;
+            // $sku->price = $request->updatePrice;
+
+            //check discount price
+            if($request->updateDiscPrice) {
+                $sku->price = $request->updateDiscPrice;
+                $sku->discount_price = $request->updateDiscPrice;
+                $sku->base_price = $request->updatePrice;
+            }
+            elseif($sku->discount_price && $request->updateDiscPrice == 0) {
+                $sku->price = $sku->base_price;
+                $sku->discount_price = NULL;
+                $sku->base_price = NULL;
+            }
+            else {
+                $sku->price = $request->updatePrice;
+            }
+
             // $sku->stock = $request->updateStock;
             $sku->product_id = $product->id;
 
@@ -272,7 +327,18 @@ class AdminProductsController extends Controller
             $have_sku = SKUs::where('product_id', $product->id)->get();
             if($have_sku->isEmpty()) {
                 $sku_new = new SKUs;
-                $sku_new->price = $product->price;
+                // $sku_new->price = $product->price;
+                        
+                //check discount price
+                if($product->discount_price) {
+                    $sku_new->price = $product->price;
+                    $sku_new->discount_price = $product->discount_price;
+                    $sku_new->base_price = $product->base_price;
+                }
+                else {
+                    $sku_new->price = $product->price;
+                }
+                
                 $sku_new->stock = $product->stock;
                 $sku_new->product_id = $product->id;
                 $sku_new->save();

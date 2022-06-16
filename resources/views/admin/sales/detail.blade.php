@@ -83,6 +83,12 @@
             <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->job}}" readonly>
         </div>
     </div>
+    <div class="mb-1 row">
+        <label class="col-sm-3 col-form-label fw-bolder">Jenis Kelamin</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->gender}}" readonly>
+        </div>
+    </div>
     {{-- <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Status</label>
         <div class="col-sm-9">

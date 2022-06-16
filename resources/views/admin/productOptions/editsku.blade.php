@@ -31,12 +31,33 @@
                         <input type="text" class="form-control" value="{{$sku->id}}" disabled>
                     </div>
                 </div>
+                @if ($sku->discount_price)
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Price</label>
+                    <label class="col-sm-2 col-form-label">Base Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updatePrice" name="updatePrice" value="{{$sku->base_price}}" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updateDiscPrice" name="updateDiscPrice" min="0" value="{{ $sku->discount_price }}">
+                    </div>
+                </div>
+                @else
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Base Price</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="updatePrice" name="updatePrice" value="{{$sku->price}}" min="0">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="updateDiscPrice" name="updateDiscPrice" min="0">
+                    </div>
+                </div>
+                @endif
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">

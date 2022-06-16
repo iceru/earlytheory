@@ -12,6 +12,8 @@ use App\Models\SKUvalues;
 use App\Models\OptionValues;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Fomo\FomoClient;
+use Fomo\FomoEventBasic;
 
 class IndexController extends Controller
 {
@@ -27,8 +29,8 @@ class IndexController extends Controller
         $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
         $user = Auth::user();
 
-        $horoscope_product = Products::where('title', 'horoscope')->first();
-        $skus_horoscope = SKUs::where('product_id', $horoscope_product->id)->get();
+        // $horoscope_product = Products::where('title', 'horoscope')->first();
+        // $skus_horoscope = SKUs::where('product_id', $horoscope_product->id)->get();
 
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
 
@@ -84,7 +86,7 @@ class IndexController extends Controller
         }
         
         $skus = json_encode($temp_array);
-        return view('index', compact('products', 'sliders', 'services', 'articles', 'skus', 'user', 'horoscope_product', 'skus_horoscope'));
+        return view('index', compact('products', 'sliders', 'services', 'articles', 'skus', 'user'));
     }
 
     /**
@@ -117,6 +119,18 @@ class IndexController extends Controller
         }
     }
 
+    public function retrieveEvents()
+    {
+        $authToken = "QX5Wju-BOAd6917NiHCS8w";
+        $client = new FomoClient($authToken);
+        $event = new FomoEventBasic();
+
+        $client->order_by = 'created_at ';
+        $client->order_direction = 'desc';
+        $fomoEvents = $client->getEvents(10);
+
+        return $fomoEvents;
+    }
     /**
      * Display the specified resource.
      *

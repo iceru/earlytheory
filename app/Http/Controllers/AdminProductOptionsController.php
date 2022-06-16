@@ -9,6 +9,7 @@ use App\Models\SKUs;
 use App\Models\SKUvalues;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AdminProductOptionsController extends Controller
 {
@@ -162,6 +163,7 @@ class AdminProductOptionsController extends Controller
     {
         $request->validate([
             'inputPrice' => 'required|numeric',
+            'inputDiscPrice' => 'nullable|numeric',
             'inputStock' => 'required|numeric',
             'inputvarval' => 'required'
         ]);
@@ -169,7 +171,18 @@ class AdminProductOptionsController extends Controller
         // dd($request->inputvarval);
 
         $sku_new = new SKUs;
-        $sku_new->price = $request->inputPrice;
+        // $sku_new->price = $request->inputPrice;
+
+        //check discount price
+        if($request->inputDiscPrice) {
+            $sku_new->price = $request->inputDiscPrice;
+            $sku_new->discount_price = $request->inputDiscPrice;
+            $sku_new->base_price = $request->inputPrice;
+        }
+        else {
+            $sku_new->price = $request->inputPrice;
+        }
+
         $sku_new->stock = $request->inputStock;
         $sku_new->product_id = $request->product_id;
         $sku_new->save();
@@ -273,6 +286,7 @@ class AdminProductOptionsController extends Controller
         if($have_skuval->isNotEmpty()) {
             $request->validate([
                 'updatePrice' => 'required|numeric',
+                'updateDiscPrice' => 'nullable|numeric',
                 'updateStock' => 'required|numeric',
                 'updatevarval' => 'required'
             ]);
@@ -280,18 +294,47 @@ class AdminProductOptionsController extends Controller
             // dd($request->updatevarval);
     
             $sku = SKUs::find($request->id);
-            $sku->price = $request->updatePrice;
+            // $sku->price = $request->updatePrice;
+
+            //check discount price
+            if($request->updateDiscPrice) {
+                $sku->price = $request->updateDiscPrice;
+                $sku->discount_price = $request->updateDiscPrice;
+                $sku->base_price = $request->updatePrice;
+            }
+            elseif($sku->discount_price && $request->updateDiscPrice == 0) {
+                $sku->price = $sku->base_price;
+                $sku->discount_price = NULL;
+                $sku->base_price = NULL;
+            }
+            else {
+                $sku->price = $request->updatePrice;
+            }
+            
             $sku->stock = $request->updateStock;
             $sku->save();
             
             foreach($request->updatevarval as $varval) {
                 $variant_values = explode('-', $varval);
-    
-                $skuval = SKUvalues::updateOrCreate(['sku_id' => $sku->id, 'option_id' => $variant_values[0]],
+
+                // $skuval = SKUvalues::updateOrCreate(
+                //     ['sku_id' => $sku->id,
+                //     'option_id' => $variant_values[0]],
+                //     ['sku_id' => $sku->id,
+                //     'option_id' => $variant_values[0],
+                //     'value_id' => $variant_values[1]
+                // ]);
+
+                $skuval = DB::table('skuvalues')->updateOrInsert(
+                    ['sku_id' => $sku->id,
+                    'option_id' => $variant_values[0]],
                     ['sku_id' => $sku->id,
                     'option_id' => $variant_values[0],
-                    'value_id' => $variant_values[1]
-                ]);
+                    'value_id' => $variant_values[1],
+                    'created_at' =>  \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                    ]
+                );
                 // $skuval->value_id = $va  riant_values[1];
                 // $skuval->save();
                 // $skuval = SKUvalues::firstOrCreate(
@@ -305,6 +348,7 @@ class AdminProductOptionsController extends Controller
         else {
             $request->validate([
                 'updatePrice' => 'required|numeric',
+                'updateDiscPrice' => 'nullable|numeric',
                 'updateStock' => 'required|numeric',
                 // 'updatevarval' => 'required'
             ]);
@@ -312,7 +356,23 @@ class AdminProductOptionsController extends Controller
             // dd($request->updatevarval);
     
             $sku = SKUs::find($request->id);
-            $sku->price = $request->updatePrice;
+            // $sku->price = $request->updatePrice;
+
+            //check discount price
+            if($request->updateDiscPrice) {
+                $sku->price = $request->updateDiscPrice;
+                $sku->discount_price = $request->updateDiscPrice;
+                $sku->base_price = $request->updatePrice;
+            }
+            elseif($sku->discount_price && $request->updateDiscPrice == 0) {
+                $sku->price = $sku->base_price;
+                $sku->discount_price = NULL;
+                $sku->base_price = NULL;
+            }
+            else {
+                $sku->price = $request->updatePrice;
+            }
+
             $sku->stock = $request->updateStock;
             $sku->save();
         }

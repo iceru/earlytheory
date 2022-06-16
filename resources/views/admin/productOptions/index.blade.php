@@ -100,9 +100,15 @@
                 @csrf
                 <input type="text" name="product_id" id="product_id" value="{{$product->id}}" hidden>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Price</label>
+                    <label class="col-sm-2 col-form-label">Base Price</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputPrice" name="inputPrice" value="{{$product->price}}" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputPrice" name="inputDiscPrice" min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -138,6 +144,7 @@
                         <th>SKU</th>
                         <th>Variant Values</th>
                         <th>Price</th>
+                        <th>Base Price</th>
                         <th>Stock</th>
                         <th>Options</th>
                     </tr>
@@ -152,6 +159,7 @@
                             <b>{{$item->options->option_name}}:</b> {{$item->optionvalues->value_name}}, 
                         @endforeach</td>
                         <td>{{$sku->price}}</td>
+                        <td>{{$sku->base_price}}</td>
                         <td>{{$sku->stock}}</td>
                         <td><a href="/admin/product-variant/sku/{{$sku->id}}/edit">Update</a> | <a href="/admin/product-variant/sku/{{$sku->id}}/delete">Delete</a></td>
                     </tr>

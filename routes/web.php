@@ -39,6 +39,9 @@ use App\Http\Controllers\AdminProductOptionsController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
+
+Route::get('/retrieve-events', [IndexController::class, 'retrieveEvents'])->name('retrieve-events');
+
 Route::get('/birth-chart', [IndexController::class, 'index'])->name('horoscope');
 Route::get('/articles', [IndexController::class, 'index'])->name('articles');
 Route::get('/products', [IndexController::class, 'index'])->name('products');

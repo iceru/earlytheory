@@ -1,23 +1,23 @@
 <x-admin-layout>
     @section('title')
-    Products Admin
+        Products Admin
     @endsection
 
     @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <strong>Sorry !</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+        <div class="alert alert-danger">
+            <strong>Sorry !</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
 
     <div>
@@ -41,9 +41,15 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Price</label>
+                    <label class="col-sm-2 col-form-label">Base Price</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="inputPrice" name="inputPrice" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Discount Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputDiscPrice" name="inputDiscPrice" min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -148,6 +154,7 @@
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Price</th>
+                                <th>Base Price</th>
                                 <th>Duration</th>
                                 <th>Question Field</th>
                                 <th>Question Title</th>
@@ -160,47 +167,50 @@
                         </thead>
                         <tbody>
                             @foreach ($services as $service)
-                            <tr>
-                                <td>{{$service->ordernumber}}</td>
-                                <td>
-                                    @foreach ((array)json_decode($service->image) as $item)
-                                    <div class="ratio ratio-1x1 mb-2">
-                                        <img src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
-                                    </div>
-                                    @endforeach
-                                </td>
-                                <td>{{$service->title}}</td>
-                                <td>{{$service->price}}</td>
-                                <td>{{$service->duration}}</td>
-                                <td>{{ucwords($service->question)}}</td>
-                                <td>{{ $service->question_title }}</td>
-                                <td>
-                                    {{$service->stock_data}}
-                                </td>
-                                <td>{{$service->description_short}}</td>
-                                <td>{{substr($service->description, 0, 100) . '...'}}</td>
-                                <td>{{ucfirst($service->category)}}</td>
-                                <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
-                                        href="/admin/products/{{$service->id}}/variant"><i
-                                            class="fas fa-list me-1"></i></i>
-                                        Variant</a>
-                                    <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
-                                        href="/admin/products/edit/{{$service->id}}"><i class="fas fa-edit me-1"></i>
-                                        Edit</a>
-                                    @if($service->hide == false)
-                                    <a class="btn btn-warning btn-small d-flex align-items-center justify-content-center mb-2"
-                                        href="/admin/products/hide/{{$service->id}}"><i class="fas fa-eye-slash me-1"
-                                            aria-hidden="true"></i> Hide</a>
-                                    @elseif($service->hide == true)
-                                    <a class="btn btn-success btn-small d-flex align-items-center justify-content-center mb-2"
-                                        href="/admin/products/unhide/{{$service->id}}"><i class="fas fa-eye me-1"
-                                            aria-hidden="true"></i> Unhide (Show)</a>
-                                    @endif
-                                    <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
-                                        href="/admin/products/delete/{{$service->id}}"><i class="fa fa-trash me-1"
-                                            aria-hidden="true"></i> Delete</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>{{ $service->ordernumber }}</td>
+                                    <td>
+                                        @foreach ((array) json_decode($service->image) as $item)
+                                            <div class="ratio ratio-1x1 mb-2">
+                                                <img src="{{ Storage::url('product-image/' . $item) }}" alt="Image"
+                                                    width="100">
+                                            </div>
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $service->title }}</td>
+                                    <td>{{ $service->price }}</td>
+                                    <td>{{ $service->discount_price ? $service->base_price : '' }}</td>
+                                    <td>{{ $service->duration }}</td>
+                                    <td>{{ ucwords($service->question) }}</td>
+                                    <td>{{ $service->question_title }}</td>
+                                    <td>
+                                        {{ $service->stock_data }}
+                                    </td>
+                                    <td>{{ $service->description_short }}</td>
+                                    <td>{{ substr($service->description, 0, 100) . '...' }}</td>
+                                    <td>{{ ucfirst($service->category) }}</td>
+                                    <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
+                                            href="/admin/products/{{ $service->id }}/variant"><i
+                                                class="fas fa-list me-1"></i></i>
+                                            Variant</a>
+                                        <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
+                                            href="/admin/products/edit/{{ $service->id }}"><i
+                                                class="fas fa-edit me-1"></i>
+                                            Edit</a>
+                                        @if ($service->hide == false)
+                                            <a class="btn btn-warning btn-small d-flex align-items-center justify-content-center mb-2"
+                                                href="/admin/products/hide/{{ $service->id }}"><i
+                                                    class="fas fa-eye-slash me-1" aria-hidden="true"></i> Hide</a>
+                                        @elseif($service->hide == true)
+                                            <a class="btn btn-success btn-small d-flex align-items-center justify-content-center mb-2"
+                                                href="/admin/products/unhide/{{ $service->id }}"><i
+                                                    class="fas fa-eye me-1" aria-hidden="true"></i> Unhide (Show)</a>
+                                        @endif
+                                        <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
+                                            href="/admin/products/delete/{{ $service->id }}"><i
+                                                class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -218,6 +228,7 @@
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Price</th>
+                                    <th>Base Price</th>
                                     <th>Question Field</th>
                                     <th>Question Title</th>
                                     <th>Stock</th>
@@ -229,46 +240,49 @@
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
-                                <tr>
-                                    <td>{{$product->ordernumber}}</td>
-                                    <td>
-                                        @foreach ((array)json_decode($product->image) as $item)
-                                        <div class="ratio ratio-1x1 mb-2">
-                                            <img src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
-                                        </div>
-                                        @endforeach
-                                    </td>
-                                    <td>{{$product->title}}</td>
-                                    <td>{{$product->price}}</td>
-                                    <td>{{ucwords($product->question)}}</td>
-                                    <td>{{ $product->question_title }}</td>
-                                    <td>
-                                        {{$product->stock_data}}
-                                    </td>
-                                    <td>{{$product->description_short}}</td>
-                                    <td>{{substr($product->description, 0, 100) . '...'}}</td>
-                                    <td>{{ucfirst($product->category)}}</td>
-                                    <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
-                                            href="/admin/products/{{$product->id}}/variant"><i
-                                                class="fas fa-list me-1"></i></i>
-                                            Variant</a>
-                                        <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
-                                            href="/admin/products/edit/{{$product->id}}"><i
-                                                class="fas fa-edit me-1"></i> Edit</a>
-                                        @if($product->hide == false)
-                                        <a class="btn btn-warning btn-small d-flex align-items-center justify-content-center mb-2"
-                                            href="/admin/products/hide/{{$product->id}}"><i
-                                                class="fas fa-eye-slash me-1" aria-hidden="true"></i> Hide</a>
-                                        @elseif($product->hide == true)
-                                        <a class="btn btn-success btn-small d-flex align-items-center justify-content-center mb-2"
-                                            href="/admin/products/unhide/{{$product->id}}"><i class="fas fa-eye me-1"
-                                                aria-hidden="true"></i> Unhide (Show)</a>
-                                        @endif
-                                        <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
-                                            href="/admin/products/delete/{{$product->id}}"><i class="fa fa-trash me-1"
-                                                aria-hidden="true"></i> Delete</a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $product->ordernumber }}</td>
+                                        <td>
+                                            @foreach ((array) json_decode($product->image) as $item)
+                                                <div class="ratio ratio-1x1 mb-2">
+                                                    <img src="{{ Storage::url('product-image/' . $item) }}" alt="Image"
+                                                        width="100">
+                                                </div>
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $product->title }}</td>
+                                        <td>{{ $product->price }}</td>
+                                        <td>{{ $product->base_price }}</td>
+                                        <td>{{ ucwords($product->question) }}</td>
+                                        <td>{{ $product->question_title }}</td>
+                                        <td>
+                                            {{ $product->stock_data }}
+                                        </td>
+                                        <td>{{ $product->description_short }}</td>
+                                        <td>{{ substr($product->description, 0, 100) . '...' }}</td>
+                                        <td>{{ ucfirst($product->category) }}</td>
+                                        <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
+                                                href="/admin/products/{{ $product->id }}/variant"><i
+                                                    class="fas fa-list me-1"></i></i>
+                                                Variant</a>
+                                            <a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
+                                                href="/admin/products/edit/{{ $product->id }}"><i
+                                                    class="fas fa-edit me-1"></i> Edit</a>
+                                            @if ($product->hide == false)
+                                                <a class="btn btn-warning btn-small d-flex align-items-center justify-content-center mb-2"
+                                                    href="/admin/products/hide/{{ $product->id }}"><i
+                                                        class="fas fa-eye-slash me-1" aria-hidden="true"></i> Hide</a>
+                                            @elseif($product->hide == true)
+                                                <a class="btn btn-success btn-small d-flex align-items-center justify-content-center mb-2"
+                                                    href="/admin/products/unhide/{{ $product->id }}"><i
+                                                        class="fas fa-eye me-1" aria-hidden="true"></i> Unhide
+                                                    (Show)</a>
+                                            @endif
+                                            <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
+                                                href="/admin/products/delete/{{ $product->id }}"><i
+                                                    class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -283,53 +297,56 @@
     </div> --}}
 
     @section('js')
-    <script>
-        $(document).ready(function() {
-            $('button[data-bs-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-                $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-            } );
-            $('.table').DataTable({
-                responsive: true,
-            });
+        <script>
+            $(document).ready(function() {
+                $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+                    $.fn.dataTable.tables({
+                        visible: true,
+                        api: true
+                    }).columns.adjust();
+                });
+                $('.table').DataTable({
+                    responsive: true,
+                });
 
-            $('#duration').hide();
-            $('#question_title').hide();
-
-            $(".btn-success").click(function(){
-                var html = $(".clone").html();
-                $(".clone").after(html);
-            });
-
-            $('body').on("click", ".btn-danger", function() {
-                $(this).parents(".control-group").remove();
-            });
-        });
-
-        $('select[name=inputCategory]').change(function () {
-            if ($(this).val() == 'service') {
-                $('#duration').show();
-            } else {
                 $('#duration').hide();
-            }
-        });
-
-        $('select[name=inputQuestion]').change(function () {
-            if ($(this).val() == 'yes') {
-                $('#question_title').show();
-            } else {
                 $('#question_title').hide();
-            }
-        });
+
+                $(".btn-success").click(function() {
+                    var html = $(".clone").html();
+                    $(".clone").after(html);
+                });
+
+                $('body').on("click", ".btn-danger", function() {
+                    $(this).parents(".control-group").remove();
+                });
+            });
+
+            $('select[name=inputCategory]').change(function() {
+                if ($(this).val() == 'service') {
+                    $('#duration').show();
+                } else {
+                    $('#duration').hide();
+                }
+            });
+
+            $('select[name=inputQuestion]').change(function() {
+                if ($(this).val() == 'yes') {
+                    $('#question_title').show();
+                } else {
+                    $('#question_title').hide();
+                }
+            });
 
 
-        tinymce.init({
-          selector: 'textarea',
-          toolbar_mode: 'floating',
-          tinycomments_mode: 'embedded',
-          tinycomments_author: 'Author name',
-          height: "480"
-       });
-    </script>
+            tinymce.init({
+                selector: 'textarea',
+                toolbar_mode: 'floating',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: "480"
+            });
+        </script>
     @endsection
 
 </x-admin-layout>

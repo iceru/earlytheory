@@ -216,18 +216,16 @@
             data: data,
             
             success: function (response) {
-                const obj = JSON.parse(response);
+                // const obj = JSON.parse(response);
                 const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
                 
-                storeHoroscope(uid, obj, name, email)
-
-                var productid = {!! $horoscope_product->id !!}
+                storeHoroscope(uid, response, name, email)
             },
             always: function() {
                 $(this).prop('disabled', false);
             },
             error: function(err) {
-                alert(err);
+                alert('There is an Error: '+err.message);
             }
         });
     });
@@ -235,17 +233,19 @@
     function storeHoroscope(id, obj, name, email) {
         userid = '{!! $user ? $user->id : '' !!}'
         userIdStore = userid ? parseInt(userid) : null
-        birthplaceData = {
+        var birthplaceData = {
             id: birthplace,
             label: birthplaceLabel
         }
+        var birthplaces = JSON.stringify(birthplaceData);
+
         const data = {
             user_id: userIdStore,
             link_id: id,
-            data: obj,
             name: name,
             email: email,
-            places: JSON.stringify(birthplaceData)
+            places: birthplaces,
+            data: obj,
         }
         $.ajax({
             type: "POST",
@@ -258,7 +258,7 @@
                 window.location = `/birth-chart/show/${id}`
             },
             error: function(err) {
-                alert(err)
+                alert('There is an Error: '+err.message)
             }
         });
     }
