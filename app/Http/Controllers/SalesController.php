@@ -671,36 +671,38 @@ class SalesController extends Controller
                 Mail::send(new UserTransaction($sales));
                 Mail::send(new AdminNotification($sales));
 
-                //get city name
-                if(Cache::has('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province)) {
-                    $response = Cache::get('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province);
-                }
-                else {
-                    $curl = curl_init();
-            
-                    curl_setopt_array($curl, array(
-                      CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
-                      CURLOPT_RETURNTRANSFER => true,
-                      CURLOPT_ENCODING => "",
-                      CURLOPT_MAXREDIRS => 10,
-                      CURLOPT_TIMEOUT => 30,
-                      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                      CURLOPT_CUSTOMREQUEST => "GET",
-                      CURLOPT_HTTPHEADER => array(
-                        "key: 6647e093d8e3502f18a50d44d52e032a"
-                      ),
-                    ));
-                    
-                    $response = curl_exec($curl);
-                    $err = curl_error($curl);
-                    
-                    curl_close($curl);
-                    Cache::put('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province, $response, now()->addMinutes(1440));
-                }
+                // //get city name
+                // if($sales->shippingAddress) {
+                //     if(Cache::has('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province)) {
+                //         $response = Cache::get('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province);
+                //     }
+                //     else {
+                //         $curl = curl_init();
                 
-                $result = json_decode($response);
-        
-                $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+                //         curl_setopt_array($curl, array(
+                //           CURLOPT_URL => "https://pro.rajaongkir.com/api/city?id=".$sales->shippingAddress->ship_city."&province=".$sales->shippingAddress->ship_province,
+                //           CURLOPT_RETURNTRANSFER => true,
+                //           CURLOPT_ENCODING => "",
+                //           CURLOPT_MAXREDIRS => 10,
+                //           CURLOPT_TIMEOUT => 30,
+                //           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                //           CURLOPT_CUSTOMREQUEST => "GET",
+                //           CURLOPT_HTTPHEADER => array(
+                //             "key: 6647e093d8e3502f18a50d44d52e032a"
+                //           ),
+                //         ));
+                        
+                //         $response = curl_exec($curl);
+                //         $err = curl_error($curl);
+                        
+                //         curl_close($curl);
+                //         Cache::put('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province, $response, now()->addMinutes(1440));
+                //     }
+                //     $result = json_decode($response);
+            
+                //     $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
+                // }
+                
 
                 //Fomo create event
 
@@ -713,7 +715,7 @@ class SalesController extends Controller
                 $event->title = $sales->skus->first()->products->title;
                 $event->url = 'https://earlytheory.com/product/'.$sales->skus->first()->products->slug;
                 $event->first_name = $user->name;
-                $event->city = $sales->shippingAddress->city;
+                // $event->city = $sales->shippingAddress->city;
                 // for additional parameters check code documentation
 
                 // Add custom attributes to an event
