@@ -1,4 +1,6 @@
 <x-app-layout>
+    <script type="text/javascript" src="https://load.fomo.com/api/v1/IhMO5nZyJEKBov48ENAs6Q/load.js" async></script>
+
     @section('title')
         {{ $product_detail->title }}
     @endsection
