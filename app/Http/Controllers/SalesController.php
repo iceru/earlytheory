@@ -714,7 +714,12 @@ class SalesController extends Controller
                 $event->event_type_id = "164817 "; // Find ID in Fomo > Templates > Template ID
                 $event->title = $sales->skus->first()->products->title;
                 $event->url = 'https://earlytheory.com/product/'.$sales->skus->first()->products->slug;
-                $event->first_name = $user->name;
+                $countName = strlen($user->name);
+                $censored = '';
+                for ($x = 3; $x <= $countName; $x++) {
+                    $censored .= '*';
+                }
+                $event->first_name = substr($user->name, 0, (-$countName+2)).$censored;
                 // $event->city = $sales->shippingAddress->city;
                 // for additional parameters check code documentation
 
