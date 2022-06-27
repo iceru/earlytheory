@@ -15,6 +15,7 @@ use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\AdminTagsController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HoroscopeController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\SocialLoginController;
@@ -210,6 +211,10 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::post('/admin/discount/update', [AdminDiscountController::class, 'update'])->name('admin.discount.update');
     Route::post('/admin/discount/store', [AdminDiscountController::class, 'store'])->name('admin.discount.store');
     Route::get('/admin/discount/delete/{id}', [AdminDiscountController::class, 'destroy'])->name('admin.discount.destroy');
+
+    Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::get('/admin/user/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::post('/admin/user/update', [AdminUserController::class, 'update'])->name('admin.users.update');
 });
 
 require __DIR__.'/auth.php';
