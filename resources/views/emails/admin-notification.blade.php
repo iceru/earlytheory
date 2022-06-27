@@ -67,7 +67,7 @@
                             <table align="center">
                               <tr>
                                 <th >
-                                 <img class="order-img" src="https://earlytheory.com/images/MainLogo.png" alt="Order Confirmation">
+                                 <img class="order-img" width="200" src="https://earlytheory.com/images/MainLogo.png" alt="Order Confirmation">
                                   <table class="spacer">
                                     <tbody>
                                       <tr>

@@ -140,7 +140,7 @@
                           <th class="small-12 large-3 columns first">
                             <table>
                               <tr>
-                                <th> <img class="logo-img" src="https://earlytheory.com/images/MainLogo.png" alt=""> </th>
+                                <th> <img width="200" class="logo-img" src="https://earlytheory.com/images/MainLogo.png" alt=""> </th>
                               </tr>
                             </table>
                           </th>
