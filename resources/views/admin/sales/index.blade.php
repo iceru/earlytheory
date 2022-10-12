@@ -14,7 +14,7 @@
 
     <div class="py-12 table-overflow">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <table class="table" id="table">
+            <table class="table data-table" id="table">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -29,14 +29,15 @@
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody>
+                {{-- <a href="/admin/sales/edit/{{$sale->id}}" class="btn btn-secondary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fas fa-edit me-1" aria-hidden="true"></i> <span class="ms-1">Edit</span></a> --}}
+                {{-- <tbody>
                     @foreach ($sales as $sale)
                     <tr>
                         <td scope="row">{{$loop->iteration}}</td>
                         <td>{{$sale->sales_no}}</td>
                         <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
                         <td>{{number_format($sale->total_price-$sale->discount+$sale->ship_cost)}}</td>
-                        @if($sale->user)
+                        @if ($sale->user)
                         <td>{{$sale->user->name}}</td>
                         @else
                         <td>{{ $sale->name }}</td>
@@ -53,62 +54,90 @@
                             <td>-</td>
                         @endif
                         <td><a href="/admin/sales/{{$sale->id}}" class="btn btn-primary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fa fa-info-circle" aria-hidden="true"></i> <span class="ms-1">Detail</span></a>
-                            {{-- <a href="/admin/sales/edit/{{$sale->id}}" class="btn btn-secondary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fas fa-edit me-1" aria-hidden="true"></i> <span class="ms-1">Edit</span></a> --}}
+                          
                             <button onclick="deleteConfirmation({{$sale->id}})" class="btn btn-danger d-flex align-items-center btn-sm justify-content-center"><i class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button></td>
                     </tr>
                     @endforeach
-                </tbody>
+                </tbody> --}}
             </table>
         </div>
     </div>
 
     @section('js')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        } );
+        <script>
+            $(function() {
 
-        function deleteConfirmation(id) {
-            Swal.fire({
-                title: "Delete the Data?",
-                text: "You will not be able to recover it",
-                icon: "warning",
-                showCancelButton: !0,
-                confirmButtonText: "Delete",
-                cancelButtonText: "Cancel",
-                reverseButtons: !0
-            }).then(function (e) {
-                if (e.value === true) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                var table = $('.data-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('admin.sales') }}",
+                    columns: [{
+                            data: 'id',
+                            name: 'id'
+                        },
+                        {
+                            data: 'sales_no',
+                            name: 'sales_no'
+                        },
+                        {
+                            data: 'created_at',
+                            name: 'created_at'
+                        },
+                        {
+                            data: 'sale->user->name',
+                            name: 'name'
+                        },
+                        {
+                            data: 'status',
+                            name: 'status'
+                        },
+                    ]
+                });
 
-                    $.ajax({
-                        type: 'GET',
-                        url: "{{url('/admin/sales/delete')}}/" + id,
-                        data: {_token: CSRF_TOKEN},
-                        dataType: 'JSON',
-                        success: function (results) {
+            });
 
-                            if (results.success === true) {
-                                Swal.fire("Done!", results.success, 'success').then(function(){
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire("Error!", results.success, 'error').then(function(){
-                                    location.reload();
-                                });
+            function deleteConfirmation(id) {
+                Swal.fire({
+                    title: "Delete the Data?",
+                    text: "You will not be able to recover it",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: !0
+                }).then(function(e) {
+                    if (e.value === true) {
+                        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{ url('/admin/sales/delete') }}/" + id,
+                            data: {
+                                _token: CSRF_TOKEN
+                            },
+                            dataType: 'JSON',
+                            success: function(results) {
+
+                                if (results.success === true) {
+                                    Swal.fire("Done!", results.success, 'success').then(function() {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire("Error!", results.success, 'error').then(function() {
+                                        location.reload();
+                                    });
+                                }
                             }
-                        }
-                    });
+                        });
 
-                } else {
-                    e.dismiss;
-                }
+                    } else {
+                        e.dismiss;
+                    }
 
-            }, function (dismiss) {
-                return false;
-            })
-        }
-    </script>
+                }, function(dismiss) {
+                    return false;
+                })
+            }
+        </script>
     @endsection
 </x-admin-layout>
-

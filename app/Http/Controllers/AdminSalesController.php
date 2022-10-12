@@ -11,13 +11,25 @@ use App\Models\PaymentMethods;
 use App\Models\ShippingAddress;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Cache;
+use DataTables;
 
 class AdminSalesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $sales = Sales::where('status', 'settlement')->orderBy('created_at', 'desc')->get();
-        return view('admin.sales.index', compact('sales'));
+        if ($request->ajax()) {
+            $sales = Sales::where('status', 'settlement')->orderBy('created_at', 'desc')->get();
+            return Datatables::of($sales)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+        
+        return view('admin.sales.index');
     }
 
     public function detail($id)
