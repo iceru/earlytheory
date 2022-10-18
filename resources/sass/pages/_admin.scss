@@ -7,13 +7,16 @@
 
 .dashboard {
     padding-bottom: 3rem;
+
     .form-select {
         @include breakpoint(large) {
             width: 30%;
         }
     }
+
     .charts {
         display: none;
+
         .chart {
             background: #f5f5f5;
             padding: 1rem;
@@ -56,7 +59,7 @@
 
 /* Handle on hover */
 .table-overflow::-webkit-scrollbar-thumb:hover {
-    background: $primary;
+    background: $body;
 }
 
 .loading {
@@ -65,6 +68,7 @@
     width: 40px;
     height: 40px;
 }
+
 .loading div {
     box-sizing: border-box;
     display: block;
@@ -77,28 +81,34 @@
     animation: loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: black transparent transparent transparent;
 }
+
 .loading div:nth-child(1) {
     animation-delay: -0.45s;
 }
+
 .loading div:nth-child(2) {
     animation-delay: -0.3s;
 }
+
 .loading div:nth-child(3) {
     animation-delay: -0.15s;
 }
+
 @keyframes loading {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
 }
 
-table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
     top: 18px;
     left: 0;
-    background-color: $primary;
+    background-color: $body;
 }
 
 .nav-tabs {
@@ -109,9 +119,11 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
     .nav-link {
         margin: 0 .5rem;
         min-width: 150px;
-        &:hover, &.active {
-            background-color: $primary;
-            color: white;
+
+        &:hover,
+        &.active {
+            background-color: $yellow;
+            color: $body;
         }
     }
 }

@@ -14,9 +14,10 @@
             padding: 0 6.8vw;
         }
     }
+
     .to-top {
-        color: white;
-        background-color: $primary;
+        color: $body;
+        background-color: $yellow;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         margin-bottom: 1rem;
@@ -29,7 +30,7 @@
         }
     }
 
-    .row > * {
+    .row>* {
         max-width: initial;
     }
 
@@ -37,9 +38,11 @@
 
     .footer-info {
         margin-bottom: 1.5rem;
+
         @include breakpoint(large) {
             margin-bottom: 2rem;
         }
+
         .link {
             div {
                 margin-bottom: 0.5rem;
@@ -73,6 +76,7 @@
     .footer-subs-logo {
 
         margin-bottom: 1.5rem;
+
         @include breakpoint(large) {
             margin-bottom: 2rem;
         }
@@ -83,6 +87,7 @@
             @include breakpoint(large) {
                 margin-bottom: 0;
             }
+
             .text-subs {
                 font-family: 'Evogria';
                 letter-spacing: 0.05rem;
@@ -96,7 +101,7 @@
                 width: 20vh;
             }
 
-            @include breakpoint(large){
+            @include breakpoint(large) {
                 text-align: left;
 
                 img {

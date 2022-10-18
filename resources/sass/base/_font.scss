@@ -87,3 +87,14 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'Rubik Mono One';
+    src: url('/fonts/RubikMonoOne-Regular.otf');
+    src: url('/fonts/RubikMonoOne-Regular.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/RubikMonoOne-Regular.woff') format('woff'),
+        url('/fontsRubikMonoOne-Regular.svg#RubikMonoOne-Regular') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

@@ -1,10 +1,11 @@
 // Base Color
 $background: #e7e7e7;
 $background-secondary: #c4c4c4;
-$body: #000;
+$body: #202020;
 $grey: #828282;
 
 $primary: #4A2984;
+$yellow: #E6FF19;
 $secondary: #c614cc;
 $pink: #f186b0;
 $filler-blue: #4c57d3;
@@ -14,7 +15,7 @@ $filler-blue: #4c57d3;
 }
 
 .primary-color {
-    color: $primary !important;
+    color: $body !important;
 }
 
 .grey-color {
@@ -36,16 +37,21 @@ $filler-blue: #4c57d3;
 }
 
 .skylar {
-    font-family: "Skylar Sans";
+    font-family: "Rubik Mono One";
     letter-spacing: 1px;
-    font-weight: 700;
 }
 
 .mono {
     font-family: "Apercu Mono";
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     margin: 0;
 }
 
@@ -60,12 +66,13 @@ $breakpoints: (
     "medium": 768px,
     "large": 992px,
     "xlarge": 1200px,
-    "xxlarge": 1400px
-) !default;
+    "xxlarge": 1400px) !default;
 
 @mixin breakpoint($breakpoint) {
+
     // If the key exists in the map
     @if map-has-key($breakpoints, $breakpoint) {
+
         // Prints a media query based on the value
         @media (min-width: map-get($breakpoints, $breakpoint)) {
             @content;
@@ -75,13 +82,15 @@ $breakpoints: (
     // If the key doesn't exist in the map
     @else {
         @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-          + "Available breakpoints are: #{map-keys($breakpoints)}.";
+        +"Available breakpoints are: #{map-keys($breakpoints)}.";
     }
 }
 
 @mixin breakpoint-down($breakpoint) {
+
     // If the key exists in the map
     @if map-has-key($breakpoints, $breakpoint) {
+
         // Prints a media query based on the value
         @media (max-width: map-get($breakpoints, $breakpoint)) {
             @content;
@@ -91,41 +100,40 @@ $breakpoints: (
     // If the key doesn't exist in the map
     @else {
         @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-          + "Available breakpoints are: #{map-keys($breakpoints)}.";
+        +"Available breakpoints are: #{map-keys($breakpoints)}.";
     }
 }
 
 
 
 .slick-prev {
-    left: 10px ;
+    left: 10px;
     z-index: 10;
 }
 
 .slick-next {
-    right: 10px ;
+    right: 10px;
     z-index: 10;
 }
 
 .slick-dots {
-    bottom: 5px ;
+    bottom: 5px;
 
     li {
-        width: 30px ;
-        height: 8px ;
+        width: 30px;
+        height: 8px;
 
         button {
-            width: 30px ;
-            height: 8px ;
+            width: 30px;
+            height: 8px;
 
             &:before {
                 content: ' ';
-                width: 30px ;
-                height: 8px ;
+                width: 30px;
+                height: 8px;
                 border-radius: 30px;
-                background: $primary;
+                background: $yellow;
             }
         }
     }
 }
-

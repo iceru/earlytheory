@@ -3,8 +3,8 @@
 }
 
 .accordion-button:not(.collapsed) {
-    background: $primary;
-    color: white;
+    background: $yellow;
+    color: $body;
 }
 
 .accordion-button:not(.collapsed)::after {

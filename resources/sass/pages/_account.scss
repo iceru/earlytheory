@@ -9,25 +9,27 @@
 
     .account-navigation {
         height: 100%;
-        
+
         .sidebar-account {
             height: 100%;
             list-style-type: none;
             padding: 0;
             padding-right: 2rem;
-            border-right: 1px solid rgba(0,0,0, 0.1);
-    
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+
             li {
                 margin-bottom: 1.25rem;
+
                 a {
                     font-size: 1.15rem;
                     font-family: 'Evogria';
                     text-transform: lowercase;
                     color: black;
                     transition: all .2s ease-in;
-    
-                    &:hover, &.active {
-                        color: $primary;
+
+                    &:hover,
+                    &.active {
+                        color: $body;
                         transition: all .2s ease-in;
                     }
                 }
@@ -55,7 +57,7 @@
     .orders-content {
         padding-left: 2rem;
 
-        @include breakpoint-down(small){
+        @include breakpoint-down(small) {
             padding-left: .75rem;
         }
 
@@ -63,7 +65,7 @@
             &:not(:last-child) {
                 margin-bottom: 2rem;
                 padding-bottom: 2rem;
-                border-bottom: 1px solid $primary;
+                border-bottom: 1px solid $body;
             }
 
             .order-header {
@@ -74,13 +76,13 @@
                 .product-item:not(:last-child) {
                     margin-bottom: 1rem;
                     padding-bottom: 1rem;
-                    border-bottom: 1px solid rgba(0,0,0, 0.1);
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 }
             }
         }
     }
 
-    
+
 
     @include breakpoint-down(small) {
         width: 100%;
@@ -88,15 +90,17 @@
         .account-navigation {
             height: auto !important;
             margin-bottom: 1rem;
-            
+
             .sidebar-account {
                 display: flex;
                 justify-content: space-between;
                 border-right: none;
                 padding-right: 0;
-                border-bottom: 1px solid rgba(0,0,0, 0.1);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
                 li {
                     margin: 1rem;
+
                     a {
                         font-size: 1rem;
                     }
@@ -112,20 +116,18 @@
     .account-horoscope {
         padding-bottom: 1.5rem;
         margin-bottom: 1.5rem;
-        border-bottom: 1px solid $primary;
+        border-bottom: 1px solid $body;
 
         .name {
-            font-family: 'Skylar Sans';
+            font-family: 'Rubik Mono One';
             margin-bottom: .5rem;
-            font-size: 1.75rem;
-            letter-spacing: 2px;
-            font-weight: bold;
+            font-size: 1.25rem !important;
         }
 
-        .date, .city {
+        .date,
+        .city {
             font-family: 'Evogria';
             text-transform: uppercase;
         }
     }
 }
-

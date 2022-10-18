@@ -22,6 +22,7 @@
         @include breakpoint(large) {
             padding: 0;
         }
+
         padding: 0;
         position: relative;
 
@@ -29,9 +30,10 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            color: white;
+            color: $body;
+            font-weight: bold;
             border-radius: 50%;
-            background: $primary;
+            background: $yellow;
             font-size: 12px;
             height: 18px;
             width: 18px;
@@ -70,8 +72,11 @@
             left: 70px;
         }
 
-        &.active, &:active, &:hover, &:focus {
-            background-color: rgba($color: $primary, $alpha: .2);
+        &.active,
+        &:active,
+        &:hover,
+        &:focus {
+            background-color: rgba($color: $body, $alpha: .2);
         }
 
         a {
@@ -100,6 +105,7 @@
 
         @include breakpoint(xxlarge) {
             width: 55%;
+
             .logo-lg img {
                 width: 6vw;
             }
@@ -119,6 +125,7 @@
     .nav-links {
         display: flex;
         justify-content: space-around;
+
         a {
             color: black;
             font-size: 1rem;
@@ -126,12 +133,12 @@
             font-family: "Evogria";
 
             &:hover {
-                color: $primary;
+                color: $body;
             }
         }
 
         .active {
-            color: $primary;
+            color: $body;
         }
     }
 }
@@ -150,7 +157,7 @@
 
     &.admin {
         width: 70vw;
-        box-shadow: 0px 10px 12px rgba(0,0,0,0.2);
+        box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.2);
 
         @include breakpoint(large) {
             width: 60vw;
@@ -166,6 +173,7 @@
 
     .logo-sidebar {
         text-align: center;
+
         img {
             width: 35vw;
             height: 35vw;
@@ -212,7 +220,8 @@
     }
 }
 
-.sidebar-admin, .sidebar-admin-mobile {
+.sidebar-admin,
+.sidebar-admin-mobile {
     ul {
         list-style-type: none;
         padding: 0;
@@ -225,7 +234,7 @@
             transition: .3s all ease-in;
 
             &:hover {
-                color: $primary;
+                color: $body;
                 transition: .3s all ease-in;
             }
         }
@@ -246,12 +255,13 @@
     width: 100%;
     box-shadow: 3px 2px 8px rgba($color: #000000, $alpha: 0.2);
     padding: 1rem 0;
+
     @include breakpoint('large') {
         padding: 2rem 0;
     }
 
     .sticky-container {
-        margin: auto;    
+        margin: auto;
         padding: 0 .85rem;
     }
 }

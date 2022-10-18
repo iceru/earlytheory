@@ -8,7 +8,7 @@
     }
 
     .title-page {
-        color: $primary;
+        color: $body;
         text-align: center;
         margin-bottom: 1.5rem;
 
@@ -16,7 +16,7 @@
         @include breakpoint(large) {
             margin-bottom: 2rem;
 
-            
+
             h1 {
                 font-size: 2rem;
             }
@@ -38,12 +38,12 @@
             width: 25px;
             height: 25px;
             border-radius: 50%;
-            background-color: $secondary;
+            background-color: lighten($body, 20%);
             opacity: 0.2;
 
             &.active {
                 opacity: 1;
-                background-color: $primary;
+                background-color: $body;
             }
         }
 
@@ -56,6 +56,7 @@
     }
 
     .products {
+
         // > .row {
         //     margin: 0;
         // }
@@ -70,22 +71,24 @@
                 margin-bottom: 1.5rem;
             }
 
-            .product-title, .product-price {
+            .product-title,
+            .product-price {
                 text-align: center;
-                color: $primary;
+                color: $body;
 
             }
 
             .product-title {
                 h3 {
-                    font-family: "Skylar Sans";
-                    font-size: 1.5rem;
+                    font-family: "Rubik Mono One";
+                    font-size: 1.25rem !important;
 
                     @include breakpoint(large) {
-                        font-size: 2rem;
+                        font-size: 1.5rem;
                     }
                 }
             }
+
             .product-price {
                 font-family: "Apercu mono";
                 margin-bottom: .5rem;
@@ -117,10 +120,10 @@
     .total-payment h4 {
         text-align: center;
         padding: 1rem;
-        background: $primary;
+        background: $yellow;
         margin: 1rem auto;
         margin-bottom: 2rem;
-        color: white;
+        color: $body;
         border-radius: 8px;
 
         @include breakpoint(large) {
@@ -128,7 +131,8 @@
         }
     }
 
-    .button-invoice, .disclaimer {
+    .button-invoice,
+    .disclaimer {
         @include breakpoint(large) {
             width: 75%;
             margin: auto;
@@ -162,10 +166,10 @@
                 }
 
                 &.active {
-                    border-bottom: 1px solid $primary;
+                    border-bottom: 1px solid $body;
 
                     p {
-                        color: $primary;
+                        color: $body;
                         font-weight: 600;
                     }
                 }
@@ -192,7 +196,7 @@
                 .bank-text {
                     font-size: 1.5rem;
                     text-align: center;
-                    color: $primary;
+                    color: $body;
 
                     .bank-number {
                         font-weight: 600;
@@ -229,6 +233,7 @@
             width: 75%;
             margin: auto;
         }
+
         .thank-you {
             margin-bottom: 1.5rem;
 
@@ -258,6 +263,7 @@
             .thankyou img {
                 width: 20vw;
             }
+
             .proof-image {
                 padding-left: 2rem;
             }
@@ -271,6 +277,7 @@
 
 
 }
+
 .print {
     display: none;
 

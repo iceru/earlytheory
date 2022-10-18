@@ -8,50 +8,51 @@
     border: none;
     font-family: 'Apercu', sans-serif;
     cursor: pointer;
+    font-weight: bold;
 
     &.inline {
         display: inline-flex;
     }
 
     &.primary {
-        background-color: $primary;
-        color: white;
+        background-color: $yellow;
+        color: $body;
         transition: .2s all ease-in;
-        border: 1px solid $primary;
+        border: 1px solid $yellow;
 
         &:hover {
-            background-color: lighten($primary, 10%);
+            background-color: lighten($yellow, 10%);
             transition: .2s all ease-in;
         }
     }
 
     &.primary-line {
         background-color: $background;
-        color: $primary;
+        color: $body;
         transition: .2s all ease-in;
-        border: 1px solid $primary;
+        border: 1px solid $body;
 
         &:hover {
-            color: lighten($primary, 10%);
-            border: 1px solid lighten($primary, 20%);
+            color: lighten($body, 10%);
+            border: 1px solid lighten($body, 20%);
             transition: .2s all ease-in;
         }
 
         &.selected {
-            background-color: $primary;
+            background-color: $body;
             color: white;
             transition: .2s all ease-in;
         }
     }
 
     &.secondary {
-        background-color: $secondary;
+        background-color: $body;
         color: white;
         transition: .2s all ease-in;
-        border: 1px solid $secondary;
+        border: 1px solid $body;
 
         &:hover {
-            background-color: lighten($secondary, 10%);
+            background-color: lighten($body, 10%);
             transition: .2s all ease-in;
         }
     }
@@ -68,4 +69,15 @@
     border: none;
     border-radius: 5px;
     padding: .2rem .5rem;
+}
+
+.page-link {
+    color: $body;
+}
+
+.page-item.active .page-link {
+    background-color: $yellow;
+    color: $body;
+    font-weight: bold;
+    border-color: $yellow;
 }

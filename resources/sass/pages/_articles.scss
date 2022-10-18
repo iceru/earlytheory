@@ -8,20 +8,24 @@
     // }
     .article {
         margin-bottom: 2rem;
+
         .article-info {
             @include breakpoint(large) {
                 .col-7 {
                     padding-left: 1rem;
                 }
             }
+
             .title {
-                a h5{
+                a h5 {
                     font-weight: 600;
                     letter-spacing: 0.1rem;
-                    color: $primary;
+                    color: $body;
                 }
             }
+
             .article-image {
+
                 // padding-right: 0;
                 img {
                     width: 100%;
@@ -31,10 +35,10 @@
 
             .title {
                 margin-bottom: 0.5rem;
-                font-family: "Skylar Sans";
+                font-family: "Rubik Mono One";
 
                 h5 {
-                    font-size: 1.5rem;
+                    font-size: 1.25rem !important;
                 }
             }
 
@@ -56,7 +60,7 @@
         font-family: 'Evogria';
 
         &:hover {
-            color: $primary;
+            color: $body;
         }
     }
 }

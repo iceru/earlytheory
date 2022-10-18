@@ -11,16 +11,14 @@
 
 .product-title {
     h3 {
-        font-family: "Skylar Sans";
-        font-size: 1.5rem;
-        font-weight: 600;
-        letter-spacing: 0.1rem;
-        color: $primary;
+        font-family: "Rubik Mono One";
+        font-size: 1.25rem !important;
+        color: $body;
 
     }
 }
 
 .product-price {
-    color: $primary;
+    color: $body;
     font-family: "Apercu mono";
 }

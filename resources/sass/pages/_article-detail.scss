@@ -32,13 +32,13 @@
             width: 100%;
 
             h1 {
-                font-family: 'Skylar Sans';
-                font-size: 28px;
+                font-family: 'Rubik Mono One';
+                font-size: 22px;
                 opacity: 1;
             }
         }
 
-        @include breakpoint(large){
+        @include breakpoint(large) {
             border-radius: 20px;
 
             .title {
@@ -70,7 +70,7 @@
         z-index: 4;
         background-color: $background;
 
-        @include breakpoint(large){
+        @include breakpoint(large) {
             border-radius: 20px;
             margin: auto;
             margin-top: -30px;
@@ -80,6 +80,7 @@
 
         .writer-info {
             display: flex;
+
             .writer-image {
                 width: 46px;
                 height: 46px;
@@ -97,8 +98,8 @@
         .article-text {
             margin-top: 1rem;
             text-align: justify;
-            
-            @include breakpoint-down(small){
+
+            @include breakpoint-down(small) {
                 img {
                     width: 100%;
                     height: auto;

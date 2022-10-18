@@ -14,20 +14,23 @@
     }
 
     .contact-info {
-        background: linear-gradient(138deg, $primary 0%, lighten($primary, 20%) 100%);
-        color: white;
+        background: linear-gradient(138deg, $yellow 0%, lighten($yellow, 20%) 100%);
+        color: $body;
         padding: 30px;
         border-radius: 1rem;
         position: relative;
         padding-bottom: 15vw;
 
-        h4, p {
-            color: white;
+        h3,
+        p,
+        i {
+            color: $body;
         }
 
         .contact-social {
             position: relative;
             z-index: 5;
+
             i {
                 font-size: 1.5rem;
             }
