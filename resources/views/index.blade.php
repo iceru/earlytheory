@@ -81,7 +81,6 @@
             @empty
                 <h4 class="evogria">No Product</h4>
             @endforelse
-            <hr>
         </div>
         <div class="astrologi mt-3 page">
             <div class="row products">
@@ -136,7 +135,6 @@
                 @empty
                     <h4 class="evogria">No Product</h4>
                 @endforelse
-                <hr>
             </div>
         </div>
         <div class="spiritual mt-3 page">
@@ -192,7 +190,6 @@
                 @empty
                     <h4 class="evogria">No Product</h4>
                 @endforelse
-                <hr>
             </div>
         </div>
         {{-- <div class="birth-chart row mt-3 page">

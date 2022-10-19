@@ -118,20 +118,24 @@ $breakpoints: (
 
 .slick-dots {
     bottom: 5px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 
     li {
-        width: 30px;
+        width: 16px;
         height: 8px;
+        margin-bottom: 6px;
 
         button {
-            width: 30px;
+            width: 16px;
             height: 8px;
 
             &:before {
                 content: ' ';
-                width: 30px;
+                width: 16px;
                 height: 8px;
-                border-radius: 30px;
+                border-radius: 4px;
                 background: $yellow;
             }
         }
