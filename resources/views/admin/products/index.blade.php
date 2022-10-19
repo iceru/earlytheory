@@ -49,7 +49,8 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Discount Price</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputDiscPrice" name="inputDiscPrice" min="0">
+                        <input type="number" class="form-control" id="inputDiscPrice" name="inputDiscPrice"
+                            min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -59,6 +60,17 @@
                             <option selected disabled>Select Category</option>
                             <option value="product">Product</option>
                             <option value="service">Service</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Type</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Category" name="inputType">
+                            <option selected disabled>Select Type</option>
+                            <option value="tarot">Tarot</option>
+                            <option value="astrologi">Astrologi</option>
+                            <option value="spiritual">Spiritual</option>
                         </select>
                     </div>
                 </div>
@@ -116,13 +128,15 @@
                 <div class="mb-3 row" id="question_title">
                     <label class="col-sm-2 col-form-label">Question Title</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputQuestionTitle" name="inputQuestionTitle">
+                        <input type="text" class="form-control" id="inputQuestionTitle"
+                            name="inputQuestionTitle">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputStock" name="inputStock" min="0">
+                        <input type="number" class="form-control" id="inputStock" name="inputStock"
+                            min="0">
                     </div>
                 </div>
                 <button type="submit" class="button primary">Submit</button>
@@ -155,6 +169,7 @@
                                 <th>Title</th>
                                 <th>Price</th>
                                 <th>Base Price</th>
+                                <th>Type</th>
                                 <th>Duration</th>
                                 <th>Question Field</th>
                                 <th>Question Title</th>
@@ -179,7 +194,8 @@
                                     </td>
                                     <td>{{ $service->title }}</td>
                                     <td>{{ $service->price }}</td>
-                                    <td>{{ $service->discount_price ? $service->base_price : '' }}</td>
+                                    <td>{{ $service->discount_price ? $service->base_price : '-' }}</td>
+                                    <td>{{ $service->type ? ucfirst($service->type) : '-' }}</td>
                                     <td>{{ $service->duration }}</td>
                                     <td>{{ ucwords($service->question) }}</td>
                                     <td>{{ $service->question_title }}</td>
@@ -245,8 +261,8 @@
                                         <td>
                                             @foreach ((array) json_decode($product->image) as $item)
                                                 <div class="ratio ratio-1x1 mb-2">
-                                                    <img src="{{ Storage::url('product-image/' . $item) }}" alt="Image"
-                                                        width="100">
+                                                    <img src="{{ Storage::url('product-image/' . $item) }}"
+                                                        alt="Image" width="100">
                                                 </div>
                                             @endforeach
                                         </td>

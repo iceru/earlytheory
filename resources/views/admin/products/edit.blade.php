@@ -43,8 +43,8 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Base Price</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="updatePrice" name="updatePrice" min="0"
-                                value="{{ $product->base_price }}">
+                            <input type="number" class="form-control" id="updatePrice" name="updatePrice"
+                                min="0" value="{{ $product->base_price }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -58,8 +58,8 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Price</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="updatePrice" name="updatePrice" min="0"
-                                value="{{ $product->price }}">
+                            <input type="number" class="form-control" id="updatePrice" name="updatePrice"
+                                min="0" value="{{ $product->price }}">
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -70,6 +70,21 @@
                         </div>
                     </div>
                 @endif
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Type</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Type" name="updateType">
+                            <option selected disabled>Select Type</option>
+                            <option {{ $product->type === 'tarot' ? 'selected' : '' }} value="tarot">Tarot
+                            </option>
+                            <option {{ $product->type === 'astrologi' ? 'selected' : '' }} value="astrologi">Astrologi
+                            </option>
+                            <option {{ $product->type === 'spiritual' ? 'selected' : '' }} value="spiritual">Spiritual
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Category</label>
                     <div class="col-sm-10">
@@ -85,8 +100,8 @@
                 <div class="mb-3 row" id="duration">
                     <label class="col-sm-2 col-form-label">Duration</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="updateDuration" name="updateDuration" min="0"
-                            value="{{ $product->duration }}">
+                        <input type="number" class="form-control" id="updateDuration" name="updateDuration"
+                            min="0" value="{{ $product->duration }}">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -120,8 +135,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="updateDesc" id="updateDesc" cols="30"
-                            rows="6">{{ $product->description }}</textarea>
+                        <textarea class="form-control" name="updateDesc" id="updateDesc" cols="30" rows="6">{{ $product->description }}</textarea>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -144,8 +158,8 @@
                 <div class="mb-3 row" hidden>
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputStock" name="updateStock" min="0"
-                            value="{{ $product->stock }}">
+                        <input type="number" class="form-control" id="inputStock" name="updateStock"
+                            min="0" value="{{ $product->stock }}">
                     </div>
                 </div>
                 <button type="submit" class="button primary">Update</button>

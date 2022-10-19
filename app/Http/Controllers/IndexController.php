@@ -24,11 +24,17 @@ class IndexController extends Controller
      */
     public function index(Request $request)
     {
-        $services = Products::where('category', 'service')->where('hide', 0)->orderBy('ordernumber')->get();
-        $products = Products::where('category', 'product')->where('hide', 0)->orderByRaw('stock = 0, ordernumber')->get();
+        $services = Products::where('category', 'service')->where('hide', 0)
+        ->where('type', 'tarot')->orderBy('ordernumber')->get();
+        $astrologi = Products::where('category', 'service')->where('hide', 0)
+        ->where('type', 'astrologi')->orderBy('ordernumber')->get();
+        $spiritual = Products::where('category', 'service')->where('hide', 0)
+        ->where('type', 'spiritual')->orderBy('ordernumber')->get();
+        $products = Products::where('category', 'product')->where('hide', 0)
+        ->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
         $user = Auth::user();
-
+        
         // $horoscope_product = Products::where('title', 'horoscope')->first();
         // $skus_horoscope = SKUs::where('product_id', $horoscope_product->id)->get();
 
@@ -40,9 +46,10 @@ class IndexController extends Controller
         $skusvalues = SKUvalues::get();
         $optionvalues = OptionValues::get();
 
-        if ($request->ajax()) {
-            return view('article-index', ['articles' => $articles])->render();  
-        }
+        // Article paging
+        // if ($request->ajax()) {
+        //   return view('article-index', ['articles' => $articles])->render();
+        // }
 
         foreach ($skus as $key => $sku) {
             foreach ($productsSku as $key => $product) {
@@ -86,7 +93,8 @@ class IndexController extends Controller
         }
         
         $skus = json_encode($temp_array);
-        return view('index', compact('products', 'sliders', 'services', 'articles', 'skus', 'user'));
+        return view('index', compact('products', 'sliders', 'services', 'articles',
+        'skus', 'user', 'astrologi', 'spiritual'));
     }
 
     /**

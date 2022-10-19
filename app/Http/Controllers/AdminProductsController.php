@@ -74,6 +74,7 @@ class AdminProductsController extends Controller
             'inputShortDesc' => 'required',
             'inputDesc' => 'required',
             'inputCategory' => 'required|in:product,service',
+            'inputType' => 'required|in:tarot,astrologi,spiritual',
             'inputStock' => 'required',
             'inputQuestion' => 'nullable',
             'inputQuestionTitle' => 'nullable',
@@ -113,6 +114,7 @@ class AdminProductsController extends Controller
         $product->description_short = $request->inputShortDesc;
         $product->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->inputTitle);
         $product->category = $request->inputCategory;
+        $product->type = $request->inputType;
         $product->stock = $request->inputStock;
         $product->question = $request->inputQuestion;
         $product->question_title = $request->inputQuestionTitle;
@@ -202,6 +204,7 @@ class AdminProductsController extends Controller
             'updateImage.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'updateDesc' => 'required',
             'updateCategory' => 'required|in:product,service',
+            'updateType' => 'required|in:tarot,astrologi,spiritual',
             'updateStock' => 'required',
             'updateQuestion' => 'nullable',
             'updateQuestionTitle' => 'nullable',
@@ -226,6 +229,7 @@ class AdminProductsController extends Controller
         $product->title = $request->updateTitle;
         $product->ordernumber = $request->updateOrdernumber;
         $product->price = $request->updatePrice;
+        $product->type = $request->updateType;
 
         //check discount price
         if($request->updateDiscPrice) {
@@ -256,7 +260,6 @@ class AdminProductsController extends Controller
 
         $have_variant = Options::where('product_id', $request->id)->get();
 
-        // dd($have_variant);
         if($have_variant->isEmpty()) {
             $sku = SKUs::where('product_id', $request->id)->firstOrFail();
             // $sku->price = $request->updatePrice;
@@ -280,7 +283,6 @@ class AdminProductsController extends Controller
             $sku->product_id = $product->id;
 
             $sku->save();
-            // dd($request->updateStock);
         }
 
         return redirect('/admin/products');
