@@ -29,58 +29,60 @@
         </div>
     </div>
     <div class="col-12 index">
-        <div class="products row mt-3 page active">
-            @forelse ($services as $product)
-                <div class="product-item-container col-6 col-md-4 col-lg-3">
-                    <div class="product-image service-image">
-                        @foreach ((array) json_decode($product->image) as $item)
-                            <a href="/product/{{ $product->slug }}">
-                                <div class="ratio ratio-1x1">
-                                    <img src="{{ Storage::url('product-image/' . $item) }}" loading="lazy"
-                                        alt="{{ $product->title }}">
-                                </div>
-                            </a>
-                        @endforeach
-                    </div>
-                    <div class="sale">
-                        <img src="/images/PROMOSTAR.png" alt="Promo">
-                    </div>
-                    @if ($product->discount_price)
-                        <div class="sale active">
+        <div class="products mt-3 page active">
+            <div class="row">
+                @forelse ($services as $product)
+                    <div class="product-item-container col-6 col-md-4 col-lg-3">
+                        <div class="product-image service-image">
+                            @foreach ((array) json_decode($product->image) as $item)
+                                <a href="/product/{{ $product->slug }}">
+                                    <div class="ratio ratio-1x1">
+                                        <img src="{{ Storage::url('product-image/' . $item) }}" loading="lazy"
+                                            alt="{{ $product->title }}">
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="sale">
                             <img src="/images/PROMOSTAR.png" alt="Promo">
                         </div>
-                    @endif
-                    <div class="product-item">
-                        <div class="product-title">
-                            <a href="/product/{{ $product->slug }}">
-                                <h3>{{ $product->title }}</h3>
-                            </a>
+                        @if ($product->discount_price)
+                            <div class="sale active">
+                                <img src="/images/PROMOSTAR.png" alt="Promo">
+                            </div>
+                        @endif
+                        <div class="product-item">
+                            <div class="product-title">
+                                <a href="/product/{{ $product->slug }}">
+                                    <h3>{{ $product->title }}</h3>
+                                </a>
+                            </div>
+                            @if (!$product->discount_price)
+                                <div class="prices skus">
+                                    <p class="product-price mb-0">idr {{ number_format($product->price) }}
+                                    </p>
+                                </div>
+                            @else
+                                <div class="prices">
+                                    <p class="product-price discount mb-0">idr
+                                        {{ number_format($product->discount_price) }}
+                                    </p>
+                                    <span class="striked">idr {{ number_format($product->base_price) }}</span>
+                                </div>
+                            @endif
+                            @if ($product->duration > 0)
+                                <p class="duration">
+                                    {{ $product->duration }} menit
+                                </p>
+                            @endif
+                            <div class="product-desc">{{ $product->description_short }}</div>
                         </div>
-                        @if (!$product->discount_price)
-                            <div class="prices skus">
-                                <p class="product-price mb-0">idr {{ number_format($product->price) }}
-                                </p>
-                            </div>
-                        @else
-                            <div class="prices">
-                                <p class="product-price discount mb-0">idr
-                                    {{ number_format($product->discount_price) }}
-                                </p>
-                                <span class="striked">idr {{ number_format($product->base_price) }}</span>
-                            </div>
-                        @endif
-                        @if ($product->duration > 0)
-                            <p class="duration">
-                                {{ $product->duration }} menit
-                            </p>
-                        @endif
-                        <div class="product-desc">{{ $product->description_short }}</div>
+                        <div data-id="{{ $product->id }}" class="button primary my-3 addcart">PESAN SEKARANG</div>
                     </div>
-                    <div data-id="{{ $product->id }}" class="button primary my-3 addcart">PESAN SEKARANG</div>
-                </div>
-            @empty
-                <h4 class="evogria">No Product</h4>
-            @endforelse
+                @empty
+                    <h4 class="evogria">No Product</h4>
+                @endforelse
+            </div>
         </div>
         <div class="astrologi mt-3 page">
             <div class="row products">
