@@ -72,8 +72,10 @@
                     serverSide: true,
                     ajax: "{{ route('admin.sales') }}",
                     columns: [{
-                            data: 'id',
-                            name: 'id'
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
                         },
                         {
                             data: 'sales_no',
@@ -84,13 +86,29 @@
                             name: 'created_at'
                         },
                         {
-                            data: 'sale->user->name',
-                            name: 'name'
+                            data: 'total_price',
+                            name: 'total_price'
+                        },
+                        {
+                            data: 'user.name',
+                            name: 'user.name'
+                        },
+                        {
+                            data: 'paymentmethods.name',
+                            name: 'paymentmethods.name'
                         },
                         {
                             data: 'status',
                             name: 'status'
                         },
+                        {
+                            data: 'image',
+                            name: 'image'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action'
+                        }
                     ]
                 });
 

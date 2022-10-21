@@ -18,15 +18,23 @@ class AdminSalesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $sales = Sales::where('status', 'settlement')->orderBy('created_at', 'desc')->get();
+            $sales = Sales::with('user')->with('paymentmethods')->where('status', 'settlement')->orderBy('created_at', 'desc');
             return Datatables::of($sales)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-                            return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
+            ->addIndexColumn()
+                ->editColumn('name', function ($row) {  //this example  for edit your columns if colums is empty 
+                    $fname = !empty($row->user->name) ? $row->user->name : $row->name;
+                    return $fname;
+                })
+                ->editColumn('created_at', function($data){ $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $data->created_at)->format('d M Y'); return $formatedDate; })
+                ->addColumn('image', function ($sale) {
+                    $url= asset('storage/payment-proof/'.$sale->payment);
+                    return '<img src="'.$url.'" width="100"/>';
+                })
+                ->addColumn('action', function ($sale) {
+                    return '<a href="/admin/sales/'.$sale->id.'" class="btn btn-primary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fa fa-info-circle" aria-hidden="true"></i> <span class="ms-1">Detail</span></a>
+                    <button onclick="deleteConfirmation('.$sale->id.')" class="btn btn-danger d-flex align-items-center btn-sm justify-content-center"><i class="fas fa-trash"></i> <span class="ms-1">Delete</span></button>';})
+                ->rawColumns(['image', 'action'])
+                ->make(true);
         }
         
         return view('admin.sales.index');
