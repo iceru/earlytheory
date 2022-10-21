@@ -159,6 +159,7 @@
          font-weight: 800;
          text-transform: uppercase;
          white-space: nowrap;
+         opacity: 0.3;
 
          &:hover {
              background-color: $yellow;
@@ -169,6 +170,7 @@
          &.active {
              background-color: $yellow;
              color: $body;
+             opacity: 1;
          }
 
          &:first-child {
