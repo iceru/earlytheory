@@ -66,11 +66,22 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Type</label>
                     <div class="col-sm-10">
-                        <select class="form-select" aria-label="Select Category" name="inputType">
+                        <select class="form-select" aria-label="Select Type" name="inputType">
                             <option selected disabled>Select Type</option>
                             <option value="tarot">Tarot</option>
                             <option value="astrologi">Astrologi</option>
                             <option value="spiritual">Spiritual</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Additional Question</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Additional Question" name="inputAdditional">
+                            <option selected disabled>Select Additional Question</option>
+                            <option value="astrologi">Astrologi</option>
+                            <option value="ramal-karir">Ramal Tangan - Puncak Karir</option>
+                            <option value="ramal-cinta">Ramal Tangan - Tafsir Cinta</option>
                         </select>
                     </div>
                 </div>
@@ -177,6 +188,7 @@
                                 <th>Short Description</th>
                                 <th>Description</th>
                                 <th>Category</th>
+                                <th>Addiitonal Quesiton</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -205,6 +217,7 @@
                                     <td>{{ $service->description_short }}</td>
                                     <td>{{ substr($service->description, 0, 100) . '...' }}</td>
                                     <td>{{ ucfirst($service->category) }}</td>
+                                    <td>{{ ucwords(str_replace('-', ' ', $service->additional_question)) }}</td>
                                     <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
                                             href="/admin/products/{{ $service->id }}/variant"><i
                                                 class="fas fa-list me-1"></i></i>
@@ -251,6 +264,7 @@
                                     <th>Short Description</th>
                                     <th>Description</th>
                                     <th>Category</th>
+                                    <th>Additional Question</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
@@ -277,6 +291,7 @@
                                         <td>{{ $product->description_short }}</td>
                                         <td>{{ substr($product->description, 0, 100) . '...' }}</td>
                                         <td>{{ ucfirst($product->category) }}</td>
+                                        <td>{{ ucfirst($product->additional_question) }}</td>
                                         <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
                                                 href="/admin/products/{{ $product->id }}/variant"><i
                                                     class="fas fa-list me-1"></i></i>

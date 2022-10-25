@@ -97,6 +97,21 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Additional Question</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Additional Question" name="updateAdditional">
+                            <option selected disabled>Select Additional Question</option>
+                            <option {{ $product->additional_question === 'astrologi' ? 'selected' : '' }}
+                                value="astrologi">Astrologi</option>
+                            <option {{ $product->additional_question === 'ramal-karir' ? 'selected' : '' }}
+                                value="ramal-karir">Ramal Tangan - Puncak Karir</option>
+                            <option {{ $product->additional_question === 'ramal-cinta' ? 'selected' : '' }}
+                                value="ramal-cinta">Ramal Tangan - Tafsir Cinta</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="mb-3 row" id="duration">
                     <label class="col-sm-2 col-form-label">Duration</label>
                     <div class="col-sm-10">

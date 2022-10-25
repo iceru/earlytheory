@@ -185,6 +185,16 @@ class SalesController extends Controller
 
     }
 
+    public function additionalQuestion(Request $request, $id) 
+    {
+        $user = Auth::user();
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
+
+        if($user->id == $sales->user_id) {
+            return view('checkout.additional-question', compact('user', 'sales'));
+        }
+    }
+
     public function addQuestion(Request $request, $id)
     {
         $user = Auth::user();

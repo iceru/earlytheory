@@ -56,8 +56,8 @@
                                             <input type="text" name="salesNo" value="{{ $sales->sales_no }}" hidden>
                                             <div class="form-group col-12 col-lg-6">
                                                 <label for="province">Provinsi</label>
-                                                <select class="form-select" aria-label="Select Province"
-                                                    name="province" id="prov">
+                                                <select class="form-select" aria-label="Select Province" name="province"
+                                                    id="prov">
                                                     <option selected disabled>Pilih Provinsi</option>
                                                     @foreach ($provinces as $prov)
                                                         <option value="{{ $prov->province_id }}">{{ $prov->province }}
@@ -69,7 +69,8 @@
                                                 <label for="city">Kota / Kabupaten</label>
                                                 <select class="form-select" aria-label="Select City" name="city"
                                                     id="city">
-                                                    <option value="" selected disabled>Pilih Provinsi Terlebih Dahulu
+                                                    <option value="" selected disabled>Pilih Provinsi Terlebih
+                                                        Dahulu
                                                     </option>
                                                 </select>
                                             </div>
@@ -106,7 +107,8 @@
                                         <label for="inputShipping">Pengiriman</label>
                                         <select class="form-select" aria-label="Select Shipping" name="inputShipping"
                                             id="ship">
-                                            <option value="" selected disabled>Pilih Provinsi & Kota/Kab Terlebih Dahulu
+                                            <option value="" selected disabled>Pilih Provinsi & Kota/Kab Terlebih
+                                                Dahulu
                                             </option>
                                         </select>
                                     </div>
@@ -142,7 +144,8 @@
                                 <label for="inputRelationship">Status Relationship</label>
                                 <select class="form-select" name="inputRelationship" id="inputRelationship" required>
                                     <option selected disabled value="">Select</option>
-                                    <option value="single" @if (old('inputRelationship') == 'single' || $sales->relationship == 'single') {{ 'selected' }} @endif>
+                                    <option value="single"
+                                        @if (old('inputRelationship') == 'single' || $sales->relationship == 'single') {{ 'selected' }} @endif>
                                         Single</option>
                                     <option value="pacaran"
                                         @if (old('inputRelationship') == 'pacaran' || $sales->relationship == 'pacaran') {{ 'selected' }} @endif>Pacaran</option>
@@ -200,17 +203,12 @@
                                         <p>IDR {{ number_format($item->price) }}</p>
                                     </div>
                                     <div class="row g-0">
-                                        {{-- <h5 class="primary-color mb-3">Jabarkan Pertanyaanmu Disini</h5> --}}
-                                        <div class="col-4 col-lg-3 ">
-                                            <div class="product-image">
-                                                @foreach ((array) json_decode($item->products->image) as $image)
-                                                    <div class="ratio ratio-1x1">
-                                                        <img src="{{ Storage::url('product-image/' . $image) }}" alt="">
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="col-8 col-lg-9 ps-2">
+                                        @if ($item->products->question === 'yes')
+                                            <h6 class="mb-2">
+                                                {{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}
+                                            </h6>
+                                        @endif
+                                        <div class="col-12">
                                             @if ($item->variants)
                                                 <div class="d-flex">
                                                     <p class="me-2">Variants: </p>
@@ -219,10 +217,10 @@
                                                     @endforeach
                                                 </div>
                                             @endif
-                                            <textarea name="question[]" id="question" placeholder="{{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}"
-                                                @if ($item->products->question != 'yes' || strtolower($item->products->title) === 'mencari jodoh' || $item->products->category == 'product') hidden @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
-                                            <div class="mb-2"
-                                                @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                            <textarea rows="6" name="question[]" id="question" @if ($item->products->question != 'yes' ||
+                                                strtolower($item->products->title) === 'mencari jodoh' ||
+                                                $item->products->category == 'product') hidden @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
+                                            <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                                 <label class="form-label">Kamu</label>
                                                 <select class="form-select" name="genderQuestion[]"
                                                     id="genderQuestion"
@@ -232,8 +230,7 @@
                                                     <option value="wanita">Wanita</option>
                                                 </select>
                                             </div>
-                                            <div class="mb-2"
-                                                @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                            <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                                 <label class="form-label">Mencari</label>
                                                 <select class="form-select" name="genderQuestion2[]"
                                                     id="genderQuestion"
@@ -243,7 +240,8 @@
                                                     <option value="wanita">Wanita</option>
                                                 </select>
                                             </div>
-                                            @if (($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') || $item->products->category == 'product')
+                                            @if (($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') ||
+                                                $item->products->category == 'product')
                                                 <p>{!! $item->description_short !!}</p>
                                             @endif
                                         </div>
@@ -271,7 +269,8 @@
                                         <div class="product-image">
                                             @foreach ((array) json_decode($item->image) as $image)
                                                 <div class="ratio ratio-1x1">
-                                                    <img src="{{ Storage::url('product-image/' . $image) }}" alt="">
+                                                    <img src="{{ Storage::url('product-image/' . $image) }}"
+                                                        alt="">
                                                 </div>
                                             @endforeach
                                         </div>
