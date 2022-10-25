@@ -44,10 +44,6 @@ class AdminSalesController extends Controller
     {
         $sales = Sales::findOrFail($id);
 
-        // foreach($sales->skus as $item) {
-        //     dd($item->products->title);
-        // }
-
         if($sales->address_id) {
             // foreach($sales as $s) {
                 if(Cache::has('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province)) {

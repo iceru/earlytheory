@@ -129,8 +129,6 @@ class AdminProductsController extends Controller
         //     'inputvarval' => 'required'
         // ]);
 
-        // dd($request->inputvarval);
-
         $sku_new = new SKUs;
         // $sku_new->price = $request->inputPrice;
 

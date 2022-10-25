@@ -55,11 +55,42 @@
         }
     }
 
-    .products {
+    &.additional-question {
+        .section:nth-child(odd) {
+            border-right: 2px solid $body;
 
-        // > .row {
-        //     margin: 0;
-        // }
+            .additional-section {
+                padding-right: 1rem;
+            }
+        }
+
+        .section:nth-child(even) {
+            .additional-section {
+                padding-left: .5rem;
+            }
+        }
+
+        .form-label {
+            margin-bottom: .5rem;
+            font-family: 'Rubik Mono One';
+        }
+
+        .help {
+            margin-bottom: .5rem;
+            margin-top: -.5rem;
+            color: rgb(54, 54, 54);
+        }
+
+        .form-control {
+            width: 100%;
+
+            @include breakpoint(untilTablet) {
+                width: 100%;
+            }
+        }
+    }
+
+    .products {
         .product-item-container {
             padding-left: 12px;
             border-left: 4px solid $body;

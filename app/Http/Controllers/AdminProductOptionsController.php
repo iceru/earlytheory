@@ -18,8 +18,6 @@ class AdminProductOptionsController extends Controller
         $product = Products::findOrFail($id);
         $variants = Options::where('product_id', $id)->get();
         $skus = SKUs::where('product_id', $id)->get();
-        // dd($variants);
-
         return view('admin.productOptions.index', compact('product', 'variants', 'skus'));
     }
 
@@ -168,8 +166,6 @@ class AdminProductOptionsController extends Controller
             'inputvarval' => 'required'
         ]);
 
-        // dd($request->inputvarval);
-
         $sku_new = new SKUs;
         // $sku_new->price = $request->inputPrice;
 
@@ -205,7 +201,6 @@ class AdminProductOptionsController extends Controller
     {
         // $product = Products::find($id)->firstOrFail();
         $variant = Options::findOrFail($id);
-        // dd($variant);
         
         return view('admin.productOptions.editvar', compact('variant'));
     }
@@ -224,7 +219,6 @@ class AdminProductOptionsController extends Controller
         $variant->save();
         
         foreach($request->updateVariantVal as $key=>$updatevalue) {
-            // dd($request->idVariantVal[$key]);
             $varval = OptionValues::find($request->idVariantVal[$key]);
             $varval->value_name = $updatevalue;
             $varval->save();
@@ -256,8 +250,6 @@ class AdminProductOptionsController extends Controller
     {
         // $product = Products::find($id)->firstOrFail();
         $variant = Options::find($id)->delete();
-        // dd($variant);
-        
         return redirect()->back();
     }
     
@@ -272,9 +264,6 @@ class AdminProductOptionsController extends Controller
         
         $selectedVariants = Options::where('product_id', $sku->product_id)->whereIn('id', $skuvar)->get();
         $unselectedVariants = Options::where('product_id', $sku->product_id)->whereNotIn('id', $skuvar)->get();
-        // dd($selectedVariants);
-
-        // dd($skuvalues);
 
         return view('admin.productOptions.editsku', compact('sku', 'skuvalues', 'selectedVariants', 'unselectedVariants'));
     }
@@ -290,8 +279,6 @@ class AdminProductOptionsController extends Controller
                 'updateStock' => 'required|numeric',
                 'updatevarval' => 'required'
             ]);
-    
-            // dd($request->updatevarval);
     
             $sku = SKUs::find($request->id);
             // $sku->price = $request->updatePrice;
@@ -353,8 +340,6 @@ class AdminProductOptionsController extends Controller
                 // 'updatevarval' => 'required'
             ]);
     
-            // dd($request->updatevarval);
-    
             $sku = SKUs::find($request->id);
             // $sku->price = $request->updatePrice;
 
@@ -385,7 +370,6 @@ class AdminProductOptionsController extends Controller
     {
         // $product = Products::find($id)->firstOrFail();
         $variant = SKUs::find($id)->delete();
-        // dd($variant);
         
         return redirect()->back();
     }

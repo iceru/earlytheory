@@ -27,9 +27,6 @@ class SalesController extends Controller
         if(!\Cart::isEmpty()) {
             $userid = Auth::id();
             $cart = \Cart::getContent();
-            // foreach ($cart as $item) {
-            //     dd($item->id);
-            // }
 
             $salesNo = time();
             $total = \Cart::getTotal();
@@ -38,6 +35,7 @@ class SalesController extends Controller
             $sales->sales_no = $salesNo;
             $sales->total_price = $total;
             $sales->user_id = $userid;
+            $sales->status = 'pending';
             $sales->save();
             
             foreach (\Cart::getContent() as $item) {
@@ -75,11 +73,15 @@ class SalesController extends Controller
 
         $is_product = 0;
         $is_service = 0;
+        $is_additional = false;
 
-        // dd($sales->skus->products->name);
         foreach ($sales->skus as $item) {
             if($item->products->category === 'product') {
                 $is_product += 1;
+            }
+
+            if($item->products->additional_question === 'astrologi' || $item->products->additional_question === 'ramal-cinta' || $item->products->additional_question === 'ramal-karir') {
+                $is_additional = true;
             }
 
             if($item->products->category === 'service') {
@@ -174,9 +176,9 @@ class SalesController extends Controller
                     $values = array();
                 }
     
-                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values'));
+                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values', 'is_additional'));
             }
-            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service'));
+            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service', 'is_additional'));
         }
 
         else {
