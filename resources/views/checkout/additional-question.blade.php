@@ -29,7 +29,7 @@
                 </div>
             @endif
 
-            <form action="/checkout/{{ $sales->sales_no }}/question/additional" method="post">
+            <form action="/checkout/{{ $sales->sales_no }}/add-additional" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-12 mb-3">
@@ -43,9 +43,15 @@
                             id="birthdate" placeholder="">
                     </div>
                     <div class="row">
+                        <input type="text" value="{{ $sales->id }}" name="salesId" hidden>
                         @foreach ($sales->skus as $item)
-                            <div class="col-12 col-lg-6 section">
+                            <div class="col-12 col-lg-6 section mb-5">
                                 <div class="additional-section">
+                                    <div class="col-12 mb-2">
+                                        <div class="title">
+                                            {{ $item->products->title }}
+                                        </div>
+                                    </div>
                                     @if ($item->products->additional_question === 'astrologi')
                                         <div class="col-12 mb-3">
                                             <label for="birthplace" class="form-label">Tempat Lahir</label>
@@ -64,12 +70,16 @@
                                         @endif
                                         <div class="col-12 mb-3">
                                             <label for="birthtime" class="form-label">Jam Lahir</label>
-                                            <input type="text" class="form-control" name="birthtime" id="birthtime"
-                                                placeholder="" type="time">
+                                            <input class="form-control" name="birthtime" id="birthtime" placeholder=""
+                                                type="time">
                                         </div>
-                                        @if (!str_contains(strtolower($item->products->slug), 'cari-tahu'))
+                                        @if (!str_contains(strtolower($item->products->slug), 'jam-lahir'))
                                             <div class="col-12 mb-3">
                                                 <label for="checkbirthtime" class="form-label">Gatau Jam lahir?</label>
+                                                <div class="help">
+                                                    Ada biaya tambahan untuk mencari tahu jam lahir kamu
+                                                    <strong>[+250.000]</strong>
+                                                </div>
                                                 <div class="form-check">
                                                     <label class="form-check-label">
                                                         <input type="checkbox" class="form-check-input"
@@ -97,6 +107,9 @@
                                             </div>
                                         @endif
                                         @if (str_contains(strtolower($item->products->slug), 'asmara'))
+                                            <div class="form-label">
+                                                Pilih Satu Topik
+                                            </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="topikasmara"
                                                     id="cocok" checked>
@@ -115,7 +128,6 @@
                                     @endif
                                 </div>
                                 <div class="additional-section">
-
                                     @if ($item->products->additional_question === 'ramal-karir')
                                         <div class="col-12 mb-3">
                                             <label for="jabatan" class="form-label">Jabatan Kerja Saat Ini</label>
@@ -147,53 +159,79 @@
                                                 id="durasihub" placeholder="">
                                         </div>
                                         <div class="col-12 mb-3">
-                                            <label for="jabatan" class="form-label">Orientasi Seksual</label>
-                                            <div class="form-group">
-                                                <label for="orientasi"></label>
-                                                <select class="form-control" name="orientasi" id="orientasi">
-                                                    <option value="straight">Straight</option>
-                                                    <option value="gay">Gay</option>
-                                                    <option value="lesbian">Lesbian</option>
-                                                    <option value="queer">Queer</option>
-                                                    <option value="bisexual">Bisexual</option>
-                                                    <option value="trans">Trans</option>
-                                                    <option value="non-binary">Non-binary</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <label for="jabatan" class="form-label">Durasi Hubungan</label>
-                                            <div class="help">
-                                                <small>Cth: 'Sudah Pacaran / Single Selama 6 Bulan'</small>
-                                            </div>
-                                            <input type="text" class="form-control" name="jabatan" id="jabatan"
-                                                placeholder="">
+                                            <label for="orientasi" class="form-label">Orientasi Seksual</label>
+                                            <select class="form-control" name="orientasi" id="orientasi">
+                                                <option value="straight">Straight</option>
+                                                <option value="gay">Gay</option>
+                                                <option value="lesbian">Lesbian</option>
+                                                <option value="queer">Queer</option>
+                                                <option value="bisexual">Bisexual</option>
+                                                <option value="trans">Trans</option>
+                                                <option value="non-binary">Non-binary</option>
+                                            </select>
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="jabatan" class="form-label">Ceritakan Masalah Cintamu</label>
                                             <div class="help">
                                                 <small>Cerita Secara Singkat, Padat dan Jelas</small>
                                             </div>
-                                            <textarea class="form-control" name="" id="" rows="5"></textarea>
+                                            <textarea class="form-control" name="masalahcinta" id="masalahcinta" rows="5"></textarea>
                                         </div>
                                     @endif
 
                                     @if (str_contains(strtolower($item->products->additional_question), 'ramal'))
                                         <div class="mb-3">
-                                            <label for="sisi-samping" class="form-label">Sisi Samping tangan</label>
-                                            <input type="file" class="form-control" name="sisi-samping"
-                                                id="sisi-samping" placeholder="Sisi Samping Tangan">
+                                            <label for="sisi_samping" class="form-label">Sisi Samping tangan</label>
+                                            <input type="file" class="form-control" name="sisi_samping"
+                                                id="sisi_samping" placeholder="Sisi Samping Tangan">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="telapak_jari" class="form-label">Telapak + Jari</label>
+                                            <input type="file" class="form-control" name="telapak_jari"
+                                                id="telapak_jari" placeholder="Sisi Samping Tangan">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="telapak_close" class="form-label">Telapak Close Up</label>
+                                            <input type="file" class="form-control" name="telapak_close"
+                                                id="telapak_close" placeholder="Sisi Samping Tangan">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="muka" class="form-label">Foto Muka Terkini</label>
+                                            <input type="file" class="form-control" name="muka" id="muka"
+                                                placeholder="Sisi Samping Tangan">
                                         </div>
                                     @endif
                                 </div>
                             </div>
                         @endforeach
                         <div class="col-12 mt-4">
-                            <button type="button" class="button secondary w-100">Submit</button>
+                            <button type="submit" class="button secondary w-100">Submit</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        const name = [
+            'birthplace',
+            'age',
+            'birthtime',
+            'phone,',
+            'email'
+        ]
+        name.forEach(element => {
+            $(`[name="${element}"]`).blur(function() {
+                $(`[name="${element}"]`).val($(this).val());
+            });
+        });
+
+        let check = false;
+
+        $(`[name="checkbirthtime"]`).change(function() {
+            $(`[name="checkbirthtime"]`).prop('checked', !check);
+            check = !check;
+        });
+    </script>
 </x-app-layout>

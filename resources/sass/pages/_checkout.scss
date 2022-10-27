@@ -56,6 +56,14 @@
     }
 
     &.additional-question {
+        .title {
+            font-family: 'Evogria';
+            font-size: 1.25rem;
+            background-color: $yellow;
+            display: inline-block;
+            padding: .5rem;
+        }
+
         .section:nth-child(odd) {
             border-right: 2px solid $body;
 

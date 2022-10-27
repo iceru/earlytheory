@@ -10,6 +10,10 @@
             <div class="col-12 indicator">
                 <div class="circle active"></div>
                 <div class="line"></div>
+                @if ($is_additional)
+                    <div class="circle"></div>
+                    <div class="line"></div>
+                @endif
                 <div class="circle"></div>
                 <div class="line"></div>
                 <div class="circle"></div>

@@ -11779,6 +11779,13 @@ a {
   height: 6px;
   background-color: #c4c4c4;
 }
+.checkout.additional-question .title {
+  font-family: "Evogria";
+  font-size: 1.25rem;
+  background-color: #E6FF19;
+  display: inline-block;
+  padding: 0.5rem;
+}
 .checkout.additional-question .section:nth-child(odd) {
   border-right: 2px solid #202020;
 }

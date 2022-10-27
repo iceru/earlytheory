@@ -103,6 +103,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
     Route::get('/checkout/{id}/additional-question', [SalesController::class, 'additionalQuestion'])->name('sales.additional-question');
+    Route::post('/checkout/{id}/add-additional', [SalesController::class, 'addAdditional'])->name('sales.add-additional');
     Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');
     Route::get('/checkout/{id}/shipping', [SalesController::class, 'shipping'])->name('sales.shipping');
     Route::get('/checkout/findCityShipping', [SalesController::class, 'findCityShipping'])->name('sales.findCityShipping');

@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title')
-    Confirm Payment - {{$sales->sales_no}}
+        Confirm Payment - {{ $sales->sales_no }}
     @endsection
     <div class="col-12 checkout">
         <div class="row">
@@ -10,6 +10,10 @@
             <div class="col-12 indicator">
                 <div class="circle"></div>
                 <div class="line"></div>
+                @if ($is_additional)
+                    <div class="circle"></div>
+                    <div class="line"></div>
+                @endif
                 <div class="circle"></div>
                 <div class="line"></div>
                 <div class="circle"></div>
@@ -17,29 +21,29 @@
                 <div class="circle active"></div>
             </div>
             @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Sorry !</strong> Terdapat masalah dalam input data.<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+                <div class="alert alert-danger">
+                    <strong>Sorry !</strong> Terdapat masalah dalam input data.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
             @if (session('soldout') || $is_soldout === 1)
-            <div class="alert alert-danger">
-                Maaf, Produk tersebut sudah habis.
-            </div>
+                <div class="alert alert-danger">
+                    Maaf, Produk tersebut sudah habis.
+                </div>
             @endif
 
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
             @endif
 
-            <form action="/checkout/{{$sales->sales_no}}/confirm-payment/submit" method="POST"
+            <form action="/checkout/{{ $sales->sales_no }}/confirm-payment/submit" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-payment col-12">
@@ -47,62 +51,73 @@
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="inputName" class="fw-bold">Nama Lengkap</label>
-                                <input class="form-control-plaintext" type="text" value="{{ $sales->user->name }}" name="inputName"
-                                    readonly>
+                                <input class="form-control-plaintext" type="text" value="{{ $sales->user->name }}"
+                                    name="inputName" readonly>
                             </div>
                         </div>
-                        <input type="text" name="salesId" value="{{$sales->id}}" hidden>
+                        <input type="text" name="salesId" value="{{ $sales->id }}" hidden>
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="inputEmail" class="fw-bold">Email</label>
-                                <input type="email" name="inputEmail" value="{{ $sales->user->email }}" class="form-control-plaintext"
-                                    readonly>
+                                <input type="email" name="inputEmail" value="{{ $sales->user->email }}"
+                                    class="form-control-plaintext" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="inputPhone" class="fw-bold">No. Telepon</label>
-                                <input type="tel" class="form-control-plaintext" value="{{ $sales->user->phone }}" name="inputPhone"
-                                    readonly>
+                                <input type="tel" class="form-control-plaintext" value="{{ $sales->user->phone }}"
+                                    name="inputPhone" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="inputBirthdate" class="fw-bold">Tanggal Lahir</label>
-                                <input type="text" class="form-control-plaintext" value="{{ $sales->user->birthdate }}"
-                                    name="inputBirthdate" id="datepicker" readonly autocomplete="off">
+                                <input type="text" class="form-control-plaintext"
+                                    value="{{ $sales->user->birthdate }}" name="inputBirthdate" id="datepicker" readonly
+                                    autocomplete="off">
                             </div>
                         </div>
                         @if ($is_service > 0)
                             <div class="col-12 col-lg-6">
                                 <div class="form-group ">
                                     <label for="inputRelationship" class="fw-bold">Status Relationship</label>
-                                    <select class="form-control-plaintext" name="inputRelationship" id="inputRelationship" disabled>
+                                    <select class="form-control-plaintext" name="inputRelationship"
+                                        id="inputRelationship" disabled>
                                         <option selected disabled>Select</option>
-                                        <option value="single" @if ($sales->relationship == "single") {{ 'selected' }} @endif
-                                            disabled>Single</option>
-                                        <option value="pacaran" @if ($sales->relationship == "pacaran") {{ 'selected' }} @endif
-                                            disabled>Pacaran</option>
-                                        <option value="menikah" @if ($sales->relationship == "menikah") {{ 'selected' }} @endif
-                                            disabled>Menikah</option>
-                                        <option value="divorced" @if ($sales->relationship == "divorced") {{ 'selected' }} @endif
-                                            disabled>Divorced</option>
+                                        <option value="single"
+                                            @if ($sales->relationship == 'single') {{ 'selected' }} @endif disabled>Single
+                                        </option>
+                                        <option value="pacaran"
+                                            @if ($sales->relationship == 'pacaran') {{ 'selected' }} @endif disabled>
+                                            Pacaran</option>
+                                        <option value="menikah"
+                                            @if ($sales->relationship == 'menikah') {{ 'selected' }} @endif disabled>
+                                            Menikah</option>
+                                        <option value="divorced"
+                                            @if ($sales->relationship == 'divorced') {{ 'selected' }} @endif disabled>
+                                            Divorced</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="form-group ">
                                     <label for="inputPekerjaan" class="fw-bold">Status Pekerjaan</label>
-                                    <select class="form-control-plaintext" name="inputPekerjaan" id="inputPekerjaan" disabled>
+                                    <select class="form-control-plaintext" name="inputPekerjaan" id="inputPekerjaan"
+                                        disabled>
                                         <option selected disabled>Select</option>
-                                        <option value="unemployed" @if ($sales->job == "unemployed") {{ 'selected' }} @endif
-                                            disabled>Unemployed</option>
-                                        <option value="employed" @if ($sales->job == "employed") {{ 'selected' }} @endif
-                                            disabled>Employed</option>
-                                        <option value="business" @if ($sales->job== "business") {{ 'selected' }} @endif
-                                            disabled>Business</option>
-                                        <option value="student" @if ($sales->job == "student") {{ 'selected' }} @endif
-                                            disabled>Student</option>
+                                        <option value="unemployed"
+                                            @if ($sales->job == 'unemployed') {{ 'selected' }} @endif disabled>
+                                            Unemployed</option>
+                                        <option value="employed"
+                                            @if ($sales->job == 'employed') {{ 'selected' }} @endif disabled>
+                                            Employed</option>
+                                        <option value="business"
+                                            @if ($sales->job == 'business') {{ 'selected' }} @endif disabled>
+                                            Business</option>
+                                        <option value="student"
+                                            @if ($sales->job == 'student') {{ 'selected' }} @endif disabled>
+                                            Student</option>
                                     </select>
                                 </div>
                             </div>
@@ -113,8 +128,9 @@
                         <select class="form-select" name="inputPayType" id="inputPayType">
                             <option selected disabled>Pilih Pembayaran</option>
                             @foreach ($paymentMethods as $payType)
-                            <option {{old('inputPayType') == $payType->id ? 'selected' : ''}} value="{{$payType->id}}">
-                                {{$payType->name}}</option>
+                                <option {{ old('inputPayType') == $payType->id ? 'selected' : '' }}
+                                    value="{{ $payType->id }}">
+                                    {{ $payType->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -132,7 +148,8 @@
                     </p>
 
                     <div class="col-12 d-grid gap-2">
-                        <button type="submit"  @if ($is_soldout === 1) class="button disabled" disabled @else class="button secondary" @endif>
+                        <button type="submit"
+                            @if ($is_soldout === 1) class="button disabled" disabled @else class="button secondary" @endif>
                             Submit
                         </button>
                     </div>
