@@ -284,9 +284,10 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $sales->id)->firstOrFail();
 
         if($user->id == $sales->user_id) {
-            return view('checkout.additional-question', compact('user', 'sales'));
+            return view('checkout.additional-question', compact('user', 'sales', 'additional'));
         }
     }
 
@@ -296,7 +297,10 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         if($user->id == $sales->user_id) {
-            $additional = new AdditionalQuestion;
+            $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
+            if(!$additional) {
+                $additional = new AdditionalQuestion;
+            }
             $request->validate([
                 'name' => 'nullable',
                 'birthdate' => 'nullable',
@@ -320,35 +324,29 @@ class SalesController extends Controller
 
             if ($request->hasFile('sisi_samping')) {
                 $image = $request->file('sisi_samping');
-    
-                $name = $image->getClientOriginalName();
-                $filename = $request->sisi_samping.'_'.time().'.'.$name;
-                $path = $image->storeAs('public/additional-image', $filename);
+                $filename = $sales->sales_no.'_sisi_samping_'.$user->name;
+                $path = $image->storeAs('public/additional-image', 'test');
                 $additional->sisi_samping = $filename;
+
             }
 
             if ($request->hasFile('telapak_jari')) {
                 $image = $request->file('telapak_jari');
-    
-                $name = $image->getClientOriginalName();
-                $filename = $request->telapak_jari.'_'.time().'.'.$name;
+                $filename = $sales->sales_no.'_telapak_jari_'.$user->name;
                 $path = $image->storeAs('public/additional-image', $filename);
                 $additional->telapak_jari = $filename;
             }
 
             if ($request->hasFile('telapak_close')) {
                 $image = $request->file('telapak_close');
-                $name = $image->getClientOriginalName();
-                $filename = $request->telapak_close.'_'.time().'.'.$name;
+                $filename = $sales->sales_no.'_telapak_close_'.$user->name;
                 $path = $image->storeAs('public/additional-image', $filename);
                 $additional->telapak_close = $filename;
             }
 
             if ($request->hasFile('muka')) {
-                $image = $request->file('muka');
-    
-                $name = $image->getClientOriginalName();
-                $filename = $request->muka.'_'.time().'.'.$name;
+                $image = $request->file('muka');   
+                $filename = $sales->sales_no.'_muka_'.$user->name;
                 $path = $image->storeAs('public/additional-image', $filename);
                 $additional->muka = $filename;
             }
