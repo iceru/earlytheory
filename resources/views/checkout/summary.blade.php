@@ -116,6 +116,10 @@
                             </div>
                         </div>
                     @endforeach
+                    @if ($additional_birthtime)
+                        <h6 class="mb-3 fw-normal">Tambahan Cari Tahu Jam Lahirku <strong>idr
+                                {{ number_format(250000) }}</strong></>
+                    @endif
 
                     @foreach ($sales->products as $item)
                         <div class="col-12 col-lg-6">

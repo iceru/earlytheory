@@ -13,6 +13,6 @@ class AdditionalQuestion extends Model
    
     public function sales()
     {
-        return $this->belongsTo(Sales::class, 'sales_id', 'sales_no');
+        return $this->belongsTo(Sales::class, 'sales_id', 'id');
     }
 }

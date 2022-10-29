@@ -200,6 +200,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/sales/edit/{id}', [AdminSalesController::class, 'edit'])->name('admin.sales.edit');
     Route::post('/admin/sales/update', [AdminSalesController::class, 'update'])->name('admin.sales.update');
     Route::get('/admin/sales/delete/{id}', [AdminSalesController::class, 'destroy'])->name('admin.sales.destroy');
+    Route::get('/admin/additional/{id}', [AdminSalesController::class, 'additional'])->name('admin.sales.additional');
 
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
     Route::get('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');

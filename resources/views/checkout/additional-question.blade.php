@@ -35,13 +35,14 @@
                     <div class="col-12 mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" value="{{ $user->name }}" name="name"
-                            id="name" placeholder="" value="{{ $additional->name ? $additional->name : '' }}">
+                            id="name" placeholder=""
+                            value="{{ $additional && $additional->name ? $additional->name : '' }}">
                     </div>
                     <div class="col-12 mb-3">
                         <label for="birthdate" class="form-label">Tanggal Lahir</label>
                         <input type="text" class="form-control" value="{{ $user->birthdate }}" name="birthdate"
                             id="birthdate" placeholder=""
-                            value="{{ $additional->birthdate ? $additional->birthdate : '' }}">
+                            value="{{ $additional && $additional->birthdate ? $additional->birthdate : '' }}">
                     </div>
                     <input type="text" value="{{ $sales->id }}" name="salesId" hidden>
                     <div class="row">
@@ -61,21 +62,21 @@
                                             </div>
                                             <input type="text" class="form-control" name="birthplace" id="birthplace"
                                                 placeholder="" required
-                                                value="{{ $additional->birthplace ? $additional->birthplace : '' }}">
+                                                value="{{ $additional && $additional->birthplace ? $additional->birthplace : '' }}">
                                         </div>
                                         @if (str_contains(strtolower($item->products->slug), '2023'))
                                             <div class="col-12 mb-3">
                                                 <label for="age" class="form-label">Umur Kamu Saat Ini</label>
                                                 <input type="text" class="form-control" name="age" id="age"
                                                     placeholder="" required
-                                                    value="{{ $additional->age ? $additional->age : '' }}">
+                                                    value="{{ $additional && $additional->age ? $additional->age : '' }}">
                                             </div>
                                         @endif
                                         <div class="col-12 mb-3">
                                             <label for="birthtime" class="form-label">Jam Lahir</label>
                                             <input class="form-control" name="birthtime" id="birthtime" placeholder=""
                                                 type="time" required
-                                                value="{{ $additional->birthtime ? $additional->birthtime : '' }}">
+                                                value="{{ $additional && $additional->birthtime ? $additional->birthtime : '' }}">
                                         </div>
                                         @if (!str_contains(strtolower($item->products->slug), 'jam-lahir'))
                                             <div class="col-12 mb-3">
@@ -87,8 +88,8 @@
                                                 <div class="form-check">
                                                     <label class="form-check-label">
                                                         <input type="checkbox" class="form-check-input"
-                                                            name="checkbirthtime" id="checkbirthtime" value="checkValue"
-                                                            checked={{ $additional->checkbirthtime ? true : false }}>
+                                                            name="checkbirthtime" id="checkbirthtime"
+                                                            value="checkValue">
                                                         Cari Tahu Jam Lahirku Sekalian
                                                     </label>
                                                 </div>
@@ -98,13 +99,13 @@
                                             <label for="phone" class="form-label">Nomor Telepon</label>
                                             <input type="text" class="form-control" name="phone" id="phone"
                                                 placeholder="" type="tel" value="{{ $user->phone }}" required
-                                                value="{{ $additional->phone ? $additional->phone : '' }}">
+                                                value="{{ $additional && $additional->phone ? $additional->phone : '' }}">
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="email" class="form-label">Alamat Email</label>
                                             <input type="text" class="form-control" name="email" id="email"
                                                 placeholder="" type="email" value="{{ $user->email }}" required
-                                                value="{{ $additional->email ? $additional->email : '' }}">
+                                                value="{{ $additional && $additional->email ? $additional->email : '' }}">
                                         </div>
                                         @if (str_contains(strtolower($item->products->slug), 'cari-tahu'))
                                             <div class="note">
@@ -142,7 +143,7 @@
                                             </div>
                                             <input type="text" class="form-control" name="jabatan" id="jabatan"
                                                 placeholder="" required
-                                                value="{{ $additional->jabatan ? $additional->jabatan : '' }}">
+                                                value="{{ $additional && $additional->jabatan ? $additional->jabatan : '' }}">
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="jabatan" class="form-label">Durasi Kerja Saat Ini</label>
@@ -153,7 +154,7 @@
                                             </div>
                                             <input type="text" class="form-control" name="durasikerja"
                                                 id="durasikerja" placeholder="" required
-                                                value="{{ $additional->durasikerja ? $additional->durasikerja : '' }}">
+                                                value="{{ $additional && $additional->durasikerja ? $additional->durasikerja : '' }}">
                                         </div>
                                     @endif
 
@@ -165,41 +166,42 @@
                                             </div>
                                             <input type="text" class="form-control" name="durasihub"
                                                 id="durasihub" placeholder="" required
-                                                value="{{ $additional->durasihub ? $additional->durasihub : '' }}">
+                                                value="{{ $additional && $additional->durasihub ? $additional->durasihub : '' }}">
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="orientasi" class="form-label">Orientasi Seksual</label>
                                             <select class="form-control" name="orientasi" id="orientasi">
                                                 <option value="straight"
-                                                    selected="{{ $additional->orientasi === 'straight' ? true : false }}">
+                                                    selected="{{ $additional && $additional->orientasi === 'straight' ? true : false }}">
                                                     Straight</option>
                                                 <option value="gay"
-                                                    selected="{{ $additional->orientasi === 'gay' ? true : false }}">
+                                                    selected="{{ $additional && $additional->orientasi === 'gay' ? true : false }}">
                                                     Gay</option>
                                                 <option value="lesbian"
-                                                    selected="{{ $additional->orientasi === 'lesbian' ? true : false }}">
+                                                    selected="{{ $additional && $additional->orientasi === 'lesbian' ? true : false }}">
                                                     Lesbian</option>
                                                 <option value="queer"
-                                                    selected="{{ $additional->orientasi === 'queer' ? true : false }}">
+                                                    selected="{{ $additional && $additional->orientasi === 'queer' ? true : false }}">
                                                     Queer</option>
                                                 <option value="bisexual"
-                                                    selected="{{ $additional->orientasi === 'bisexual' ? true : false }}">
+                                                    selected="{{ $additional && $additional->orientasi === 'bisexual' ? true : false }}">
                                                     Bisexual</option>
                                                 <option value="trans"
-                                                    selected="{{ $additional->orientasi === 'trans' ? true : false }}">
+                                                    selected="{{ $additional && $additional->orientasi === 'trans' ? true : false }}">
                                                     Trans</option>
                                                 <option value="non-binary"
-                                                    selected="{{ $additional->orientasi === 'non-binary' ? true : false }}">
+                                                    selected="{{ $additional && $additional->orientasi === 'non-binary' ? true : false }}">
                                                     Non-binary</option>
                                             </select>
                                         </div>
                                         <div class="col-12 mb-3">
-                                            <label for="jabatan" class="form-label">Ceritakan Masalah Cintamu</label>
+                                            <label for="masalahcinta" class="form-label">Ceritakan Masalah
+                                                Cintamu</label>
                                             <div class="help">
                                                 <small>Cerita Secara Singkat, Padat dan Jelas</small>
                                             </div>
                                             <textarea class="form-control" name="masalahcinta" id="masalahcinta" rows="5" required
-                                                value="{{ $additional->masalahcinta ? $additional->masalahcinta : '' }}"></textarea>
+                                                value="{{ $additional && $additional->masalahcinta ? $additional->masalahcinta : '' }}"></textarea>
                                         </div>
                                     @endif
 
@@ -210,7 +212,7 @@
                                                 <div class="col-7 col-lg-10">
                                                     <input type="file" class="form-control" name="sisi_samping"
                                                         id="sisi_samping" placeholder="Sisi Samping Tangan" required
-                                                        value="{{ $additional->sisi_samping ? $additional->sisi_samping : '' }}">
+                                                        value="{{ $additional && $additional->sisi_samping ? $additional->sisi_samping : '' }}">
                                                 </div>
                                                 <div class="col-5 col-lg-2">
                                                     <div class="img">
@@ -226,7 +228,7 @@
                                                 <div class="col-7 col-lg-10">
                                                     <input type="file" class="form-control" name="telapak_jari"
                                                         id="telapak_jari" placeholder="Telapak + Jari" required
-                                                        value="{{ $additional->telapak_jari ? $additional->telapak_jari : '' }}">
+                                                        value="{{ $additional && $additional->telapak_jari ? $additional->telapak_jari : '' }}">
                                                 </div>
                                                 <div class="col-5 col-lg-2">
                                                     <div class="img">
@@ -242,7 +244,7 @@
                                                 <div class="col-7 col-lg-10">
                                                     <input type="file" class="form-control" name="telapak_close"
                                                         id="telapak_close" placeholder="Telapak + Jari" required
-                                                        value="{{ $additional->telapak_close ? $additional->telapak_close : '' }}">
+                                                        value="{{ $additional && $additional->telapak_close ? $additional->telapak_close : '' }}">
                                                 </div>
                                                 <div class="col-5 col-lg-2">
                                                     <div class="img">
@@ -258,7 +260,7 @@
                                                 <div class="col-7 col-lg-10">
                                                     <input type="file" class="form-control" name="muka"
                                                         id="muka" placeholder="Telapak + Jari" required
-                                                        value="{{ $additional->muka ? $additional->muka : '' }}">
+                                                        value="{{ $additional && $additional->muka ? $additional->muka : '' }}">
                                                 </div>
                                                 <div class="col-5 col-lg-2">
                                                     <div class="img">

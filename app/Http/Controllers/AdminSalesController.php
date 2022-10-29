@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use Carbon\Carbon;
+use App\Models\SKUs;
 use App\Models\Sales;
 use App\Models\Products;
-use App\Models\SKUs;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethods;
 use App\Models\ShippingAddress;
+use App\Models\AdditionalQuestion;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Cache;
-use DataTables;
 
 class AdminSalesController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $sales = Sales::with('user')->with('paymentmethods')->where('status', 'settlement')->orderBy('created_at', 'desc');
+            $sales = Sales::with('user')->with('paymentmethods')->with('additional')->where('status', 'settlement')->orderBy('created_at', 'desc');
+
             return Datatables::of($sales)
             ->addIndexColumn()
                 ->editColumn('name', function ($row) {  //this example  for edit your columns if colums is empty 
@@ -31,13 +33,25 @@ class AdminSalesController extends Controller
                     return '<img src="'.$url.'" width="100"/>';
                 })
                 ->addColumn('action', function ($sale) {
-                    return '<a href="/admin/sales/'.$sale->id.'" class="btn btn-primary d-flex align-items-center btn-sm mb-2 justify-content-center"><i class="fa fa-info-circle" aria-hidden="true"></i> <span class="ms-1">Detail</span></a>
-                    <button onclick="deleteConfirmation('.$sale->id.')" class="btn btn-danger d-flex align-items-center btn-sm justify-content-center"><i class="fas fa-trash"></i> <span class="ms-1">Delete</span></button>';})
+                    $additional = '';
+                    if(!empty($sale->additional[0]->id)) {
+                        $additional = '<a href="/admin/additional/'.$sale->id.'" class="button secondary d-flex align-items-center btn-sm mt-2 justify-content-center"><i class="fa fa-list" aria-hidden="true"></i> <span class="ms-1">Additional</span></a>';
+                    };
+                    return '<a href="/admin/sales/'.$sale->id.'" class="btn btn-primary d-flex align-items-center btn-sm mb-2 justify-content-center w-100"><i class="fa fa-info-circle" aria-hidden="true"></i> <span class="ms-1">Detail</span></a>
+                    <button onclick="deleteConfirmation('.$sale->id.')" class="btn btn-danger d-flex align-items-center btn-sm justify-content-center w-100"><i class="fas fa-trash"></i> <span class="ms-1">Delete</span></button>'.$additional.'';})
                 ->rawColumns(['image', 'action'])
                 ->make(true);
         }
         
         return view('admin.sales.index');
+    }
+
+    public function additional($id)
+    {
+        $additional = AdditionalQuestion::where('sales_id', $id)->firstOrFail();
+        $skus = $additional->sales->skus;
+
+        return view('admin.sales.additional', compact('additional', 'skus'));
     }
 
     public function detail($id)

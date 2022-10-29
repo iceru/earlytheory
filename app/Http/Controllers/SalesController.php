@@ -284,7 +284,7 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-        $additional = AdditionalQuestion::where('sales_id', $sales->id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
 
         if($user->id == $sales->user_id) {
             return view('checkout.additional-question', compact('user', 'sales', 'additional'));
@@ -324,7 +324,7 @@ class SalesController extends Controller
 
             if ($request->hasFile('sisi_samping')) {
                 $image = $request->file('sisi_samping');
-                $filename = $sales->sales_no.'_sisi_samping_'.$user->name;
+                $filename = $sales->sales_no.'_sisi_samping_'.$user->name.'.jpg';
                 $path = $image->storeAs('public/additional-image', 'test');
                 $additional->sisi_samping = $filename;
 
@@ -332,21 +332,21 @@ class SalesController extends Controller
 
             if ($request->hasFile('telapak_jari')) {
                 $image = $request->file('telapak_jari');
-                $filename = $sales->sales_no.'_telapak_jari_'.$user->name;
+                $filename = $sales->sales_no.'_telapak_jari_'.$user->name.'.jpg';
                 $path = $image->storeAs('public/additional-image', $filename);
                 $additional->telapak_jari = $filename;
             }
 
             if ($request->hasFile('telapak_close')) {
                 $image = $request->file('telapak_close');
-                $filename = $sales->sales_no.'_telapak_close_'.$user->name;
+                $filename = $sales->sales_no.'_telapak_close_'.$user->name.'.jpg';
                 $path = $image->storeAs('public/additional-image', $filename);
                 $additional->telapak_close = $filename;
             }
 
             if ($request->hasFile('muka')) {
                 $image = $request->file('muka');   
-                $filename = $sales->sales_no.'_muka_'.$user->name;
+                $filename = $sales->sales_no.'_muka_'.$user->name.'.jpg';
                 $path = $image->storeAs('public/additional-image', $filename);
                 $additional->muka = $filename;
             }
@@ -368,8 +368,15 @@ class SalesController extends Controller
             $additional->masalahcinta = $request->masalahcinta;
             $additional->sales_id = $request->salesId;
 
-            if($request->checkbirthtime) {
+            if((!$additional && $request->checkbirthtime )|| ($additional && !$sales->initial_price && $request->checkbirthtime)) {
+                $sales->initial_price = $sales->total_price;
                 $sales->total_price = $sales->total_price+250000;
+                $sales->save();
+            } else if ($additional && $sales->initial_price && $request->checkbirthtime) {
+                $sales->total_price = $sales->initial_price+250000;
+                $sales->save();
+            } else if (!$request->checkbirthtime && $sales->initial_price) {
+                $sales->total_price = $sales->initial_price;
                 $sales->save();
             }
 
@@ -562,6 +569,7 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
 
         if($user->id == $sales->user_id) {
             if($sales->address_id) {
@@ -617,8 +625,14 @@ class SalesController extends Controller
                     }
                 }
             }
+
+            $additional_birthtime = false;
+
+            if($additional && $additional->checkbirthtime === 'checkValue') {
+                $additional_birthtime = true;
+            }
             
-            return view('checkout.summary', compact('sales', 'is_additional'));
+            return view('checkout.summary', compact('sales', 'is_additional', 'additional_birthtime'));
         }
 
         else {
