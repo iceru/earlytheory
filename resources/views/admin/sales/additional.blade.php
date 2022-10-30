@@ -53,11 +53,11 @@
                     </div>
                 </div>
             @endif
-            @if ($additional->birth)
+            @if ($additional->birthtime)
                 <div class="mb-1 row">
-                    <label class="col-sm-3 col-form-label fw-bolder">Tempat Lahir</label>
+                    <label class="col-sm-3 col-form-label fw-bolder">Waktu Lahir</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control-plaintext" value="{{ $additional->birthplace }}"
+                        <input type="text" class="form-control-plaintext" value="{{ $additional->birthtime }}"
                             readonly>
                     </div>
                 </div>
