@@ -304,11 +304,11 @@
             check = !check;
 
             if (check) {
-                $('[name="checkbirthtime"]').removeAttr('required');​​​​​
-                $('[name="checkbirthtime"]').hide();​​​​​
+                $('[name="checkbirthtime"]').removeAttr('required');
+                $('[name="checkbirthtime"]').hide();
             } else {
-                $('[name="checkbirthtime"]').prop('required', true);​​​​​
-                $('[name="checkbirthtime"]').show();​​​​​
+                $('[name="checkbirthtime"]').prop('required', true);
+                $('[name="checkbirthtime"]').show();
             }
         });
     </script>
