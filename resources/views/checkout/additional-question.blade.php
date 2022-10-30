@@ -72,13 +72,13 @@
                                                     value="{{ $additional && $additional->age ? $additional->age : '' }}">
                                             </div>
                                         @endif
-                                        <div class="col-12 mb-3">
-                                            <label for="birthtime" class="form-label">Jam Lahir</label>
-                                            <input class="form-control" name="birthtime" id="birthtime" placeholder=""
-                                                type="time" required
-                                                value="{{ $additional && $additional->birthtime ? $additional->birthtime : '' }}">
-                                        </div>
-                                        @if (!str_contains(strtolower($item->products->slug), 'jam-lahir'))
+                                        @if (!str_contains(strtolower($item->products->slug), 'jam-lahir') && !$cek_jam_lahir)
+                                            <div class="col-12 mb-3">
+                                                <label for="birthtime" class="form-label">Jam Lahir</label>
+                                                <input class="form-control" name="birthtime" id="birthtime"
+                                                    placeholder="" type="time" required
+                                                    value="{{ $additional && $additional->birthtime ? $additional->birthtime : '' }}">
+                                            </div>
                                             <div class="col-12 mb-3">
                                                 <label for="checkbirthtime" class="form-label">Gatau Jam lahir?</label>
                                                 <div class="help">
@@ -107,7 +107,7 @@
                                                 placeholder="" type="email" value="{{ $user->email }}" required
                                                 value="{{ $additional && $additional->email ? $additional->email : '' }}">
                                         </div>
-                                        @if (str_contains(strtolower($item->products->slug), 'cari-tahu'))
+                                        @if (str_contains(strtolower($item->products->slug), 'jam-lahir'))
                                             <div class="note">
                                                 Setelah order dibuat, astrologer kami akan menghubungi
                                                 kamu untuk menghitung jam lahir
@@ -170,31 +170,32 @@
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="orientasi" class="form-label">Orientasi Seksual</label>
-                                            <select class="form-control" name="orientasi" id="orientasi">
+                                            <select class="form-select" name="orientasi" id="orientasi">
                                                 <option value="straight"
-                                                    selected="{{ $additional && $additional->orientasi === 'straight' ? true : false }}">
+                                                    {{ $additional && $additional->orientasi === 'straight' ? 'selected' : '' }}>
                                                     Straight</option>
                                                 <option value="gay"
-                                                    selected="{{ $additional && $additional->orientasi === 'gay' ? true : false }}">
+                                                    {{ $additional && $additional->orientasi === 'gay' ? 'selected' : '' }}>
                                                     Gay</option>
                                                 <option value="lesbian"
-                                                    selected="{{ $additional && $additional->orientasi === 'lesbian' ? true : false }}">
+                                                    {{ $additional && $additional->orientasi === 'lesbian' ? 'selected' : '' }}>
                                                     Lesbian</option>
                                                 <option value="queer"
-                                                    selected="{{ $additional && $additional->orientasi === 'queer' ? true : false }}">
+                                                    {{ $additional && $additional->orientasi === 'queer' ? 'selected' : '' }}>
                                                     Queer</option>
                                                 <option value="bisexual"
-                                                    selected="{{ $additional && $additional->orientasi === 'bisexual' ? true : false }}">
+                                                    {{ $additional && $additional->orientasi === 'bisexual' ? 'selected' : '' }}>
                                                     Bisexual</option>
                                                 <option value="trans"
-                                                    selected="{{ $additional && $additional->orientasi === 'trans' ? true : false }}">
+                                                    {{ $additional && $additional->orientasi === 'trans' ? 'selected' : '' }}>
                                                     Trans</option>
                                                 <option value="non-binary"
-                                                    selected="{{ $additional && $additional->orientasi === 'non-binary' ? true : false }}">
+                                                    {{ $additional && $additional->orientasi === 'non-binary' ? 'selected' : '' }}>
                                                     Non-binary</option>
                                             </select>
                                         </div>
-                                        <div class="col-12 mb-3">
+                                        <div class="col-12
+                                                    mb-3">
                                             <label for="masalahcinta" class="form-label">Ceritakan Masalah
                                                 Cintamu</label>
                                             <div class="help">

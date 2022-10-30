@@ -286,8 +286,15 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
         $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
 
+        $cek_jam_lahir = false;
+        foreach ($sales->skus as $item) {
+            if(str_contains(strtolower($item->products->slug), 'jam-lahir')) {
+                $cek_jam_lahir = true;
+            }
+        }
+
         if($user->id == $sales->user_id) {
-            return view('checkout.additional-question', compact('user', 'sales', 'additional'));
+            return view('checkout.additional-question', compact('user', 'sales', 'additional', 'cek_jam_lahir'));
         }
     }
 
@@ -325,9 +332,8 @@ class SalesController extends Controller
             if ($request->hasFile('sisi_samping')) {
                 $image = $request->file('sisi_samping');
                 $filename = $sales->sales_no.'_sisi_samping_'.$user->name.'.jpg';
-                $path = $image->storeAs('public/additional-image', 'test');
+                $path = $image->storeAs('public/additional-image', $filename);
                 $additional->sisi_samping = $filename;
-
             }
 
             if ($request->hasFile('telapak_jari')) {

@@ -12406,6 +12406,34 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   color: #202020;
 }
 
+.additional-admin .section {
+  padding-left: 0;
+  margin-left: 1rem;
+}
+.additional-admin .section:not(:last-child) {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #202020;
+}
+.additional-admin .title {
+  font-family: "Rubik Mono One";
+  font-size: 1.15rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.additional-admin .title .item:not(:only-child) {
+  margin-right: 0.5rem;
+}
+.additional-admin .title .item:not(:only-child)::after {
+  content: "|";
+}
+.additional-admin .title .item:last-child {
+  margin-right: 0;
+}
+.additional-admin .title .item:last-child::after {
+  content: "";
+}
+
 .account {
   padding-top: 3rem;
   padding-bottom: 3rem;

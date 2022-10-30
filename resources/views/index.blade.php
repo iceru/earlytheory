@@ -30,12 +30,12 @@
     </div>
 
     <div class="popupPage" id="popup">
-        <div class="popup-img">
+        <a href="https://shopee.co.id/tokomejik" class="popup-img">
             <div class="close" id="closePopup"> <i class="fas fa-times" aria-hidden="true"></i></div>
             <div class="ratio">
-                <img src="/images/PROMOSTAR.png" alt="">
+                <img src="/images/banner-shopee.png" alt="">
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-12 index">
         <div class="products mt-3 page active">

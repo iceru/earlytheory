@@ -129,7 +129,38 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
 }
 
 .additional-admin {
+    .section {
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid $body;
+        }
+
+        padding-left: 0;
+        margin-left: 1rem;
+    }
+
+
     .title {
         font-family: 'Rubik Mono One';
+        font-size: 1.15rem;
+        display: flex;
+        flex-wrap: wrap;
+
+        .item:not(:only-child) {
+            margin-right: .5rem;
+
+            &::after {
+                content: '|';
+            }
+        }
+
+        .item:last-child {
+            margin-right: 0;
+
+            &::after {
+                content: '';
+            }
+        }
     }
 }

@@ -17,13 +17,6 @@
 
     <div class="row additional-admin">
         <div class="col-12 section">
-            <div class="title">
-                @foreach ($skus as $item)
-                    <div class="item">
-                        {{ !str_contains($item->products->title, 'Ramal') ? $item->products->title : '' }}
-                    </div>
-                @endforeach
-            </div>
             <div class="mb-1 row">
                 <label class="col-sm-3 col-form-label fw-bolder">Name</label>
                 <div class="col-sm-9">
@@ -42,6 +35,15 @@
             @endif
         </div>
         <div class="col-12 section">
+            <div class="title">
+                @foreach ($skus as $item)
+                    @if (!str_contains($item->products->title, 'Ramal'))
+                        <div class="item">
+                            {{ $item->products->title }}
+                        </div>
+                    @endif
+                @endforeach
+            </div>
             @if ($additional->birthplace)
                 <div class="mb-1 row">
                     <label class="col-sm-3 col-form-label fw-bolder">Tempat Lahir</label>
@@ -102,6 +104,15 @@
 
         </div>
         <div class="col-12 section">
+            <div class="title">
+                @foreach ($skus as $item)
+                    @if (str_contains($item->products->title, 'Ramal'))
+                        <div class="item">
+                            {{ $item->products->title }}
+                        </div>
+                    @endif
+                @endforeach
+            </div>
             @if ($additional->jabatan)
                 <div class="mb-1 row">
                     <label class="col-sm-3 col-form-label fw-bolder">Jabatan Kamu Saat Ini</label>
