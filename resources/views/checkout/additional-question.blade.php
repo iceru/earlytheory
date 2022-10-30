@@ -76,7 +76,7 @@
                                             <div class="col-12 mb-3">
                                                 <label for="birthtime" class="form-label">Jam Lahir</label>
                                                 <input class="form-control" name="birthtime" id="birthtime"
-                                                    placeholder="" type="time" required
+                                                    class="birthtime" placeholder="" type="time" required
                                                     value="{{ $additional && $additional->birthtime ? $additional->birthtime : '' }}">
                                             </div>
                                             <div class="col-12 mb-3">
@@ -302,6 +302,12 @@
         $(`[name="checkbirthtime"]`).change(function() {
             $(`[name="checkbirthtime"]`).prop('checked', !check);
             check = !check;
+
+            if (check) {
+                $('.birthtime').removeAttr('required');​​​​​
+            } else {
+                $('.birthtime').attr('required');​​​​​
+            }
         });
     </script>
 </x-app-layout>
