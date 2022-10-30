@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
 use App\Mail\AdminNotification;
+use App\Mail\AstrologiQuestion;
+use App\Mail\SpiritualQuestion;
 use App\Models\ShippingAddress;
 use App\Models\AdditionalQuestion;
 use Illuminate\Support\Facades\Auth;
@@ -772,6 +774,7 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $id)->first();
 
         if($user->id == $sales->user_id) {
 
@@ -811,11 +814,17 @@ class SalesController extends Controller
                 // $sales->paymethod_id = $request->inputPayType;
                 // $sales->status = 'paid';
                 // $sales->save();
-        
-                // Mail::send(new UserTransaction($sales));
-                //Mail::send(new AdminNotification($sales));
-    
+                $is_astro = false;
+                $is_spiritual = false;
+                
                 foreach($sales->skus as $item) {
+                    if(str_contains(str_lower($item->products->slug), 'ramal')) {
+                        $is_spiritual = true;
+                    }
+                    if($item->products->additional_question === 'astrologi') {
+                        $is_astro = true;
+                    }
+                    
                     $sku = SKUs::find($item->id);
                     $sku->stock = $sku->stock-$item->pivot->qty;
                     $sku->save();
@@ -823,6 +832,15 @@ class SalesController extends Controller
         
                 Mail::send(new UserTransaction($sales));
                 Mail::send(new AdminNotification($sales));
+
+                if($additional) {
+                    if($is_astro) {
+                        Mail::send(new AstrologiQuestion($additional));
+                    }
+                    if($is_spiritual) {
+                        Mail::send(new SpiritualQuestion($additional));
+                    }
+                }
 
                 // //get city name
                 // if($sales->shippingAddress) {

@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
 use App\Mail\AdminNotification;
+use App\Mail\AstrologiQuestion;
+use App\Mail\SpiritualQuestion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -101,6 +103,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $id)->first();
 
         $is_soldout = 0;
         foreach($sales->products as $item) {
@@ -138,7 +141,17 @@ class UserController extends Controller
             $sales->status = 'paid';
             $sales->save();
 
+            $is_astro = false;
+            $is_spiritual = false;
+            
             foreach($sales->skus as $item) {
+                if(str_contains(str_lower($item->products->slug), 'ramal')) {
+                    $is_spiritual = true;
+                }
+                if($item->products->additional_question === 'astrologi') {
+                    $is_astro = true;
+                }
+                
                 $sku = SKUs::find($item->id);
                 $sku->stock = $sku->stock-$item->pivot->qty;
                 $sku->save();
@@ -146,6 +159,15 @@ class UserController extends Controller
 
             Mail::send(new UserTransaction($sales));
             Mail::send(new AdminNotification($sales));
+
+            if($additional) {
+                if($is_astro) {
+                    Mail::send(new AstrologiQuestion($additional));
+                }
+                if($is_spiritual) {
+                    Mail::send(new SpiritualQuestion($additional));
+                }
+            }
         }
         elseif($is_soldout === 1) {
             return redirect()->back()->with('soldout');
