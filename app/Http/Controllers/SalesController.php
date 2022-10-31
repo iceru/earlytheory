@@ -222,8 +222,9 @@ class SalesController extends Controller
     
             $item_id = $request->id;
             $item_question = $request->question;
-            if($request->genderQuestion && $request->genderQuestion2) {
-                $item_genderquestion = 'Saya '.$request->genderQuestion[0].', mencari '.$request->genderQuestion2[0];
+            if($request->genderQuestion && $request->genderQuestion2 && $request->genderQuestion3) {
+                $item_genderquestion = 'Saya cenderung mencari yang etnis / agamanya '.ucfirst($request->genderQuestion3[0]).'. 
+                Saya '.ucfirst($request->genderQuestion[0]).', mencari '.ucfirst($request->genderQuestion2[0]);
             }
 
             foreach ($item_id as $key => $i) {

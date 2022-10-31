@@ -179,10 +179,10 @@
                                 <select class="form-select" name="inputGender" id="inputGender" required>
                                     <option selected disabled value="">Select</option>
                                     <option value="laki-laki"
-                                        @if (old('inputGender') == 'laki-laki' || $sales->job == 'laki-laki') {{ 'selected' }} @endif>Laki-Laki
+                                        @if (old('inputGender') == 'laki-laki' || $sales->gender == 'laki-laki') {{ 'selected' }} @endif>Laki-Laki
                                     </option>
                                     <option value="perempuan"
-                                        @if (old('inputGender') == 'perempuan' || $sales->job == 'perempuan') {{ 'selected' }} @endif>Perempuan
+                                        @if (old('inputGender') == 'perempuan' || $sales->gender == 'perempuan') {{ 'selected' }} @endif>Perempuan
                                     </option>
                                 </select>
                             </div>
@@ -207,7 +207,7 @@
                                         <p>IDR {{ number_format($item->price) }}</p>
                                     </div>
                                     <div class="row g-0">
-                                        @if ($item->products->question === 'yes')
+                                        @if ($item->products->question === 'yes' && strtolower($item->products->title) !== 'mencari jodoh')
                                             <h6 class="mb-2">
                                                 {{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}
                                             </h6>
@@ -221,14 +221,23 @@
                                                     @endforeach
                                                 </div>
                                             @endif
-                                            <textarea rows="6" name="question[]" id="question" @if ($item->products->question != 'yes' ||
-                                                strtolower($item->products->title) === 'mencari jodoh' ||
-                                                $item->products->category == 'product') hidden @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
+                                            <textarea rows="6" name="question[]" id="question"
+                                                @if ($item->products->question != 'yes' ||
+                                                    strtolower($item->products->title) === 'mencari jodoh' ||
+                                                    $item->products->category == 'product') hidden @else required @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
+                                            <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                                <label class="form-label">Kamu cenderung mencari yang etnis / agamanya
+                                                    ....</label>
+                                                <input type="text" class="form-control" name="genderQuestion3[]"
+                                                    id="etnis" placeholder=""
+                                                    @if (strtolower($item->products->title) === 'mencari jodoh') required @endif novalidate>
+                                            </div>
                                             <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                                 <label class="form-label">Kamu</label>
                                                 <select class="form-select" name="genderQuestion[]"
                                                     id="genderQuestion"
-                                                    @if (strtolower($item->products->title) === 'mencari jodoh') required @endif>
+                                                    @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
+                                                    @endif>
                                                     <option value="" disabled selected>Pilih</option>
                                                     <option value="pria">Pria</option>
                                                     <option value="wanita">Wanita</option>
@@ -238,7 +247,8 @@
                                                 <label class="form-label">Mencari</label>
                                                 <select class="form-select" name="genderQuestion2[]"
                                                     id="genderQuestion"
-                                                    @if (strtolower($item->products->title) === 'mencari jodoh') required @endif>
+                                                    @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
+                                                    @endif>
                                                     <option value="" disabled selected>Pilih</option>
                                                     <option value="pria">Pria</option>
                                                     <option value="wanita">Wanita</option>

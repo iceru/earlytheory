@@ -89,7 +89,7 @@
                                         strtolower($item->products->title) === 'mencari jodoh') hidden @endif>
                                         <h5>Pertanyaan</h5>
                                         <p>{{ nl2br($item->pivot->question) }}</p>
-                                        <a class="white-color" href="/checkout/{{ $sales->sales_no }}/detail">
+                                        <a style="color: black;" href="/checkout/{{ $sales->sales_no }}/detail">
                                             <button class="button primary mt-3 mt-lg-2">
                                                 <span><i class="fas fa-edit"></i> &nbsp;</span>
                                                 <span>
@@ -103,7 +103,7 @@
                                         <p>{{ ucfirst($item->pivot->question) }}</p>
                                         <button class="button primary mt-3 mt-lg-2">
                                             <span><i class="fas fa-edit"></i> &nbsp;</span>
-                                            <a class="white-color"
+                                            <a style="color: black;"
                                                 href="/checkout/{{ $sales->sales_no }}/detail"><span>
                                                     Edit</span></a>
                                         </button>
@@ -143,7 +143,7 @@
                                         <p>{{ nl2br($item->pivot->question) }}</p>
                                         <button class="button primary mt-3 mt-lg-2">
                                             <span><i class="fas fa-edit"></i> &nbsp;</span>
-                                            <a class="white-color"
+                                            <a style="color: black;"
                                                 href="/checkout/{{ $sales->sales_no }}/detail"><span>
                                                     Edit</span></a>
                                         </button>
@@ -154,7 +154,7 @@
                                         <p>{{ ucfirst($item->pivot->question) }}</p>
                                         <button class="button primary mt-3 mt-lg-2">
                                             <span><i class="fas fa-edit"></i> &nbsp;</span>
-                                            <a class="white-color"
+                                            <a style="color: black;"
                                                 href="/checkout/{{ $sales->sales_no }}/detail"><span>
                                                     Edit</span></a>
                                         </button>
