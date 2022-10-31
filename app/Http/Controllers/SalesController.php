@@ -819,7 +819,7 @@ class SalesController extends Controller
                 $is_spiritual = false;
                 
                 foreach($sales->skus as $item) {
-                    if(str_contains(str_lower($item->products->slug), 'ramal')) {
+                    if(str_contains(strtolower($item->products->slug), 'ramal')) {
                         $is_spiritual = true;
                     }
                     if($item->products->additional_question === 'astrologi') {

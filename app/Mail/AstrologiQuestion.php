@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class AstrologiQuestion extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $additional;
     /**
      * Create a new message instance.
      *
@@ -32,6 +32,6 @@ class AstrologiQuestion extends Mailable
         return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
         ->to('substrology@gmail.com', 'substrology@gmail.com')
         ->subject('Form Question(' .$this->additional->sales->sales_no . ') - Early Theory')
-        ->view('view.astrologi-question');
+        ->view('emails.astrologi-question', compact('additional'));
     }
 }

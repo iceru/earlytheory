@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SpiritualQuestion extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $additional;
     /**
      * Create a new message instance.
      *
@@ -32,6 +32,6 @@ class SpiritualQuestion extends Mailable
         return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
         ->to('Nanasagalana@gmail.com', 'Nanasagalana@gmail.com')
         ->subject('Form Question('.$this->additional->sales->sales_no . ') - Early Theory')
-        ->view('view.spiritual-question');
+        ->view('emails.spiritual-question', compact('additional'));
     }
 }
