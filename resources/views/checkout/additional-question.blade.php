@@ -44,6 +44,12 @@
                             id="birthdate" placeholder=""
                             value="{{ $additional && $additional->birthdate ? $additional->birthdate : '' }}">
                     </div>
+                    <div class="col-12 mb-3" hidden>
+                        <label for="phone" class="form-label">Nomor Telepon</label>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder=""
+                            type="tel" value="{{ $user->phone || '-' }}" required
+                            value="{{ $additional && $additional->phone ? $additional->phone : '' }}">
+                    </div>
                     <input type="text" value="{{ $sales->id }}" name="salesId" hidden>
                     <div class="row">
                         @foreach ($sales->skus as $item)
