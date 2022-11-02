@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Sales;
 use App\Models\Products;
 use App\Models\Horoscope;
+use App\Models\AdditionalQuestion;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
@@ -103,7 +104,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-        $additional = AdditionalQuestion::where('sales_id', $id)->first();
+        $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
 
         $is_soldout = 0;
         foreach($sales->products as $item) {

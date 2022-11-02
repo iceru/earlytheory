@@ -133,14 +133,14 @@
                         @if (empty($sales->user->phone))
                             <div class="form-group col-12 col-lg-6">
                                 <label for="inputPhone">No. Telepon</label>
-                                <input class="form-control" type="text" id="inputPhone" name="inputPhone">
+                                <input class="form-control" type="text" id="inputPhone" name="inputPhone" required>
                             </div>
                         @endif
                         @if (empty($sales->user->birthdate))
                             <div class="form-group col-12 col-lg-6">
                                 <label for="inputBirthdate">Tanggal Lahir</label>
                                 <input class="form-control" type="text" id="datepicker" name="inputBirthdate"
-                                    readonly="readonly">
+                                    readonly="readonly" required>
                             </div>
                         @endif
                         @if ($is_service > 0)

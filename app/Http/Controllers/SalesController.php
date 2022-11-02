@@ -775,7 +775,7 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
-        $additional = AdditionalQuestion::where('sales_id', $id)->first();
+        $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
 
         if($user->id == $sales->user_id) {
 
