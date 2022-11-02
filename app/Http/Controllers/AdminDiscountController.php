@@ -40,8 +40,6 @@ class AdminDiscountController extends Controller
         $productsArray = explode(', ', strtolower($request->inputProduct));
         $products = array();
 
-        // dd($productsArray);
-
         foreach($productsArray as $discountProduct) {
             $product = Products::where('title', $discountProduct)->first();
 

@@ -78,6 +78,7 @@ class AdminProductsController extends Controller
             'inputStock' => 'required',
             'inputQuestion' => 'nullable',
             'inputQuestionTitle' => 'nullable',
+            'inputAddition' => 'nullable',
         ]);
 
         if ($request->hasFile('inputImage')) {
@@ -117,6 +118,7 @@ class AdminProductsController extends Controller
         $product->type = $request->inputType;
         $product->stock = $request->inputStock;
         $product->question = $request->inputQuestion;
+        $product->additional_question = $request->inputAdditional;
         $product->question_title = $request->inputQuestionTitle;
         
         $product->save();
@@ -126,8 +128,6 @@ class AdminProductsController extends Controller
         //     'inputStock' => 'required|numeric',
         //     'inputvarval' => 'required'
         // ]);
-
-        // dd($request->inputvarval);
 
         $sku_new = new SKUs;
         // $sku_new->price = $request->inputPrice;
@@ -205,6 +205,7 @@ class AdminProductsController extends Controller
             'updateDesc' => 'required',
             'updateCategory' => 'required|in:product,service',
             'updateType' => 'required|in:tarot,astrologi,spiritual',
+            'updateAdditional' => 'nullable',
             'updateStock' => 'required',
             'updateQuestion' => 'nullable',
             'updateQuestionTitle' => 'nullable',
@@ -230,6 +231,7 @@ class AdminProductsController extends Controller
         $product->ordernumber = $request->updateOrdernumber;
         $product->price = $request->updatePrice;
         $product->type = $request->updateType;
+        $product->additional_question = $request->updateAdditional;
 
         //check discount price
         if($request->updateDiscPrice) {

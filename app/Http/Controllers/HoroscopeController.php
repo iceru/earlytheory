@@ -145,7 +145,6 @@ class HoroscopeController extends Controller
         // $skus = SKUs::where('product_id', $horoscope_product->id)->get();
         $sliders =  Sliders::where('category', 'birthchart')->orderBy('ordernumber')->get();
         
-        // dd($horoscope->data);
         return view('horoscope-detail', compact('horoscope', 'user', 'sliders'));
     }
 

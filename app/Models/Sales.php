@@ -37,4 +37,9 @@ class Sales extends Model
     {
         return $this->belongsTo(ShippingAddress::class, 'address_id', 'id');
     }
+
+    public function additional()
+    {
+        return $this->hasMany(AdditionalQuestion::class, 'sales_id', 'id');
+    }
 }

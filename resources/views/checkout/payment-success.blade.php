@@ -1,21 +1,12 @@
 <x-app-layout>
     @section('title')
-        Payment Success - {{$sales->sales_no}}
+        Payment Success - {{ $sales->sales_no }}
     @endsection
     <div class="col-12 checkout no-print">
         <div class="row page-success">
             <div class="col-12 title-page">
                 <h1>Pembayaran Berhasil</h1>
             </div>
-            {{-- <div class="col-12 indicator">
-                <div class="circle"></div>
-                <div class="line"></div>
-                <div class="circle"></div>
-                <div class="line"></div>
-                <div class="circle"></div>
-                <div class="line"></div>
-                <div class="circle active"></div>
-            </div> --}}
             <div class="col-12 payment-success">
                 <div class="text-center thank-you mb-3">
                     <img src="/images/pay.svg" alt="">
@@ -27,19 +18,20 @@
                     <div class="col-12 col-md-6 proof-desc">
                         <div class="row">
                             <div class="col-6">
-                                <p><b>Sales Number:</b> <br> {{$sales->sales_no}}</p>
+                                <p><b>Sales Number:</b> <br> {{ $sales->sales_no }}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Nama Lengkap:</b> <br> {{$sales->user->name}}</p>
+                                <p><b>Nama Lengkap:</b> <br> {{ $sales->user->name }}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Email:</b> <br> {{$sales->user->email}}</p>
+                                <p><b>Email:</b> <br> {{ $sales->user->email }}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>No. Telepon:</b> <br> {{$sales->user->phone}}</p>
+                                <p><b>No. Telepon:</b> <br> {{ $sales->user->phone }}</p>
                             </div>
                             <div class="col-6">
-                                <p><b>Tanggal Lahir:</b> <br> {{ \Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}</p>
+                                <p><b>Tanggal Lahir:</b> <br>
+                                    {{ \Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString() }}</p>
                             </div>
                             {{-- <div class="col-12 mt-3">
                                 <button id="print" class="button primary">Print Invoice &nbsp; <i class="fa fa-print" aria-hidden="true"></i></button>
@@ -52,7 +44,7 @@
 
                     <div class="col-12 col-md-6 proof-image">
                         <b>Bukti Pembayaran:</b>
-                        <img src="{{Storage::url('payment-proof/'.$sales->payment)}}">
+                        <img src="{{ Storage::url('payment-proof/' . $sales->payment) }}">
                     </div>
                 </div>
             </div>
@@ -78,12 +70,12 @@
             <tr>
                 <td scope="row">{{$loop->iteration}}</td>
                 <td>
-                    @foreach ((array)json_decode($product->image) as $item)
+                    @foreach ((array) json_decode($product->image) as $item)
                         <img src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
                     @endforeach
                 </td>
                 <td>{{$product->title}}</td>
-                <td>idr {{number_format($product->price)}} @if($product->duration) / {{$product->duration}} Minutes @endif</td>
+                <td>idr {{number_format($product->price)}} @if ($product->duration) / {{$product->duration}} Minutes @endif</td>
                 <td>{{$product->pivot->question}}</td>
             </tr>
             @endforeach
@@ -102,10 +94,10 @@
     </div> --}}
 
     @section('js')
-    <script>
-        $('#print').click(function() {
-            window.print();
-        })
-    </script>
+        <script>
+            $('#print').click(function() {
+                window.print();
+            })
+        </script>
     @endsection
 </x-app-layout>

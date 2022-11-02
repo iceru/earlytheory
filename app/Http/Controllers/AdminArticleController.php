@@ -79,7 +79,6 @@ class AdminArticleController extends Controller
                 $tags[$tag->id] = ['article_id' => $article->id];
             }
         }
-        // dd($tags);
 
         $article->tags()->attach($tags);
 
@@ -107,10 +106,6 @@ class AdminArticleController extends Controller
     {
         $article = Articles::find($id);
         $autocomplete = Tags::pluck('tag_name')->toArray();
-        // dd($article->tags);
-
-        // $tags = Articles::with('tags')->where('id', $id)->get();
-        // dd($article);
 
         return view('admin.articles.edit', compact('article', 'autocomplete'));
     }
@@ -163,8 +158,6 @@ class AdminArticleController extends Controller
                 $tags[$tag->id] = ['article_id' => $request->id];
             }
         }
-        // dd($tags);
-
         $article->tags()->sync($tags);
 
         return redirect('/admin/articles');

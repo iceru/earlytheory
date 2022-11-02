@@ -28,6 +28,15 @@
             <h4>Spiritual</h4>
         </div>
     </div>
+
+    <div class="popupPage" id="popup">
+        <a href="https://shopee.co.id/tokomejik" class="popup-img">
+            <div class="close" id="closePopup"> <i class="fas fa-times" aria-hidden="true"></i></div>
+            <div class="ratio">
+                <img src="/images/banner-shopee.png" alt="">
+            </div>
+        </a>
+    </div>
     <div class="col-12 index">
         <div class="products mt-3 page active">
             <div class="row">
@@ -194,11 +203,12 @@
                 @endforelse
             </div>
         </div>
-        {{-- <div class="birth-chart row mt-3 page">
+    </div>
+    {{-- <div class="birth-chart row mt-3 page">
             @include('horoscope-index')
         </div> --}}
 
-        {{-- <div class="kristal page mt-3">
+    {{-- <div class="kristal page mt-3">
             @include('article-index')
             <div class="row products">
                 <div class="col-12 products-title d-flex">
@@ -260,168 +270,179 @@
         </div>
     </div> --}}
 
-        @section('js')
-            <script>
-                function checkSku() {
-                    var skus = {!! $skus !!};
-                    $.each($('.addcart'), function(index, item) {
-                        Object.keys(skus).forEach(function(element) {
-                            if (skus[element].product_id == $(item).attr('data-id')) {
-                                $(item).attr('data-price', skus[element].price);
-                                $(item).attr('data-sku', skus[element].id);
-                                $(item).attr('data-values', skus[element].values);
+    @section('js')
+        <script>
+            function checkSku() {
+                var skus = {!! $skus !!};
+                $.each($('.addcart'), function(index, item) {
+                    Object.keys(skus).forEach(function(element) {
+                        if (skus[element].product_id == $(item).attr('data-id')) {
+                            $(item).attr('data-price', skus[element].price);
+                            $(item).attr('data-sku', skus[element].id);
+                            $(item).attr('data-values', skus[element].values);
+                            $(item).siblings('.product-item').children('.prices.skus').children(
+                                '.product-price').text('idr ' + (
+                                skus[element].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+                            if (skus[element].base_price) {
                                 $(item).siblings('.product-item').children('.prices.skus').children(
-                                    '.product-price').text('idr ' + (
-                                    skus[element].price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
-                                if (skus[element].base_price) {
-                                    $(item).siblings('.product-item').children('.prices.skus').children(
-                                        '.product-price').addClass('discount')
-                                    $(item).siblings('.product-item').children('.prices.skus').append(
-                                        `<span class="striked">idr ${skus[element].base_price}</span>`);
-                                    $(item).siblings('.sale').addClass('active');
-                                }
-                                // $(item).attr('data-values', element.values);
+                                    '.product-price').addClass('discount')
+                                $(item).siblings('.product-item').children('.prices.skus').append(
+                                    `<span class="striked">idr ${skus[element].base_price}</span>`);
+                                $(item).siblings('.sale').addClass('active');
                             }
-                        });
-                        if (!$(item).attr('data-price')) {
-                            $(item).removeClass('primary');
-                            $(item).removeClass('addcart');
-                            $(item).removeAttr('data-id');
-                            $(item).addClass('disabled');
-                            $(item).text('STOK HABIS');
-                            $(item).attr('disabled', true);
-                            $(item).parent().insertAfter($('.product-item-container').last());
+                            // $(item).attr('data-values', element.values);
                         }
                     });
-                }
-
-                function options() {
-                    return {
-                        dots: false,
-                        arrows: false,
-                        autoplay: true,
-                        autoplaySpeed: 5000,
-                        pauseOnHover: false,
+                    if (!$(item).attr('data-price')) {
+                        $(item).removeClass('primary');
+                        $(item).removeClass('addcart');
+                        $(item).removeAttr('data-id');
+                        $(item).addClass('disabled');
+                        $(item).text('STOK HABIS');
+                        $(item).attr('disabled', true);
+                        $(item).parent().insertAfter($('.product-item-container').last());
                     }
+                });
+            }
+
+            function options() {
+                return {
+                    dots: false,
+                    arrows: false,
+                    autoplay: true,
+                    autoplaySpeed: 5000,
+                    pauseOnHover: false,
                 }
+            }
 
-                function sameDiv() {
-                    var maxHeight = 0
-                    $(".product-item").each(function() {
-                        if ($(this).height() > maxHeight) {
-                            maxHeight = $(this).height();
-                        }
-                    });
-
-                    if (maxHeight > 0) {
-                        $(".product-item").height(maxHeight);
+            function sameDiv() {
+                var maxHeight = 0
+                $(".product-item").each(function() {
+                    if ($(this).height() > maxHeight) {
+                        maxHeight = $(this).height();
                     }
-                }
-
-                $(window).resize(function() {
-                    sameDiv();
                 });
 
-                $(document).ready(function() {
+                if (maxHeight > 0) {
+                    $(".product-item").height(maxHeight);
+                }
+            }
 
-                    $('.sliders-index').slick({
-                        dots: true,
-                        autoplay: true,
-                        autoplaySpeed: 5000,
-                        pauseOnHover: false,
-                    });
-                    $('.service-image').slick(options());
-                    $('.astrologi-image').slick(options());
-                    $('.spiritual-image').slick(options());
 
-                    checkSku();
-                    // setTimeout(() => {
-                    //     if(window.location.pathname === '/')
-                    //         ActivePage('products');
-                    //     else
-                    //         ActivePage(page);
-                    // }, 1000);
-                    // window.history.pushState({
-                    //     page: 'products'
-                    // }, "", '/');
 
-                    // if (window.location.pathname == '/birth-chart') {
-                    //     ActivePage('birth-chart');
-                    // }
+            $(window).resize(function() {
+                sameDiv();
+            });
 
-                    // if (window.location.pathname == '/kristal') {
-                    //     ActivePage('kristal');
-                    // }
+            $(document).ready(function() {
+                if (sessionStorage && !sessionStorage.getItem('popupShow')) {
+                    $('#popup').addClass('active');
+                    sessionStorage.setItem('popupShow', true);
+                }
 
-                    // if (window.location.pathname == '/articles') {
-                    //     ActivePage('articles');
-                    // }
-
-                    sameDiv();
+                $('#closePopup').click(function(e) {
+                    e.preventDefault();
+                    $('#popup').removeClass('active');
                 });
 
-                function ReinitSliders(page) {
-                    if (page == 'products') {
-                        $('.service-image').slick('unslick');
-                        $('.service-image').slick(options());
-                    } else if (page == 'astrologi') {
-                        $('.astrologi-image').slick('unslick')
-                        $('.astrologi-image').slick(options());
-                    } else if (page == 'spiritual') {
-                        $('.spiritual-image').slick('unslick')
-                        $('.spiritual-image').slick(options());
-                    }
-                }
+                $('.sliders-index').slick({
+                    dots: true,
+                    autoplay: true,
+                    autoplaySpeed: 5000,
+                    pauseOnHover: false,
+                });
+                $('.service-image').slick(options());
+                $('.astrologi-image').slick(options());
+                $('.spiritual-image').slick(options());
 
-
-                const pagestate = window.location.pathname.slice(1);
-
-                function ActivePage(page) {
-                    $('.page').removeClass('active');
-                    $('.tab').removeClass('active');
-                    $('.' + page).addClass('active');
-                    $('#' + page).addClass('active');
-                    // window.history.pushState({
-                    //     article: '',
-                    //     page: pagestate
-                    // }, "", '/' + page);
-                    // if (page === 'articles') {
-                    //     getArticles(window.location.origin + window.location.pathname)
-                    // }
-                    // checkSku();
-                    ReinitSliders(page);
-                }
-
-                // $('body').on('click', '.pagination a', function(e) {
-                //     e.preventDefault();
-                //     var url = $(this).attr('href');
-                //     getArticles(url);
-                // });
-
-                // function getArticles(url) {
-                //     $.ajax({
-                //         url: url
-                //     }).done(function(data) {
-                //         $('.articles').html(data);
-                //         const urlParse = new URL(url);
-                //         history.pushState({
-                //             article: url,
-                //             page: pagestate
-                //         }, "", urlParse.pathname + urlParse.search)
-                //     })
-                // }
-
-                // window.onpopstate = function(e) {
-                //     const data = e.state.article;
-                //     const page = e.state.page;
-
-                //     dataUrl = new URL(data);
-
-                //     if ((data || !dataUrl.search) && pagestate === 'articles')
-                //         ActivePage(page)
+                checkSku();
+                // setTimeout(() => {
+                //     if(window.location.pathname === '/')
+                //         ActivePage('products');
                 //     else
-                //         getArticles(data);
+                //         ActivePage(page);
+                // }, 1000);
+                // window.history.pushState({
+                //     page: 'products'
+                // }, "", '/');
+
+                // if (window.location.pathname == '/birth-chart') {
+                //     ActivePage('birth-chart');
                 // }
-            </script>
-        @endsection
+
+                // if (window.location.pathname == '/kristal') {
+                //     ActivePage('kristal');
+                // }
+
+                // if (window.location.pathname == '/articles') {
+                //     ActivePage('articles');
+                // }
+
+                sameDiv();
+            });
+
+            function ReinitSliders(page) {
+                if (page == 'products') {
+                    $('.service-image').slick('unslick');
+                    $('.service-image').slick(options());
+                } else if (page == 'astrologi') {
+                    $('.astrologi-image').slick('unslick')
+                    $('.astrologi-image').slick(options());
+                } else if (page == 'spiritual') {
+                    $('.spiritual-image').slick('unslick')
+                    $('.spiritual-image').slick(options());
+                }
+            }
+
+
+            const pagestate = window.location.pathname.slice(1);
+
+            function ActivePage(page) {
+                $('.page').removeClass('active');
+                $('.tab').removeClass('active');
+                $('.' + page).addClass('active');
+                $('#' + page).addClass('active');
+                // window.history.pushState({
+                //     article: '',
+                //     page: pagestate
+                // }, "", '/' + page);
+                // if (page === 'articles') {
+                //     getArticles(window.location.origin + window.location.pathname)
+                // }
+                // checkSku();
+                ReinitSliders(page);
+            }
+
+            // $('body').on('click', '.pagination a', function(e) {
+            //     e.preventDefault();
+            //     var url = $(this).attr('href');
+            //     getArticles(url);
+            // });
+
+            // function getArticles(url) {
+            //     $.ajax({
+            //         url: url
+            //     }).done(function(data) {
+            //         $('.articles').html(data);
+            //         const urlParse = new URL(url);
+            //         history.pushState({
+            //             article: url,
+            //             page: pagestate
+            //         }, "", urlParse.pathname + urlParse.search)
+            //     })
+            // }
+
+            // window.onpopstate = function(e) {
+            //     const data = e.state.article;
+            //     const page = e.state.page;
+
+            //     dataUrl = new URL(data);
+
+            //     if ((data || !dataUrl.search) && pagestate === 'articles')
+            //         ActivePage(page)
+            //     else
+            //         getArticles(data);
+            // }
+        </script>
+    @endsection
 </x-app-layout>

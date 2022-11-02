@@ -3,22 +3,25 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\SKUs;
+use Fomo\FomoClient;
 use App\Models\Sales;
 use App\Models\Discount;
 use App\Models\Products;
-use App\Models\ShippingAddress;
-use App\Models\OptionValues;
+use Fomo\FomoEventBasic;
 use App\Models\SKUvalues;
+use App\Models\OptionValues;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
 use App\Mail\AdminNotification;
-use App\Models\SKUs;
-use Illuminate\Support\Facades\Mail;
+use App\Mail\AstrologiQuestion;
+use App\Mail\SpiritualQuestion;
+use App\Models\ShippingAddress;
+use App\Models\AdditionalQuestion;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
-use Fomo\FomoClient;
-use Fomo\FomoEventBasic;
 
 class SalesController extends Controller
 {
@@ -27,9 +30,6 @@ class SalesController extends Controller
         if(!\Cart::isEmpty()) {
             $userid = Auth::id();
             $cart = \Cart::getContent();
-            // foreach ($cart as $item) {
-            //     dd($item->id);
-            // }
 
             $salesNo = time();
             $total = \Cart::getTotal();
@@ -38,6 +38,7 @@ class SalesController extends Controller
             $sales->sales_no = $salesNo;
             $sales->total_price = $total;
             $sales->user_id = $userid;
+            $sales->status = 'pending';
             $sales->save();
             
             foreach (\Cart::getContent() as $item) {
@@ -75,11 +76,15 @@ class SalesController extends Controller
 
         $is_product = 0;
         $is_service = 0;
+        $is_additional = false;
 
-        // dd($sales->skus->products->name);
         foreach ($sales->skus as $item) {
             if($item->products->category === 'product') {
                 $is_product += 1;
+            }
+
+            if($item->products->additional_question === 'astrologi' || $item->products->additional_question === 'ramal-cinta' || $item->products->additional_question === 'ramal-karir') {
+                $is_additional = true;
             }
 
             if($item->products->category === 'service') {
@@ -174,9 +179,9 @@ class SalesController extends Controller
                     $values = array();
                 }
     
-                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values'));
+                return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values', 'is_additional'));
             }
-            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service'));
+            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service', 'is_additional'));
         }
 
         else {
@@ -217,8 +222,9 @@ class SalesController extends Controller
     
             $item_id = $request->id;
             $item_question = $request->question;
-            if($request->genderQuestion && $request->genderQuestion2) {
-                $item_genderquestion = 'Saya '.$request->genderQuestion[0].', mencari '.$request->genderQuestion2[0];
+            if($request->genderQuestion && $request->genderQuestion2 && $request->genderQuestion3) {
+                $item_genderquestion = 'Saya cenderung mencari yang etnis / agamanya '.ucfirst($request->genderQuestion3[0]).'. 
+                Saya '.ucfirst($request->genderQuestion[0]).', mencari '.ucfirst($request->genderQuestion2[0]);
             }
 
             foreach ($item_id as $key => $i) {
@@ -236,9 +242,14 @@ class SalesController extends Controller
     
             // Check product category in sales
             $is_product = 0;
+            $is_additional = false;
             foreach ($sales->skus as $item) {
                 if($item->products->category === 'product') {
                     $is_product += 1;
+                    
+                }
+                if($item->products->additional_question === 'astrologi' || $item->products->additional_question === 'ramal-cinta' || $item->products->additional_question === 'ramal-karir') {
+                    $is_additional = true;
                 }
             }
     
@@ -260,12 +271,133 @@ class SalesController extends Controller
             }
             
             $sales->save();
+            if($is_additional) {
+                return redirect()->route('sales.additional-question', ['id' => $sales->sales_no]);
+            }
+
             return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
         }
 
         else {
             return redirect('/');
         }        
+    }
+
+    public function additionalQuestion(Request $request, $id) 
+    {
+        $user = Auth::user();
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
+
+        $cek_jam_lahir = false;
+        foreach ($sales->skus as $item) {
+            if(str_contains(strtolower($item->products->slug), 'jam-lahir')) {
+                $cek_jam_lahir = true;
+            }
+        }
+
+        if($user->id == $sales->user_id) {
+            return view('checkout.additional-question', compact('user', 'sales', 'additional', 'cek_jam_lahir'));
+        }
+    }
+
+    public function addAdditional(Request $request, $id)
+    {
+        $user = Auth::user();
+        $sales = Sales::where('sales_no', $id)->firstOrFail();
+
+        if($user->id == $sales->user_id) {
+            $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
+            if(!$additional) {
+                $additional = new AdditionalQuestion;
+            }
+            $request->validate([
+                'name' => 'nullable',
+                'birthdate' => 'nullable',
+                'birthplace' => 'nullable',
+                'age' => 'nullable',
+                'birthtime' => 'nullable',
+                'checkbirthtime' => 'nullable',
+                'phone' => 'nullable',
+                'email' => 'nullable',
+                'topikasmara' => 'nullable',
+                'jabatan' => 'nullable',
+                'durasikerja' => 'nullable',
+                'durasihub' => 'nullable',
+                'orientasi' => 'nullable',
+                'masalahcinta' => 'nullable',
+                'sisi-samping' => 'nullable',
+                'telapak-jari' => 'nullable',
+                'telapak-close' => 'nullable',
+                'muka' => 'nullable',
+            ]);
+
+            if ($request->hasFile('sisi_samping')) {
+                $image = $request->file('sisi_samping');
+                $filename = $sales->sales_no.'_sisi_samping_'.$user->name.'.jpg';
+                $path = $image->storeAs('public/additional-image', $filename);
+                $additional->sisi_samping = $filename;
+            }
+
+            if ($request->hasFile('telapak_jari')) {
+                $image = $request->file('telapak_jari');
+                $filename = $sales->sales_no.'_telapak_jari_'.$user->name.'.jpg';
+                $path = $image->storeAs('public/additional-image', $filename);
+                $additional->telapak_jari = $filename;
+            }
+
+            if ($request->hasFile('telapak_close')) {
+                $image = $request->file('telapak_close');
+                $filename = $sales->sales_no.'_telapak_close_'.$user->name.'.jpg';
+                $path = $image->storeAs('public/additional-image', $filename);
+                $additional->telapak_close = $filename;
+            }
+
+            if ($request->hasFile('muka')) {
+                $image = $request->file('muka');   
+                $filename = $sales->sales_no.'_muka_'.$user->name.'.jpg';
+                $path = $image->storeAs('public/additional-image', $filename);
+                $additional->muka = $filename;
+            }
+
+
+            $additional->name = $request->name;
+            $additional->birthdate = $request->birthdate;
+            $additional->birthplace = $request->birthplace;
+            $additional->age = $request->age;
+            $additional->birthtime = $request->birthtime;
+            $additional->checkbirthtime = $request->checkbirthtime;
+            $additional->phone = $request->phone;
+            $additional->email = $request->email;
+            $additional->topikasmara = $request->topikasmara;
+            $additional->jabatan = $request->jabatan;
+            $additional->durasikerja = $request->durasikerja;
+            $additional->durasihub = $request->durasihub;
+            $additional->orientasi = $request->orientasi;
+            $additional->masalahcinta = $request->masalahcinta;
+            $additional->sales_id = $request->salesId;
+
+            if((!$additional && $request->checkbirthtime )|| ($additional && !$sales->initial_price && $request->checkbirthtime)) {
+                $sales->initial_price = $sales->total_price;
+                $sales->total_price = $sales->total_price+250000;
+                $sales->save();
+            } else if ($additional && $sales->initial_price && $request->checkbirthtime) {
+                $sales->total_price = $sales->initial_price+250000;
+                $sales->save();
+            } else if (!$request->checkbirthtime && $sales->initial_price) {
+                $sales->total_price = $sales->initial_price;
+                $sales->save();
+            }
+
+            $additional->save();
+
+            return redirect()->route('sales.summary',  ['id' => $sales->sales_no]);
+        }
+
+        else {
+            return redirect('/');
+        }
+
     }
 
     public function shipping($id)
@@ -446,9 +578,9 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $sales->id)->first();
 
         if($user->id == $sales->user_id) {
-
             if($sales->address_id) {
                 if(Cache::has('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province)) {
                     $response = Cache::get('address_'.$sales->shippingAddress->ship_city.'_'.$sales->shippingAddress->ship_province);
@@ -482,6 +614,13 @@ class SalesController extends Controller
                 $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
             }
 
+            $is_additional = false;
+            foreach ($sales->skus as $item) {
+                if($item->products->additional_question === 'astrologi' || $item->products->additional_question === 'ramal-cinta' || $item->products->additional_question === 'ramal-karir') {
+                    $is_additional = true;
+                }
+            }
+
             $skuvalues = SKUvalues::all();
             $values = array();
             $values_collection = collect();
@@ -495,8 +634,14 @@ class SalesController extends Controller
                     }
                 }
             }
+
+            $additional_birthtime = false;
+
+            if($additional && $additional->checkbirthtime === 'checkValue') {
+                $additional_birthtime = true;
+            }
             
-            return view('checkout.summary', compact('sales'));
+            return view('checkout.summary', compact('sales', 'is_additional', 'additional_birthtime'));
         }
 
         else {
@@ -569,9 +714,15 @@ class SalesController extends Controller
         $sales = Sales::where('sales_no', $id)->firstOrFail();
 
         if($user->id == $sales->user_id) {
+            $is_additional = false;
+            foreach ($sales->skus as $item) {
+                if($item->products->additional_question === 'astrologi' || $item->products->additional_question === 'ramal-cinta' || $item->products->additional_question === 'ramal-karir') {
+                    $is_additional = true;
+                }
+            }
             $paymethods_bank = PaymentMethods::where('account_number', '!=', 'qr')->get();
             $paymethods_qr = PaymentMethods::where('account_number', '=', 'qr')->first();
-            return view('checkout.payment', compact('sales', 'paymethods_bank', 'paymethods_qr'));
+            return view('checkout.payment', compact('sales', 'paymethods_bank', 'paymethods_qr', 'is_additional'));
         }
 
         else {
@@ -586,6 +737,7 @@ class SalesController extends Controller
 
         $is_product = 0;
         $is_service = 0;
+        $is_additional = false;
         
         foreach ($sales->products as $item) {
             if($item->category === 'product') {
@@ -594,6 +746,10 @@ class SalesController extends Controller
 
             if($item->category === 'service') {
                 $is_service += 1;
+            }
+
+            if($item->products->additional_question === 'astrologi' || $item->products->additional_question === 'ramal-cinta' || $item->products->additional_question === 'ramal-karir') {
+                $is_additional = true;
             }
         }
 
@@ -607,7 +763,7 @@ class SalesController extends Controller
                 }
             }
     
-            return view('checkout.confirm-payment', compact('sales', 'paymentMethods', 'is_soldout', 'is_service'));
+            return view('checkout.confirm-payment', compact('sales', 'paymentMethods', 'is_soldout', 'is_service', 'is_additional'));
         }
 
         else {
@@ -619,6 +775,7 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $additional = AdditionalQuestion::where('sales_id', $id)->first();
 
         if($user->id == $sales->user_id) {
 
@@ -658,11 +815,17 @@ class SalesController extends Controller
                 // $sales->paymethod_id = $request->inputPayType;
                 // $sales->status = 'paid';
                 // $sales->save();
-        
-                // Mail::send(new UserTransaction($sales));
-                //Mail::send(new AdminNotification($sales));
-    
+                $is_astro = false;
+                $is_spiritual = false;
+                
                 foreach($sales->skus as $item) {
+                    if(str_contains(strtolower($item->products->slug), 'ramal')) {
+                        $is_spiritual = true;
+                    }
+                    if($item->products->additional_question === 'astrologi') {
+                        $is_astro = true;
+                    }
+                    
                     $sku = SKUs::find($item->id);
                     $sku->stock = $sku->stock-$item->pivot->qty;
                     $sku->save();
@@ -670,6 +833,15 @@ class SalesController extends Controller
         
                 Mail::send(new UserTransaction($sales));
                 Mail::send(new AdminNotification($sales));
+
+                if($additional) {
+                    if($is_astro) {
+                        Mail::send(new AstrologiQuestion($additional));
+                    }
+                    if($is_spiritual) {
+                        Mail::send(new SpiritualQuestion($additional));
+                    }
+                }
 
                 // //get city name
                 // if($sales->shippingAddress) {

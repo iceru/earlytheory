@@ -102,6 +102,8 @@ Route::middleware(['auth'])->group(function(){
     
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
+    Route::get('/checkout/{id}/additional-question', [SalesController::class, 'additionalQuestion'])->name('sales.additional-question');
+    Route::post('/checkout/{id}/add-additional', [SalesController::class, 'addAdditional'])->name('sales.add-additional');
     Route::post('/checkout/{id}/question/add', [SalesController::class, 'addQuestion'])->name('sales.question');
     Route::get('/checkout/{id}/shipping', [SalesController::class, 'shipping'])->name('sales.shipping');
     Route::get('/checkout/findCityShipping', [SalesController::class, 'findCityShipping'])->name('sales.findCityShipping');
@@ -198,6 +200,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/sales/edit/{id}', [AdminSalesController::class, 'edit'])->name('admin.sales.edit');
     Route::post('/admin/sales/update', [AdminSalesController::class, 'update'])->name('admin.sales.update');
     Route::get('/admin/sales/delete/{id}', [AdminSalesController::class, 'destroy'])->name('admin.sales.destroy');
+    Route::get('/admin/additional/{id}', [AdminSalesController::class, 'additional'])->name('admin.sales.additional');
 
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
     Route::get('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
