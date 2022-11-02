@@ -30,7 +30,7 @@ class AstrologiQuestion extends Mailable
     public function build()
     {
         return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
-        ->to('substrology@gmail.com', 'substrology@gmail.com')
+        ->to('sabna.substrology@gmail.com', 'sabna.substrology@gmail.com')
         ->subject('Form Question(' .$this->additional->sales->sales_no . ') - Early Theory')
         ->view('emails.astrologi-question');
     }
