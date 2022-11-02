@@ -1831,11 +1831,6 @@
                                                                                                                 Address</strong><br>
                                                                                                             {{ $additional->sales->user->email }}
                                                                                                         </p>
-                                                                                                        <p> <strong>Phone
-                                                                                                                Number</strong><br>
-                                                                                                            {{ $additional->sales->user->phone }}
-                                                                                                        </p>
-
                                                                                                         @if ($additional->checkbirthtime)
                                                                                                             <p>
                                                                                                                 <strong>Tambahan

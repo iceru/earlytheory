@@ -32,6 +32,6 @@ class AstrologiQuestion extends Mailable
         return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
         ->to('substrology@gmail.com', 'substrology@gmail.com')
         ->subject('Form Question(' .$this->additional->sales->sales_no . ') - Early Theory')
-        ->view('emails.astrologi-question', compact('additional'));
+        ->view('emails.astrologi-question');
     }
 }

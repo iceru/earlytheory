@@ -32,6 +32,6 @@ class SpiritualQuestion extends Mailable
         return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
         ->to('Nanasagalana@gmail.com', 'Nanasagalana@gmail.com')
         ->subject('Form Question('.$this->additional->sales->sales_no . ') - Early Theory')
-        ->view('emails.spiritual-question', compact('additional'));
+        ->view('emails.spiritual-question');
     }
 }
