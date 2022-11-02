@@ -1860,7 +1860,7 @@
                                                                                                                     Samping
                                                                                                                     Tangan</strong><br>
                                                                                                                 <img
-                                                                                                                    src="{{ Storage::url('additional-image/' . $additional->sisi_samping) }}" />
+                                                                                                                    src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->sisi_samping) }}"  width=300 />
                                                                                                             </p>
                                                                                                         @endif
                                                                                                         @if ($additional->telapak_jari)
@@ -1869,7 +1869,7 @@
                                                                                                                     +
                                                                                                                     Jari</strong><br>
                                                                                                                 <img
-                                                                                                                    src="{{ Storage::url('additional-image/' . $additional->telapak_jari) }}" />
+                                                                                                                    src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->telapak_jari) }}" width=300 />
                                                                                                             </p>
                                                                                                         @endif
                                                                                                         @if ($additional->telapak_close)
@@ -1878,14 +1878,14 @@
                                                                                                                     Close
                                                                                                                     Up</strong><br>
                                                                                                                 <img
-                                                                                                                    src="{{ Storage::url('additional-image/' . $additional->telapak_close) }}" />
+                                                                                                                    src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->telapak_close) }}"  width=300 />
                                                                                                             </p>
                                                                                                         @endif
                                                                                                         @if ($additional->muka)
                                                                                                             <p>
                                                                                                                 <strong>Muka</strong><br>
                                                                                                                 <img
-                                                                                                                    src="{{ Storage::url('additional-image/' . $additional->muka) }}" />
+                                                                                                                    src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->muka) }}"  width=300 />
                                                                                                             </p>
                                                                                                         @endif
                                                                                                     </th>
