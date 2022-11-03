@@ -1827,6 +1827,13 @@
                                                                                             <table>
                                                                                                 <tr>
                                                                                                     <th>
+                                                                                                        @if ($additional->birthdate)
+                                                                                                            <p>
+                                                                                                                <strong>Tanggal
+                                                                                                                    Lahir</strong><br>
+                                                                                                                {{ $additional->birthdate }}
+                                                                                                            </p>
+                                                                                                        @endif
                                                                                                         <p> <strong>Email
                                                                                                                 Address</strong><br>
                                                                                                             {{ $additional->sales->user->email }}

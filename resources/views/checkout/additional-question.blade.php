@@ -307,6 +307,13 @@
             });
         });
 
+        $("#birthdate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1970:2012",
+            altFormat: 'yy/mm/dd',
+        });
+
         let check = false;
 
         $(`[name="checkbirthtime"]`).change(function() {

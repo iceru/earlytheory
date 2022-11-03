@@ -336,7 +336,7 @@
             $("#datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1970:2004",
+                yearRange: "1970:2012",
                 altFormat: 'yy/mm/dd',
             });
         });
