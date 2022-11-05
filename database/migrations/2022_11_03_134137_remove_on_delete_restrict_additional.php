@@ -14,11 +14,12 @@ class RemoveOnDeleteRestrictAdditional extends Migration
     public function up()
     {
         Schema::table('additional_questions', function (Blueprint $table) {
-            $table->dropForeign('sales_id');
+            $table->dropForeign(['sales_id']);
             $table
             ->foreign('sales_id')
             ->references('id')
-            ->on('sales');
+            ->on('sales')
+            ->cascadeOnDelete();
         });
     }
 
