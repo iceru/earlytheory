@@ -42,7 +42,7 @@
                         <label for="birthdate" class="form-label">Tanggal Lahir</label>
                         <input type="text" class="form-control" value="{{ $user->birthdate }}" name="birthdate"
                             id="birthdate" placeholder=""
-                            value="{{ $additional && $additional->birthdate ? $additional->birthdate : '' }}">
+                            value="{{ $additional && $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : '' }}">
                     </div>
                     <div class="col-12 mb-3" hidden>
                         <input type="text" class="form-control" name="phone" id="phone" placeholder=""

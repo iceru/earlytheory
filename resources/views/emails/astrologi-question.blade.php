@@ -296,7 +296,8 @@
                                                                         <strong>Tanggal Lahir:</strong>
                                                                     </p>
                                                                     <p style="font-size: 14px; line-height: 140%;">
-                                                                        {{ $additional->birthdate }}</p>
+                                                                        {{ \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() }}
+                                                                    </p>
                                                                 </div>
 
                                                             </td>
