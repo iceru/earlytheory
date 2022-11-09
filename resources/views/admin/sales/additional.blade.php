@@ -85,7 +85,8 @@
                     <label class="col-sm-3 col-form-label fw-bolder">Topik Asmara</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext text-capitalize"
-                            value="{{ $additional->topikasmara }}" readonly>
+                            value=" {{ $additional->topikasmara === 'cocok' ? ' Aku cocok sama orang seperti apa?' : ' Gimana percintaanku sebulan kedepan?' }}"
+                            readonly>
                     </div>
                 </div>
             @endif

@@ -129,14 +129,14 @@
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="topikasmara"
-                                                    id="cocok" checked>
+                                                    id="cocok" value="cocok" checked>
                                                 <label class="form-check-label" for="cocok">
                                                     Aku cocok sama orang seperti apa?
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="topikasmara"
-                                                    id="sebulan">
+                                                    id="sebulan" value="sebulan">
                                                 <label class="form-check-label" for="sebulan">
                                                     Gimana percintaanku sebulan kedepan?
                                                 </label>
