@@ -369,7 +369,7 @@
                                                                         <strong>Sisi Samping Tangan:</strong>
                                                                     </p>
                                                                     <img src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->sisi_samping) }}"
-                                                                        width=300 />
+                                                                        width=200 />
                                                                 </div>
 
                                                             </td>
@@ -392,7 +392,7 @@
                                                                         <strong>Telapak + Jari:</strong>
                                                                     </p>
                                                                     <img src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->telapak_jari) }}"
-                                                                        width=300 />
+                                                                        width=200 />
                                                                 </div>
 
                                                             </td>
@@ -522,7 +522,7 @@
                                                                         <strong>Telapak Close Up:</strong>
                                                                     </p>
                                                                     <img src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->telapak_close) }}"
-                                                                        width=300 />
+                                                                        width=200 />
                                                                 </div>
 
                                                             </td>
@@ -546,7 +546,7 @@
                                                                         <strong>Muka:</strong>
                                                                     </p>
                                                                     <img src="https://earlytheory.com{{ Storage::url('additional-image/' . $additional->muka) }}"
-                                                                        width=300 />
+                                                                        width=200 />
                                                                 </div>
 
                                                             </td>
