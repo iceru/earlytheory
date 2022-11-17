@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="page-tabs">
+    {{-- <div class="page-tabs">
         <div class="tab active" id="products" onclick="ActivePage('products')">
             <h4>Tarot</h4>
         </div>
@@ -27,6 +27,17 @@
         <div class="tab" id="spiritual" onclick="ActivePage('spiritual')">
             <h4>Spiritual</h4>
         </div>
+    </div> --}}
+    <div class="page-tabs">
+        <a href="#products" class="tab active" id="productsTab">
+            <h4>Tarot</h4>
+        </a>
+        <a href="#astrologi" class="tab" id="astrologiTab">
+            <h4>Astrologi</h4>
+        </a>
+        <a href="#spiritual" class="tab" id="spiritualTab">
+            <h4>Spiritual</h4>
+        </a>
     </div>
 
     <div class="popupPage" id="popup">
@@ -38,7 +49,10 @@
         </a>
     </div>
     <div class="col-12 index">
-        <div class="products mt-3 page active">
+        <div class="products mt-3 page active" id="products">
+            <div class="title">
+                Tarot
+            </div>
             <div class="row">
                 @forelse ($services as $product)
                     <div class="product-item-container col-6 col-md-4 col-lg-3">
@@ -93,7 +107,10 @@
                 @endforelse
             </div>
         </div>
-        <div class="astrologi mt-3 page">
+        <div class="astrologi mt-3 page active" id="astrologi">
+            <div class="title">
+                Astrologi
+            </div>
             <div class="row products">
                 @forelse ($astrologi as $product)
                     <div class="product-item-container col-6 col-md-4 col-lg-3">
@@ -148,7 +165,10 @@
                 @endforelse
             </div>
         </div>
-        <div class="spiritual mt-3 page">
+        <div class="spiritual mt-3 page active" id="spiritual">
+            <div class="title">
+                Spiritual
+            </div>
             <div class="row products">
                 @forelse ($spiritual as $product)
                     <div class="product-item-container col-6 col-md-4 col-lg-3">
@@ -304,6 +324,21 @@
                     }
                 });
             }
+
+            $(window).scroll(function() {
+                ;
+                w = Math.floor($(window).scrollTop());
+                $('.tab').removeClass('active');
+                if (w <= $('#products').offset().top) {
+                    $('#productsTab').addClass('active');
+                } else if (w <= $('#astrologi').offset().top) {
+                    $('#astrologiTab').addClass('active');
+                } else if (w <= $('#spiritual').offset().top) {
+                    $('#spiritualTab').addClass('active');
+                }
+
+            });
+
 
             function options() {
                 return {
