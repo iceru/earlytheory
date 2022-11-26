@@ -16,15 +16,15 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $totalVisitors1 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(1), 5);
-        $totalVisitors3 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(3));
+        // $totalVisitors3 = Analytics::fetchTotalVisitorsAndPageViews(Period::months(3));
         $totalVisitors7 = Analytics::fetchTotalVisitorsAndPageViews(Period::days(7));
         $mostVisited1 = Analytics::fetchMostVisitedPages(Period::days(30), 5);
-        $mostVisited3 = Analytics::fetchMostVisitedPages(Period::months(3), 5);
+        // $mostVisited3 = Analytics::fetchMostVisitedPages(Period::months(3), 5);
         $mostVisited7 = Analytics::fetchMostVisitedPages(Period::days(7), 5);
-        $fetchUser3 = Analytics::fetchUserTypes(Period::months(3));
+        // $fetchUser3 = Analytics::fetchUserTypes(Period::months(3));
         $fetchUser1 = Analytics::fetchUserTypes(Period::months(1));
         $fetchUser7 = Analytics::fetchUserTypes(Period::days(7));
-        $topReferrers3 = Analytics::fetchTopReferrers(Period::months(3), 5);
+        // $topReferrers3 = Analytics::fetchTopReferrers(Period::months(3), 5);
         $topReferrers1 = Analytics::fetchTopReferrers(Period::months(1), 5);
         $topReferrers7 = Analytics::fetchTopReferrers(Period::days(7), 5);
 

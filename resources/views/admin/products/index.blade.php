@@ -309,9 +309,9 @@
                                                         class="fas fa-eye me-1" aria-hidden="true"></i> Unhide
                                                     (Show)</a>
                                             @endif
-                                            <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
+                                            {{-- <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
                                                 href="/admin/products/delete/{{ $product->id }}"><i
-                                                    class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a>
+                                                    class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

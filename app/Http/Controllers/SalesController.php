@@ -332,6 +332,17 @@ class SalesController extends Controller
                 'muka' => 'nullable',
             ]);
 
+            foreach($sales->skus as $item) {
+                if($item->products->additional_question === 'astrologi') {
+                    $request->validate([
+                        'sisi-samping' => 'required',
+                        'telapak-jari' => 'required',
+                        'telapak-close' => 'required',
+                        'muka' => 'required',
+                    ]);
+                }
+            }
+
             if ($request->hasFile('sisi_samping')) {
                 $image = $request->file('sisi_samping');
                 $filename = $sales->sales_no.'_sisi_samping_'.$user->name.'.jpg';
