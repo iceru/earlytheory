@@ -333,7 +333,7 @@ class SalesController extends Controller
             ]);
 
             foreach($sales->skus as $item) {
-                if($item->products->additional_question === 'astrologi') {
+                if($item->products->additional_question === 'spiritual') {
                     $request->validate([
                         'sisi-samping' => 'required',
                         'telapak-jari' => 'required',
