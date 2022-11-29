@@ -74,10 +74,21 @@
                                                 placeholder="" required
                                                 value="{{ $additional && $additional->birthplace ? $additional->birthplace : '' }}">
                                         </div>
-                                        @if (str_contains(strtolower($item->products->slug), '2023'))
+                                        @if (str_contains(strtolower($item->products->slug), 'prediksi'))
+                                            <div class="col-12 mb-3">
+                                                <label for="address" class="form-label">Tempat Tinggal Sekarang (sampai
+                                                    tahun depan)
+                                                </label>
+                                                <div class="help">
+                                                    <small> Cantumkan Kota + Kabupaten + Kode Pos</small>
+                                                </div>
+                                                <input type="text" class="form-control" name="address" id="address"
+                                                    placeholder="" required
+                                                    value="{{ $additional && $additional->address ? $additional->address : '' }}">
+                                            </div>
                                             <div class="col-12 mb-3">
                                                 <label for="age" class="form-label">Umur Kamu Saat Ini</label>
-                                                <input type="text" class="form-control" name="age" id="age"
+                                                <input type="number" class="form-control" name="age" id="age"
                                                     placeholder="" required
                                                     value="{{ $additional && $additional->age ? $additional->age : '' }}">
                                             </div>
@@ -90,7 +101,8 @@
                                                     value="{{ $additional && $additional->birthtime ? $additional->birthtime : '' }}">
                                             </div>
                                             <div class="col-12 mb-3">
-                                                <label for="checkbirthtime" class="form-label">Gatau Jam lahir?</label>
+                                                <label for="checkbirthtime" class="form-label">Gatau Jam
+                                                    lahir?</label>
                                                 <div class="help">
                                                     Ada biaya tambahan untuk mencari tahu jam lahir kamu
                                                     <strong>[+250.000]</strong>

@@ -330,10 +330,11 @@ class SalesController extends Controller
                 'telapak-jari' => 'nullable',
                 'telapak-close' => 'nullable',
                 'muka' => 'nullable',
+                'address' => 'nullable',
             ]);
 
             foreach($sales->skus as $item) {
-                if($item->products->additional_question === 'astrologi') {
+                if($item->products->additional_question === 'spiritual') {
                     $request->validate([
                         'sisi-samping' => 'required',
                         'telapak-jari' => 'required',
@@ -386,6 +387,7 @@ class SalesController extends Controller
             $additional->durasihub = $request->durasihub;
             $additional->orientasi = $request->orientasi;
             $additional->masalahcinta = $request->masalahcinta;
+            $additional->address = $request->address;
             $additional->sales_id = $request->salesId;
 
             if((!$additional && $request->checkbirthtime )|| ($additional && !$sales->initial_price && $request->checkbirthtime)) {
