@@ -33,87 +33,100 @@
                 </thead>
                 <tbody>
                     @foreach ($sales as $sale)
-                    <tr>
-                        <td scope="row">{{$loop->iteration}}</td>
-                        <td>{{$sale->sales_no}}</td>
-                        <td>{{date_format($sale->created_at, 'd F Y H:i:s')}}</td>
-                        <td>{{number_format($sale->total_price-$sale->discount)}}</td>
-                        <td>
-                            @if ($sale->user)
-                                {{$sale->user->name}}
+                        <tr>
+                            <td scope="row">{{ $loop->iteration }}</td>
+                            <td>{{ $sale->sales_no }}</td>
+                            <td>{{ date_format($sale->created_at, 'd F Y H:i:s') }}</td>
+                            <td>{{ number_format($sale->total_price - $sale->discount) }}</td>
+                            <td>
+                                @if ($sale->user)
+                                    {{ $sale->user->name }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            @if ($sale->paymentmethods)
+                                <td>{{ $sale->paymentmethods->name }}</td>
                             @else
-                                -
+                                <td></td>
                             @endif
-                        </td>
-                        @if ($sale->paymentmethods)
-                        <td>{{$sale->paymentmethods->name}}</td>
-                        @else
-                        <td></td>
-                        @endif
-                        <td>{{ ucwords($sale->status) }}</td>
-                        @if ($sale->payment)
-                            <td><img src="{{Storage::url('payment-proof/'.$sale->payment)}}" width="100" alt="-"></td>
-                        @else
-                        <td>-</td>
-                        @endif
-                        <td><a href="/admin/sales/{{$sale->id}}" class="btn btn-primary justify-content-center d-flex align-items-center  btn-sm mb-2"> <i class="fa fa-info-circle me-1" aria-hidden="true"></i> Detail</a>
-                            <a class="btn btn-success d-flex align-items-center mb-2 btn-sm" href="/admin/confirm-payment/{{$sale->id}}/confirm"><i class="fa fa-check me-1" aria-hidden="true"></i> Confirm</a>
-                            <button onclick="deleteConfirmation({{$sale->id}})" class="btn btn-danger d-flex align-items-center btn-sm"><i class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button></td>
-                    </tr>
+                            <td>{{ ucwords($sale->status) }}</td>
+                            @if ($sale->payment)
+                                <td><img src="{{ Storage::url('payment-proof/' . $sale->payment) }}" width="100"
+                                        alt="-"></td>
+                            @else
+                                <td>-</td>
+                            @endif
+                            <td><a href="/admin/additional/{{ $sale->id }}"
+                                    class="button secondary d-flex align-items-center btn-sm justify-content-center mb-2"><i
+                                        class="fa fa-list" aria-hidden="true"></i> <span
+                                        class="ms-1">Additional</span></a>
+                                <a href="/admin/sales/{{ $sale->id }}"
+                                    class="btn btn-primary justify-content-center d-flex align-items-center  btn-sm mb-2">
+                                    <i class="fa fa-info-circle me-1" aria-hidden="true"></i> Detail</a>
+                                <a class="btn btn-success d-flex align-items-center mb-2 btn-sm"
+                                    href="/admin/confirm-payment/{{ $sale->id }}/confirm"><i
+                                        class="fa fa-check me-1" aria-hidden="true"></i> Confirm</a>
+                                <button onclick="deleteConfirmation({{ $sale->id }})"
+                                    class="btn btn-danger d-flex align-items-center btn-sm"><i
+                                        class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    
+
     @section('js')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        });
+        <script>
+            $(document).ready(function() {
+                $('#table').DataTable();
+            });
 
-        function deleteConfirmation(id) {
-            Swal.fire({
-                title: "Delete the Data?",
-                text: "You will not be able to recover it",
-                icon: "warning",
-                showCancelButton: !0,
-                confirmButtonText: "Delete",
-                cancelButtonText: "Cancel",
-                reverseButtons: !0
-            }).then(function (e) {
+            function deleteConfirmation(id) {
+                Swal.fire({
+                    title: "Delete the Data?",
+                    text: "You will not be able to recover it",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: !0
+                }).then(function(e) {
 
-                if (e.value === true) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    if (e.value === true) {
+                        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                    $.ajax({
-                        type: 'GET',
-                        url: "{{url('/admin/sales/delete')}}/" + id,
-                        data: {_token: CSRF_TOKEN},
-                        dataType: 'JSON',
-                        success: function (results) {
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{ url('/admin/sales/delete') }}/" + id,
+                            data: {
+                                _token: CSRF_TOKEN
+                            },
+                            dataType: 'JSON',
+                            success: function(results) {
 
-                            if (results.success === true) {
-                                Swal.fire("Done!", results.success, 'success').then(function(){ 
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire("Error!", results.success, 'error').then(function(){ 
-                                    location.reload();
-                                });
+                                if (results.success === true) {
+                                    Swal.fire("Done!", results.success, 'success').then(function() {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire("Error!", results.success, 'error').then(function() {
+                                        location.reload();
+                                    });
+                                }
                             }
-                        }
-                    });
+                        });
 
-                } else {
-                    e.dismiss;
-                }
+                    } else {
+                        e.dismiss;
+                    }
 
-            }, function (dismiss) {
-                return false;
-            })
-        }
-    </script>
+                }, function(dismiss) {
+                    return false;
+                })
+            }
+        </script>
     @endsection
 </x-admin-layout>
-
