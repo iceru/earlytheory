@@ -1834,19 +1834,19 @@
                                                                 <table>
                                                                     <tr>
                                                                         <th>Item</th>
-                                                                        <th>#</th>
+                                                                        <th>Qty</th>
                                                                         <th>Price</th>
+                                                                        <th>Question</th>
                                                                     </tr>
                                                                     @foreach ($sales->skus as $item)
                                                                         <tr>
                                                                             <td>{{ $item->products->title }}</td>
-                                                                            <td>2</td>
+                                                                            <td>{{ $item->pivot->qty }}</td>
                                                                             <td>IDR
                                                                                 {{ number_format($item->products->price) }}
                                                                             </td>
-                                                                            <td>{{ $item->pivot->qty }}</td>
                                                                             <td>
-                                                                              {{ $item->pivot->question }}
+                                                                                {{ $item->pivot->question }}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
