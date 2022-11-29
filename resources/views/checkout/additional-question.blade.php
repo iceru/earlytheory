@@ -35,13 +35,13 @@
                     <div class="col-12 mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" value="{{ $user->name }}" name="name"
-                            id="name" placeholder=""
+                            id="name" placeholder="" required
                             value="{{ $additional && $additional->name ? $additional->name : '' }}">
                     </div>
                     <div class="col-12 mb-3">
                         <label for="birthdate" class="form-label">Tanggal Lahir</label>
                         <input type="text" class="form-control" value="{{ $user->birthdate }}" name="birthdate"
-                            id="birthdate" placeholder=""
+                            id="birthdate" placeholder="" required readonly
                             value="{{ $additional && $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : '' }}">
                     </div>
                     <div class="col-12 mb-3" hidden>
@@ -50,7 +50,7 @@
                             value="{{ $additional && $additional->phone ? $additional->phone : '' }}">
                     </div>
                     <div class="col-12 mb-3" hidden>
-                        <input type="text" class="form-control" name="email" id="email" placeholder=""
+                        <input type="email" class="form-control" name="email" id="email" placeholder=""
                             type="email" value="{{ $user->email || '-' }}" required
                             value="{{ $additional && $additional->email ? $additional->email : '' }}">
                     </div>
@@ -119,13 +119,14 @@
                                         @endif
                                         <div class="col-12 mb-3">
                                             <label for="phone" class="form-label">Nomor Telepon</label>
-                                            <input type="text" class="form-control" name="phone" id="phone"
-                                                placeholder="" type="tel" value="{{ $user->phone }}" required
+                                            <input type="tel" minlength="8" class="form-control" name="phone"
+                                                id="phone" placeholder="" type="tel"
+                                                value="{{ $user->phone }}" required
                                                 value="{{ $additional && $additional->phone ? $additional->phone : '' }}">
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="email" class="form-label">Alamat Email</label>
-                                            <input type="text" class="form-control" name="email" id="email"
+                                            <input type="email" class="form-control" name="email" id="email"
                                                 placeholder="" type="email" value="{{ $user->email }}" required
                                                 value="{{ $additional && $additional->email ? $additional->email : '' }}">
                                         </div>
