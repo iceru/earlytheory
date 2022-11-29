@@ -28,8 +28,8 @@ class AdminDashboardController extends Controller
         $topReferrers1 = Analytics::fetchTopReferrers(Period::months(1), 5);
         $topReferrers7 = Analytics::fetchTopReferrers(Period::days(7), 5);
 
-        return view('admin.dashboard', compact('mostVisited1', 'mostVisited3', 'mostVisited7', 'fetchUser3', 'fetchUser1', 'fetchUser7', 'totalVisitors3',
-        'totalVisitors1', 'totalVisitors7', 'topReferrers3', 'topReferrers1', 'topReferrers7'));
+        return view('admin.dashboard', compact('mostVisited1', 'mostVisited7', 'fetchUser1', 'fetchUser7',
+        'totalVisitors1', 'totalVisitors7', 'topReferrers1', 'topReferrers7'));
     }
 
     /**
