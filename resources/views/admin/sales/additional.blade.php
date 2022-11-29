@@ -62,6 +62,15 @@
                     </div>
                 </div>
             @endif
+            @if ($additional->address)
+                <div class="mb-1 row">
+                    <label class="col-sm-3 col-form-label fw-bolder">Tempat Tinggal Saat Ini</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control-plaintext text-capitalize"
+                            value=" {{ $additional->address }}" readonly>
+                    </div>
+                </div>
+            @endif
             @if ($additional->age)
                 <div class="mb-1 row">
                     <label class="col-sm-3 col-form-label fw-bolder">Umur</label>
