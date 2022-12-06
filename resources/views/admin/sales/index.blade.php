@@ -79,31 +79,42 @@
                         },
                         {
                             data: 'sales_no',
-                            name: 'sales_no'
+                            name: 'sales_no',
+                            defaultContent: "-",
+
                         },
                         {
                             data: 'created_at',
-                            name: 'created_at'
+                            name: 'created_at',
+                            defaultContent: "-",
+
                         },
                         {
                             data: 'total_price',
-                            name: 'total_price'
+                            name: 'total_price',
+                            defaultContent: "-",
+
                         },
                         {
                             data: 'user.name',
-                            name: 'user.name'
+                            name: 'user.name',
+                            defaultContent: "-",
+
                         },
                         {
                             data: 'paymentmethods.name',
-                            name: 'paymentmethods.name'
+                            name: 'paymentmethods.name',
+                            defaultContent: "-",
                         },
                         {
                             data: 'status',
-                            name: 'status'
+                            name: 'status',
+                            defaultContent: "-",
                         },
                         {
                             data: 'image',
-                            name: 'image'
+                            name: 'image',
+                            defaultContent: "-",
                         },
                         {
                             data: 'action',
