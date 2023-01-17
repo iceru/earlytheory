@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\SKUs;
-use Fomo\FomoClient;
 use App\Models\Sales;
 use App\Models\Discount;
 use App\Models\Products;
-use Fomo\FomoEventBasic;
 use App\Models\SKUvalues;
 use App\Models\OptionValues;
 use Illuminate\Http\Request;
@@ -887,32 +885,6 @@ class SalesController extends Controller
             
                 //     $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
                 // }
-                
-
-                //Fomo create event
-
-                $authToken = "QX5Wju-BOAd6917NiHCS8w";
-                $client = new FomoClient($authToken);
-
-                $event = new FomoEventBasic();
-
-                $event->event_type_id = "164817 "; // Find ID in Fomo > Templates > Template ID
-                $event->title = $sales->skus->first()->products->title;
-                $event->url = 'https://earlytheory.com/product/'.$sales->skus->first()->products->slug;
-                $countName = strlen($user->name);
-                $censored = '';
-                for ($x = 3; $x <= $countName; $x++) {
-                    $censored .= '*';
-                }
-                $event->first_name = substr($user->name, 0, (-$countName+2)).$censored;
-                // $event->city = $sales->shippingAddress->city;
-                // for additional parameters check code documentation
-
-                // Add custom attributes to an event
-                $event->addCustomEventField('variable_name', 'value');
-
-                $client->createEvent($event);
-
         
                 return redirect()->route('sales.success', ['id' => $sales->sales_no]);
             }
