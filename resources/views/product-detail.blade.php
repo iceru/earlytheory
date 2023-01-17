@@ -1,6 +1,4 @@
 <x-app-layout>
-    <script type="text/javascript" src="https://load.fomo.com/api/v1/IhMO5nZyJEKBov48ENAs6Q/load.js" async></script>
-
     @section('title')
         {{ $product_detail->title }}
     @endsection
@@ -42,8 +40,8 @@
 
                         <div class="values d-flex">
                             @foreach ($items->slice(0, $items->count() - 1) as $item)
-                                <div class="value button primary-line hollow me-2"
-                                    data-option="{{ $item->option_id }}" id={{ $item->id }}>
+                                <div class="value button primary-line hollow me-2" data-option="{{ $item->option_id }}"
+                                    id={{ $item->id }}>
                                     {{ $item->value_name }}
                                 </div>
                             @endforeach
@@ -82,8 +80,7 @@
                             <p class="product-price">idr {{ number_format($product_related->price) }}</p>
                             <p class="product-desc">{{ $product_related->description_short }}</p>
                         </div>
-                        <div data-id="{{ $product_related->id }}"
-                            class="button primary my-3 addcart addcart-related">
+                        <div data-id="{{ $product_related->id }}" class="button primary my-3 addcart addcart-related">
                             Add To Cart</div>
                     </div>
                 @endforeach
