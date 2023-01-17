@@ -41,18 +41,16 @@
                     <div class="col-12 mb-3">
                         <label for="birthdate" class="form-label">Tanggal Lahir</label>
                         <input type="text" class="form-control" value="{{ $user->birthdate }}" name="birthdate"
-                            id="birthdate" placeholder="" required readonly
+                            id="birthdate" placeholder="" required readonly style="background-color: white"
                             value="{{ $additional && $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : '' }}">
                     </div>
                     <div class="col-12 mb-3" hidden>
                         <input type="text" class="form-control" name="phone" id="phone" placeholder=""
-                            type="tel" value="{{ $user->phone || '-' }}" required
-                            value="{{ $additional && $additional->phone ? $additional->phone : '' }}">
+                            type="tel" value="{{ $user->phone }}">
                     </div>
                     <div class="col-12 mb-3" hidden>
                         <input type="email" class="form-control" name="email" id="email" placeholder=""
-                            type="email" value="{{ $user->email || '-' }}" required
-                            value="{{ $additional && $additional->email ? $additional->email : '' }}">
+                            type="email" value="{{ $user->email }}">
                     </div>
                     <input type="text" value="{{ $sales->id }}" name="salesId" hidden>
                     <div class="row">
