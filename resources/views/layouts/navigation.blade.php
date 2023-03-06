@@ -17,7 +17,7 @@
                                     <span class="orders-alert"></span>
                                 @endif
                             </a></li>
-                        <li><a class="dropdown-item" href="{{ route('user.horoscopes') }}">Birth Chart</a></li>
+                        {{-- <li><a class="dropdown-item" href="{{ route('user.horoscopes') }}">Birth Chart</a></li> --}}
 
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
@@ -102,7 +102,8 @@
                 <a class="{{ request()->is('orders') ? 'active' : '' }}" href="{{ route('user.orders') }}">My Orders
                     @if (count($sales) > 0)
                         <span class="orders-alert"></span>
-                    @endif </a>
+                    @endif
+                </a>
             </li>
             {{-- <li>
             <a class="{{ (request()->is('account/horoscopes')) ? 'active' : '' }}" href="{{ route('user.horoscopes') }}">My Birth Chart</a>
