@@ -348,24 +348,6 @@
                     pauseOnHover: false,
                 }
             }
-
-            function sameDiv() {
-                var maxHeight = 0
-                $(".product-item").each(function() {
-                    if ($(this).height() > maxHeight) {
-                        maxHeight = $(this).height();
-                    }
-                });
-
-                if (maxHeight > 0) {
-                    $(".product-item").height(maxHeight);
-                }
-            }
-
-            $(window).resize(function() {
-                sameDiv();
-            });
-
             $(document).ready(function() {
                 if (sessionStorage && !sessionStorage.getItem('popupShow')) {
                     $('#popup').addClass('active');
