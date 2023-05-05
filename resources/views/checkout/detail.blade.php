@@ -137,10 +137,13 @@
                             </div>
                         @endif
                         @if (empty($sales->user->birthdate))
-                            <div class="form-group col-12 col-lg-6">
+                            <div class="form-group col-12 col-lg-6 position-relative">
                                 <label for="inputBirthdate">Tanggal Lahir</label>
                                 <input class="form-control" type="text" id="datepicker" name="inputBirthdate"
                                     readonly="readonly" required>
+                                <div class="logoCalendar">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
                             </div>
                         @endif
                         @if ($is_service > 0)
@@ -222,9 +225,10 @@
                                                 </div>
                                             @endif
                                             <textarea rows="6" name="question[]" id="question"
-                                                @if ($item->products->question != 'yes' ||
-                                                    strtolower($item->products->title) === 'mencari jodoh' ||
-                                                    $item->products->category == 'product') hidden @else required @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
+                                                @if (
+                                                    $item->products->question != 'yes' ||
+                                                        strtolower($item->products->title) === 'mencari jodoh' ||
+                                                        $item->products->category == 'product') hidden @else required @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
                                             <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                                 <label class="form-label">Kamu cenderung mencari yang etnis / agamanya
                                                     ....</label>
@@ -254,8 +258,9 @@
                                                     <option value="wanita">Wanita</option>
                                                 </select>
                                             </div>
-                                            @if (($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') ||
-                                                $item->products->category == 'product')
+                                            @if (
+                                                ($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') ||
+                                                    $item->products->category == 'product')
                                                 <p>{!! $item->description_short !!}</p>
                                             @endif
                                         </div>
@@ -338,6 +343,7 @@
                 changeYear: true,
                 yearRange: "1970:2012",
                 altFormat: 'yy/mm/dd',
+                defaultDate: new Date('2000/01/01'),
             });
         });
 

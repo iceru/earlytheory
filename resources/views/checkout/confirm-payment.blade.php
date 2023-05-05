@@ -158,17 +158,6 @@
 
         </div>
 
-        {{-- <script>
-            $( function() {
-            $( "#datepicker" ).datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "1930:2021",
-                altFormat: 'yy/mm/dd',
-            });
-        } );
-        </script> --}}
-
         <style>
             select.form-control-plaintext {
                 -webkit-appearance: none;
