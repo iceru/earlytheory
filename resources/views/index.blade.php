@@ -8,7 +8,7 @@
                 <a target="_blank" href="{{ $slider->link }}">
                     <div class="slider-item">
                         <div class="ratio ratio-16x9">
-                            <img src="{{ Storage::url('sliders-image/' . $slider->image) }}" alt="">
+                            <img data-lazy="{{ Storage::url('sliders-image/' . $slider->image) }}" alt="">
                         </div>
                     </div>
                 </a>
@@ -391,8 +391,6 @@
                 // if (window.location.pathname == '/articles') {
                 //     ActivePage('articles');
                 // }
-
-                sameDiv();
             });
 
             function ReinitSliders(page) {
