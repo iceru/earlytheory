@@ -38,11 +38,14 @@
                             id="name" placeholder="" required
                             value="{{ $additional && $additional->name ? $additional->name : '' }}">
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-3 position-relative">
                         <label for="birthdate" class="form-label">Tanggal Lahir</label>
                         <input type="text" class="form-control" value="{{ $user->birthdate }}" name="birthdate"
                             id="birthdate" placeholder="" required readonly style="background-color: white"
                             value="{{ $additional && $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : '' }}">
+                        <div class="logoCalendar">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
                     </div>
                     <div class="col-12 mb-3" hidden>
                         <input type="text" class="form-control" name="phone" id="phone" placeholder=""
@@ -323,6 +326,7 @@
             changeYear: true,
             yearRange: "1970:2012",
             altFormat: 'yy/mm/dd',
+            defaultDate: new Date('2000/01/01'),
         });
 
         let check = false;

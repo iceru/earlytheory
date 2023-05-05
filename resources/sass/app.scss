@@ -28,7 +28,8 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     background: $background;
     font-family: 'Apercu', sans-serif;
 }
@@ -45,4 +46,14 @@ html, body {
     @media print {
         display: none;
     }
+}
+
+.hasDatepicker {
+    background-color: white !important;
+}
+
+.logoCalendar {
+    position: absolute;
+    right: 1.5rem;
+    top: 2rem;
 }
