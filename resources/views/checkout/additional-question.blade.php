@@ -75,6 +75,21 @@
                                                 placeholder="" required
                                                 value="{{ $additional && $additional->birthplace ? $additional->birthplace : '' }}">
                                         </div>
+                                        @if (
+                                            !str_contains(strtolower($item->products->slug), 'prediksi') &&
+                                                !str_contains(strtolower($item->products->slug), 'jam-lahir'))
+                                            <div class="col-12 mb-3">
+                                                <label for="address" class="form-label">Tempat Tinggal Sekarang
+                                                </label>
+                                                <div class="help">
+                                                    <small>Cantumkan Kota + Kabupaten + Kode Pos</small>
+                                                </div>
+                                                <input type="text" class="form-control" name="address" id="address"
+                                                    placeholder="" required
+                                                    value="{{ $additional && $additional->address ? $additional->address : '' }}">
+                                            </div>
+                                        @endif
+
                                         @if (str_contains(strtolower($item->products->slug), 'prediksi'))
                                             <div class="col-12 mb-3">
                                                 <label for="address" class="form-label">Tempat Tinggal Sekarang (sampai
@@ -89,8 +104,8 @@
                                             </div>
                                             <div class="col-12 mb-3">
                                                 <label for="age" class="form-label">Umur Kamu Saat Ini</label>
-                                                <input type="number" class="form-control" name="age" id="age"
-                                                    placeholder="" required
+                                                <input type="number" class="form-control" name="age"
+                                                    id="age" placeholder="" required
                                                     value="{{ $additional && $additional->age ? $additional->age : '' }}">
                                             </div>
                                         @endif

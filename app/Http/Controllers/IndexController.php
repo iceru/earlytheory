@@ -23,21 +23,20 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         $services = Products::where('category', 'service')->where('hide', 0)
-        ->where('type', 'tarot')->orderBy('ordernumber')->get();
+            ->where('type', 'tarot')->orderBy('ordernumber')->get();
         $astrologi = Products::where('category', 'service')->where('hide', 0)
-        ->where('type', 'astrologi')->orderBy('ordernumber')->get();
+            ->where('type', 'astrologi')->orderBy('ordernumber')->get();
         $spiritual = Products::where('category', 'service')->where('hide', 0)
-        ->where('type', 'spiritual')->orderBy('ordernumber')->get();
+            ->where('type', 'spiritual')->orderBy('ordernumber')->get();
         $products = Products::where('category', 'product')->where('hide', 0)
-        ->orderByRaw('stock = 0, ordernumber')->get();
+            ->orderByRaw('stock = 0, ordernumber')->get();
         $articles = Articles::orderBy('created_at', 'desc')->paginate(12);
         $user = Auth::user();
-        
+
         // $horoscope_product = Products::where('title', 'horoscope')->first();
         // $skus_horoscope = SKUs::where('product_id', $horoscope_product->id)->get();
 
         $sliders = Sliders::where('category', 'products')->orderBy('ordernumber')->get();
-
         $product_ids = array();
         $productsSku = Products::all();
         $skus = SKUs::all();
@@ -51,7 +50,7 @@ class IndexController extends Controller
 
         foreach ($skus as $key => $sku) {
             foreach ($productsSku as $key => $product) {
-                if($sku->product_id == $product->id && ($product->category == 'service' || $sku->stock > 0)) {
+                if ($sku->product_id == $product->id && ($product->category == 'service' || $sku->stock > 0)) {
                     array_push($product_ids, $sku);
                 }
             }
@@ -63,8 +62,8 @@ class IndexController extends Controller
         $temp_array = array();
         $i = 0;
         $key_array = array();
-       
-        foreach($array as $val) {
+
+        foreach ($array as $val) {
             if (!in_array($val[$key], $key_array)) {
                 $key_array[$i] = $val[$key];
                 $temp_array[$i] = $val;
@@ -76,9 +75,9 @@ class IndexController extends Controller
 
         foreach ($temp_array as $key => $sku) {
             foreach ($skusvalues as $key => $value) {
-                if($sku->id == $value->sku_id) {
+                if ($sku->id == $value->sku_id) {
                     foreach ($optionvalues as $key => $option) {
-                        if($value->option_id == $option->option_id && $value->value_id == $option->id) {
+                        if ($value->option_id == $option->option_id && $value->value_id == $option->id) {
                             $value_datas = OptionValues::where('id', $value->value_id)->pluck('value_name');
                             $value_name = $value_datas->implode('', 'value_name');
                             array_push($values_name, $value_name);
@@ -89,10 +88,18 @@ class IndexController extends Controller
             $sku->setAttribute('values', $values_name);
             $values_name = array();
         }
-        
+
         $skus = json_encode($temp_array);
-        return view('index', compact('products', 'sliders', 'services', 'articles',
-        'skus', 'user', 'astrologi', 'spiritual'));
+        return view('index', compact(
+            'products',
+            'sliders',
+            'services',
+            'articles',
+            'skus',
+            'user',
+            'astrologi',
+            'spiritual'
+        ));
     }
 
     /**
@@ -114,13 +121,10 @@ class IndexController extends Controller
 
     public function store(Request $request)
     {
-        if ( ! Newsletter::isSubscribed($request->email) )
-        {
+        if (!Newsletter::isSubscribed($request->email)) {
             Newsletter::subscribe($request->email);
             return \Response::json(['success' => 'Thank you for Subscribing to our Newsletter']);
-        }
-
-        else {
+        } else {
             return \Response::json(['error' => 'You already Subscribed!']);
         }
     }
@@ -132,7 +136,6 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**

@@ -57,14 +57,18 @@
                             @else
                                 <td>-</td>
                             @endif
-                            <td><a href="/admin/additional/{{ $sale->id }}"
-                                    class="button secondary d-flex align-items-center btn-sm justify-content-center mb-2"><i
-                                        class="fa fa-list" aria-hidden="true"></i> <span
-                                        class="ms-1">Additional</span></a>
+                            <td>
+                                @if (!$sale->additional->isEmpty())
+                                    <a href="/admin/additional/{{ $sale->id }}"
+                                        class="button secondary d-flex align-items-center btn-sm justify-content-center mb-2"><i
+                                            class="fa fa-list" aria-hidden="true"></i> <span
+                                            class="ms-1">Additional</span></a>
+                                @endif
+
                                 <a href="/admin/sales/{{ $sale->id }}"
                                     class="btn btn-primary justify-content-center d-flex align-items-center  btn-sm mb-2">
                                     <i class="fa fa-info-circle me-1" aria-hidden="true"></i> Detail</a>
-                                <a class="btn btn-success d-flex align-items-center mb-2 btn-sm"
+                                <a class="btn btn-success d-flex align-items-center justify-content-center mb-2 btn-sm"
                                     href="/admin/confirm-payment/{{ $sale->id }}/confirm"><i
                                         class="fa fa-check me-1" aria-hidden="true"></i> Confirm</a>
                                 <button onclick="deleteConfirmation({{ $sale->id }})"
