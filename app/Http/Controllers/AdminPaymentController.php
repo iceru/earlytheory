@@ -11,7 +11,8 @@ class AdminPaymentController extends Controller
 {
     public function index()
     {
-        $sales = Sales::where('status', 'pending')->orWhere('status', 'paid')->orderBy('status', 'asc')->get();
+        $sales = Sales::where('status', 'pending')->orWhere('status', 'paid')->with('additional')
+            ->orderBy('status', 'asc')->get();
 
         return view('admin.payment.index', compact('sales'));
     }
