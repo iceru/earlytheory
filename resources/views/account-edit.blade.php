@@ -50,13 +50,15 @@
                                 value="{{ old('phone', optional($user)->phone) }}" name="phone" required>
                         </div>
 
-                        <div class="form-group col-12 col-lg-6 mb-3 position-relative">
+                        <div class="form-group col-12 col-lg-6 mb-3 ">
                             <label for="inputBirthdate">Tanggal Lahir</label>
-                            <input type="text" class="form-control"
-                                value="{{ old('birthdate', optional($user)->birthdate) }}" name="birthdate"
-                                id="datepicker" required autocomplete="off" readonly="readonly">
-                            <div class="logoCalendar">
-                                <i class="fas fa-calendar-alt"></i>
+                            <div class="position-relative">
+                                <input type="text" class="form-control"
+                                    value="{{ old('birthdate', optional($user)->birthdate) }}" name="birthdate"
+                                    id="datepicker" required autocomplete="off" readonly="readonly">
+                                <div class="logoCalendar">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
                             </div>
                         </div>
 

@@ -137,12 +137,14 @@
                             </div>
                         @endif
                         @if (empty($sales->user->birthdate))
-                            <div class="form-group col-12 col-lg-6 position-relative">
+                            <div class="form-group col-12 col-lg-6">
                                 <label for="inputBirthdate">Tanggal Lahir</label>
-                                <input class="form-control" type="text" id="datepicker" name="inputBirthdate"
-                                    readonly="readonly" required>
-                                <div class="logoCalendar">
-                                    <i class="fas fa-calendar-alt"></i>
+                                <div class="position-relative">
+                                    <input class="form-control" type="text" id="datepicker" name="inputBirthdate"
+                                        readonly="readonly" required>
+                                    <div class="logoCalendar">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -301,33 +303,33 @@
                                                 @foreach ($item->variants as $variant)
                                                     <span class="variant-item me-2">{{ $variant }}</span>
                                                 @endforeach
+                                            @endif
                                         </div>
-                    @endif
-                    <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.."
-                        @if ($item->question != 'yes' || $item->category == 'product') hidden @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
-                    <div class="mb-2">
-                        <select class="form-select" name="genderQuestion[]" id="genderQuestion"
-                            @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
-                            <option value="" selected disabled>Pilih Preferensi Gender</option>
-                            <option value="pria">Pria</option>
-                            <option value="wanita">Wanita</option>
-                        </select>
-                    </div>
-                    @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
-                        <p>{!! $item->description_short !!}</p>
-                    @endif
+                                        <textarea name="question[]" id="question" placeholder="Jabarkan Pertanyaanmu Disini.."
+                                            @if ($item->question != 'yes' || $item->category == 'product') hidden @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
+                                        <div class="mb-2">
+                                            <select class="form-select" name="genderQuestion[]" id="genderQuestion"
+                                                @if (strtolower($item->title) != 'mencari jodoh') hidden @endif>
+                                                <option value="" selected disabled>Pilih Preferensi Gender
+                                                </option>
+                                                <option value="pria">Pria</option>
+                                                <option value="wanita">Wanita</option>
+                                            </select>
+                                        </div>
+                                        @if (($item->question != 'yes' && strtolower($item->title) != 'mencari jodoh') || $item->category == 'product')
+                                            <p>{!! $item->description_short !!}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
+                <div class="col-12 d-grid gap-2">
+                    <button type="submit" class="button secondary">Konfirmasi</button>
+                </div>
+            </form>
         </div>
-
-    </div>
-    </div>
-    @endforeach
-    </div>
-    <div class="col-12 d-grid gap-2">
-        <button type="submit" class="button secondary">Konfirmasi</button>
-    </div>
-    </form>
-    </div>
     </div>
 
     <script>

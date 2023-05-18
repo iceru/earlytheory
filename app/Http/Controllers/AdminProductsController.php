@@ -24,10 +24,10 @@ class AdminProductsController extends Controller
 
         foreach ($skus as $key => $sku) {
             foreach ($products as $key => $product) {
-                if($sku->product_id == $product->id && $product->category == 'product') {
+                if ($sku->product_id == $product->id && $product->category == 'product') {
                     $product->setAttribute('stock_data', $sku->stock);
                     foreach ($options as $key => $option) {
-                        if($option->product_id == $product->id) {
+                        if ($option->product_id == $product->id) {
                             $product->setAttribute('stock_data', 'Stock berdasarkan variants');
                             break;
                         } else {
@@ -78,7 +78,7 @@ class AdminProductsController extends Controller
             'inputStock' => 'required',
             'inputQuestion' => 'nullable',
             'inputQuestionTitle' => 'nullable',
-            'inputAddition' => 'nullable',
+            'inputAdditional' => 'nullable',
         ]);
 
         if ($request->hasFile('inputImage')) {
@@ -88,25 +88,24 @@ class AdminProductsController extends Controller
 
             $images = $request->file('inputImage');
 
-            foreach($images as $image) {
+            foreach ($images as $image) {
                 $name = $image->getClientOriginalName();
-                $filename = $request->inputTitle.'_'.time().'.'.$name;
+                $filename = $request->inputTitle . '_' . time() . '.' . $name;
                 $path = $image->storeAs('public/product-image', $filename);
                 $data[] = $filename;
             }
         }
-        $product->image=json_encode($data);
-        
+        $product->image = json_encode($data);
+
         $product->title = $request->inputTitle;
         $product->ordernumber = $request->inputOrdernumber;
 
         //check discount price
-        if($request->inputDiscPrice) {
+        if ($request->inputDiscPrice) {
             $product->price = $request->inputDiscPrice;
             $product->discount_price = $request->inputDiscPrice;
             $product->base_price = $request->inputPrice;
-        }
-        else {
+        } else {
             $product->price = $request->inputPrice;
         }
 
@@ -120,7 +119,7 @@ class AdminProductsController extends Controller
         $product->question = $request->inputQuestion;
         $product->additional_question = $request->inputAdditional;
         $product->question_title = $request->inputQuestionTitle;
-        
+
         $product->save();
 
         // $request->validate([
@@ -133,15 +132,14 @@ class AdminProductsController extends Controller
         // $sku_new->price = $request->inputPrice;
 
         //check discount price
-        if($request->inputDiscPrice) {
+        if ($request->inputDiscPrice) {
             $sku_new->price = $request->inputDiscPrice;
             $sku_new->discount_price = $request->inputDiscPrice;
             $sku_new->base_price = $request->inputPrice;
-        }
-        else {
+        } else {
             $sku_new->price = $request->inputPrice;
         }
-        
+
         $sku_new->stock = $request->inputStock;
         $sku_new->product_id = $product->id;
         $sku_new->save();
@@ -218,9 +216,9 @@ class AdminProductsController extends Controller
             // $product->image = $filename;
             $images = $request->file('updateImage');
 
-            foreach($images as $image) {
+            foreach ($images as $image) {
                 $name = $image->getClientOriginalName();
-                $filename = $request->inputTitle.'_'.time().'.'.$name;
+                $filename = $request->inputTitle . '_' . time() . '.' . $name;
                 $path = $image->storeAs('public/product-image', $filename);
                 $data[] = $filename;
             }
@@ -234,20 +232,18 @@ class AdminProductsController extends Controller
         $product->additional_question = $request->updateAdditional;
 
         //check discount price
-        if($request->updateDiscPrice) {
+        if ($request->updateDiscPrice) {
             $product->price = $request->updateDiscPrice;
             $product->discount_price = $request->updateDiscPrice;
             $product->base_price = $request->updatePrice;
-        }
-        elseif($product->discount_price && $request->updateDiscPrice == 0) {
+        } elseif ($product->discount_price && $request->updateDiscPrice == 0) {
             $product->price = $product->base_price;
             $product->discount_price = NULL;
             $product->base_price = NULL;
-        }
-        else {
+        } else {
             $product->price = $request->updatePrice;
         }
-        
+
         $product->duration = $request->updateDuration;
         $product->description = $request->updateDesc;
 
@@ -262,22 +258,20 @@ class AdminProductsController extends Controller
 
         $have_variant = Options::where('product_id', $request->id)->get();
 
-        if($have_variant->isEmpty()) {
+        if ($have_variant->isEmpty()) {
             $sku = SKUs::where('product_id', $request->id)->firstOrFail();
             // $sku->price = $request->updatePrice;
 
             //check discount price
-            if($request->updateDiscPrice) {
+            if ($request->updateDiscPrice) {
                 $sku->price = $request->updateDiscPrice;
                 $sku->discount_price = $request->updateDiscPrice;
                 $sku->base_price = $request->updatePrice;
-            }
-            elseif($sku->discount_price && $request->updateDiscPrice == 0) {
+            } elseif ($sku->discount_price && $request->updateDiscPrice == 0) {
                 $sku->price = $sku->base_price;
                 $sku->discount_price = NULL;
                 $sku->base_price = NULL;
-            }
-            else {
+            } else {
                 $sku->price = $request->updatePrice;
             }
 
@@ -299,7 +293,7 @@ class AdminProductsController extends Controller
     public function destroy($id)
     {
         $product = Products::findOrFail($id);
-        Storage::disk('public')->delete('product-image/'.$product->image);
+        Storage::disk('public')->delete('product-image/' . $product->image);
 
         Products::find($id)->delete();
         return redirect('/admin/products');
@@ -327,22 +321,21 @@ class AdminProductsController extends Controller
     {
         $products = Products::get();
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $have_sku = SKUs::where('product_id', $product->id)->get();
-            if($have_sku->isEmpty()) {
+            if ($have_sku->isEmpty()) {
                 $sku_new = new SKUs;
                 // $sku_new->price = $product->price;
-                        
+
                 //check discount price
-                if($product->discount_price) {
+                if ($product->discount_price) {
                     $sku_new->price = $product->price;
                     $sku_new->discount_price = $product->discount_price;
                     $sku_new->base_price = $product->base_price;
-                }
-                else {
+                } else {
                     $sku_new->price = $product->price;
                 }
-                
+
                 $sku_new->stock = $product->stock;
                 $sku_new->product_id = $product->id;
                 $sku_new->save();

@@ -65,7 +65,7 @@
             padding: .5rem;
         }
 
-        @include breakpoint(desktop) {
+        @include breakpoint(xlarge) {
             .section:nth-child(odd) {
                 border-right: 2px solid $body;
 
@@ -95,10 +95,6 @@
 
         .form-control {
             width: 100%;
-
-            @include breakpoint(untilTablet) {
-                width: 100%;
-            }
         }
     }
 
