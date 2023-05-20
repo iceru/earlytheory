@@ -109,6 +109,9 @@
                                 value="ramal-karir">Ramal Tangan - Puncak Karir</option>
                             <option {{ $product->additional_question === 'ramal-cinta' ? 'selected' : '' }}
                                 value="ramal-cinta">Ramal Tangan - Tafsir Cinta</option>
+                            <option {{ $product->additional_question === 'tarot' ? 'selected' : '' }} value="tarot">
+                                Tarot</option>
+
                         </select>
                     </div>
                 </div>

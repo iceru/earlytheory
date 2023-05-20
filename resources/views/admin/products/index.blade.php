@@ -31,26 +31,36 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Order Number</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputOrdernumber" name="inputOrdernumber">
+                        <input type="number" value="{{ old('inputOrdernumber') ?? '' }}" class="form-control"
+                            id="inputOrdernumber" name="inputOrdernumber">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputTitle" name="inputTitle">
+                        <input type="text" class="form-control" value="{{ old('inputTitle') ?? '' }}" id="inputTitle"
+                            name="inputTitle">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Base Price</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputPrice" name="inputPrice" min="0">
+                        <input type="number" class="form-control" value="{{ old('inputPrice') ?? '' }}" id="inputPrice"
+                            name="inputPrice" min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Discount Price</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputDiscPrice" name="inputDiscPrice"
-                            min="0">
+                        <input type="number" class="form-control" value="{{ old('inputDiscPrice') ?? '' }}"
+                            id="inputDiscPrice" name="inputDiscPrice" min="0">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Stock</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" value="{{ old('inputStock') ?? '' }}" id="inputStock"
+                            name="inputStock" min="0">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -82,13 +92,15 @@
                             <option value="astrologi">Astrologi</option>
                             <option value="ramal-karir">Ramal Tangan - Puncak Karir</option>
                             <option value="ramal-cinta">Ramal Tangan - Tafsir Cinta</option>
+                            <option value="tarot">Tarot</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-3 row" id="duration">
                     <label class="col-sm-2 col-form-label">Duration</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputDuration" placeholder="Duration in Minutes"
+                        <input type="number" class="form-control" id="inputDuration"
+                            value="{{ old('inputDuration') ?? '' }}" placeholder="Duration in Minutes"
                             name="inputDuration">
                     </div>
                 </div>
@@ -116,14 +128,16 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Short Description</label>
                     <div class="col-sm-10">
-                        <input class="form-control" name="inputShortDesc" id="inputShortDesc" cols="30"
-                            rows="2"></input>
+                        <input class="form-control" name="inputShortDesc" value="{{ old('inputShortDesc') ?? '' }}"
+                            id="inputShortDesc" cols="30" rows="2"></input>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="5"></textarea>
+                        <textarea class="form-control" name="inputDesc" id="inputDesc" cols="30" rows="5">
+                            {{ old('inputDesc') ?? '' }}
+                        </textarea>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -141,13 +155,6 @@
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="inputQuestionTitle"
                             name="inputQuestionTitle">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Stock</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" id="inputStock" name="inputStock"
-                            min="0">
                     </div>
                 </div>
                 <button type="submit" class="button primary">Submit</button>
@@ -199,8 +206,8 @@
                                     <td>
                                         @foreach ((array) json_decode($service->image) as $item)
                                             <div class="ratio ratio-1x1 mb-2">
-                                                <img src="{{ Storage::url('product-image/' . $item) }}" alt="Image"
-                                                    width="100">
+                                                <img src="{{ Storage::url('product-image/' . $item) }}"
+                                                    alt="Image" width="100">
                                             </div>
                                         @endforeach
                                     </td>

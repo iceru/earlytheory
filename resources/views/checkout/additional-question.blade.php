@@ -38,14 +38,18 @@
                             id="name" placeholder="" required
                             value="{{ $additional && $additional->name ? $additional->name : '' }}">
                     </div>
-                    <div class="col-12 mb-3 position-relative">
+                    <div class="col-12 mb-3">
                         <label for="birthdate" class="form-label">Tanggal Lahir</label>
-                        <input type="text" class="form-control" value="{{ $user->birthdate }}" name="birthdate"
-                            id="birthdate" placeholder="" required readonly style="background-color: white"
-                            value="{{ $additional && $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : '' }}">
-                        <div class="logoCalendar">
-                            <i class="fas fa-calendar-alt"></i>
+                        <div class="position-relative">
+                            <input type="text" class="form-control" value="{{ $user->birthdate }}" name="birthdate"
+                                id="birthdate" placeholder="" required readonly style="background-color: white"
+                                value="{{ $additional && $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : '' }}">
+                            <div class="logoCalendar">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
                         </div>
+
+
                     </div>
                     <div class="col-12 mb-3" hidden>
                         <input type="text" class="form-control" name="phone" id="phone" placeholder=""
@@ -60,7 +64,7 @@
                         @foreach ($sales->skus as $item)
                             <div class="col-12 col-lg-6 section mb-5">
                                 <div class="additional-section">
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12 mb-3">
                                         <div class="title">
                                             {{ $item->products->title }}
                                         </div>
@@ -172,8 +176,6 @@
                                             </div>
                                         @endif
                                     @endif
-                                </div>
-                                <div class="additional-section">
                                     @if ($item->products->additional_question === 'ramal-karir')
                                         <div class="col-12 mb-3">
                                             <label for="jabatan" class="form-label">Jabatan Kerja Saat Ini</label>
@@ -289,12 +291,124 @@
                                                 <div class="col-5 col-lg-2">
                                                     <div class="img">
                                                         <img src="/images/tangan-close.jpg" alt=""
-                                                            class="w-100">
+                                                            clas{}s="w-100">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mb-3">
+                                            <label for="muka" class="form-label">Foto Muka Terkini</label>
+                                            <div class="row align-items-center">
+                                                <div class="col-7 col-lg-10">
+                                                    <input type="file" class="form-control" name="muka"
+                                                        id="muka" placeholder="Telapak + Jari" required
+                                                        value="{{ $additional && $additional->muka ? $additional->muka : '' }}">
+                                                </div>
+                                                <div class="col-5 col-lg-2">
+                                                    <div class="img">
+                                                        <img src="/images/muka.jpg" alt="" class="w-100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($item->products->additional_question === 'tarot')
+                                        <div class="form-group col-12 mb-3">
+                                            <label for="inputRelationship" class="form-label">Status
+                                                Relationship</label>
+                                            <select class="form-select" name="inputRelationship"
+                                                id="inputRelationship" required>
+                                                <option selected disabled value="">Select</option>
+                                                <option value="single"
+                                                    @if (old('inputRelationship') == 'single' || $sales->relationship == 'single') {{ 'selected' }} @endif>
+                                                    Single</option>
+                                                <option value="pacaran"
+                                                    @if (old('inputRelationship') == 'pacaran' || $sales->relationship == 'pacaran') {{ 'selected' }} @endif>
+                                                    Pacaran</option>
+                                                <option value="menikah"
+                                                    @if (old('inputRelationship') == 'menikah' || $sales->relationship == 'menikah') {{ 'selected' }} @endif>
+                                                    Menikah</option>
+                                                <option value="divorced"
+                                                    @if (old('inputRelationship') == 'divorced' || $sales->relationship == 'divorced') {{ 'selected' }} @endif>
+                                                    Divorced</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-12 mb-3">
+                                            <label for="inputPekerjaan" class="form-label">Status Pekerjaan</label>
+                                            <select class="form-select" name="inputPekerjaan" id="inputPekerjaan"
+                                                required>
+                                                <option selected disabled value="">Select</option>
+                                                <option value="unemployed"
+                                                    @if (old('inputPekerjaan') == 'unemployed' || $sales->job == 'unemployed') {{ 'selected' }} @endif>
+                                                    Unemployed
+                                                </option>
+                                                <option value="employed"
+                                                    @if (old('inputPekerjaan') == 'employed' || $sales->job == 'employed') {{ 'selected' }} @endif>
+                                                    Employed</option>
+                                                <option value="business"
+                                                    @if (old('inputPekerjaan') == 'business' || $sales->job == 'business') {{ 'selected' }} @endif>
+                                                    Business</option>
+                                                <option value="student"
+                                                    @if (old('inputPekerjaan') == 'student' || $sales->job == 'student') {{ 'selected' }} @endif>
+                                                    Student</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-12 mb-3">
+                                            <label for="inputGender" class="form-label">Jenis Kelamin</label>
+                                            <select class="form-select" name="inputGender" id="inputGender" required>
+                                                <option selected disabled value="">Select</option>
+                                                <option value="laki-laki"
+                                                    @if (old('inputGender') == 'laki-laki' || $sales->gender == 'laki-laki') {{ 'selected' }} @endif>
+                                                    Laki-Laki
+                                                </option>
+                                                <option value="perempuan"
+                                                    @if (old('inputGender') == 'perempuan' || $sales->gender == 'perempuan') {{ 'selected' }} @endif>
+                                                    Perempuan
+                                                </option>
+                                            </select>
+                                        </div>
+                                        @if (str_contains(strtolower($item->products->slug), 'di-mata'))
+                                            <div class="col-12 mb-3">
+                                                <label for="kepribadian" class="form-label">Jelaskan kepribadianmu
+                                                    menurut dirimu sendiri
+                                                </label>
+                                                <textarea class="form-control" name="kepribadian" id="kepribadian" rows="5" required>{{ $additional && $additional->kepribadian ? $additional->kepribadian : '' }}</textarea>
+                                            </div>
+                                        @endif
+                                        @if (str_contains(strtolower($item->products->slug), 'kontrak'))
+                                            <div class="col-12 mb-3">
+                                                <label for="nama_orang" class="form-label">Nama Orang Ini</label>
+                                                <input type="text" minlength="8" class="form-control"
+                                                    name="nama_orang" id="nama_orang" placeholder="" type="text"
+                                                    required
+                                                    value="{{ $additional && $additional->nama_orang ? $additional->nama_orang : '' }}">
+                                            </div>
+                                            <div class="col-12 mb-3">
+                                                <label for="siapa_dia" class="form-label">Siapa dia</label>
+                                                <select class="form-select" name="siapa_dia" id="siapa_dia">
+                                                    <option value="pacar/pasangan"
+                                                        {{ $additional && $additional->siapa_dia === 'pacar/pasangan' ? 'selected' : '' }}>
+                                                        Pacar / Pasangan</option>
+                                                    <option value="gebetan/crush"
+                                                        {{ $additional && $additional->siapa_dia === 'gebetan/crush' ? 'selected' : '' }}>
+                                                        Gebetan / Crush</option>
+                                                    <option value="teman/sahabat"
+                                                        {{ $additional && $additional->siapa_dia === 'teman/sahabat' ? 'selected' : '' }}>
+                                                        Teman / Sahabat</option>
+                                                    <option value="orang-tua"
+                                                        {{ $additional && $additional->siapa_dia === 'orang-tua' ? 'selected' : '' }}>
+                                                        Orang Tua</option>
+                                                    <option value="saudara"
+                                                        {{ $additional && $additional->siapa_dia === 'saudara' ? 'selected' : '' }}>
+                                                        Saudara</option>
+                                                    <option value="sekedar-kenal"
+                                                        {{ $additional && $additional->siapa_dia === 'sekedar-kenal' ? 'selected' : '' }}>
+                                                        Sekedar Kenal</option>
+                                                </select>
+                                            </div>
+                                        @endif
+
+                                        <div class="col-12 mb-3">
                                             <label for="muka" class="form-label">Foto Muka Terkini</label>
                                             <div class="row align-items-center">
                                                 <div class="col-7 col-lg-10">
