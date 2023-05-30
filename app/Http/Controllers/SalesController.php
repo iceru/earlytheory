@@ -188,7 +188,7 @@ class SalesController extends Controller
             $request->validate([
                 'inputRelationship' => 'nullable',
                 'inputPhone' => 'nullable',
-                'inputBirthdate' => 'nullable',
+                'inputBirthdate' => 'nullable|before:12/30/2012',
                 'inputPekerjaan' => 'nullable',
                 'inputGender' => 'nullable|in:laki-laki,perempuan',
             ]);
@@ -303,7 +303,7 @@ class SalesController extends Controller
             }
             $request->validate([
                 'name' => 'nullable',
-                'birthdate' => 'nullable',
+                'birthdate' => 'nullable|before:12/30/2012',
                 'birthplace' => 'nullable',
                 'age' => 'nullable',
                 'birthtime' => 'nullable',
