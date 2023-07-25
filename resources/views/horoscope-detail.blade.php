@@ -34,11 +34,11 @@
                     <div class="row birth-date">
                         <div class="col-4">
                             {{ \Carbon\Carbon::parse($horoscope->data['profile']['birthdate']['date'])->format('j M
-                                                                                    Y') }}
+                                                                                                                Y') }}
                         </div>
                         <div class="col-4">
                             {{ \Carbon\Carbon::parse($horoscope->data['profile']['birthdate']['date'])->format('g:i
-                                                                                    A') }}
+                                                                                                                A') }}
                         </div>
                         <div class="col-4">
                             <p>{{ $horoscope->data['profile']['cityName'] }}</p>
@@ -277,7 +277,7 @@
             $("#datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "1970:2012",
+                yearRange: "1960:2012",
                 dateFormat: 'yy-mm-dd',
                 defaultDate: "-22y"
             });
