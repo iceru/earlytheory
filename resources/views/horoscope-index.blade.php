@@ -106,7 +106,7 @@
         $("#datepicker").datepicker({
             changeMonth: true,
             changeYear: true,
-            yearRange: "1970:2012",
+            yearRange: "1960:2012",
             dateFormat: 'yy-mm-dd',
             defaultDate: "-22y"
         });
