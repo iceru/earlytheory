@@ -1,0 +1,26 @@
+.index {
+    padding: 2rem 0;
+    display: grid;
+    gap: 1rem;
+
+    @include breakpoint(large) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .index-section {
+        background-color: $primary;
+        color: white;
+        padding: 1.5rem;
+        border-radius: .5rem;
+        display: flex;
+        justify-content: space-between;
+        min-height: 103px;
+
+        h3 {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+    }
+}

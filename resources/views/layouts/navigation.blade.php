@@ -1,6 +1,5 @@
-<nav class="navbar-mobile no-print">
-    <div class="row align-items-center">
-        <div class="col-lg-6 d-none d-lg-block justify-content-start ">
+<nav class="navbar-mobile no-print d-flex d-lg-none">
+    {{-- <div class="col-lg-6 d-none d-lg-block justify-content-start ">
             @auth
                 <div class="dropdown">
                     <a class="d-flex align-items-center me-3" id="userDropdown" role="button" data-bs-toggle="dropdown"
@@ -17,7 +16,7 @@
                                     <span class="orders-alert"></span>
                                 @endif
                             </a></li>
-                        {{-- <li><a class="dropdown-item" href="{{ route('user.horoscopes') }}">Birth Chart</a></li> --}}
+                        <li><a class="dropdown-item" href="{{ route('user.horoscopes') }}">Birth Chart</a></li>
 
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
@@ -35,27 +34,26 @@
                 <a href="{{ route('login') }}" class="evogria primary-color d-flex"><i class="fa fa-user me-2"
                         style="line-height: 1.4" aria-hidden="true"></i> <span class="grey-color">Login</span></a>
             @endauth
-        </div>
-        <div class="hamburger col-3 d-lg-none d-flex justify-content-start">
-            <img src="/images/svg/hamburger.svg" alt="menu">
-            @if (count($sales) > 0)
-                <span class="orders-alert"></span>
-            @endif
-        </div>
-        <div class="logo col-6 d-flex justify-content-center d-lg-none">
-            <a href="/">
-                <img src="/images/MainLogo.png" alt="Early Theory">
-            </a>
-        </div>
-        <div class="cart-icon col-3 col-lg-6 d-flex justify-content-end">
+        </div> --}}
+    <div class="logo d-flex justify-content-center">
+        <a href="/">
+            <img src="/images/MainLogo.png" alt="Early Theory">
+        </a>
+    </div>
+    <div class="hamburger d-flex justify-content-start">
+        <img src="/images/svg/hamburger.svg" alt="menu">
+        @if (count($sales) > 0)
+            <span class="orders-alert"></span>
+        @endif
+    </div>
+    {{-- <div class="cart-icon col-3 col-lg-6 d-flex justify-content-end">
             <a href="/cart" class="cart-icon-a">
                 <img src="/images/svg/cart.svg" alt="cart">
             </a>
             <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
-        </div>
-    </div>
+        </div> --}}
 </nav>
-<nav class="navbar align-items-center row d-none d-lg-flex">
+<nav class="navbar align-items-center row d-none d-lg-flex pt-4">
     <div class="col-4 nav-links">
         <a class="{{ request()->is('/') ? 'active' : '' }}" href="{{ route('index') }}">Products</a>
         <a class="{{ request()->is('articles-page') ? 'active' : '' }}" href="{{ route('articles.index') }}"
@@ -73,12 +71,6 @@
 </nav>
 
 <div class="sidebar">
-    <div class="close-sidebar">
-        <i class="fas fa-times"></i>
-    </div>
-    <div class="logo-sidebar">
-        <img src="/images/Favicon.png" alt="">
-    </div>
     <ul class="nav-links">
         <li>
             <a class="{{ request()->is('/') ? 'active' : '' }}" href="{{ route('index') }}">Products</a>

@@ -1,5 +1,7 @@
 .navbar-mobile {
     padding: 1rem;
+    justify-content: space-between;
+    width: 100%;
 
     .logo {
         img {
@@ -114,7 +116,7 @@
 
     .logo-lg {
         img {
-            width: 12vw;
+            width: 10vw;
 
             @include breakpoint(xxlarge) {
                 width: 9vw;
@@ -144,14 +146,14 @@
 }
 
 .sidebar {
-    transform: translateX(-100%);
-    transition: 0.4s all ease-in;
+    transform: translateX(200%);
+    transition: 0.3s all ease-in-out;
     background-color: $background;
-    height: 100vh;
+    height: calc(100vh - 76px);
     width: 100vw;
-    position: absolute;
+    position: fixed;
     z-index: 800;
-    top: 0;
+    top: 76px;
     left: 0;
     padding: 6rem 2rem;
 
