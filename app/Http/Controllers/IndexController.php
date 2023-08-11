@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
+    public function homepage(Request $request)
+    {
+        return view('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -90,7 +94,7 @@ class IndexController extends Controller
         }
 
         $skus = json_encode($temp_array);
-        return view('index', compact(
+        return view('tarot', compact(
             'products',
             'sliders',
             'services',

@@ -40,18 +40,15 @@
             <img src="/images/MainLogo.png" alt="Early Theory">
         </a>
     </div>
-    <div class="hamburger d-flex justify-content-start">
-        <img src="/images/svg/hamburger.svg" alt="menu">
+    <div class="hamburger ">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
         @if (count($sales) > 0)
             <span class="orders-alert"></span>
         @endif
     </div>
-    {{-- <div class="cart-icon col-3 col-lg-6 d-flex justify-content-end">
-            <a href="/cart" class="cart-icon-a">
-                <img src="/images/svg/cart.svg" alt="cart">
-            </a>
-            <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
-        </div> --}}
+
 </nav>
 <nav class="navbar align-items-center row d-none d-lg-flex pt-4">
     <div class="col-4 nav-links">
@@ -69,72 +66,81 @@
         <a class="{{ request()->is('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>
     </div>
 </nav>
-
+<div class="account-nav">
+    <div class="user-name">
+        <i class="fa fa-user me-1"></i>
+        @auth
+            Hello, {{ Auth::name() }}
+        @else
+            <a href="{{ route('login') }}"> Login</a>
+        @endauth
+    </div>
+    <div class="cart">
+        <div class="cart-icon d-flex justify-content-end">
+            <a href="/cart" class="cart-icon-a">
+                <img src="/images/svg/cart.svg" alt="cart">
+            </a>
+        </div>
+        <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
+    </div>
+</div>
 <div class="sidebar">
     <ul class="nav-links">
         <li>
-            <a class="{{ request()->is('/') ? 'active' : '' }}" href="{{ route('index') }}">Products</a>
+            <a class="{{ request()->is('/tarot') ? 'active' : '' }}" href="{{ route('index') }}">Order Ramalan</a>
         </li>
         {{-- <li class="article-link">
             <a class="{{ (request()->is('articles-page')) ? 'active' : '' }}" href="{{ route('articles.index') }}">Articles</a>
         </li> --}}
         <li>
-            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Contact
-                Us</a>
+            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Kelas &
+                Workshop</a>
+        </li>
+        <li>
+            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Toko
+                Mejik</a>
+        </li>
+        <li>
+            <a class="{{ request()->is('articles') ? 'active' : '' }}" href="{{ route('articles') }}">Artikel</a>
+        </li>
+        <li>
+            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Kontak</a>
         </li>
         <li>
             <a class="{{ request()->is('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>
         </li>
-        @auth
-            <li class="login-link">
-                <a class="{{ request()->is('account') ? 'active' : '' }}" href="{{ route('user.account') }}">My
-                    Account</a>
-            </li>
-            <li>
-                <a class="{{ request()->is('orders') ? 'active' : '' }}" href="{{ route('user.orders') }}">My Orders
-                    @if (count($sales) > 0)
-                        <span class="orders-alert"></span>
-                    @endif
-                </a>
-            </li>
-            {{-- <li>
+        {{-- <li>
             <a class="{{ (request()->is('account/horoscopes')) ? 'active' : '' }}" href="{{ route('user.horoscopes') }}">My Birth Chart</a>
         </li> --}}
-        @else
-            <li class="login-link">
-                <a href="{{ route('login') }}">Login</a>
-            </li>
-        @endauth
 
     </ul>
+    <div class="sidebar-img">
+        <img src="/images/FavIcon.png" alt="Early Theory">
+    </div>
 </div>
 
 <script>
     $(document).ready(function() {
         $('.hamburger').click(function() {
             $('.sidebar').toggleClass('active');
+            $(this).toggleClass('active');
             $('body').css('overflow-y', 'hidden');
         })
 
-        $('.close-sidebar').click(function() {
-            $('.sidebar').removeClass('active');
-            $('body').css('overflow-y', 'auto');
-        })
-
-        $(document).scroll(function() {
-            var scroll = $(this).scrollTop();
-            var topDist = $(".navbar-mobile").position();
-            if (scroll > topDist.top) {
-                $('.navbar-mobile').addClass('sticky');
-                $('.navbar').addClass('sticky');
-                $('.name-section').hide();
-                $('.navbar-mobile .row').addClass('container sticky-container');
-            } else {
-                $('.navbar-mobile').removeClass('sticky');
-                $('.navbar').removeClass('sticky');
-                $('.name-section').show();
-                $('.navbar-mobile .row').removeClass('container sticky-container');
-            }
-        });
+        // $(document).scroll(function() {
+        //     var scroll = $(this).scrollTop();
+        //     var topDist = $(".navbar-mobile").position();
+        //     if (scroll > topDist.top) {
+        //         $('.navbar-mobile').addClass('sticky');
+        //         $('.navbar').addClass('sticky');
+        //         $('.name-section').hide();
+        //         $('.navbar-mobile .row').addClass('container sticky-container');
+        //     } else {
+        //         $('.navbar-mobile').removeClass('sticky');
+        //         $('.navbar').removeClass('sticky');
+        //         $('.name-section').show();
+        //         $('.navbar-mobile .row').removeClass('container sticky-container');
+        //     }
+        // });
     })
 </script>

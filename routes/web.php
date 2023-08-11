@@ -14,6 +14,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\WorkshopController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HoroscopeController;
@@ -39,7 +40,8 @@ use App\Http\Controllers\AdminProductOptionsController;
 |
 */
 
-Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::get('/', [IndexController::class, 'homepage'])->name('index');
+Route::get('/tarot', [IndexController::class, 'index'])->name('index');
 
 Route::get('/birth-chart', [IndexController::class, 'index'])->name('horoscope');
 Route::get('/articles', [IndexController::class, 'index'])->name('articles');
@@ -54,10 +56,12 @@ Route::post('/get-sku', [ProductsController::class, 'getSku'])->name('get-sku');
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us');
 
-Route::get('/birth-chart/show/{link_id}', [HoroscopeController::class, 'show'])->name('horoscope.show');
-Route::post('/birth-chart/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
-Route::post('/birth-chart/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
-Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
+// Route::get('/birth-chart/show/{link_id}', [HoroscopeController::class, 'show'])->name('horoscope.show');
+// Route::post('/birth-chart/places', [HoroscopeController::class, 'places'])->name('horoscope.places');
+// Route::post('/birth-chart/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
+// Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
+
+Route::get('/workshop', [WorkshopController::class, 'index'])->name('workshop.index');
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');

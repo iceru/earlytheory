@@ -19,6 +19,7 @@
 @import 'pages/account';
 @import 'pages/product-detail';
 @import 'pages/horoscope';
+@import 'pages/workshop';
 @import "~sweetalert2/src/sweetalert2";
 @import "~shepherd.js/dist/css/shepherd.css";
 @import 'base/shepherd';
@@ -27,6 +28,10 @@
 * {
     margin: 0;
     padding: 0;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 html,

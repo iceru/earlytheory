@@ -39,14 +39,6 @@
         </a>
     </div>
 
-    <div class="popupPage" id="popup">
-        <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" class="popup-img">
-            <div class="close" id="closePopup"> <i class="fas fa-times" aria-hidden="true"></i></div>
-            <div class="ratio">
-                <img src="/images/banner-shopee.png" alt="">
-            </div>
-        </a>
-    </div>
     <div class="col-12 index">
         <div class="products mt-3 page active" id="products">
             <div class="title">

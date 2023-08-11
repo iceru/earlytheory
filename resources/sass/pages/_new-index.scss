@@ -1,5 +1,5 @@
 .index {
-    padding: 2rem 0;
+    padding: 1rem 0 2rem;
     display: grid;
     gap: 1rem;
 
@@ -9,7 +9,7 @@
     }
 
     .index-section {
-        background-color: $primary;
+        background: $primaryGrad;
         color: white;
         padding: 1.5rem;
         border-radius: .5rem;
@@ -22,5 +22,51 @@
             display: flex;
             align-items: center;
         }
+    }
+}
+
+.account-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .75rem;
+    background: $primaryGrad;
+    color: white;
+    margin: 0 -.75rem;
+    position: relative;
+
+    .user-name {
+        font-weight: bold;
+
+        a {
+            text-decoration: underline;
+            font-style: italic;
+            color: white;
+        }
+    }
+
+    .cart-icon {
+        @include breakpoint(large) {
+            padding: 0;
+        }
+
+        padding: 0;
+        position: relative;
+        display: block;
+        filter: brightness(0) invert(1);
+    }
+
+    .badge-count {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        color: $body;
+        font-weight: bold;
+        border-radius: 50%;
+        background: $yellow;
+        font-size: 10px;
+        height: 16px;
+        width: 16px;
+        text-align: center;
     }
 }
