@@ -50,38 +50,44 @@
     </div>
 
 </nav>
-<nav class="navbar align-items-center row d-none d-lg-flex pt-4">
-    <div class="col-4 nav-links">
-        <a class="{{ request()->is('/') ? 'active' : '' }}" href="{{ route('index') }}">Products</a>
-        <a class="{{ request()->is('articles-page') ? 'active' : '' }}" href="{{ route('articles.index') }}"
-            class="article-link">Articles</a>
-    </div>
-    <div class="col-4 logo-lg text-center">
-        <a href="/">
-            <img src="/images/MainLogo.png" alt="Early Theory">
-        </a>
-    </div>
-    <div class="col-4 nav-links">
-        <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Contact Us</a>
-        <a class="{{ request()->is('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>
-    </div>
-</nav>
-<div class="account-nav">
-    <div class="user-name">
-        <i class="fa fa-user me-1"></i>
-        @auth
-            Hello, {{ Auth::name() }}
-        @else
-            <a href="{{ route('login') }}"> Login</a>
-        @endauth
-    </div>
-    <div class="cart">
-        <div class="cart-icon d-flex justify-content-end">
-            <a href="/cart" class="cart-icon-a">
-                <img src="/images/svg/cart.svg" alt="cart">
+<div class="container">
+    <nav class="navbar align-items-center row d-none d-lg-flex pt-4">
+        <div class="col-4 nav-links">
+            <a class="{{ request()->is('/tarot') ? 'active' : '' }}" href="{{ route('tarot') }}">Ramalan</a>
+            <a class="{{ request()->is('/workshop') ? 'active' : '' }}" href="{{ route('workshop') }}">Workshop</a>
+            <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" target="_blank">Toko Mejik</a>
+        </div>
+        <div class="col-4 logo-lg text-center">
+            <a href="/">
+                <img src="/images/MainLogo.png" alt="Early Theory">
             </a>
         </div>
-        <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
+        <div class="col-4 nav-links">
+            <a class="{{ request()->is('articles-page') ? 'active' : '' }}" href="{{ route('articles.index') }}"
+                class="article-link">Articles</a>
+            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Contact Us</a>
+            <a class="{{ request()->is('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>
+        </div>
+    </nav>
+</div>
+<div class="account-nav">
+    <div class="container">
+        <div class="user-name">
+            <i class="fa fa-user me-1"></i>
+            @auth
+                <a href="{{ route('user.account') }}"> Hello, {{ Auth::user()->name }}</a>
+            @else
+                <a href="{{ route('login') }}"> Login</a>
+            @endauth
+        </div>
+        <div class="cart">
+            <div class="cart-icon d-flex justify-content-end">
+                <a href="/cart" class="cart-icon-a">
+                    <img src="/images/svg/cart.svg" alt="cart">
+                </a>
+            </div>
+            <div class="badge-count" id="cartcount">{{ \Cart::getContent()->count() }}</div>
+        </div>
     </div>
 </div>
 <div class="sidebar">
@@ -89,9 +95,6 @@
         <li>
             <a class="{{ request()->is('/tarot') ? 'active' : '' }}" href="{{ route('index') }}">Order Ramalan</a>
         </li>
-        {{-- <li class="article-link">
-            <a class="{{ (request()->is('articles-page')) ? 'active' : '' }}" href="{{ route('articles.index') }}">Articles</a>
-        </li> --}}
         <li>
             <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Kelas &
                 Workshop</a>
@@ -109,10 +112,6 @@
         <li>
             <a class="{{ request()->is('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>
         </li>
-        {{-- <li>
-            <a class="{{ (request()->is('account/horoscopes')) ? 'active' : '' }}" href="{{ route('user.horoscopes') }}">My Birth Chart</a>
-        </li> --}}
-
     </ul>
     <div class="sidebar-img">
         <img src="/images/FavIcon.png" alt="Early Theory">

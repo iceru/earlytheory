@@ -12,29 +12,40 @@
     </div>
     <div class="container">
         <main class="index">
-            <section class="index-section col">
-                <h3 class="text-2xl">
-                    Order <br />
-                    Ramalan
-                </h3>
-            </section>
-            <section class="index-section col">
-                <h3 class="text-2xl">
-                    Kelas & <br />
-                    Workshop
-                </h3>
-            </section>
-            <section class="index-section col">
-                <h3 class="text-2xl">
-                    Toko <br />
-                    Mejik
-                </h3>
-            </section>
-            <section class="index-section col">
-                <h3 class="text-2xl">
-                    Artikel
-                </h3>
-            </section>
+            <a href="/tarot">
+                <section class="index-section col">
+                    <h3 class="text-2xl">
+                        Order <br />
+                        Ramalan
+                    </h3>
+                </section>
+            </a>
+            <a href="/workshop">
+                <section class="index-section col">
+                    <h3 class="text-2xl">
+                        Kelas & <br />
+                        Workshop
+                    </h3>
+                </section>
+            </a>
+
+            <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" target="_blank">
+                <section class="index-section col">
+                    <h3 class="text-2xl">
+                        Toko <br />
+                        Mejik
+                    </h3>
+                </section>
+            </a>
+
+            <a href="/articles-page">
+                <section class="index-section col">
+                    <h3 class="text-2xl">
+                        Artikel
+                    </h3>
+                </section>
+            </a>
+
         </main>
     </div>
 

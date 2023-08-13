@@ -11170,7 +11170,7 @@ a {
 }
 
 .navbar-mobile {
-  padding: 1rem 0;
+  padding: 1rem 0.75rem;
   justify-content: space-between;
   width: 100%;
   align-items: center;
@@ -11192,6 +11192,10 @@ a {
   margin-bottom: 4px;
   transition: all 0.2s ease;
 }
+.navbar-mobile .hamburger .orders-alert {
+  right: -10px;
+  top: -10px;
+}
 .navbar-mobile .hamburger.active .line:first-child {
   transform: rotate(45deg);
   margin-bottom: 0;
@@ -11199,14 +11203,13 @@ a {
 .navbar-mobile .hamburger.active .line:nth-child(2) {
   display: none;
 }
-.navbar-mobile .hamburger.active .line:last-child {
+.navbar-mobile .hamburger.active .line:nth-child(3) {
   transform: rotate(-45deg);
   margin-bottom: 0;
   margin-top: -2px;
 }
-.navbar-mobile .hamburger .orders-alert {
-  left: 32px;
-  top: -10px;
+.navbar-mobile .hamburger.active .orders-alert {
+  top: -16px;
 }
 
 .dropdown .dropdown-toggle {
@@ -11278,7 +11281,7 @@ a {
 }
 .navbar .nav-links {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .navbar .nav-links a {
   color: black;
@@ -12003,10 +12006,6 @@ a {
   }
 }
 
-.contact-us .row {
-  width: 80%;
-  margin: auto;
-}
 .contact-us h2, .contact-us .h2 {
   margin-bottom: 3rem;
 }
@@ -12137,57 +12136,57 @@ a {
 }
 
 @media (min-width: 992px) {
-  .index {
+  .index-tarot {
     padding: 2rem 0;
   }
 }
-.index .title {
+.index-tarot .title {
   margin-bottom: 1rem;
   font-family: "Evogria";
   font-size: 24px;
   text-transform: uppercase;
 }
-.index .astrologi,
-.index .spiritual {
+.index-tarot .astrologi,
+.index-tarot .spiritual {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid lightgray;
 }
-.index .products .product-item-container {
+.index-tarot .products .product-item-container {
   margin-bottom: 2rem;
   position: relative;
 }
-.index .products .product-item-container .product-image {
+.index-tarot .products .product-item-container .product-image {
   margin-bottom: 0.5rem;
   width: 100%;
 }
-.index .products .product-item-container .product-item {
+.index-tarot .products .product-item-container .product-item {
   text-align: center;
   color: #202020;
   padding: 12px;
   border: 1px solid #c4c4c4;
   border-radius: 5px;
 }
-.index .products .product-item-container .product-item .product-title h3, .index .products .product-item-container .product-item .product-title .h3 {
+.index-tarot .products .product-item-container .product-item .product-title h3, .index-tarot .products .product-item-container .product-item .product-title .h3 {
   font-size: 1.25rem;
   margin-bottom: 6px;
 }
 @media (min-width: 768px) {
-  .index .products .product-item-container .product-item .product-title h3, .index .products .product-item-container .product-item .product-title .h3 {
+  .index-tarot .products .product-item-container .product-item .product-title h3, .index-tarot .products .product-item-container .product-item .product-title .h3 {
     font-size: 1.5rem;
   }
 }
-.index .products .product-item-container .product-item .product-price {
+.index-tarot .products .product-item-container .product-item .product-price {
   margin-bottom: 6px;
 }
-.index .products .product-item-container .product-item .product-price.discount {
+.index-tarot .products .product-item-container .product-item .product-price.discount {
   color: red;
 }
-.index .products .product-item-container .product-item .product-desc {
+.index-tarot .products .product-item-container .product-item .product-desc {
   font-size: 0.85rem;
 }
 @media (min-width: 992px) {
-  .index .products .product-item-container .product-item .product-desc {
+  .index-tarot .products .product-item-container .product-item .product-desc {
     min-height: 65px;
   }
 }
@@ -12308,7 +12307,7 @@ a {
 }
 
 .index {
-  padding: 1rem 0 2rem;
+  padding: 2rem 0;
   display: grid;
   gap: 1rem;
 }
@@ -12334,14 +12333,16 @@ a {
 }
 
 .account-nav {
+  background: linear-gradient(111deg, #4A2984 0%, #7E0181 100%);
+}
+.account-nav .container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem;
-  background: linear-gradient(111deg, #4A2984 0%, #7E0181 100%);
+  padding: 0.75rem 1rem;
   color: white;
-  margin: 0 -0.75rem;
-  position: relative;
+  margin: auto;
 }
 .account-nav .user-name {
   font-weight: bold;
@@ -12537,111 +12538,45 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   content: "";
 }
 
-.account {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  width: 91%;
+.account__wrapper {
+  margin: 2rem 0;
 }
-.account .text-page {
-  text-align: center;
-}
-.account .account-navigation {
-  height: 100%;
-}
-.account .account-navigation .sidebar-account {
-  height: 100%;
-  list-style-type: none;
-  padding: 0;
-  padding-right: 2rem;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-}
-.account .account-navigation .sidebar-account li {
-  margin-bottom: 1.25rem;
-}
-.account .account-navigation .sidebar-account li a {
-  font-size: 1.15rem;
-  font-family: "Evogria";
-  text-transform: lowercase;
-  color: black;
-  transition: all 0.2s ease-in;
-}
-.account .account-navigation .sidebar-account li a:hover, .account .account-navigation .sidebar-account li a.active {
-  color: #202020;
-  transition: all 0.2s ease-in;
-}
-.account .account-content {
-  padding-left: 2rem;
-}
-.account .account-content .account-name {
-  font-size: 1.5rem;
-}
-.account .account-content .account-item {
-  margin-bottom: 0.75rem;
-}
-.account .account-content .account-item p {
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.account .orders-content {
-  padding-left: 2rem;
-}
-@media (max-width: 576px) {
-  .account .orders-content {
-    padding-left: 0.75rem;
-  }
-}
-.account .orders-content .order-item:not(:last-child) {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #202020;
-}
-.account .orders-content .order-item .order-header {
-  margin-bottom: 1rem;
-}
-.account .orders-content .order-item .order-products .product-item:not(:last-child) {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-@media (max-width: 576px) {
-  .account {
-    width: 100%;
-  }
-  .account .account-navigation {
-    height: auto !important;
-    margin-bottom: 1rem;
-  }
-  .account .account-navigation .sidebar-account {
-    display: flex;
-    justify-content: space-between;
-    border-right: none;
-    padding-right: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  .account .account-navigation .sidebar-account li {
-    margin: 1rem;
-  }
-  .account .account-navigation .sidebar-account li a {
-    font-size: 1rem;
-  }
-  .account .account-content {
-    padding: 1rem;
-  }
-}
-.account .account-horoscope {
-  padding-bottom: 1.5rem;
+
+.account__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #202020;
 }
-.account .account-horoscope .name {
-  font-family: "Rubik Mono One";
-  margin-bottom: 0.5rem;
-  font-size: 1.25rem !important;
+.account__info h3, .account__info .h3 {
+  font-weight: bold;
+  font-size: 20px;
 }
-.account .account-horoscope .date,
-.account .account-horoscope .city {
-  font-family: "Evogria";
-  text-transform: uppercase;
+.account__info p {
+  font-size: 14px;
+}
+.account__info .btn-logout {
+  background-color: #EE4848;
+  color: white;
+  font-weight: bold;
+  border-radius: 32px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+.account__menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.account__menu .account__menuItem {
+  display: flex;
+  background: linear-gradient(111deg, #4A2984 0%, #7E0181 100%);
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  line-height: 1.3;
 }
 
 .product-detail {

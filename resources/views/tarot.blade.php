@@ -2,7 +2,7 @@
     @section('title')
         Early Theory - Homepage
     @endsection
-    <div class="index col-12">
+    <div class="index-tarot col-12">
         <div class="sliders-index sliders">
             @foreach ($sliders as $slider)
                 <a target="_blank" href="{{ $slider->link }}">
@@ -39,7 +39,7 @@
         </a>
     </div>
 
-    <div class="col-12 index">
+    <div class="col-12 index-tarot">
         <div class="products mt-3 page active" id="products">
             <div class="title">
                 Tarot

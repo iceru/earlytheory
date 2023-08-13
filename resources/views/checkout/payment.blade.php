@@ -71,7 +71,7 @@
                         <a class="button primary me-3" href="/checkout/{{ $sales->sales_no }}/confirm-payment">
                             Konfirmasi Pembayaran Sekarang
                         </a>
-                        <a class="button primary-line" href="/orders">
+                        <a class="button primary-line" href="{{ route('user.orders') }}">
                             Konfirmasi Lain Waktu
                         </a>
                     </div>

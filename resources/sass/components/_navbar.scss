@@ -1,5 +1,5 @@
 .navbar-mobile {
-    padding: 1rem 0;
+    padding: 1rem .75rem;
     justify-content: space-between;
     width: 100%;
     align-items: center;
@@ -25,6 +25,11 @@
             transition: all .2s ease;
         }
 
+        .orders-alert {
+            right: -10px;
+            top: -10px;
+        }
+
         &.active {
             .line:first-child {
                 transform: rotate(45deg);
@@ -35,16 +40,15 @@
                 display: none;
             }
 
-            .line:last-child {
+            .line:nth-child(3) {
                 transform: rotate(-45deg);
                 margin-bottom: 0;
                 margin-top: -2px;
             }
-        }
 
-        .orders-alert {
-            left: 32px;
-            top: -10px;
+            .orders-alert {
+                top: -16px;
+            }
         }
     }
 }
@@ -131,7 +135,7 @@
 
     .nav-links {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
 
         a {
             color: black;

@@ -3,12 +3,11 @@
         My Orders
     @endsection
 
-    <div class="container account">
+    <div class="container account__wrapper">
         <div class="row">
             <div class="col-12 mb-5">
-                <h3 class="evogria text-page">My Orders</h3>
+                <h3 class="text-page">My Orders</h3>
             </div>
-            @include('layouts.account-navigation')
 
             <div class="col-12 col-md-9 orders-content">
                 @forelse ($orders as $order)

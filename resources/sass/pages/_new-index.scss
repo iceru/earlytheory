@@ -1,5 +1,5 @@
 .index {
-    padding: 1rem 0 2rem;
+    padding: 2rem 0;
     display: grid;
     gap: 1rem;
 
@@ -26,14 +26,17 @@
 }
 
 .account-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .75rem;
     background: $primaryGrad;
-    color: white;
-    margin: 0 -.75rem;
-    position: relative;
+
+    .container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .75rem 1rem;
+        color: white;
+        margin: auto;
+    }
 
     .user-name {
         font-weight: bold;

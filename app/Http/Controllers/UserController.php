@@ -77,7 +77,7 @@ class UserController extends Controller
         //     }
         // }
 
-        return view('orders', compact('orders'));
+        return view('account-orders', compact('orders'));
     }
 
     public function horoscopes()
