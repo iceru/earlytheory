@@ -1,16 +1,23 @@
 <x-app-layout>
     @section('title')
-        Edit Account
+        Edit Profile
     @endsection
 
-    <div class="container account">
+    <div class="container account__wrapper">
         <div class="row">
-            <div class="col-12 mb-5">
-                <h3 class="evogria text-page">Edit Account</h3>
+            <div class="account__bread">
+                <a href="{{ route('user.account') }}">Akun</a>
+                <span>/</span>
+                <span>Edit Profile</span>
             </div>
-            @include('layouts.account-navigation')
+            <h3 class="account__titlePage">Edit Profile</h3>
 
             <div class="col-12 col-lg-9 account-content">
+                @if (session('success'))
+                    <div class="alert alert-success my-3">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <form action="{{ route('user.account-update') }}" method="POST">
                     @csrf
                     <div class="row">
@@ -61,19 +68,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <h5 class="mb-3">Change Password</h5>
-                        <div class="form-group col-12 col-lg-6 mb-3">
-                            <label for="password">New Password</label>
-                            <input class="form-control" type="password" name="password" placeholder="Type new password"
-                                autocomplete="off">
-                        </div>
-                        <div class="form-group col-12 col-lg-6 mb-3">
-                            <label for="password_confirmation">Confirm New Password</label>
-                            <input class="form-control" type="password" name="password_confirmation"
-                                placeholder="Type new password again" autocomplete="off">
-                        </div>
-
                         <div class="col-12">
                             <button type="submit" class="button primary">Submit</button>
                         </div>

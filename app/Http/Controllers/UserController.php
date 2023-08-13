@@ -32,6 +32,11 @@ class UserController extends Controller
         return view('account-edit')->with('user', auth()->user());
     }
 
+    public function accountEditPassword()
+    {
+        return view('account-password')->with('user', auth()->user());
+    }
+
     public function accountUpdate(Request $request)
     {
         $user = auth()->user();
@@ -41,8 +46,6 @@ class UserController extends Controller
             'email' => 'required',
             'phone' => 'required',
             'birthdate' => 'required|before:12/30/2012',
-            'password' => ['nullable', 'confirmed', Password::min(8)],
-            // 'currentPassword' => 'required_with:newPassword|current_password:api'
         ]);
 
         if ($validator->fails()) {
@@ -58,12 +61,6 @@ class UserController extends Controller
             'birthdate' => $request->birthdate
         ])->save();
 
-        if ($request->password) {
-            $update = $user->fill([
-                'password' => Hash::make($request->password)
-            ])->save();
-        }
-
         return redirect()->route('user.account-edit')->with('success', 'Data berhasil terupdate!');
     }
 
@@ -78,6 +75,21 @@ class UserController extends Controller
         // }
 
         return view('account-orders', compact('orders'));
+    }
+
+    public function password(Request $request)
+    {
+        $user = auth()->user();
+
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'confirmed', Password::min(8)],
+        ]);
+
+        $update = $user->fill([
+            'password' => Hash::make($request->password)
+        ])->save();
+
+        return redirect()->route('user.edit-password')->with('success', 'Data berhasil terupdate!');
     }
 
     public function horoscopes()

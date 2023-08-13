@@ -32,7 +32,7 @@
                         Kelas & <br> Workshop
                     </div>
                 </a>
-                <a href="">
+                <a href="{{ route('user.edit-password') }}">
                     <div class="account__menuItem">
                         Ubah <br> Password
                     </div>

@@ -82,6 +82,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
+    Route::get('/account/edit/password', [UserController::class, 'accountEditPassword'])->name('user.edit-password');
+    Route::post('/account/update/password', [UserController::class, 'password'])->name('user.update-password');
     Route::get('/account/orders', [UserController::class, 'orders'])->name('user.orders');
     Route::get('/account/horoscopes', [UserController::class, 'horoscopes'])->name('user.horoscopes');
     Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
