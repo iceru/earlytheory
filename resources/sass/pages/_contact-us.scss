@@ -1,5 +1,5 @@
 .contact-us {
-    @include breakpoint(desktop) {
+    @include breakpoint(large) {
         .row {
             width: 80%;
             margin: auto;
