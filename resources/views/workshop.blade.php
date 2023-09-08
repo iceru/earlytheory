@@ -1,5 +1,19 @@
 <x-app-layout>
+    @section('title')
+        Workshop
+    @endsection
     <div class="workshop__wrapper">
+        <div class="page__title">
+            <div class="page__titleImage">
+                <img src="/images/Favicon.png" width="50" alt="">
+            </div>
+            <div class="page__titleText">
+                Workshop
+            </div>
+        </div>
+        <div class="workshop__titlePage">
+            Daftar Program
+        </div>
         <div class="workshop__lists">
             <div class="workshop__item">
                 <div class="workshop__image">

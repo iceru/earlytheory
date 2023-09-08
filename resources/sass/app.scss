@@ -41,6 +41,11 @@ body {
     overflow-x: hidden;
 }
 
+body.no-scroll {
+    overflow-y: hidden;
+    height: 100vh;
+}
+
 // .print {
 //     display: none;
 

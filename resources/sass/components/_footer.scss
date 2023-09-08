@@ -5,6 +5,7 @@
 .footer {
     justify-content: center;
 
+
     @include breakpoint(medium) {
         // .footer-info, .footer-subs-logo, .footer-copyright{
         //     padding: 0 5vw;
@@ -16,8 +17,8 @@
     }
 
     .to-top {
-        color: white;
-        background: $primary;
+        color: black;
+        background: $yellow;
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         margin-bottom: 1rem;

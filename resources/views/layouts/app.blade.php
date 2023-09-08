@@ -119,7 +119,7 @@
 
     <!-- Page Content -->
     <main class="container">
-        <div class="row py-2">
+        <div class="row">
             {{ $slot }}
         </div>
     </main>

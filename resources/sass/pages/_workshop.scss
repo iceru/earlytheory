@@ -126,3 +126,42 @@
         }
     }
 }
+
+.workshop__wrapper {
+    margin: 2rem 0;
+
+    .workshop__titlePage {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .workshop__lists {
+        .workshop__item {
+            background: $primaryGrad;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+
+            .workshop__title {
+                margin-bottom: 8px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .workshop__desc {
+                font-style: italic;
+                font-size: 14px;
+                font-weight: 300;
+                margin-bottom: 1rem;
+            }
+
+            .button-white {
+                border-radius: 32px;
+                padding: 6px 24px;
+            }
+        }
+    }
+}

@@ -93,14 +93,15 @@
 <div class="sidebar">
     <ul class="nav-links">
         <li>
-            <a class="{{ request()->is('/tarot') ? 'active' : '' }}" href="{{ route('index') }}">Order Ramalan</a>
+            <a class="{{ request()->is('/tarot') ? 'active' : '' }}" href="{{ route('tarot') }}">Order Ramalan</a>
         </li>
         <li>
-            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Kelas &
+            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('workshop') }}">Kelas &
                 Workshop</a>
         </li>
         <li>
-            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('contact-us') }}">Toko
+            <a class="{{ request()->is('contact-us') ? 'active' : '' }}"
+                href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" target="_blank">Toko
                 Mejik</a>
         </li>
         <li>
@@ -123,7 +124,7 @@
         $('.hamburger').click(function() {
             $('.sidebar').toggleClass('active');
             $(this).toggleClass('active');
-            $('body').css('overflow-y', 'hidden');
+            $('body').toggleClass('no-scroll', '');
         })
 
         // $(document).scroll(function() {

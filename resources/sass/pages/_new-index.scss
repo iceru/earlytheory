@@ -73,3 +73,23 @@
         text-align: center;
     }
 }
+
+.page__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .page__titleImage {
+        margin-right: .75rem;
+
+        img {
+            width: 51px;
+            height: 51px;
+        }
+    }
+
+    .page__titleText {
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
