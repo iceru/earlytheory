@@ -301,6 +301,7 @@ class SalesController extends Controller
             if (!$additional) {
                 $additional = new AdditionalQuestion;
             }
+           
             $request->validate([
                 'name' => 'nullable',
                 'birthdate' => 'nullable|before:12/30/2012',
@@ -333,6 +334,11 @@ class SalesController extends Controller
                         'telapak-jari' => 'required',
                         'telapak-close' => 'required',
                         'muka' => 'required',
+                    ]);
+                }
+                if (str_contains($item->products->slug, 'Di-Mata')) {
+                    $request->validate([
+                        'kepribadian' => 'required',
                     ]);
                 }
             }
