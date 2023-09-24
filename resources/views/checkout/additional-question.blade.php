@@ -310,7 +310,7 @@
                                     <label for="kepribadian" class="form-label">Jelaskan kepribadianmu
                                         menurut dirimu sendiri
                                     </label>
-                                    <textarea class="form-control" name="kepribadian" id="kepribadian" rows="5" required>{{ $additional && $additional->kepribadian ? $additional->kepribadian : '' }}</textarea>
+                                    <textarea class="form-control" name="kepribadian" id="kepribadian" rows="5" required></textarea>
                                 </div>
                                 @endif
                                 @if (str_contains(strtolower($item->products->slug), 'kontrak'))
