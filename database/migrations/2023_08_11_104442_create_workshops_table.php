@@ -18,6 +18,10 @@ class CreateWorkshopsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('time');
+            $table->integer('image');
+            $table->integer('video');
+            $table->integer('color');
+            $table->integer('price');
             $table->integer('discount')->nullable();
             $table->timestamps();
         });

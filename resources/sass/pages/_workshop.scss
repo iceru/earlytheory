@@ -139,11 +139,26 @@
     }
 
     .workshop__lists {
+        .slick-list {
+            padding: 0 10% 0 0 !important;
+        }
+
         .workshop__item {
             background: $primaryGrad;
             color: white;
             padding: 1rem;
             border-radius: 8px;
+            height: 80%;
+            opacity: 0.7;
+            margin: 1rem;
+            margin-top: 2rem;
+
+            &.slick-active {
+                opacity: 1;
+                height: 100%;
+                padding: 2rem 1rem;
+                margin-top: 1rem;
+            }
 
             .workshop__title {
                 margin-bottom: 8px;

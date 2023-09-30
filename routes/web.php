@@ -25,6 +25,7 @@ use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminDiscountController;
 use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminTrackingController;
+use App\Http\Controllers\AdminWorkshopController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPaymentMethodsController;
 use App\Http\Controllers\AdminProductOptionsController;
@@ -142,6 +143,12 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/articles/edit/{id}', [AdminArticleController::class, 'edit'])->name('admin.articles.edit');
     Route::post('/admin/articles/update', [AdminArticleController::class, 'update'])->name('admin.articles.update');
     Route::get('/admin/articles/delete/{id}', [AdminArticleController::class, 'destroy'])->name('admin.articles.destroy');
+
+    Route::get('/admin/workshops', [AdminWorkshopController::class, 'index'])->name('admin.workshops');
+    Route::post('/admin/workshops/store', [AdminWorkshopController::class, 'store'])->name('admin.workshops.store');
+    Route::get('/admin/workshops/edit/{id}', [AdminWorkshopController::class, 'edit'])->name('admin.workshops.edit');
+    Route::post('/admin/workshops/update', [AdminWorkshopController::class, 'update'])->name('admin.workshops.update');
+    Route::get('/admin/workshops/delete/{id}', [AdminWorkshopController::class, 'destroy'])->name('admin.workshops.destroy');
 
     Route::get('/admin/tags', [AdminTagsController::class, 'index'])->name('admin.tags');
     Route::post('/admin/tags/store', [AdminTagsController::class, 'store'])->name('admin.tags.store');
