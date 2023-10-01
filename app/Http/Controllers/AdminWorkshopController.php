@@ -37,50 +37,41 @@ class AdminWorkshopController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new Articles;
+        $workshop = new Workshop;
 
         $request->validate([
-            'inputImage' => 'required|image',
-            'inputTitle' => 'required',
-            'inputDesc' => 'required',
-            'inputAuthor' => 'required',
-            'inputTime' => 'required|integer',
-            'inputAccent' => 'required',
-            'inputTags' => 'string|regex:/^[a-zA-Z0-9\s]+$/'
+            'image' => 'required|image',
+            'title' => 'required',
+            'description' => 'required',
+            'video' => 'nullable',
+            'time' => 'required|integer',
+            'color' => 'required',
+            'discount' => 'nullable',
         ]);
-
-        if ($request->hasFile('inputImage')) {
-            $extension = $request->file('inputImage')->getClientOriginalExtension();
-            $filename = $request->inputTitle.'_'.time().'.'.$extension;
-            $path = $request->inputImage->storeAs('public/article-image', $filename);
+        $filename;
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = $request->title.'_'.time().'.'.$extension;
+            $path = $request->image->storeAs('public/workshop-image', $filename);
         }
 
-        $article->image = $filename;
-
-        $article->title = $request->inputTitle;
-        $article->description = $request->inputDesc;
-        $article->author = $request->inputAuthor;
-        $article->time_read = $request->inputTime;
-        $article->accent_color = $request->inputAccent;
-        $article->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->inputTitle);
-        $article->save();
-
-        $tagsArray = explode(' ', strtolower($request->inputTags));
-        $tags = array();
-
-        foreach($tagsArray as $articleTag) {
-            if($articleTag != ' ') {
-                $tag = Tags::firstOrCreate([
-                    'tag_name' => $articleTag
-                ]);
-
-                $tags[$tag->id] = ['article_id' => $article->id];
-            }
+        if ($request->hasFile('video')) {
+            $extension = $request->file('video')->getClientOriginalExtension();
+            $videoFile = $request->title.'_'.time().'.'.$extension;
+            $path = $request->video->storeAs('public/workshop-video', $videoFile);
+            $workshop->video = $videoFile;
         }
 
-        $article->tags()->attach($tags);
+        $workshop->image = $filename;
+        $workshop->title = $request->title;
+        $workshop->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
+        $workshop->description = $request->description;
+        $workshop->time = $request->time;
+        $workshop->color = $request->color;
+        $workshop->discount = $request->discount;
+        $workshop->save();
 
-        return redirect('/admin/articles');
+        return redirect()->route('admin.workshops');
     }
 
     /**
@@ -102,7 +93,7 @@ class AdminWorkshopController extends Controller
      */
     public function edit($id)
     {
-        $article = Articles::find($id);
+        $workshop = Articles::find($id);
         $autocomplete = Tags::pluck('tag_name')->toArray();
 
         return view('admin.articles.edit', compact('article', 'autocomplete'));
@@ -117,7 +108,7 @@ class AdminWorkshopController extends Controller
      */
     public function update(Request $request)
     {
-        $article = Articles::find($request->id);
+        $workshop = Articles::find($request->id);
 
         $request->validate([
             'updateImage' => 'image|nullable',
@@ -133,30 +124,30 @@ class AdminWorkshopController extends Controller
             $extension = $request->file('updateImage')->getClientOriginalExtension();
             $filename = time().'.'.$extension;
             $path = $request->updateImage->storeAs('public/article-image', $filename);
-            $article->image = $filename;
+            $workshop->image = $filename;
         }
 
-        $article->title = $request->updateTitle;
-        $article->description = $request->updateDesc;
-        $article->author = $request->updateAuthor;
-        $article->time_read = $request->updateTime;
-        $article->accent_color = $request->updateAccent;
-        $article->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->updateTitle);
-        $article->save();
+        $workshop->title = $request->updateTitle;
+        $workshop->description = $request->updateDesc;
+        $workshop->author = $request->updateAuthor;
+        $workshop->time_read = $request->updateTime;
+        $workshop->accent_color = $request->updateAccent;
+        $workshop->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->updateTitle);
+        $workshop->save();
 
         $tagsArray = explode(' ', strtolower($request->updateTags));
         $tags = array();
 
-        foreach($tagsArray as $articleTag) {
-            if($articleTag != ' ') {
+        foreach($tagsArray as $workshopTag) {
+            if($workshopTag != ' ') {
                 $tag = Tags::firstOrCreate([
-                    'tag_name' => $articleTag
+                    'tag_name' => $workshopTag
                 ]);
 
                 $tags[$tag->id] = ['article_id' => $request->id];
             }
         }
-        $article->tags()->sync($tags);
+        $workshop->tags()->sync($tags);
 
         return redirect('/admin/articles');
     }

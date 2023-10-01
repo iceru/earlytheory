@@ -62,10 +62,12 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 // Route::post('/birth-chart/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
 // Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
 
-Route::get('/workshop', [WorkshopController::class, 'index'])->name('workshop');
+Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshop');
+Route::get('/workshop/{slug}', [WorkshopController::class, 'index'])->name('workshop.detail');
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
+
 // Route::get('/product', function(){
 //     return view ('product-detail');
 // });
@@ -206,7 +208,6 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
 
     Route::get('/admin/shipping', [AdminTrackingController::class, 'index'])->name('admin.tracking');
     Route::get('/admin/shipping/update/{id}', [AdminTrackingController::class, 'update'])->name('admin.tracking.update');
-
 
     Route::get('/admin/discount', [AdminDiscountController::class, 'index'])->name('admin.discount');
     Route::get('/admin/discount/edit/{id}', [AdminDiscountController::class, 'edit'])->name('admin.discount.edit');

@@ -44,8 +44,8 @@
                     &nbsp; Workshops</li>
             </a>
             <a href="{{ route('admin.articles') }}">
-                <li class="{{ request()->is('admin/articles') ? 'active' : '' }}"><i
-                        class="fas fa-newspaper fa-fw"></i> &nbsp; Articles</li>
+                <li class="{{ request()->is('admin/articles') ? 'active' : '' }}"><i class="fas fa-newspaper fa-fw"></i>
+                    &nbsp; Articles</li>
             </a>
             <a href="{{ route('admin.sales') }}">
                 <li class="{{ request()->is('admin/sales') ? 'active' : '' }}"><i
@@ -64,8 +64,8 @@
                         class="fas fa-credit-card fa-fw"></i> &nbsp; Payment Methods</li>
             </a>
             <a href="{{ route('admin.discount') }}">
-                <li class="{{ request()->is('admin/discount') ? 'active' : '' }}"><i
-                        class="fas fa-percent fa-fw"></i> &nbsp; Discount</li>
+                <li class="{{ request()->is('admin/discount') ? 'active' : '' }}"><i class="fas fa-percent fa-fw"></i>
+                    &nbsp; Discount</li>
             </a>
             <a href="{{ route('admin.faq') }}">
                 <li class="{{ request()->is('admin/faq') ? 'active' : '' }}"><i

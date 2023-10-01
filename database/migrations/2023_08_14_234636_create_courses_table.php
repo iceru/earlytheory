@@ -20,6 +20,8 @@ class CreateCoursesTable extends Migration
             $table->text('image');
             $table->text('video');
             $table->text('time');
+            $table->unsignedBigInteger('workshop_id');
+            $table->foreign('workshop_id')->references('id')->on('workshops')->onDelete('cascade');
             $table->timestamps();
         });
     }

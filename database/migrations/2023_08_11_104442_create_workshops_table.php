@@ -16,12 +16,12 @@ class CreateWorkshopsTable extends Migration
         Schema::create('workshops', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->text('description');
             $table->integer('time');
-            $table->integer('image');
-            $table->integer('video');
-            $table->integer('color');
-            $table->integer('price');
+            $table->text('image');
+            $table->text('video')->nullable();
+            $table->string('color');
             $table->integer('discount')->nullable();
             $table->timestamps();
         });
