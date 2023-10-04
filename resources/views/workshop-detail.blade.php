@@ -1,4 +1,7 @@
 <x-app-layout>
+    @section('title')
+        Workshop - {{ $workshop->title }}
+    @endsection
     <div class="workshop-container container">
         <section class="header-page">
             <div>
@@ -15,25 +18,12 @@
                         <img src="" alt="">
                     </div>
                     <h1>
-                        Fundamental Tarot Programme
+                        {{ $workshop->title }}
                     </h1>
                     <h6>8 Bab Materi - 420 Menit</h6>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip
-                        ex
-                        ea commodo consequat.
-                        <br> <br>
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                        id
-                        est
-                        laborum.
-                    </p>
+                    <div>
+                        {!! $workshop->description !!}
+                    </div>
                 </div>
                 <div class="package">
                     <div class="buy-package">

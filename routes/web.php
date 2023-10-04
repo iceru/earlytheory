@@ -19,6 +19,7 @@ use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HoroscopeController;
 use App\Http\Controllers\AdminSalesController;
+use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminPaymentController;
@@ -63,7 +64,7 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 // Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
 
 Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshop');
-Route::get('/workshop/{slug}', [WorkshopController::class, 'index'])->name('workshop.detail');
+Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
@@ -151,6 +152,12 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/workshops/edit/{id}', [AdminWorkshopController::class, 'edit'])->name('admin.workshops.edit');
     Route::post('/admin/workshops/update', [AdminWorkshopController::class, 'update'])->name('admin.workshops.update');
     Route::get('/admin/workshops/delete/{id}', [AdminWorkshopController::class, 'destroy'])->name('admin.workshops.destroy');
+
+    Route::get('/admin/courses/{id}', [AdminCourseController::class, 'index'])->name('admin.courses');
+    Route::post('/admin/courses/store', [AdminCourseController::class, 'store'])->name('admin.courses.store');
+    Route::get('/admin/course/edit/{id}', [AdminCourseController::class, 'edit'])->name('admin.courses.edit');
+    Route::post('/admin/courses/update/{id}', [AdminCourseController::class, 'update'])->name('admin.courses.update');
+    Route::get('/admin/courses/delete/{id}', [AdminCourseController::class, 'destroy'])->name('admin.courses.destroy');
 
     Route::get('/admin/tags', [AdminTagsController::class, 'index'])->name('admin.tags');
     Route::post('/admin/tags/store', [AdminTagsController::class, 'store'])->name('admin.tags.store');

@@ -14,7 +14,8 @@ class WorkshopController extends Controller
      */
     public function index()
     {
-        return view('workshop');
+        $workshops = Workshop::all();
+        return view('workshop', compact('workshops'));
     }
 
     /**
@@ -44,9 +45,10 @@ class WorkshopController extends Controller
      * @param  \App\Models\Workshop  $workshop
      * @return \Illuminate\Http\Response
      */
-    public function show(Workshop $workshop)
+    public function show($slug)
     {
-        //
+        $workshop = Workshop::where('slug', $slug)->firstOrFail();
+        return view('workshop-detail', compact('workshop'));
     }
 
     /**

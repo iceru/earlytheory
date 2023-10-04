@@ -64,14 +64,8 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Video</label>
                     <div class="col-sm-10">
-                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Accent Color</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" data-jscolor="" id="accent" name="accent"
-                            value="{{ $workshop->accent }}">
+                        <input type="file" class="form-control" id="video" name="video"
+                            accept="video/mp4,video/x-m4v,video/*">
                     </div>
                 </div>
                 <button type="submit" class="button primary">Update</button>
@@ -84,36 +78,5 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"
             integrity="sha512-YxdM5kmpjM5ap4Q437qwxlKzBgJApGNw+zmchVHSNs3LgSoLhQIIUNNrR5SmKIpoQ18mp4y+aDAo9m/zBQ408g=="
             crossorigin="anonymous"></script>
-        <script>
-            $(document).ready(function() {
-
-                function split(val) {
-                    return val.split(/ /);
-                }
-
-                function extractLast(term) {
-                    return split(term).pop();
-                }
-
-                $('#updateTags').autocomplete({
-                    source: function(request, response) {
-                        // delegate back to autocomplete, but extract the last term
-                        response($.ui.autocomplete.filter(
-                            {!! json_encode($autocomplete) !!}, extractLast(request.term)));
-                    },
-                    select: function(event, ui) {
-                        var terms = split(this.value);
-                        // remove the current input
-                        terms.pop();
-                        // add the selected item
-                        terms.push(ui.item.value);
-                        // add placeholder to get the comma-and-space at the end
-                        terms.push("");
-                        this.value = terms.join(" ");
-                        return false;
-                    }
-                });
-            })
-        </script>
     @endsection
 </x-admin-layout>

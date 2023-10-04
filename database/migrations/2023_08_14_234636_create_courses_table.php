@@ -18,8 +18,9 @@ class CreateCoursesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('image');
-            $table->text('video');
-            $table->text('time');
+            $table->text('video')->nullable();
+            $table->integer('time');
+            $table->integer('price');
             $table->unsignedBigInteger('workshop_id');
             $table->foreign('workshop_id')->references('id')->on('workshops')->onDelete('cascade');
             $table->timestamps();

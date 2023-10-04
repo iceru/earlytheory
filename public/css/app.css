@@ -13148,6 +13148,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 .workshop__wrapper .workshop__lists .slick-list {
   padding: 0 10% 0 0 !important;
 }
+.workshop__wrapper .workshop__lists .slick-track {
+  display: flex;
+  align-items: center;
+}
 .workshop__wrapper .workshop__lists .workshop__item {
   background: linear-gradient(111deg, #4A2984 0%, #7E0181 100%);
   color: white;
@@ -13156,13 +13160,16 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   height: 80%;
   opacity: 0.7;
   margin: 1rem;
-  margin-top: 2rem;
 }
 .workshop__wrapper .workshop__lists .workshop__item.slick-active {
   opacity: 1;
   height: 100%;
-  padding: 2rem 1rem;
-  margin-top: 1rem;
+}
+.workshop__wrapper .workshop__lists .workshop__item .workshop__image {
+  margin-bottom: 1rem;
+}
+.workshop__wrapper .workshop__lists .workshop__item .workshop__image img {
+  width: 100%;
 }
 .workshop__wrapper .workshop__lists .workshop__item .workshop__title {
   margin-bottom: 8px;
@@ -13178,6 +13185,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 .workshop__wrapper .workshop__lists .workshop__item .button-white {
   border-radius: 32px;
   padding: 6px 24px;
+  background-color: white;
+  color: black;
 }
 
 .swal2-popup.swal2-toast {

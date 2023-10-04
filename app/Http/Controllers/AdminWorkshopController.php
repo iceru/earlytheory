@@ -93,10 +93,9 @@ class AdminWorkshopController extends Controller
      */
     public function edit($id)
     {
-        $workshop = Articles::find($id);
-        $autocomplete = Tags::pluck('tag_name')->toArray();
+        $workshop = Workshop::find($id);
 
-        return view('admin.articles.edit', compact('article', 'autocomplete'));
+        return view('admin.workshops.edit', compact('workshop'));
     }
 
     /**
@@ -108,48 +107,42 @@ class AdminWorkshopController extends Controller
      */
     public function update(Request $request)
     {
-        $workshop = Articles::find($request->id);
+        $workshop = Workshop::find($request->id);
 
         $request->validate([
-            'updateImage' => 'image|nullable',
-            'updateTitle' => 'required',
-            'updateDesc' => 'required',
-            'updateAuthor' => 'required',
-            'updateTime' => 'required|integer',
-            'updateAccent' => 'required',
-            'updateTags' => 'string|regex:/^[a-zA-Z0-9\s]+$/'
+            'image' => 'required|image',
+            'title' => 'required',
+            'description' => 'required',
+            'video' => 'nullable',
+            'time' => 'required|integer',
+            'color' => 'required',
+            'discount' => 'nullable',
         ]);
 
-        if ($request->hasFile('updateImage')) {
-            $extension = $request->file('updateImage')->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
-            $path = $request->updateImage->storeAs('public/article-image', $filename);
+        $filename;
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = $request->title.'_'.time().'.'.$extension;
+            $path = $request->image->storeAs('public/workshop-image', $filename);
             $workshop->image = $filename;
         }
 
-        $workshop->title = $request->updateTitle;
-        $workshop->description = $request->updateDesc;
-        $workshop->author = $request->updateAuthor;
-        $workshop->time_read = $request->updateTime;
-        $workshop->accent_color = $request->updateAccent;
-        $workshop->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->updateTitle);
+        if ($request->hasFile('video')) {
+            $extension = $request->file('video')->getClientOriginalExtension();
+            $videoFile = $request->title.'_'.time().'.'.$extension;
+            $path = $request->video->storeAs('public/workshop-video', $videoFile);
+            $workshop->video = $videoFile;
+        }
+
+        $workshop->title = $request->title;
+        $workshop->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
+        $workshop->description = $request->description;
+        $workshop->time = $request->time;
+        $workshop->color = $request->color;
+        $workshop->discount = $request->discount;
         $workshop->save();
 
-        $tagsArray = explode(' ', strtolower($request->updateTags));
-        $tags = array();
-
-        foreach($tagsArray as $workshopTag) {
-            if($workshopTag != ' ') {
-                $tag = Tags::firstOrCreate([
-                    'tag_name' => $workshopTag
-                ]);
-
-                $tags[$tag->id] = ['article_id' => $request->id];
-            }
-        }
-        $workshop->tags()->sync($tags);
-
-        return redirect('/admin/articles');
+        return redirect()->route('admin.workshops');
     }
 
     /**
@@ -160,13 +153,8 @@ class AdminWorkshopController extends Controller
      */
     public function destroy($id)
     {
-        Articles::find($id)->delete();
-        return redirect('/admin/articles');
-    }
-
-    public function upload(Request $request){
-        $fileName=$request->file('file')->getClientOriginalName();
-        $path=$request->file('file')->storeAs('uploads', $fileName, 'public');
-        return response()->json(['location'=>"/storage/$path"]); 
+        Workshop::find($id)->delete();
+      
+        return redirect()->route('admin.workshops');
     }
 }
