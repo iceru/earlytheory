@@ -11155,14 +11155,14 @@ a {
   text-align: center;
 }
 .footer .footer-subs-logo .footer-logo img {
-  width: 20vh;
+  width: 150px;
 }
 @media (min-width: 992px) {
   .footer .footer-subs-logo .footer-logo {
     text-align: left;
   }
   .footer .footer-subs-logo .footer-logo img {
-    width: 25vh;
+    width: 200px;
   }
 }
 .footer .footer-copyright p {
@@ -12341,7 +12341,7 @@ a {
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
-  min-height: 103px;
+  min-height: 120px;
 }
 .index .index-section h3, .index .index-section .h3 {
   font-weight: bold;
@@ -13054,6 +13054,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 }
 .workshop-container .workshop .workshop-media {
   margin-bottom: 1.5rem;
+}
+.workshop-container .workshop .workshop-media img {
+  width: 100%;
 }
 .workshop-container .workshop .workshop-info h1, .workshop-container .workshop .workshop-info .h1 {
   font-size: 1.25rem;

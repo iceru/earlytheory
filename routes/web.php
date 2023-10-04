@@ -63,7 +63,7 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 // Route::post('/birth-chart/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
 // Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
 
-Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshop');
+Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
 Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
   
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');

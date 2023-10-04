@@ -20,7 +20,7 @@
                     </h3>
                 </section>
             </a>
-            <a href="/workshop">
+            <a href="{{ route('workshops') }}">
                 <section class="index-section col">
                     <h3 class="text-2xl">
                         Kelas & <br />

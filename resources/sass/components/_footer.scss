@@ -99,14 +99,14 @@
             text-align: center;
 
             img {
-                width: 20vh;
+                width: 150px;
             }
 
             @include breakpoint(large) {
                 text-align: left;
 
                 img {
-                    width: 25vh;
+                    width: 200px;
                 }
             }
         }
