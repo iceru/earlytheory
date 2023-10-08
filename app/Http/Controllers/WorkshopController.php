@@ -48,7 +48,16 @@ class WorkshopController extends Controller
     public function show($slug)
     {
         $workshop = Workshop::where('slug', $slug)->firstOrFail();
-        return view('workshop-detail', compact('workshop'));
+        $fullPrice = 0;
+        $discountPrice = null;
+
+        foreach($workshop->course as $course) {
+            $fullPrice = $course->price + $fullPrice;
+        }
+        if($workshop->discount) {
+            $fullPrice =$fullPrice - ($fullPrice * $workshop->discount / 100);
+        }
+        return view('workshop-detail', compact('workshop', 'fullPrice'));
     }
 
     /**

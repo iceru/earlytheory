@@ -271,7 +271,9 @@
                                 </div>
                             </div>
                         @endforeach
-
+                        @foreach ($sales->course as $item)
+                            <div>{{ $item->workshop }}</div>
+                        @endforeach
                     </div>
 
                     @foreach ($sales->products as $item)

@@ -6926,8 +6926,7 @@ $('.addcart').on('click', function () {
       },
       dataType: "json",
       success: function success(data) {
-        $('#cartcount').html(data.count); // console.log(data.count);
-
+        $('#cartcount').html(data.count);
         var Toast = Swal.mixin({
           toast: true,
           position: 'top',

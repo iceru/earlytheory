@@ -134,6 +134,7 @@ Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.plus');
 Route::get('/cart/plus/{id}', [CartController::class, 'plus'])->name('cart.plus');
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/add/course/{id}', [CartController::class, 'addCourse'])->name('cart.add.course');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function (){

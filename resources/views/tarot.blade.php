@@ -286,6 +286,7 @@
             function checkSku() {
                 var skus = {!! $skus !!};
                 $.each($('.addcart'), function(index, item) {
+                    debugger;
                     Object.keys(skus).forEach(function(element) {
                         if (skus[element].product_id == $(item).attr('data-id')) {
                             $(item).attr('data-price', skus[element].price);

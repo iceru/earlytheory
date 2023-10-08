@@ -19,7 +19,7 @@ class Sales extends Model
         return $this->belongsToMany(Products::class, 'products_sales', 'sales_id', 'product_id')->withPivot('question', 'qty');
     }
 
-    public function courses()
+    public function course()
     {
         return $this->belongsToMany(Course::class, 'course_sales');
     }

@@ -29,7 +29,8 @@
                     <div class="buy-package">
                         <div>
                             <h5>Paket Full Program</h5>
-                            <p>Rp 825,000 (25% OFF)</p>
+                            <p>Rp {{ number_format($fullPrice) }}
+                                {{ $workshop->discount ? '(' . $workshop->discount . '% OFF)' : '' }}</p>
                         </div>
                         <div>
                             <button class="button button-buy">
@@ -58,7 +59,7 @@
                                                 IDR {{ number_format($item->price) }}
                                             </button>
                                         </div>
-                                        <button class="button button-cart">
+                                        <button class="button button-cart" data-id={{ $item->id }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 18 18" fill="none">
                                                 <path
@@ -76,5 +77,49 @@
             </div>
         </section>
     </div>
+
+    <script>
+        $('.button-cart').on('click', function() {
+            var id = $(this).attr('data-id');
+            var price = $(this).attr('data-price');
+
+            if (id) {
+                $.ajax({
+                    url: "/cart/add/course/" + id,
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#cartcount').html(data.count);
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top',
+                            showConfirmButton: false,
+                            timer: 4000,
+                            timerProgressBar: true,
+                        })
+
+                        if ($.isEmptyObject(data.error)) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.success + '&nbsp; | &nbsp;' +
+                                    '<a style="color:#4A2984;" href="/cart">Go to Cart</a> '
+                            })
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.error
+                            })
+                        }
+                    },
+                });
+            } else {
+                alert('Stok Habis / Error');
+            }
+        });
+    </script>
 
 </x-app-layout>

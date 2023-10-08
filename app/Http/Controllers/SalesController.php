@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\SKUs;
 use App\Models\Sales;
+use App\Models\Course;
 use App\Models\Discount;
 use App\Models\Products;
 use App\Models\SKUvalues;
@@ -44,17 +45,23 @@ class SalesController extends Controller
                 // $product->sales()->attach($sales, ['qty' => $item->quantity]);
                 // // $product->stock = $product->stock-$item->quantity;
                 // $product->save();
-                $sku = SKUs::find($item->attributes->sku_id);
                 // $product = Products::find($item->attributes->product_id);
-                if ($sku && $sku->stock > 0 && $sku->stock >= $item->quantity) {
-                    $sku->sales()->attach($sales, ['qty' => $item->quantity]);
-                    $sku->save();
-                } elseif ($sku->stock <= 0) {
-                    return back()->withErrors('Stok Produk Habis');
-                } else {
-                    return back()->withErrors('Product(s) not valid. Please contact us');
-                }
                 // $product->stock = $product->stock-$item->quantity;
+                if($item->attributes->type === 'course') {
+                    $course = Course::find($item->id);
+                    $course->sales()->attach($sales, ['created_at' => date("Y-m-d h:i:s")]);
+                    $course->save();
+                } else {
+                    $sku = SKUs::find($item->attributes->sku_id);
+                    if ($sku && $sku->stock > 0 && $sku->stock >= $item->quantity) {
+                        $sku->sales()->attach($sales, ['qty' => $item->quantity]);
+                        $sku->save();
+                    } elseif ($sku->stock <= 0) {
+                        return back()->withErrors('Stok Produk Habis');
+                    } else {
+                        return back()->withErrors('Product(s) not valid. Please contact us');
+                    }
+                }
             }
 
             // \Cart::clear();

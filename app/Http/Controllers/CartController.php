@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
 use App\Models\SKUs;
+use App\Models\Course;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,9 +13,18 @@ class CartController extends Controller
     public function show()
     {
         $items = \Cart::getContent();
+        $ramalan = array();
+        $workshops = array();
+        foreach($items as $item) {
+            if($item->attributes->type === 'course'){
+                array_push($workshops, $item);
+            } else {
+                array_push($ramalan, $item);
+            }
+        }
         $total = \Cart::getTotal();
 
-        return view('cart', compact('items', 'total'));
+        return view('cart', compact('items', 'ramalan', 'workshops', 'total'));
     }
 
     public function add($id, Request $request)
@@ -48,6 +58,25 @@ class CartController extends Controller
         ));
 
 
+        $ctc = \Cart::getContent()->count();
+        return \Response::json(['success' => 'Produk sukses ditambahkan ke keranjang', 'count' => $ctc]);
+    }
+
+    public function addCourse($id)
+    {
+        $course = Course::findOrFail($id);
+
+        \Cart::add(array(
+            'id' => $id,
+            'name' => $course->title,
+            'price' => (int) $course->price,
+            'quantity' => 1,
+            'attributes' => array (
+                'type' => 'course'
+            ),
+            'associatedModel' => $course
+        ));
+        
         $ctc = \Cart::getContent()->count();
         return \Response::json(['success' => 'Produk sukses ditambahkan ke keranjang', 'count' => $ctc]);
     }
