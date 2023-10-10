@@ -45,7 +45,6 @@ class AdminWorkshopController extends Controller
             'description' => 'required',
             'video' => 'nullable',
             'time' => 'required|integer',
-            'color' => 'required',
             'discount' => 'nullable',
         ]);
         $filename;
@@ -67,7 +66,6 @@ class AdminWorkshopController extends Controller
         $workshop->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
         $workshop->description = $request->description;
         $workshop->time = $request->time;
-        $workshop->color = $request->color;
         $workshop->discount = $request->discount;
         $workshop->save();
 
@@ -110,12 +108,11 @@ class AdminWorkshopController extends Controller
         $workshop = Workshop::find($request->id);
 
         $request->validate([
-            'image' => 'required|image',
+            'image' => 'nullable',
             'title' => 'required',
             'description' => 'required',
             'video' => 'nullable',
             'time' => 'required|integer',
-            'color' => 'required',
             'discount' => 'nullable',
         ]);
 
@@ -138,7 +135,6 @@ class AdminWorkshopController extends Controller
         $workshop->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
         $workshop->description = $request->description;
         $workshop->time = $request->time;
-        $workshop->color = $request->color;
         $workshop->discount = $request->discount;
         $workshop->save();
 

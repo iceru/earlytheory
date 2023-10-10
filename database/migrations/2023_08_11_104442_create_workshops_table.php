@@ -21,7 +21,6 @@ class CreateWorkshopsTable extends Migration
             $table->integer('time');
             $table->text('image');
             $table->text('video')->nullable();
-            $table->string('color');
             $table->integer('discount')->nullable();
             $table->timestamps();
         });

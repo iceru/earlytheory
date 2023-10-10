@@ -144,7 +144,7 @@
 
     .workshop__lists {
         .slick-list {
-            padding: 0 10% 0 0 !important;
+            padding: 0 20% 0 0 !important;
         }
 
         .slick-track {
@@ -157,13 +157,18 @@
             color: white;
             padding: 1rem;
             border-radius: 8px;
-            height: 80%;
+            scale: 0.8;
             opacity: 0.7;
-            margin: 1rem;
+            transform: translateX(-150px);
+            min-height: 450px;
+            z-index: -1;
 
             &.slick-active {
                 opacity: 1;
                 height: 100%;
+                scale: 1;
+                transform: translateX(0);
+                z-index: 0;
             }
 
             .workshop__image {
@@ -185,6 +190,12 @@
                 font-size: 14px;
                 font-weight: 300;
                 margin-bottom: 1rem;
+                -webkit-box-orient: vertical;
+                display: -webkit-box;
+                -webkit-line-clamp: 6;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
             }
 
             .button-white {

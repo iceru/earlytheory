@@ -114,10 +114,7 @@
                                             <h3>{{ $item->associatedModel->title }}</h3>
                                         </div>
                                     </a>
-                                    @if ($item->attributes->values)
-                                        <p class="mb-1">Variant: {{ $item->attributes->values }}</p>
-                                    @endif
-                                    <div class="cartItem__total">idr
+                                    <div class="cartItem__total">IDR
                                         {{ number_format($item->price * $item->quantity) }}
                                     </div>
                                 </div>

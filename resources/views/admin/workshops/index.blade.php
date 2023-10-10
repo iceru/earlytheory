@@ -62,12 +62,6 @@
                         <input type="file" class="form-control" id="video" name="video" accept="video/*">
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Accent Color</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" data-jscolor="" id="color" name="color">
-                    </div>
-                </div>
                 <button type="submit" class="button primary">Submit</button>
             </form>
         </div>
@@ -119,14 +113,4 @@
             </table>
         </div>
     </div>
-
-    {{-- <script>
-        $(document).ready(function() {
-            $("input[name='discount']").on('input', function() {
-                $(this).val(function(i, v) {
-                    return v.replace('%', '') + '%';
-                });
-            });
-        });
-    </script> --}}
 </x-admin-layout>

@@ -47,84 +47,14 @@
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-payment col-12">
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <div class="form-group">
-                                <label for="inputName" class="fw-bold">Nama Lengkap</label>
-                                <input class="form-control-plaintext" type="text" value="{{ $sales->user->name }}"
-                                    name="inputName" readonly>
-                            </div>
-                        </div>
-                        <input type="text" name="salesId" value="{{ $sales->id }}" hidden>
-                        <div class="col-12 col-lg-6">
-                            <div class="form-group">
-                                <label for="inputEmail" class="fw-bold">Email</label>
-                                <input type="email" name="inputEmail" value="{{ $sales->user->email }}"
-                                    class="form-control-plaintext" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="form-group">
-                                <label for="inputPhone" class="fw-bold">No. Telepon</label>
-                                <input type="tel" class="form-control-plaintext" value="{{ $sales->user->phone }}"
-                                    name="inputPhone" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="form-group">
-                                <label for="inputBirthdate" class="fw-bold">Tanggal Lahir</label>
-                                <input type="text" class="form-control-plaintext"
-                                    value="{{ $sales->user->birthdate }}" name="inputBirthdate" id="datepicker" readonly
-                                    autocomplete="off">
-                            </div>
-                        </div>
-                        @if ($is_service > 0)
-                            <div class="col-12 col-lg-6">
-                                <div class="form-group ">
-                                    <label for="inputRelationship" class="fw-bold">Status Relationship</label>
-                                    <select class="form-control-plaintext" name="inputRelationship"
-                                        id="inputRelationship" disabled>
-                                        <option selected disabled>Select</option>
-                                        <option value="single"
-                                            @if ($sales->relationship == 'single') {{ 'selected' }} @endif disabled>Single
-                                        </option>
-                                        <option value="pacaran"
-                                            @if ($sales->relationship == 'pacaran') {{ 'selected' }} @endif disabled>
-                                            Pacaran</option>
-                                        <option value="menikah"
-                                            @if ($sales->relationship == 'menikah') {{ 'selected' }} @endif disabled>
-                                            Menikah</option>
-                                        <option value="divorced"
-                                            @if ($sales->relationship == 'divorced') {{ 'selected' }} @endif disabled>
-                                            Divorced</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <div class="form-group ">
-                                    <label for="inputPekerjaan" class="fw-bold">Status Pekerjaan</label>
-                                    <select class="form-control-plaintext" name="inputPekerjaan" id="inputPekerjaan"
-                                        disabled>
-                                        <option selected disabled>Select</option>
-                                        <option value="unemployed"
-                                            @if ($sales->job == 'unemployed') {{ 'selected' }} @endif disabled>
-                                            Unemployed</option>
-                                        <option value="employed"
-                                            @if ($sales->job == 'employed') {{ 'selected' }} @endif disabled>
-                                            Employed</option>
-                                        <option value="business"
-                                            @if ($sales->job == 'business') {{ 'selected' }} @endif disabled>
-                                            Business</option>
-                                        <option value="student"
-                                            @if ($sales->job == 'student') {{ 'selected' }} @endif disabled>
-                                            Student</option>
-                                    </select>
-                                </div>
-                            </div>
-                        @endif
+                    <div>
+                        Pesanan No: <strong>#{{ $sales->sales_no }}</strong>
+                    </div>
+                    <div class="confirm__total">
+                        Total: IDR {{ number_format($sales->total_price - $sales->discount + $sales->ship_cost) }}
                     </div>
                     <div class="form-group">
-                        <label for="inputPayType">Tipe Pembayaran</label>
+                        <label for="inputPayType">Pilih Tipe Pembayaran</label>
                         <select class="form-select" name="inputPayType" id="inputPayType">
                             <option selected disabled>Pilih Pembayaran</option>
                             @foreach ($paymentMethods as $payType)
@@ -141,7 +71,7 @@
                             accept="image/jpeg,image/png,image/svg+xml" required>
                     </div>
 
-                    <p class="mb-3" style="font-weight: 700">
+                    <p class="confirm__infoPayment">
                         Jika error dalam upload file bukti transfer kemungkinan besar karena kamu mengunjungi website
                         dari link di instagram (otomatis dibuka menggunakan browser instagram yang banyak errornya).
                         Pastikan kamu buka website ini lewat browser utama kamu (Chrome , Safari, dsb.)

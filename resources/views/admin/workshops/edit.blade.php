@@ -44,7 +44,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="desc" id="desc" cols="30" rows="6">{{ $workshop->description }}</textarea>
+                        <textarea class="form-control" name="description" id="description" cols="30" rows="6">{{ $workshop->description }}</textarea>
                     </div>
                 </div>
                 <div class="mb-3 row">

@@ -195,7 +195,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class=" mb-3 pb-2 border-bottom border-dark">
+                    <div class=" mb-3 pb-2 border-bottom border-secondary">
                         <h5 class="evogria">Produk</h5>
                     </div>
                 </div>
@@ -204,12 +204,26 @@
                         @foreach ($sales->skus as $item)
                             <input type="text" name="id[]" value="{{ $item->id }}" hidden>
                             <div class=" col-12 col-lg-6 ">
-                                <div class="product-item-container row">
-                                    <div class="product-title col-12">
-                                        <h4>{{ $item->products->title }}</h4>
-                                    </div>
-                                    <div class="product-price col-12">
-                                        <p>IDR {{ number_format($item->price) }}</p>
+                                <div class="product-item-container">
+                                    <div class="d-flex mb-2">
+                                        <div class="product-image">
+                                            @foreach ((array) json_decode($item->products->image) as $image)
+                                                <div class="ratio ratio-1x1">
+                                                    <a href="/product/{{ $item->products->slug }}">
+                                                        <img src="{{ Storage::url('product-image/' . $image) }}"
+                                                            alt="{{ $item->title }}">
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-title ">
+                                                <h5>{{ $item->products->title }}</h5>
+                                            </div>
+                                            <div class="product-price ">
+                                                <p>IDR {{ number_format($item->price) }}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row g-0">
                                         @if ($item->products->question === 'yes' && strtolower($item->products->title) !== 'mencari jodoh')
@@ -267,13 +281,26 @@
                                             @endif
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         @endforeach
-                        @foreach ($sales->course as $item)
-                            <div>{{ $item->workshop }}</div>
-                        @endforeach
+                        @if (!empty($sales->course))
+                            <div class="detail__title">
+                                <div class=" mb-3 pb-2 border-bottom border-secondary">
+                                    <h5 class="evogria">Kelas & Workshop</h5>
+                                </div>
+                            </div>
+                            @foreach ($sales->course as $item)
+                                <div class="detail__workshopItem">
+                                    <h5 class="detail__workshopTitle">
+                                        {{ $item->title }}
+                                    </h5>
+                                    <div class="detail__workshopPrice">
+                                        IDR {{ number_format($item->price) }}
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
 
                     @foreach ($sales->products as $item)

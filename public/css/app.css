@@ -11833,7 +11833,7 @@ a {
 .checkout .indicator {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   align-items: center;
 }
 @media (min-width: 992px) {
@@ -11846,12 +11846,12 @@ a {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background-color: #535353;
+  background-color: #C614CC;
   opacity: 0.2;
 }
 .checkout .indicator .circle.active {
   opacity: 1;
-  background-color: #202020;
+  background-color: #4A2984;
 }
 .checkout .indicator .line {
   content: "";
@@ -11891,18 +11891,23 @@ a {
   width: 100%;
 }
 .checkout .products .product-item-container {
-  padding-left: 12px;
-  border-left: 4px solid #202020;
   margin: 0;
   margin-bottom: 1rem;
+}
+.checkout .products .product-item-container .product-image {
+  margin-right: 0.5rem;
+  width: 80px;
 }
 .checkout .products .product-item-container:last-child {
   margin-bottom: 1.5rem;
 }
-.checkout .products .product-item-container .product-title,
 .checkout .products .product-item-container .product-price {
-  text-align: center;
-  color: #202020;
+  background-color: #A5F367;
+  padding: 4px 10px;
+  border-radius: 3rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 14px;
 }
 .checkout .products .product-item-container .product-title h3, .checkout .products .product-item-container .product-title .h3 {
   font-family: "Rubik Mono One";
@@ -11935,19 +11940,58 @@ a {
   border-radius: 5px;
   font-size: 14px;
 }
-.checkout .total-payment h4, .checkout .total-payment .h4 {
+.checkout .detail__workshopItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.checkout .detail__workshopItem .detail__workshopTitle {
+  font-weight: bold;
+}
+.checkout .detail__workshopItem .detail__workshopPrice {
+  background-color: #A5F367;
+  border-radius: 3rem;
+  padding: 4px 12px;
+  font-family: "Apercu Mono";
+  font-size: 14px;
+}
+.checkout .total-payment {
   text-align: center;
   padding: 1rem;
-  background: #E6FF19;
+  background: #272727;
   margin: 1rem auto;
   margin-bottom: 2rem;
-  color: #202020;
   border-radius: 8px;
+  color: #A5F367;
+  width: 90%;
+}
+.checkout .total-payment h4, .checkout .total-payment .h4 {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
 }
 @media (min-width: 992px) {
-  .checkout .total-payment h4, .checkout .total-payment .h4 {
+  .checkout .total-payment {
     width: 60%;
   }
+}
+.checkout .button-confirm {
+  width: 100%;
+}
+.checkout .confirm__total {
+  background-color: #272727;
+  color: #A5F367;
+  padding: 4px 12px;
+  border-radius: 2rem;
+  margin: 0.5rem 0 1rem;
+  display: inline-block;
+}
+.checkout .confirm__infoPayment {
+  background-color: rgba(108, 231, 253, 0.3);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
 }
 @media (min-width: 992px) {
   .checkout .button-invoice,
@@ -12497,10 +12541,12 @@ a {
      object-fit: cover;
 }
 .tab-article-desc p {
-  white-space: nowrap;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 150px;
+  white-space: normal;
 }
 
 .table-overflow::-webkit-scrollbar {
@@ -12695,8 +12741,12 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 
 .account__menu {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+@media (min-width: 992px) {
+  .account__menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 .account__menu .account__menuItem {
   display: flex;
@@ -13204,7 +13254,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   text-align: center;
 }
 .workshop__wrapper .workshop__lists .slick-list {
-  padding: 0 10% 0 0 !important;
+  padding: 0 20% 0 0 !important;
 }
 .workshop__wrapper .workshop__lists .slick-track {
   display: flex;
@@ -13215,13 +13265,18 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   color: white;
   padding: 1rem;
   border-radius: 8px;
-  height: 80%;
+  scale: 0.8;
   opacity: 0.7;
-  margin: 1rem;
+  transform: translateX(-150px);
+  min-height: 450px;
+  z-index: -1;
 }
 .workshop__wrapper .workshop__lists .workshop__item.slick-active {
   opacity: 1;
   height: 100%;
+  scale: 1;
+  transform: translateX(0);
+  z-index: 0;
 }
 .workshop__wrapper .workshop__lists .workshop__item .workshop__image {
   margin-bottom: 1rem;
@@ -13239,6 +13294,12 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   font-size: 14px;
   font-weight: 300;
   margin-bottom: 1rem;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 .workshop__wrapper .workshop__lists .workshop__item .button-white {
   border-radius: 32px;
