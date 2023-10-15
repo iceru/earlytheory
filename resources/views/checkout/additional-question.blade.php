@@ -220,6 +220,7 @@
                                                 <img src="/images/sisi-tangan.jpg" alt="" class="w-100">
                                             </div>
                                         </div>
+<<<<<<< HEAD
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -227,6 +228,23 @@
                                     <div class="row align-items-center">
                                         <div class="col-7 col-lg-10">
                                             <input type="file" class="form-control" name="telapak_jari" id="telapak_jari" placeholder="Telapak + Jari" required value="{{ $additional && $additional->telapak_jari ? $additional->telapak_jari : '' }}">
+=======
+                                        <div class="mb-3">
+                                            <label for="telapak_close" class="form-label">Telapak Close Up</label>
+                                            <div class="row align-items-center">
+                                                <div class="col-7 col-lg-10">
+                                                    <input type="file" class="form-control" name="telapak_close"
+                                                        id="telapak_close" placeholder="Telapak + Jari" required
+                                                        value="{{ $additional && $additional->telapak_close ? $additional->telapak_close : '' }}">
+                                                </div>
+                                                <div class="col-5 col-lg-2">
+                                                    <div class="img">
+                                                        <img src="/images/tangan-close.jpg" alt=""
+                                                            class="w-100">
+                                                    </div>
+                                                </div>
+                                            </div>
+>>>>>>> bb4bca91a57d8e397b0392cc74805c2eb1cc171c
                                         </div>
                                         <div class="col-5 col-lg-2">
                                             <div class="img">
