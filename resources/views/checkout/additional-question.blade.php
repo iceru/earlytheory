@@ -291,7 +291,7 @@
                                                 <div class="col-5 col-lg-2">
                                                     <div class="img">
                                                         <img src="/images/tangan-close.jpg" alt=""
-                                                            clas{}s="w-100">
+                                                            class="w-100">
                                                     </div>
                                                 </div>
                                             </div>
