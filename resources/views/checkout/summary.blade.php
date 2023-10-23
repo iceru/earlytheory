@@ -127,6 +127,19 @@
                                 {{ number_format(250000) }}</strong></>
                     @endif
 
+                    @foreach ($sales->course as $item)
+                        <div class="col-12 col-lg-6">
+                            <div class="detail__workshopItem">
+                                <h5 class="detail__workshopTitle">
+                                    {{ $item->title }}
+                                </h5>
+                                <div class="detail__workshopPrice">
+                                    IDR {{ number_format($item->price) }}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
                     @foreach ($sales->products as $item)
                         <div class="col-12 col-lg-6">
                             <div class="row product-item-container">

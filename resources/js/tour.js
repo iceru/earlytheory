@@ -1,7 +1,6 @@
 
 // import Shepherd from 'shepherd.js';
 $(document).ready(function(){
-    // debugger;
     if(!localStorage.getItem("firstTime")){
         //code executed first time
         const tour = new Shepherd.default.Tour({

@@ -194,97 +194,101 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-12">
-                    <div class=" mb-3 pb-2 border-bottom border-secondary">
-                        <h5 class="evogria">Produk</h5>
-                    </div>
-                </div>
                 <div class="products col-12">
                     <div class="row">
-                        @foreach ($sales->skus as $item)
-                            <input type="text" name="id[]" value="{{ $item->id }}" hidden>
-                            <div class=" col-12 col-lg-6 ">
-                                <div class="product-item-container">
-                                    <div class="d-flex mb-2">
-                                        <div class="product-image">
-                                            @foreach ((array) json_decode($item->products->image) as $image)
-                                                <div class="ratio ratio-1x1">
-                                                    <a href="/product/{{ $item->products->slug }}">
-                                                        <img src="{{ Storage::url('product-image/' . $image) }}"
-                                                            alt="{{ $item->title }}">
-                                                    </a>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="product-info">
-                                            <div class="product-title ">
-                                                <h5>{{ $item->products->title }}</h5>
+                        @if (count($sales->skus) !== 0)
+                            <div class="detail__title">
+                                <div class=" mb-3 pb-2 border-bottom border-secondary">
+                                    <h5 class="evogria">Produk</h5>
+                                </div>
+                            </div>
+                            @foreach ($sales->skus as $item)
+                                <input type="text" name="id[]" value="{{ $item->id }}" hidden>
+                                <div class=" col-12 col-lg-6 ">
+                                    <div class="product-item-container">
+                                        <div class="d-flex mb-2">
+                                            <div class="product-image">
+                                                @foreach ((array) json_decode($item->products->image) as $image)
+                                                    <div class="ratio ratio-1x1">
+                                                        <a href="/product/{{ $item->products->slug }}">
+                                                            <img src="{{ Storage::url('product-image/' . $image) }}"
+                                                                alt="{{ $item->title }}">
+                                                        </a>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                            <div class="product-price ">
-                                                <p>IDR {{ number_format($item->price) }}</p>
+                                            <div class="product-info">
+                                                <div class="product-title ">
+                                                    <h5>{{ $item->products->title }}</h5>
+                                                </div>
+                                                <div class="product-price ">
+                                                    <p>IDR {{ number_format($item->price) }}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row g-0">
-                                        @if ($item->products->question === 'yes' && strtolower($item->products->title) !== 'mencari jodoh')
-                                            <h6 class="mb-2">
-                                                {{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}
-                                            </h6>
-                                        @endif
-                                        <div class="col-12">
-                                            @if ($item->variants)
-                                                <div class="d-flex">
-                                                    <p class="me-2">Variants: </p>
-                                                    @foreach ($item->variants as $variant)
-                                                        <span class="variant-item me-2">{{ $variant }}</span>
-                                                    @endforeach
-                                                </div>
+                                        <div class="row g-0">
+                                            @if ($item->products->question === 'yes' && strtolower($item->products->title) !== 'mencari jodoh')
+                                                <h6 class="mb-2">
+                                                    {{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}
+                                                </h6>
                                             @endif
-                                            <textarea rows="6" name="question[]" id="question"
+                                            <div class="col-12">
+                                                @if ($item->variants)
+                                                    <div class="d-flex">
+                                                        <p class="me-2">Variants: </p>
+                                                        @foreach ($item->variants as $variant)
+                                                            <span class="variant-item me-2">{{ $variant }}</span>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                                <textarea rows="6" name="question[]" id="question"
+                                                    @if (
+                                                        $item->products->question != 'yes' ||
+                                                            strtolower($item->products->title) === 'mencari jodoh' ||
+                                                            $item->products->category == 'product') hidden @else required @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
+                                                <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                                    <label class="form-label">Kamu cenderung mencari yang etnis /
+                                                        agamanya
+                                                        ....</label>
+                                                    <input type="text" class="form-control"
+                                                        name="genderQuestion3[]" id="etnis" placeholder=""
+                                                        @if (strtolower($item->products->title) === 'mencari jodoh') required @endif novalidate>
+                                                </div>
+                                                <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                                    <label class="form-label">Kamu</label>
+                                                    <select class="form-select" name="genderQuestion[]"
+                                                        id="genderQuestion"
+                                                        @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
+                                                        @endif>
+                                                        <option value="" disabled selected>Pilih</option>
+                                                        <option value="pria">Pria</option>
+                                                        <option value="wanita">Wanita</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
+                                                    <label class="form-label">Mencari</label>
+                                                    <select class="form-select" name="genderQuestion2[]"
+                                                        id="genderQuestion"
+                                                        @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
+                                                        @endif>
+                                                        <option value="" disabled selected>Pilih</option>
+                                                        <option value="pria">Pria</option>
+                                                        <option value="wanita">Wanita</option>
+                                                    </select>
+                                                </div>
                                                 @if (
-                                                    $item->products->question != 'yes' ||
-                                                        strtolower($item->products->title) === 'mencari jodoh' ||
-                                                        $item->products->category == 'product') hidden @else required @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
-                                            <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                <label class="form-label">Kamu cenderung mencari yang etnis / agamanya
-                                                    ....</label>
-                                                <input type="text" class="form-control" name="genderQuestion3[]"
-                                                    id="etnis" placeholder=""
-                                                    @if (strtolower($item->products->title) === 'mencari jodoh') required @endif novalidate>
+                                                    ($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') ||
+                                                        $item->products->category == 'product')
+                                                    <p>{!! $item->description_short !!}</p>
+                                                @endif
                                             </div>
-                                            <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                <label class="form-label">Kamu</label>
-                                                <select class="form-select" name="genderQuestion[]"
-                                                    id="genderQuestion"
-                                                    @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
-                                                    @endif>
-                                                    <option value="" disabled selected>Pilih</option>
-                                                    <option value="pria">Pria</option>
-                                                    <option value="wanita">Wanita</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                <label class="form-label">Mencari</label>
-                                                <select class="form-select" name="genderQuestion2[]"
-                                                    id="genderQuestion"
-                                                    @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
-                                                    @endif>
-                                                    <option value="" disabled selected>Pilih</option>
-                                                    <option value="pria">Pria</option>
-                                                    <option value="wanita">Wanita</option>
-                                                </select>
-                                            </div>
-                                            @if (
-                                                ($item->products->question != 'yes' && strtolower($item->products->title) != 'mencari jodoh') ||
-                                                    $item->products->category == 'product')
-                                                <p>{!! $item->description_short !!}</p>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                        @if (!empty($sales->course))
+                            @endforeach
+                        @endif
+
+                        @if (count($sales->course) !== 0)
                             <div class="detail__title">
                                 <div class=" mb-3 pb-2 border-bottom border-secondary">
                                     <h5 class="evogria">Kelas & Workshop</h5>

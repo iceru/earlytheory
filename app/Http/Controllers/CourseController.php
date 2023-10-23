@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Workshop;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -44,9 +45,14 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($slug)
     {
-        //
+        $course = Course::where('slug', $slug)->firstOrFail();
+        $workshop = Workshop::where('id', $course->workshop_id)->firstOrFail();
+        $coIndex = $workshop->course->search(function($co) use($course) {
+            return $co->id === $course->id;
+        });
+        return view('workshop/course', compact('course', 'workshop', 'coIndex'));
     }
 
     /**

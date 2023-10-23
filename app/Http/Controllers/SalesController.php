@@ -222,18 +222,18 @@ class SalesController extends Controller
                 $item_genderquestion = 'Saya cenderung mencari yang etnis / agamanya ' . ucfirst($request->genderQuestion3[0]) . '. 
                 Saya ' . ucfirst($request->genderQuestion[0]) . ', mencari ' . ucfirst($request->genderQuestion2[0]);
             }
-
-            foreach ($item_id as $key => $i) {
-                $sku = SKUs::find($item_id[$key]);
-                if ($sku) {
-                    if (strtolower($sku->products->title) != 'mencari jodoh') {
-                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
-                    } else {
-                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion]);
+            if(is_array($item_id)) {
+                foreach ($item_id as $key => $i) {
+                    $sku = SKUs::find($item_id[$key]);
+                    if ($sku) {
+                        if (strtolower($sku->products->title) != 'mencari jodoh') {
+                            $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                        } else {
+                            $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion]);
+                        }
                     }
                 }
             }
-
 
             // Check product category in sales
             $is_product = 0;

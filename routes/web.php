@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
@@ -111,6 +112,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/checkout/{id}/confirm-payment', [SalesController::class, 'confirmPayment'])->name('sales.confirm-payment');
     Route::post('/checkout/{id}/confirm-payment/submit', [SalesController::class, 'submitPayment'])->name('sales.submit-payment');
     Route::get('/checkout/{id}/payment-success', [SalesController::class, 'success'])->name('sales.success');
+
+    Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course');
 });
 
 // Route::get('/checkout/detail', function(){

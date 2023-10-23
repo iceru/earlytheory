@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sales;
+use App\Models\Course;
 use App\Models\Workshop;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,7 @@ class WorkshopController extends Controller
     public function index()
     {
         $workshops = Workshop::all();
-        return view('workshop', compact('workshops'));
+        return view('workshop/workshop', compact('workshops'));
     }
 
     /**
@@ -48,6 +50,7 @@ class WorkshopController extends Controller
     public function show($slug)
     {
         $workshop = Workshop::where('slug', $slug)->firstOrFail();
+        $course = Course::where('workshop_id', $workshop->id)->get();
         $fullPrice = 0;
         $discountPrice = null;
 
@@ -57,7 +60,8 @@ class WorkshopController extends Controller
         if($workshop->discount) {
             $fullPrice =$fullPrice - ($fullPrice * $workshop->discount / 100);
         }
-        return view('workshop-detail', compact('workshop', 'fullPrice'));
+        
+        return view('workshop/workshop-detail', compact('workshop', 'fullPrice'));
     }
 
     /**
