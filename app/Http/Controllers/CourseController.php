@@ -52,6 +52,7 @@ class CourseController extends Controller
         $coIndex = $workshop->course->search(function($co) use($course) {
             return $co->id === $course->id;
         });
+        $coIndex = $coIndex + 1;
         return view('workshop/course', compact('course', 'workshop', 'coIndex'));
     }
 

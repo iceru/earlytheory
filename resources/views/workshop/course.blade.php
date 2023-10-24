@@ -24,18 +24,33 @@
                         <img src="{{ Storage::url('course-image/' . $course->image) }}" alt="">
                     </div>
                 @endif
-                <p>Bab {{ $coIndex }}</p>
+            </div>
+            <div>
+                <p class="course__bab">Bab {{ $coIndex }}</p>
                 <h1 class="course__title">
                     {{ $course->title }}
                 </h1>
                 <p class="course__time">{{ $course->time }} Menit</p>
-            </div>
-            <div class="course__description">
-                <p>{!! $course->description !!}</p>
-            </div>
+                <div class="course__description">
+                    <p>{!! $course->description !!}</p>
+                </div>
 
-            <div>
-
+                <div class="course__nav">
+                    <div>
+                        <a href="" class="button secondary">
+                            @if ($coIndex === 1)
+                                Workshop
+                            @else
+                                Sebelumnya
+                            @endif
+                        </a>
+                    </div>
+                    <div>
+                        <a href="" class="button primary">
+                            Selanjutnya
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

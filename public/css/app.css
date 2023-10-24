@@ -11940,21 +11940,44 @@ a {
   border-radius: 5px;
   font-size: 14px;
 }
-.checkout .detail__workshopItem {
+.checkout .detail__courseItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
-.checkout .detail__workshopItem .detail__workshopTitle {
+.checkout .detail__courseItem .detail__courseTitle {
   font-weight: bold;
 }
-.checkout .detail__workshopItem .detail__workshopPrice {
+.checkout .detail__courseItem .detail__coursePrice {
   background-color: #A5F367;
   border-radius: 3rem;
   padding: 4px 12px;
   font-family: "Apercu Mono";
   font-size: 14px;
+}
+.checkout .detail__workshopContainer {
+  background: linear-gradient(111deg, #4A2984 0%, #7E0181 100%);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: white;
+  margin-bottom: 1rem;
+  display: flex;
+}
+.checkout .detail__workshopContainer .detail__workshopImage {
+  margin-right: 1rem;
+}
+.checkout .detail__workshopContainer .detail__workshopImage img {
+  width: 80px;
+  height: 80px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.checkout .detail__workshopContainer .detail__workshopDesc {
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .checkout .total-payment {
   text-align: center;
@@ -13309,6 +13332,43 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   padding: 6px 24px;
   background-color: white;
   color: black;
+}
+
+.course__container {
+  padding: 2rem 0;
+}
+.course__container .course__wrapper {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 992px) {
+  .course__container .course__wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.course__container .course__wrapper .course__image img {
+  width: 100%;
+}
+.course__container .course__wrapper .course__bab {
+  font-weight: bold;
+}
+.course__container .course__wrapper .course__title {
+  font-size: 24px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.course__container .course__wrapper .course__time {
+  margin-bottom: 6px;
+}
+.course__container .course__wrapper .course__description {
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  text-align: justify;
+}
+.course__container .course__wrapper .course__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .swal2-popup.swal2-toast {

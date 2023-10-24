@@ -195,7 +195,7 @@
                     </div>
                 </div>
                 <div class="products col-12">
-                    <div class="row">
+                    <div>
                         @if (count($sales->skus) !== 0)
                             <div class="detail__title">
                                 <div class=" mb-3 pb-2 border-bottom border-secondary">
@@ -288,21 +288,37 @@
                             @endforeach
                         @endif
 
-                        @if (count($sales->course) !== 0)
+                        @if (count($workshops) !== 0)
                             <div class="detail__title">
                                 <div class=" mb-3 pb-2 border-bottom border-secondary">
                                     <h5 class="evogria">Kelas & Workshop</h5>
                                 </div>
                             </div>
-                            @foreach ($sales->course as $item)
-                                <div class="detail__workshopItem">
-                                    <h5 class="detail__workshopTitle">
-                                        {{ $item->title }}
-                                    </h5>
-                                    <div class="detail__workshopPrice">
-                                        IDR {{ number_format($item->price) }}
+                            @foreach ($workshops as $workshop)
+                                <div class="detail__workshopContainer">
+                                    <div class="detail__workshopImage">
+                                        <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}"
+                                            alt="">
+                                    </div>
+                                    <div>
+                                        <h3 class="detail__workshopTitle">{{ $workshop->title }}</h3>
+                                        <p class="detail__workshopDesc">{!! $workshop->description !!}</p>
                                     </div>
                                 </div>
+                                @foreach ($workshop->course as $course)
+                                    @foreach ($sales->course as $item)
+                                        @if ($course->id === $item->id)
+                                            <div class="detail__courseItem">
+                                                <h5 class="detail__courseTitle">
+                                                    {{ $item->title }}
+                                                </h5>
+                                                <div class="detail__coursePrice">
+                                                    IDR {{ number_format($item->price) }}
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endforeach
                             @endforeach
                         @endif
                     </div>

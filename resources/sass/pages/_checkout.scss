@@ -160,22 +160,48 @@
         }
     }
 
-    .detail__workshopItem {
+    .detail__courseItem {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 1rem;
 
-        .detail__workshopTitle {
+        .detail__courseTitle {
             font-weight: bold;
         }
 
-        .detail__workshopPrice {
+        .detail__coursePrice {
             background-color: $green;
             border-radius: 3rem;
             padding: 4px 12px;
             font-family: 'Apercu Mono';
             font-size: 14px;
+        }
+    }
+
+    .detail__workshopContainer {
+        background: $primaryGrad;
+        padding: 1rem;
+        border-radius: .5rem;
+        color: white;
+        margin-bottom: 1rem;
+        display: flex;
+
+        .detail__workshopImage {
+            margin-right: 1rem;
+
+            img {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+            }
+        }
+
+        .detail__workshopDesc {
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
     }
 

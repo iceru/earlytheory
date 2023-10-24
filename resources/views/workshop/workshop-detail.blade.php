@@ -46,7 +46,7 @@
                                     Bab {{ $key + 1 }} <br />
                                     {{ $item->title }}
                                 </p>
-                                @if (count($item->sales) > 0 && $item->sales[0]->status === 'settlement')
+                                @if (count($item->sales) > 0 && $item->status === 'active')
                                     <div>
                                         <a href="{{ route('course', $item->slug) }}"
                                             class="button button-buy text-dark">
@@ -56,14 +56,13 @@
                                 @else
                                     <div class="button-wrapper">
                                         @if ($item->price == 0)
-                                            <div class="button-wrapper">
-                                                <button class="button button-buy">
-                                                    Gratis
-                                                </button>
-                                            </div>
+                                            <a href="{{ route('course', $item->slug) }}"
+                                                class="button button-buy text-dark">
+                                                Pelajari
+                                            </a>
                                         @else
                                             <div>
-                                                <div class="button button-buy">
+                                                <div class="button-buy">
                                                     IDR {{ number_format($item->price) }}
                                                 </div>
                                             </div>

@@ -93,7 +93,12 @@ class SalesController extends Controller
                 $is_service += 1;
             }
         }
-
+        $workshops = array();
+        foreach($sales->course as $course) {
+            array_push($workshops, $course->workshop);
+        }
+        $workshops = array_unique($workshops);
+    
         if ($user->id == $sales->user_id) {
             if ($is_product > 0) {
                 $address = ShippingAddress::where('user_id', $user->id)->get();
@@ -180,7 +185,7 @@ class SalesController extends Controller
 
                 return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values', 'is_additional'));
             }
-            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service', 'is_additional'));
+            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service', 'is_additional', 'workshops'));
         } else {
             return redirect('/');
         }
