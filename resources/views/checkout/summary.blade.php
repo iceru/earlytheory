@@ -127,16 +127,37 @@
                                 {{ number_format(250000) }}</strong></>
                     @endif
 
-                    @foreach ($sales->course as $item)
-                        <div class="col-12 col-lg-6">
-                            <div class="detail__workshopItem">
-                                <h5 class="detail__workshopTitle">
-                                    {{ $item->title }}
-                                </h5>
-                                <div class="detail__workshopPrice">
-                                    IDR {{ number_format($item->price) }}
+                    @foreach ($workshops as $workshop)
+                        <div class="mb-4">
+                            <div class="detail__workshopContainer">
+                                <div class="detail__workshopImage">
+                                    <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}" alt="">
+                                </div>
+                                <div>
+                                    <h3 class="detail__workshopTitle">{{ $workshop->title }}</h3>
+                                    <div class="detail__workshopDesc">{!! $workshop->description !!}</div>
                                 </div>
                             </div>
+                            @foreach ($workshop->course as $course)
+                                @foreach ($sales->course as $item)
+                                    @if ($course->id === $item->id)
+                                        <div class="detail__courseItem">
+                                            <div class="d-flex">
+                                                <div class="detail__courseImage">
+                                                    <img src="{{ Storage::url('course-image/' . $item->image) }}"
+                                                        alt="">
+                                                </div>
+                                                <h5 class="detail__courseTitle">
+                                                    {{ $item->title }}
+                                                </h5>
+                                            </div>
+                                            <div class="detail__coursePrice">
+                                                IDR {{ number_format($item->price) }}
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endforeach
                         </div>
                     @endforeach
 

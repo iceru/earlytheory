@@ -636,6 +636,11 @@ class SalesController extends Controller
                     $is_additional = true;
                 }
             }
+            $workshops = array();
+            foreach($sales->course as $course) {
+                array_push($workshops, $course->workshop);
+            }
+            $workshops = array_unique($workshops);
 
             $skuvalues = SKUvalues::all();
             $values = array();
@@ -657,7 +662,7 @@ class SalesController extends Controller
                 $additional_birthtime = true;
             }
 
-            return view('checkout.summary', compact('sales', 'is_additional', 'additional_birthtime'));
+            return view('checkout.summary', compact('sales', 'is_additional', 'workshops', 'additional_birthtime'));
         } else {
             return redirect('/');
         }

@@ -11807,6 +11807,40 @@ a {
   font-family: "Apercu Mono";
 }
 
+.detail__workshopContainer {
+  background: linear-gradient(111deg, #4A2984 0%, #7E0181 100%);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: white;
+  margin-bottom: 1rem;
+  display: flex;
+}
+.detail__workshopContainer .detail__workshopImage {
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+.detail__workshopContainer .detail__workshopImage img {
+  width: 80px;
+  height: 80px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.detail__workshopContainer .detail__workshopTitle {
+  font-size: 1.15rem;
+}
+.detail__workshopContainer .detail__workshopDesc {
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 40px;
+  margin-top: 0.5rem;
+}
+.detail__workshopContainer .detail__workshopDesc p,
+.detail__workshopContainer .detail__workshopDesc span {
+  font-size: 12px !important;
+}
+
 .checkout {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -11946,6 +11980,14 @@ a {
   justify-content: space-between;
   margin-bottom: 1rem;
 }
+.checkout .detail__courseItem .detail__courseImage {
+  margin-right: 0.5rem;
+}
+.checkout .detail__courseItem .detail__courseImage img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+}
 .checkout .detail__courseItem .detail__courseTitle {
   font-weight: bold;
 }
@@ -11955,29 +11997,6 @@ a {
   padding: 4px 12px;
   font-family: "Apercu Mono";
   font-size: 14px;
-}
-.checkout .detail__workshopContainer {
-  background: linear-gradient(111deg, #4A2984 0%, #7E0181 100%);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  color: white;
-  margin-bottom: 1rem;
-  display: flex;
-}
-.checkout .detail__workshopContainer .detail__workshopImage {
-  margin-right: 1rem;
-}
-.checkout .detail__workshopContainer .detail__workshopImage img {
-  width: 80px;
-  height: 80px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.checkout .detail__workshopContainer .detail__workshopDesc {
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 .checkout .total-payment {
   text-align: center;
@@ -12015,6 +12034,11 @@ a {
   border-radius: 1rem;
   margin-bottom: 1rem;
   font-weight: bold;
+}
+.checkout .button-invoice h5, .checkout .button-invoice .h5,
+.checkout .disclaimer h5,
+.checkout .disclaimer .h5 {
+  font-size: 1rem;
 }
 @media (min-width: 992px) {
   .checkout .button-invoice,
@@ -13276,8 +13300,17 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   font-size: 24px;
   text-align: center;
 }
+.workshop__wrapper .workshop__lists {
+  max-width: 880px;
+  margin: auto;
+}
 .workshop__wrapper .workshop__lists .slick-list {
   padding: 0 20% 0 0 !important;
+}
+@media (min-width: 992px) {
+  .workshop__wrapper .workshop__lists .slick-list {
+    padding: 0 40% 0 0 !important;
+  }
 }
 .workshop__wrapper .workshop__lists .slick-track {
   display: flex;
@@ -13322,7 +13355,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   margin-bottom: 1rem;
   -webkit-box-orient: vertical;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;

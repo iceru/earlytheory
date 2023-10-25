@@ -69,7 +69,7 @@
 
                 <div class="col-12 d-grid gap-2">
                     <div class="d-flex justify-content-center">
-                        <a class="button primary me-3 button-confirm"
+                        <a class="button primary button-confirm"
                             href="/checkout/{{ $sales->sales_no }}/confirm-payment">
                             Konfirmasi Pembayaran
                         </a>

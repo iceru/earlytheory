@@ -95,57 +95,73 @@
                     <div class="cart__title">
                         Workshop
                     </div>
-                    @foreach ($workshops as $item)
-                        <div class="cartItem__item mb-3">
-                            <div class="d-flex align-items-center">
-                                <div class="cartItem__image">
-                                    @foreach ((array) json_decode($item->associatedModel->image) as $image)
-                                        <div class="ratio ratio-1x1">
-                                            <a href="/product/{{ $item->associatedModel->slug }}">
-                                                <img src="{{ Storage::url('product-image/' . $image) }}"
-                                                    alt="{{ $item->title }}">
-                                            </a>
+
+                    @foreach ($workshops as $workshop)
+                        <div class="mb-5">
+                            <div class="detail__workshopContainer">
+                                <div class="detail__workshopImage">
+                                    <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}" alt="">
+                                </div>
+                                <div>
+                                    <h3 class="detail__workshopTitle">{{ $workshop->title }}</h3>
+                                    <div class="detail__workshopDesc">{!! $workshop->description !!}</div>
+                                </div>
+                            </div>
+                            @foreach ($workshop->course as $course)
+                                @foreach ($courses as $item)
+                                    @if ($course->id == $item->id)
+                                        <div class="cartItem__item mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="cartItem__image">
+                                                    <div class="ratio ratio-1x1">
+                                                        <img src="{{ Storage::url('course-image/' . $item->associatedModel->image) }}"
+                                                            alt="{{ $item->title }}">
+                                                    </div>
+                                                </div>
+                                                <div class="cartItem__info">
+                                                    <div class="product-title">
+                                                        <h3>{{ $item->associatedModel->title }}</h3>
+                                                    </div>
+                                                    <div class="cartItem__total">IDR
+                                                        {{ number_format($item->price * $item->quantity) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cartItem__qty">
+                                                <div class="qty-spinner d-flex">
+                                                    <div class="min-button">
+                                                        @if ($item->quantity > 1)
+                                                            <a href="/cart/min/{{ $item->id }}"
+                                                                style="color: inherit;"><i class="fa fa-minus"
+                                                                    aria-hidden="true"></i></a>
+                                                        @elseif ($item->quantity == 1)
+                                                            <a href="/cart/remove/{{ $item->id }}"
+                                                                style="color: inherit;"><i class="fa fa-minus"
+                                                                    aria-hidden="true"></i></a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="qty">{{ $item->quantity }}</div>
+                                                    <div class="plus-button">
+                                                        <a href="/cart/plus/{{ $item->id }}"
+                                                            style="color: inherit;"><i class="fa fa-plus"
+                                                                aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cartItem__remove">
+                                                <a href="/cart/remove/{{ $item->id }}"
+                                                    onclick="return confirm('Are you sure you want to delete the item?');">
+                                                    <i class="fa fa-trash primary-color" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
                                         </div>
-                                    @endforeach
-                                </div>
-                                <div class="cartItem__info">
-                                    <a href="/product/{{ $item->associatedModel->slug }}">
-                                        <div class="product-title">
-                                            <h3>{{ $item->associatedModel->title }}</h3>
-                                        </div>
-                                    </a>
-                                    <div class="cartItem__total">IDR
-                                        {{ number_format($item->price * $item->quantity) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cartItem__qty">
-                                <div class="qty-spinner d-flex">
-                                    <div class="min-button">
-                                        @if ($item->quantity > 1)
-                                            <a href="/cart/min/{{ $item->id }}" style="color: inherit;"><i
-                                                    class="fa fa-minus" aria-hidden="true"></i></a>
-                                        @elseif ($item->quantity == 1)
-                                            <a href="/cart/remove/{{ $item->id }}" style="color: inherit;"><i
-                                                    class="fa fa-minus" aria-hidden="true"></i></a>
-                                        @endif
-                                    </div>
-                                    <div class="qty">{{ $item->quantity }}</div>
-                                    <div class="plus-button">
-                                        <a href="/cart/plus/{{ $item->id }}" style="color: inherit;"><i
-                                                class="fa fa-plus" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cartItem__remove">
-                                <a href="/cart/remove/{{ $item->id }}"
-                                    onclick="return confirm('Are you sure you want to delete the item?');">
-                                    <i class="fa fa-trash primary-color" aria-hidden="true"></i>
-                                </a>
-                            </div>
+                                    @endif
+                                @endforeach
+                            @endforeach
                         </div>
                     @endforeach
                 @endif
+
                 @if (count($items) === 0)
                     <div class="row">
                         <div class="d-flex flex-column justify-content-center align-items-center">

@@ -1,3 +1,41 @@
+.detail__workshopContainer {
+    background: $primaryGrad;
+    padding: 1rem;
+    border-radius: .5rem;
+    color: white;
+    margin-bottom: 1rem;
+    display: flex;
+
+    .detail__workshopImage {
+        margin-right: 1rem;
+        flex-shrink: 0;
+
+        img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+    }
+
+    .detail__workshopTitle {
+        font-size: 1.15rem;
+    }
+
+    .detail__workshopDesc {
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 40px;
+        margin-top: .5rem;
+
+        p,
+        span {
+            font-size: 12px !important;
+        }
+    }
+}
+
 .checkout {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -166,6 +204,16 @@
         justify-content: space-between;
         margin-bottom: 1rem;
 
+        .detail__courseImage {
+            margin-right: .5rem;
+
+            img {
+                width: 60px;
+                height: 60px;
+                border-radius: 8px;
+            }
+        }
+
         .detail__courseTitle {
             font-weight: bold;
         }
@@ -179,31 +227,6 @@
         }
     }
 
-    .detail__workshopContainer {
-        background: $primaryGrad;
-        padding: 1rem;
-        border-radius: .5rem;
-        color: white;
-        margin-bottom: 1rem;
-        display: flex;
-
-        .detail__workshopImage {
-            margin-right: 1rem;
-
-            img {
-                width: 80px;
-                height: 80px;
-                object-fit: cover;
-            }
-        }
-
-        .detail__workshopDesc {
-            line-clamp: 2;
-            -webkit-line-clamp: 2;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-    }
 
     .total-payment {
         text-align: center;
@@ -248,6 +271,10 @@
 
     .button-invoice,
     .disclaimer {
+        h5 {
+            font-size: 1rem;
+        }
+
         @include breakpoint(large) {
             width: 75%;
             margin: auto;

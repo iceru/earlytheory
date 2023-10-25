@@ -14,17 +14,24 @@ class CartController extends Controller
     {
         $items = \Cart::getContent();
         $ramalan = array();
+        $courses = array();
         $workshops = array();
         foreach($items as $item) {
             if($item->attributes->type === 'course'){
-                array_push($workshops, $item);
+                array_push($courses, $item);
             } else {
                 array_push($ramalan, $item);
             }
         }
+
+        foreach($courses as $course) {
+            array_push($workshops, $course->associatedModel->workshop);
+        }
+        $workshops = array_unique($workshops);
+
         $total = \Cart::getTotal();
 
-        return view('cart', compact('items', 'ramalan', 'workshops', 'total'));
+        return view('cart', compact('items', 'ramalan', 'workshops', 'courses', 'total'));
     }
 
     public function add($id, Request $request)

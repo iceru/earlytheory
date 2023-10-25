@@ -143,8 +143,16 @@
     }
 
     .workshop__lists {
+        max-width: 880px;
+        margin: auto;
+
         .slick-list {
             padding: 0 20% 0 0 !important;
+
+            @include breakpoint(large) {
+                padding: 0 40% 0 0 !important;
+
+            }
         }
 
         .slick-track {
@@ -194,7 +202,7 @@
                 margin-bottom: 1rem;
                 -webkit-box-orient: vertical;
                 display: -webkit-box;
-                -webkit-line-clamp: 6;
+                -webkit-line-clamp: 4;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: normal;

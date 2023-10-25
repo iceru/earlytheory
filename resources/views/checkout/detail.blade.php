@@ -22,11 +22,10 @@
             </div>
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Maaf!</strong> Terdapat kesalahan dalam input data.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+                    <strong>Maaf!</strong> Terdapat kesalahan dalam input data.<br><br <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
                     </ul>
                 </div>
             @endif
@@ -295,30 +294,38 @@
                                 </div>
                             </div>
                             @foreach ($workshops as $workshop)
-                                <div class="detail__workshopContainer">
-                                    <div class="detail__workshopImage">
-                                        <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}"
-                                            alt="">
+                                <div class="mb-5">
+                                    <div class="detail__workshopContainer">
+                                        <div class="detail__workshopImage">
+                                            <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}"
+                                                alt="">
+                                        </div>
+                                        <div>
+                                            <h3 class="detail__workshopTitle">{{ $workshop->title }}</h3>
+                                            <div class="detail__workshopDesc">{!! $workshop->description !!}</div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h3 class="detail__workshopTitle">{{ $workshop->title }}</h3>
-                                        <p class="detail__workshopDesc">{!! $workshop->description !!}</p>
-                                    </div>
-                                </div>
-                                @foreach ($workshop->course as $course)
-                                    @foreach ($sales->course as $item)
-                                        @if ($course->id === $item->id)
-                                            <div class="detail__courseItem">
-                                                <h5 class="detail__courseTitle">
-                                                    {{ $item->title }}
-                                                </h5>
-                                                <div class="detail__coursePrice">
-                                                    IDR {{ number_format($item->price) }}
+                                    @foreach ($workshop->course as $course)
+                                        @foreach ($sales->course as $item)
+                                            @if ($course->id === $item->id)
+                                                <div class="detail__courseItem">
+                                                    <div class="d-flex">
+                                                        <div class="detail__courseImage">
+                                                            <img src="{{ Storage::url('course-image/' . $item->image) }}"
+                                                                alt="">
+                                                        </div>
+                                                        <h5 class="detail__courseTitle">
+                                                            {{ $item->title }}
+                                                        </h5>
+                                                    </div>
+                                                    <div class="detail__coursePrice">
+                                                        IDR {{ number_format($item->price) }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
+                                        @endforeach
                                     @endforeach
-                                @endforeach
+                                </div>
                             @endforeach
                         @endif
                     </div>
