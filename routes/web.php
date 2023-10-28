@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/account/horoscopes', [UserController::class, 'horoscopes'])->name('user.horoscopes');
     Route::get('/confirm-payment/{id}', [UserController::class, 'confirmPayment'])->name('user.confirm-payment');
     Route::post('/confirm-payment/submit/{id}', [UserController::class, 'confirmSubmit'])->name('user.confirm-submit');
+    Route::get('/account/workshop', [UserController::class, 'accountWorkshop'])->name('user.workshop');
 
     Route::post('/address/add-checkout', [AddressController::class, 'addCheckout'])->name('address.add-checkout');
     Route::get('/address/update-address', [AddressController::class, 'updateAddress'])->name('address.update-address');

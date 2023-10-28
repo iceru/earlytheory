@@ -38,6 +38,9 @@
             autoplay: false,
             autoplaySpeed: 5000,
             pauseOnHover: false,
+            nextArrow: `<button class="slick-next">
+                <img src="/images/arrow.svg" alt="" />
+            </button>`
         });
     </script>
 </x-app-layout>

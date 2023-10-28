@@ -7,14 +7,15 @@ use App\Models\SKUs;
 use App\Models\User;
 use App\Models\Sales;
 use App\Models\Products;
+use App\Models\Workshop;
 use App\Models\Horoscope;
-use App\Models\AdditionalQuestion;
 use Illuminate\Http\Request;
 use App\Mail\UserTransaction;
 use App\Models\PaymentMethods;
 use App\Mail\AdminNotification;
 use App\Mail\AstrologiQuestion;
 use App\Mail\SpiritualQuestion;
+use App\Models\AdditionalQuestion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -35,6 +36,27 @@ class UserController extends Controller
     public function accountEditPassword()
     {
         return view('account-password')->with('user', auth()->user());
+    }
+
+    public function accountWorkshop()
+    {
+        $user = auth()->user();
+        $workshops = Workshop::all();
+        $ownedWorkshops = array();
+
+        foreach($workshops as $workshop) {
+           foreach($workshop->course as $wcourse) {
+                foreach($wcourse->sales as $sale) {
+                    if($sale->status == 'settlement') {
+                        array_push($ownedWorkshops, $workshop);
+                    }
+                }
+           }
+        }
+
+        $ownedWorkshops = array_unique($ownedWorkshops);
+
+        return view('account-workshop', compact('user', 'ownedWorkshops'));
     }
 
     public function accountUpdate(Request $request)

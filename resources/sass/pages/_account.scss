@@ -195,3 +195,43 @@
         }
     }
 }
+
+.account__workshopWrapper {
+    display: grid;
+    gap: 1rem;
+
+    @include breakpoint(large) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .account__workshopItem {
+        background: $primaryGrad;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: .5rem;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .account__workshopImage img {
+        width: 6rem;
+        height: 6rem;
+        object-fit: cover;
+        margin-right: 1rem;
+        border-radius: 4px;
+    }
+
+    .account__workshopTitle {
+        font-size: 1.5rem;
+    }
+
+    .account__workshopButton {
+        .button-white {
+            background-color: white;
+            border-radius: 2rem;
+            color: $primary;
+        }
+    }
+}

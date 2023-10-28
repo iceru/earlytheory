@@ -27,7 +27,7 @@
                         Edit <br> Profile
                     </div>
                 </a>
-                <a href="">
+                <a href="{{ route('user.workshop') }}">
                     <div class="account__menuItem">
                         Kelas & <br> Workshop
                     </div>
