@@ -14,10 +14,11 @@
         </section>
 
         <div class="course__wrapper">
+
             <div>
                 @if ($course->video)
                     <div class="course__video">
-                        <video src="{{ Storage::url('course-image/' . $course->video) }}" alt="">
+                        <video controls src="{{ route('course.video', $course->slug) }}" alt="">
                     </div>
                 @else
                     <div class="course__image">
@@ -37,18 +38,23 @@
 
                 <div class="course__nav">
                     <div>
-                        <a href="" class="button secondary">
+                        <a href="{{ $prevCourse ? route('course', $prevCourse->slug) : route('workshop.detail', $workshop->slug) }}"
+                            class="button secondary">
+                            <i class="fa fa-long-arrow-alt-left me-2"></i>
                             @if ($coIndex === 1)
                                 Workshop
                             @else
-                                Sebelumnya
+                                {{ $prevCourse->title }}
                             @endif
                         </a>
                     </div>
                     <div>
-                        <a href="" class="button primary">
-                            Selanjutnya
-                        </a>
+                        @if ($enableNext && count($workshop->course) > $coIndex - 1)
+                            <a href="{{ route('course', $nextCourse->slug) }}" class="button primary">
+                                {{ $nextCourse->title }}
+                                <i class="fa fa-long-arrow-alt-right ms-2"></i>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

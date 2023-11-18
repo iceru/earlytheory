@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Workshop;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class AdminCourseController extends Controller
@@ -53,20 +54,21 @@ class AdminCourseController extends Controller
         $filename;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filename = $request->title.'_'.time().'.'.$extension;
+            $filename = Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
             $path = $request->image->storeAs('public/course-image', $filename);
         }
 
         if ($request->hasFile('video')) {
             $extension = $request->file('video')->getClientOriginalExtension();
-            $videoFile = $request->title.'_'.time().'.'.$extension;
-            $path = $request->video->storeAs('public/course-video', $videoFile);
+            $videoFile =  Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
+           
+            $path = $request->video->storeAs('course-video', $videoFile, 'videos');
             $workshop->video = $videoFile;
         }
 
         $course->image = $filename;
         $course->title = $request->title;
-        $course->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
+        $course->slug = Str::slug(strtolower($request->title));
         $course->description = $request->description;
         $course->time = $request->time;
         $course->workshop_id = $request->workshop_id;
@@ -123,20 +125,20 @@ class AdminCourseController extends Controller
         $filename;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filename = $request->title.'_'.time().'.'.$extension;
+            $filename =  Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
             $path = $request->image->storeAs('public/course-image', $filename);
             $course->image = $filename;
-        }
+        }   
 
         if ($request->hasFile('video')) {
             $extension = $request->file('video')->getClientOriginalExtension();
-            $videoFile = $request->title.'_'.time().'.'.$extension;
-            $path = $request->video->storeAs('public/course-video', $videoFile);
-            $workshop->video = $videoFile;
+            $videoFile = Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
+            $path = $request->video->storeAs('course-video', $videoFile, 'videos');
+            $course->video = $videoFile;
         }
 
         $course->title = $request->title;
-        $course->slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $request->title);
+        $course->slug = Str::slug(strtolower($request->title));
         $course->description = $request->description;
         $course->time = $request->time;
         $course->price = $request->price;

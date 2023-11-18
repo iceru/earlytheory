@@ -13434,7 +13434,12 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 }
 
 .course__container {
-  padding: 2rem 0;
+  padding: 2rem 1rem;
+}
+@media (min-width: 992px) {
+  .course__container {
+    padding: 2rem 0;
+  }
 }
 .course__container .course__wrapper {
   display: grid;
@@ -13442,10 +13447,14 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
 }
 @media (min-width: 992px) {
   .course__container .course__wrapper {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 0.75fr;
+    gap: 2rem;
   }
 }
 .course__container .course__wrapper .course__image img {
+  width: 100%;
+}
+.course__container .course__wrapper .course__video video {
   width: 100%;
 }
 .course__container .course__wrapper .course__bab {

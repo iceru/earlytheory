@@ -115,6 +115,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/checkout/{id}/payment-success', [SalesController::class, 'success'])->name('sales.success');
 
     Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course');
+    Route::get('/course/video/{slug}', [CourseController::class, 'showVideo'])->name('course.video');
 });
 
 // Route::get('/checkout/detail', function(){
