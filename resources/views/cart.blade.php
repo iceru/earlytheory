@@ -127,33 +127,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="cartItem__qty">
-                                                <div class="qty-spinner d-flex">
-                                                    <div class="min-button">
-                                                        @if ($item->quantity > 1)
-                                                            <a href="/cart/min/{{ $item->id }}"
-                                                                style="color: inherit;"><i class="fa fa-minus"
-                                                                    aria-hidden="true"></i></a>
-                                                        @elseif ($item->quantity == 1)
-                                                            <a href="/cart/remove/{{ $item->id }}"
-                                                                style="color: inherit;"><i class="fa fa-minus"
-                                                                    aria-hidden="true"></i></a>
-                                                        @endif
-                                                    </div>
-                                                    <div class="qty">{{ $item->quantity }}</div>
-                                                    <div class="plus-button">
-                                                        <a href="/cart/plus/{{ $item->id }}"
-                                                            style="color: inherit;"><i class="fa fa-plus"
-                                                                aria-hidden="true"></i></a>
-                                                    </div>
+                                            @if (!$item->attributes->discount)
+                                                <div class="cartItem__remove">
+                                                    <a href="/cart/remove/{{ $item->id }}"
+                                                        onclick="return confirm('Are you sure you want to delete the item?');">
+                                                        <i class="fa fa-trash primary-color" aria-hidden="true"></i>
+                                                    </a>
                                                 </div>
-                                            </div>
-                                            <div class="cartItem__remove">
-                                                <a href="/cart/remove/{{ $item->id }}"
-                                                    onclick="return confirm('Are you sure you want to delete the item?');">
-                                                    <i class="fa fa-trash primary-color" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
+                                            @else
+                                                <div class="cartItem__remove">
+                                                    <a href="/cart/removecourses/{{ $workshop->id }}"
+                                                        onclick="return confirm('Are you sure you want to delete the item?');">
+                                                        <i class="fa fa-trash primary-color" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </div>
                                     @endif
                                 @endforeach

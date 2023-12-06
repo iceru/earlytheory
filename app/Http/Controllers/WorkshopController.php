@@ -7,15 +7,13 @@ use App\Models\Course;
 use App\Models\Workshop;
 use Illuminate\Http\Request;
 
-class WorkshopController extends Controller
-{
+class WorkshopController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $workshops = Workshop::all();
         return view('workshop/workshop', compact('workshops'));
     }
@@ -25,8 +23,7 @@ class WorkshopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -36,8 +33,7 @@ class WorkshopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -47,25 +43,26 @@ class WorkshopController extends Controller
      * @param  \App\Models\Workshop  $workshop
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
-    {
+    public function show($slug) {
         $workshop = Workshop::where('slug', $slug)->firstOrFail();
         $fullPrice = 0;
         $discountPrice = null;
 
+        $alreadyBuy = false;
         foreach($workshop->course as $course) {
             $fullPrice = $course->price + $fullPrice;
 
             foreach($course->sales as $sale) {
                 if($sale->status == 'settlement') {
+                    $alreadyBuy = true;
                     $course->status = 'active';
                 }
             }
         }
         if($workshop->discount) {
-            $fullPrice =$fullPrice - ($fullPrice * $workshop->discount / 100);
+            $fullPrice = $fullPrice - ($fullPrice * $workshop->discount / 100);
         }
-        return view('workshop/workshop-detail', compact('workshop', 'fullPrice'));
+        return view('workshop/workshop-detail', compact('workshop', 'fullPrice', 'alreadyBuy'));
     }
 
     /**
@@ -74,8 +71,7 @@ class WorkshopController extends Controller
      * @param  \App\Models\Workshop  $workshop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Workshop $workshop)
-    {
+    public function edit(Workshop $workshop) {
         //
     }
 
@@ -86,8 +82,7 @@ class WorkshopController extends Controller
      * @param  \App\Models\Workshop  $workshop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Workshop $workshop)
-    {
+    public function update(Request $request, Workshop $workshop) {
         //
     }
 
@@ -97,8 +92,7 @@ class WorkshopController extends Controller
      * @param  \App\Models\Workshop  $workshop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Workshop $workshop)
-    {
+    public function destroy(Workshop $workshop) {
         //
     }
 }

@@ -13228,6 +13228,20 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
   width: 50px;
 }
 
+.coming-soon {
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.coming-soon h5, .coming-soon .h5 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
 .workshop-container {
   padding: 2rem 0.75rem;
 }

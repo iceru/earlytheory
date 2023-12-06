@@ -66,7 +66,7 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 
 Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
 Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
-  
+
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 
@@ -83,7 +83,7 @@ Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
 
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
@@ -97,7 +97,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::post('/address/add-checkout', [AddressController::class, 'addCheckout'])->name('address.add-checkout');
     Route::get('/address/update-address', [AddressController::class, 'updateAddress'])->name('address.update-address');
-    
+
     Route::get('/checkout', [SalesController::class, 'checkout'])->name('sales.checkout');
     Route::get('/checkout/{id}/detail', [SalesController::class, 'detail'])->name('sales.detail');
     Route::get('/checkout/{id}/additional-question', [SalesController::class, 'additionalQuestion'])->name('sales.additional-question');
@@ -137,12 +137,13 @@ Route::middleware(['auth'])->group(function(){
 Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 Route::get('/cart/min/{id}', [CartController::class, 'min'])->name('cart.min');
 Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.plus');
+Route::get('/cart/removecourses/{id}', [CartController::class, 'removecourses'])->name('cart.removecourses');
 Route::get('/cart/plus/{id}', [CartController::class, 'plus'])->name('cart.plus');
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/add/course/{id}', [CartController::class, 'addCourse'])->name('cart.add.course');
 Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-Route::middleware(['auth', 'role:administrator'])->group(function (){
+Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
@@ -179,7 +180,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/products/hide/{id}', [AdminProductsController::class, 'hide'])->name('admin.products.hide');
     Route::get('/admin/products/unhide/{id}', [AdminProductsController::class, 'unhide'])->name('admin.products.unhide');
     Route::get('/admin/products/generate-sku', [AdminProductsController::class, 'generateSKU'])->name('admin.products.generate-sku');
-    
+
     Route::get('/admin/products/{id}/variant', [AdminProductOptionsController::class, 'index'])->name('admin.product-options');
     Route::post('/admin/product-variants/store', [AdminProductOptionsController::class, 'store'])->name('admin.product-options.store');
     Route::post('/admin/product-variants/store-sku', [AdminProductOptionsController::class, 'storeSKU'])->name('admin.product-options.store-sku');
@@ -190,7 +191,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function (){
     Route::get('/admin/product-variant/sku/{id}/edit', [AdminProductOptionsController::class, 'editSKU'])->name('admin.product-options.edit-sku');
     Route::post('/admin/product-variants/update-sku', [AdminProductOptionsController::class, 'updateSKU'])->name('admin.product-options.update-sku');
     Route::get('/admin/product-variant/sku/{id}/delete', [AdminProductOptionsController::class, 'deleteSKU'])->name('admin.product-options.delete-sku');
-    
+
     Route::get('/admin/payment-methods', [AdminPaymentMethodsController::class, 'index'])->name('admin.paymentMethods');
     Route::post('/admin/payment-methods/store', [AdminPaymentMethodsController::class, 'store'])->name('admin.paymentMethods.store');
     Route::get('/admin/payment-methods/edit/{id}', [AdminPaymentMethodsController::class, 'edit'])->name('admin.paymentMethods.edit');

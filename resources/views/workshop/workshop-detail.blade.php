@@ -26,18 +26,20 @@
                     </div>
                 </div>
                 <div class="package">
-                    <div class="buy-package">
-                        <div>
-                            <h5>Paket Full Program</h5>
-                            <p>Rp {{ number_format($fullPrice) }}
-                                {{ $workshop->discount ? '(' . $workshop->discount . '% OFF)' : '' }}</p>
+                    @if (!$alreadyBuy)
+                        <div class="buy-package">
+                            <div>
+                                <h5>Paket Full Program</h5>
+                                <p>Rp {{ number_format($fullPrice) }}
+                                    {{ $workshop->discount ? '(' . $workshop->discount . '% OFF)' : '' }}</p>
+                            </div>
+                            <div>
+                                <button class="button button-buy" id="buy-all">
+                                    Beli
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <button class="button button-buy">
-                                Beli
-                            </button>
-                        </div>
-                    </div>
+                    @endif
                     <div class="list-bab">
                         <h4>Daftar Bab</h4>
                         @foreach ($workshop->course as $key => $item)
@@ -87,7 +89,7 @@
 
     <script>
         $('.button-cart').on('click', function() {
-            var id = $(this).attr('data-id');
+            const id = $(this).attr('data-id');
 
             if (id) {
                 $.ajax({
@@ -126,6 +128,49 @@
                 alert('Stok Habis / Error');
             }
         });
+
+        $('#buy-all').on('click', function() {
+            // const courses = $('.button-cart').attr('data-id');
+            const courses = document.querySelectorAll('.button-cart');
+            courses.forEach((element, index) => {
+                $.ajax({
+                    url: "/cart/add/course/" + $(element).attr('data-id'),
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        discount: true,
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#cartcount').html(data.count);
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top',
+                            showConfirmButton: false,
+                            timer: 4000,
+                            timerProgressBar: true,
+                        })
+
+                        if ($.isEmptyObject(data.error) && index + 1 === courses.length) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.success + '&nbsp; | &nbsp;' +
+                                    '<a style="color:#4A2984;" href="/cart">Go to Cart</a> '
+                            })
+                        }
+                    },
+                    error: function(jqXHR, exepection) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Terjadi kesalahan'
+                        })
+                    }
+                });
+            });
+        })
     </script>
 
 </x-app-layout>
