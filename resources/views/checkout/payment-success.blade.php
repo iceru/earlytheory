@@ -10,8 +10,7 @@
             <div class="col-12 payment-success">
                 <div class="text-center thank-you mb-3">
                     <img src="/images/pay.svg" alt="">
-                    <h5>Kami akan konfirmasi orderanmu lewat Whatsapp!</h5>
-                    <p>Pengiriman file dalam waktu 2-3 hari kerja</p>
+                    <h5>Kamu akan dihubungi oleh admin kami via Whatsapp untuk info tanggal pengiriman ramalan</h5>
                 </div>
                 <hr>
                 <div class="row proof">
