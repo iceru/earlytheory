@@ -1,3 +1,41 @@
+.detail__workshopContainer {
+    background: $primaryGrad;
+    padding: 1rem;
+    border-radius: .5rem;
+    color: white;
+    margin-bottom: 1rem;
+    display: flex;
+
+    .detail__workshopImage {
+        margin-right: 1rem;
+        flex-shrink: 0;
+
+        img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+    }
+
+    .detail__workshopTitle {
+        font-size: 1.15rem;
+    }
+
+    .detail__workshopDesc {
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 40px;
+        margin-top: .5rem;
+
+        p,
+        span {
+            font-size: 12px !important;
+        }
+    }
+}
+
 .checkout {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -27,7 +65,7 @@
     .indicator {
         display: flex;
         justify-content: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
         align-items: center;
 
         @include breakpoint(large) {
@@ -39,12 +77,12 @@
             width: 25px;
             height: 25px;
             border-radius: 50%;
-            background-color: lighten($body, 20%);
+            background-color: #C614CC;
             opacity: 0.2;
 
             &.active {
                 opacity: 1;
-                background-color: $body;
+                background-color: #4A2984;
             }
         }
 
@@ -100,20 +138,25 @@
 
     .products {
         .product-item-container {
-            padding-left: 12px;
-            border-left: 4px solid $body;
             margin: 0;
             margin-bottom: 1rem;
+
+            .product-image {
+                margin-right: .5rem;
+                width: 80px;
+            }
 
             &:last-child {
                 margin-bottom: 1.5rem;
             }
 
-            .product-title,
             .product-price {
-                text-align: center;
-                color: $body;
-
+                background-color: $green;
+                padding: 4px 10px;
+                border-radius: 3rem;
+                display: inline-block;
+                margin-top: .5rem;
+                font-size: 14px;
             }
 
             .product-title {
@@ -155,22 +198,83 @@
         }
     }
 
-    .total-payment h4 {
+    .detail__courseItem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+
+        .detail__courseImage {
+            margin-right: .5rem;
+
+            img {
+                width: 60px;
+                height: 60px;
+                border-radius: 8px;
+            }
+        }
+
+        .detail__courseTitle {
+            font-weight: bold;
+        }
+
+        .detail__coursePrice {
+            background-color: $green;
+            border-radius: 3rem;
+            padding: 4px 12px;
+            font-family: 'Apercu Mono';
+            font-size: 14px;
+        }
+    }
+
+
+    .total-payment {
         text-align: center;
         padding: 1rem;
-        background: $yellow;
+        background: $darkGrey;
         margin: 1rem auto;
         margin-bottom: 2rem;
-        color: $body;
         border-radius: 8px;
+        color: $green;
+        width: 90%;
+
+        h4 {
+            margin-top: .5rem;
+            font-size: 1.5rem;
+        }
 
         @include breakpoint(large) {
             width: 60%;
         }
     }
 
+    .button-confirm {
+        width: 100%;
+    }
+
+    .confirm__total {
+        background-color: $darkGrey;
+        color: $green;
+        padding: 4px 12px;
+        border-radius: 2rem;
+        margin: .5rem 0 1rem;
+        display: inline-block;
+    }
+
+    .confirm__infoPayment {
+        background-color: rgba($color: #6ce7fd, $alpha: 0.3);
+        padding: 1rem;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+    }
+
     .button-invoice,
     .disclaimer {
+        h5 {
+            font-size: 1rem;
+        }
+
         @include breakpoint(large) {
             width: 75%;
             margin: auto;
@@ -311,8 +415,6 @@
             }
         }
     }
-
-
 
 }
 

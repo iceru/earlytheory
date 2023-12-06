@@ -1,56 +1,63 @@
 <x-app-layout>
     @section('title')
-        Edit Account
+        Edit Profile
     @endsection
 
-    <div class="container account">
-        <div class="row">
-            <div class="col-12 mb-5">
-                <h3 class="evogria text-page">Edit Account</h3>
-            </div>
-            @include('layouts.account-navigation')
+    <div class="container account__wrapper">
+        <div class="account__bread">
+            <a href="{{ route('user.account') }}">Akun</a>
+            <span>/</span>
+            <span>Edit Profile</span>
+        </div>
+        <h3 class="account__titlePage">Edit Profile</h3>
 
-            <div class="col-12 col-lg-9 account-content">
-                <form action="{{ route('user.account-update') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-12">
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <strong>Sorry !</strong> There were some problems with your input.<br><br>
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+        <div class="account-content">
+            @if (session('success'))
+                <div class="alert alert-success my-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <form action="{{ route('user.account-update') }}" method="POST">
+                @csrf
+                <div class="account_editWrapper">
+                    <div class="account__alert">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <strong>Sorry !</strong> There were some problems with your input.<br><br>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-                        </div>
-                        <div class="form-group col-12 col-lg-6 mb-3">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                    </div>
+                    <div class="account__editForm">
+                        <div class="form-group">
                             <label for="name">Nama Lengkap</label>
                             <input class="form-control" type="text" value="{{ old('name', optional($user)->name) }}"
                                 name="name" required>
                         </div>
 
-                        <div class="form-group col-12 col-lg-6 mb-3">
+                        <div class="form-group">
                             <label for="inputEmail">Email</label>
                             <input type="email" name="email" value="{{ old('email', optional($user)->email) }}"
                                 class="form-control" required>
                         </div>
 
-                        <div class="form-group col-12 col-lg-6 mb-3">
+                        <div class="form-group">
                             <label for="inputPhone">Nomor Telepon</label>
                             <input type="tel" class="form-control"
                                 value="{{ old('phone', optional($user)->phone) }}" name="phone" required>
                         </div>
 
-                        <div class="form-group col-12 col-lg-6 mb-3 ">
+                        <div class="form-group ">
                             <label for="inputBirthdate">Tanggal Lahir</label>
                             <div class="position-relative">
                                 <input type="text" class="form-control"
@@ -61,26 +68,14 @@
                                 </div>
                             </div>
                         </div>
-
-                        <h5 class="mb-3">Change Password</h5>
-                        <div class="form-group col-12 col-lg-6 mb-3">
-                            <label for="password">New Password</label>
-                            <input class="form-control" type="password" name="password" placeholder="Type new password"
-                                autocomplete="off">
-                        </div>
-                        <div class="form-group col-12 col-lg-6 mb-3">
-                            <label for="password_confirmation">Confirm New Password</label>
-                            <input class="form-control" type="password" name="password_confirmation"
-                                placeholder="Type new password again" autocomplete="off">
-                        </div>
-
-                        <div class="col-12">
-                            <button type="submit" class="button primary">Submit</button>
-                        </div>
                     </div>
-                </form>
-            </div>
+                    <div class="col-12">
+                        <button type="submit" class="button primary">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
 
     </div>
 

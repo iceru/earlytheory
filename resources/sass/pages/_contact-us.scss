@@ -1,7 +1,9 @@
 .contact-us {
-    .row {
-        width: 80%;
-        margin: auto;
+    @include breakpoint(large) {
+        .row {
+            width: 80%;
+            margin: auto;
+        }
     }
 
     h2 {

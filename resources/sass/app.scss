@@ -14,10 +14,13 @@
 @import 'pages/checkout';
 @import 'pages/contact-us';
 @import 'pages/index';
+@import 'pages/new-index';
 @import 'pages/admin';
 @import 'pages/account';
 @import 'pages/product-detail';
 @import 'pages/horoscope';
+@import 'pages/workshop';
+@import 'pages/course';
 @import "~sweetalert2/src/sweetalert2";
 @import "~shepherd.js/dist/css/shepherd.css";
 @import 'base/shepherd';
@@ -28,10 +31,20 @@
     padding: 0;
 }
 
+p {
+    margin-bottom: 0;
+}
+
 html,
 body {
     background: $background;
     font-family: 'Apercu', sans-serif;
+    overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow-y: hidden;
+    height: 100vh;
 }
 
 // .print {

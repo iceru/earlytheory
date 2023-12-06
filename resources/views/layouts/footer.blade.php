@@ -33,7 +33,8 @@
                 <form action="/newsletter" id="newsletter">
                     @csrf
                     <div class="form-group d-flex">
-                        <input type="text" class="form-control me-2" name="email" id="email" placeholder="Email">
+                        <input type="text" class="form-control me-2" name="email" id="email"
+                            placeholder="Email">
                         <button class="button primary m-0">Subscribe</button>
                     </div>
                 </form>
@@ -49,5 +50,3 @@
         </div>
     </div>
 </div>
-
-

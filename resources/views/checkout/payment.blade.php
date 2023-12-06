@@ -32,7 +32,8 @@
                 <button id="print" class="text-center button secondary">Print Invoice &nbsp; <i class="fa fa-print" aria-hidden="true"></i></button>
             </div> --}}
             <div class="total-payment">
-                <h4>Jumlah yang harus dibayar: idr
+                Jumlah yang harus dibayar: <br />
+                <h4>IDR
                     {{ number_format($sales->total_price - $sales->discount + $sales->ship_cost) }}</h4>
             </div>
             <div class="disclaimer">
@@ -68,11 +69,9 @@
 
                 <div class="col-12 d-grid gap-2">
                     <div class="d-flex justify-content-center">
-                        <a class="button primary me-3" href="/checkout/{{ $sales->sales_no }}/confirm-payment">
-                            Konfirmasi Pembayaran Sekarang
-                        </a>
-                        <a class="button primary-line" href="/orders">
-                            Konfirmasi Lain Waktu
+                        <a class="button primary button-confirm"
+                            href="/checkout/{{ $sales->sales_no }}/confirm-payment">
+                            Konfirmasi Pembayaran
                         </a>
                     </div>
                 </div>

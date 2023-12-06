@@ -3,28 +3,41 @@
         My Account
     @endsection
 
-    <div class="container account">
+    <div class="container account__wrapper">
         <div class="row">
-            <div class="col-12 mb-5">
-                <h3 class="evogria text-page">My Account</h3>
-            </div>
-            @include('layouts.account-navigation')
-
-            <div class="col-12 col-md-9 account-content">
-                <h4 class="mb-4 account-name">{{ $user->name }}</h4>
-                <div class="row mb-3">
-                    <div class="col-6 account-item">
-                        <p><b>Email: <br> </b> {{ $user->email }}</p>
-                    </div>
-                    <div class="col-6 account-item">
-                        <p><b>Birthdate: <br> </b> {{ $user->birthdate ? $user->birthdate : '-' }}</p>
-                    </div>
-                    <div class="col-6 account-item">
-                        <p><b>Phone Number: <br> </b>{{ $user->phone ? $user->phone : '-' }}</p>
-                    </div>
+            <section class="account__info">
+                <div>
+                    <h3>{{ $user->name }}</h3>
+                    <p>Member sejak {{ \Carbon\Carbon::parse($user->created_at)->format('j M Y') }}</p>
                 </div>
-                <a href="{{ route('user.account-edit') }}" class="button primary">Edit Account <i class="ms-2 fas fa-edit"></i></a>
-            </div>
+                <div>
+                    <a href="{{ route('logout') }}" class="btn btn-logout">
+                        Keluar
+                    </a>
+                </div>
+            </section>
+            <section class="account__menu">
+                <a href="{{ route('user.orders') }}">
+                    <div class="account__menuItem">
+                        Riwayat <br> Pemesanan
+                    </div>
+                </a>
+                <a href="{{ route('user.account-edit') }}">
+                    <div class="account__menuItem">
+                        Edit <br> Profile
+                    </div>
+                </a>
+                <a href="{{ route('user.workshop') }}">
+                    <div class="account__menuItem">
+                        Kelas & <br> Workshop
+                    </div>
+                </a>
+                <a href="{{ route('user.edit-password') }}">
+                    <div class="account__menuItem">
+                        Ubah <br> Password
+                    </div>
+                </a>
+            </section>
         </div>
 
     </div>

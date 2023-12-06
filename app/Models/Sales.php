@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sales extends Model
 {
@@ -16,6 +17,11 @@ class Sales extends Model
     public function products()
     {
         return $this->belongsToMany(Products::class, 'products_sales', 'sales_id', 'product_id')->withPivot('question', 'qty');
+    }
+
+    public function course()
+    {
+        return $this->belongsToMany(Course::class, 'course_sales');
     }
 
     public function skus()

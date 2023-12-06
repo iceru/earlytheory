@@ -1,0 +1,95 @@
+.index {
+    padding: 2rem 0;
+    display: grid;
+    gap: 1rem;
+
+    @include breakpoint(large) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .index-section {
+        background: $primaryGrad;
+        color: white;
+        padding: 1.5rem;
+        border-radius: .5rem;
+        display: flex;
+        justify-content: space-between;
+        min-height: 120px;
+
+        h3 {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.account-nav {
+    background: $primaryGrad;
+
+    .container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .75rem 1rem;
+        color: white;
+        margin: auto;
+    }
+
+    .user-name {
+        font-weight: bold;
+
+        a {
+            text-decoration: underline;
+            font-style: italic;
+            color: white;
+        }
+    }
+
+    .cart-icon {
+        @include breakpoint(large) {
+            padding: 0;
+        }
+
+        padding: 0;
+        position: relative;
+        display: block;
+        filter: brightness(0) invert(1);
+    }
+
+    .badge-count {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        color: $body;
+        font-weight: bold;
+        border-radius: 50%;
+        background: $yellow;
+        font-size: 10px;
+        height: 16px;
+        width: 16px;
+        text-align: center;
+    }
+}
+
+.page__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .page__titleImage {
+        margin-right: .75rem;
+
+        img {
+            width: 51px;
+            height: 51px;
+        }
+    }
+
+    .page__titleText {
+        font-size: 20px;
+        font-weight: bold;
+    }
+}

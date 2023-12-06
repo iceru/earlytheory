@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\SKUs;
 use App\Models\Sales;
+use App\Models\Course;
 use App\Models\Discount;
 use App\Models\Products;
 use App\Models\SKUvalues;
@@ -44,17 +45,23 @@ class SalesController extends Controller
                 // $product->sales()->attach($sales, ['qty' => $item->quantity]);
                 // // $product->stock = $product->stock-$item->quantity;
                 // $product->save();
-                $sku = SKUs::find($item->attributes->sku_id);
                 // $product = Products::find($item->attributes->product_id);
-                if ($sku && $sku->stock > 0 && $sku->stock >= $item->quantity) {
-                    $sku->sales()->attach($sales, ['qty' => $item->quantity]);
-                    $sku->save();
-                } elseif ($sku->stock <= 0) {
-                    return back()->withErrors('Stok Produk Habis');
-                } else {
-                    return back()->withErrors('Product(s) not valid. Please contact us');
-                }
                 // $product->stock = $product->stock-$item->quantity;
+                if($item->attributes->type === 'course') {
+                    $course = Course::find($item->id);
+                    $course->sales()->attach($sales, ['created_at' => date("Y-m-d h:i:s")]);
+                    $course->save();
+                } else {
+                    $sku = SKUs::find($item->attributes->sku_id);
+                    if ($sku && $sku->stock > 0 && $sku->stock >= $item->quantity) {
+                        $sku->sales()->attach($sales, ['qty' => $item->quantity]);
+                        $sku->save();
+                    } elseif ($sku->stock <= 0) {
+                        return back()->withErrors('Stok Produk Habis');
+                    } else {
+                        return back()->withErrors('Product(s) not valid. Please contact us');
+                    }
+                }
             }
 
             // \Cart::clear();
@@ -86,7 +93,12 @@ class SalesController extends Controller
                 $is_service += 1;
             }
         }
-
+        $workshops = array();
+        foreach($sales->course as $course) {
+            array_push($workshops, $course->workshop);
+        }
+        $workshops = array_unique($workshops);
+    
         if ($user->id == $sales->user_id) {
             if ($is_product > 0) {
                 $address = ShippingAddress::where('user_id', $user->id)->get();
@@ -173,7 +185,7 @@ class SalesController extends Controller
 
                 return view('checkout.detail', compact('sales', 'address', 'user', 'provinces', 'is_product', 'is_service', 'values', 'is_additional'));
             }
-            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service', 'is_additional'));
+            return view('checkout.detail', compact('sales', 'user', 'is_product', 'is_service', 'is_additional', 'workshops'));
         } else {
             return redirect('/');
         }
@@ -215,18 +227,18 @@ class SalesController extends Controller
                 $item_genderquestion = 'Saya cenderung mencari yang etnis / agamanya ' . ucfirst($request->genderQuestion3[0]) . '. 
                 Saya ' . ucfirst($request->genderQuestion[0]) . ', mencari ' . ucfirst($request->genderQuestion2[0]);
             }
-
-            foreach ($item_id as $key => $i) {
-                $sku = SKUs::find($item_id[$key]);
-                if ($sku) {
-                    if (strtolower($sku->products->title) != 'mencari jodoh') {
-                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
-                    } else {
-                        $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion]);
+            if(is_array($item_id)) {
+                foreach ($item_id as $key => $i) {
+                    $sku = SKUs::find($item_id[$key]);
+                    if ($sku) {
+                        if (strtolower($sku->products->title) != 'mencari jodoh') {
+                            $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                        } else {
+                            $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion]);
+                        }
                     }
                 }
             }
-
 
             // Check product category in sales
             $is_product = 0;
@@ -630,6 +642,11 @@ class SalesController extends Controller
                     $is_additional = true;
                 }
             }
+            $workshops = array();
+            foreach($sales->course as $course) {
+                array_push($workshops, $course->workshop);
+            }
+            $workshops = array_unique($workshops);
 
             $skuvalues = SKUvalues::all();
             $values = array();
@@ -651,7 +668,7 @@ class SalesController extends Controller
                 $additional_birthtime = true;
             }
 
-            return view('checkout.summary', compact('sales', 'is_additional', 'additional_birthtime'));
+            return view('checkout.summary', compact('sales', 'is_additional', 'workshops', 'additional_birthtime'));
         } else {
             return redirect('/');
         }
