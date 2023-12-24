@@ -37,7 +37,7 @@
         </div> --}}
     <div class="logo d-flex justify-content-center">
         <a href="/">
-            <img src="/images/MainLogo.png" alt="Early Theory">
+            <img src="/images/LogoLandingPage.png" alt="Early Theory">
         </a>
     </div>
     <div class="hamburger ">
@@ -75,9 +75,9 @@
         <div class="user-name">
             <i class="fa fa-user me-1"></i>
             @auth
-                <a href="{{ route('user.account') }}"> Hello, {{ Auth::user()->name }}</a>
+                <a href="{{ route('user.account') }}"> Halo, {{ Auth::user()->name }}</a>
             @else
-                <a href="{{ route('login') }}"> Login</a>
+                <a href="{{ route('login') }}"> Login dulu yuk!</a>
             @endauth
         </div>
         <div class="cart">
