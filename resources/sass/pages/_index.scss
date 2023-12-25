@@ -99,10 +99,10 @@
  }
 
  .index-tarot {
-     padding: 1rem 0;
+     padding: 1rem .75rem;
 
      @include breakpoint(large) {
-         padding: 2rem 0;
+         padding: 2rem .75rem;
      }
 
      .title {
