@@ -77,13 +77,17 @@
 
     .account__menuItem {
         display: flex;
-        background: $primaryGrad;
-        color: white;
+        background: $yellow;
+        color: black;
+        text-decoration: underline;
         font-weight: bold;
         padding: 12px;
         border-radius: 8px;
         line-height: 1.3;
         font-size: 1.25rem;
+        min-height: 15vh;
+        flex-direction: column;
+        justify-content: flex-end;
 
         @include breakpoint(large) {
             font-size: 1.5rem;

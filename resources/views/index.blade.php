@@ -15,7 +15,7 @@
             <a href="/tarot">
                 <section class="index-section top-section">
                     <div class="bg">
-                        <img src="/images/BackgroundRamalan.png" alt="">
+                        <img src="/images/Tes1.png" alt="">
                     </div>
                     <h3 class="text-2xl">
                         Order <br />
@@ -27,7 +27,7 @@
             <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" target="_blank">
                 <section class="index-section top-section">
                     <div class="bg">
-                        <img src="/images/BackgroundTokoMejik.png" alt="">
+                        <img src="/images/Tes4.png" alt="">
                     </div>
                     <h3 class="text-2xl">
                         Toko <br />
@@ -38,7 +38,7 @@
             <a href="{{ route('workshops') }}">
                 <section class="index-section top-section">
                     <div class="bg">
-                        <img src="/images/BackgroundKelasMejik.png" alt="">
+                        <img src="/images/Tes2.png" alt="">
                     </div>
                     <h3 class="text-2xl">
                         Kelas <br />
@@ -59,7 +59,7 @@
             <a href="/articles-page">
                 <section class="index-section index-article">
                     <div class="bg">
-                        <img src="/images/BackgroundArticle.png" alt="">
+                        <img src="/images/Tes3.png" alt="">
                     </div>
                     <h3 class="text-2xl">
                         Artikel
@@ -82,7 +82,7 @@
                 <a href="/tarot">
                     <section class="index-section">
                         <div class="bg">
-                            <img src="/images/BackgroundRamalan.png" alt="">
+                            <img src="/images/Tes1.png" alt="">
                         </div>
                         <h3 class="text-2xl">
                             Order <br />
@@ -94,7 +94,7 @@
                 <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" target="_blank">
                     <section class="index-section">
                         <div class="bg">
-                            <img src="/images/BackgroundTokoMejik.png" alt="">
+                            <img src="/images/Tes4.png" alt="">
                         </div>
                         <h3 class="text-2xl">
                             Toko <br />
@@ -107,7 +107,7 @@
                 <a href="/articles-page" class="index-small">
                     <section class="index-section index-article">
                         <div class="bg">
-                            <img src="/images/BackgroundArticle.png" alt="">
+                            <img src="/images/Tes3.png" alt="">
                         </div>
                         <h3 class="text-2xl">
                             Artikel
@@ -117,7 +117,7 @@
                 <a href="{{ route('workshops') }}" class="index-kelas">
                     <section class="index-section">
                         <div class="bg">
-                            <img src="/images/BackgroundKelasMejik.png" alt="">
+                            <img src="/images/Tes2.png" alt="">
                         </div>
                         <h3 class="text-2xl">
                             Kelas <br />
