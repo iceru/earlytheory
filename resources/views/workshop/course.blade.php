@@ -17,8 +17,16 @@
 
             <div>
                 @if ($course->video)
-                    <div class="course__video">
-                        <video controls src="{{ route('course.video', $course->slug) }}" alt="">
+                    <div class="course__video" oncontextmenu="return false;">
+                        <video controlsList="nodownload" controls alt="" id="video"
+                            src="{{ route('course.video', $course->slug) }}" />
+                    </div>
+                    <div class="course__video-quality">
+                        <div>Video Quality</div>
+                        <select class='qualitypick' autocomplete='off'>
+                            <option value="720p">720p</option>
+                            <option value="480p">480p</option>
+                        </select>
                     </div>
                 @else
                     <div class="course__image">
@@ -60,4 +68,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.qualitypick').change(function() {
+                debugger;
+                const video = $('#video')[0];
+                const currTime = video.currentTime;
+
+                if ($(this).val() === '480p') {
+                    video.src = "{!! route('course.video.lq', $course->slug) !!}"
+                } else {
+                    video.src = "{!! route('course.video', $course->slug) !!}"
+                }
+                video.load();
+
+                video.currentTime = currTime;
+            })
+        })
+    </script>
 </x-app-layout>

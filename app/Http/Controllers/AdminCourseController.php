@@ -50,20 +50,29 @@ class AdminCourseController extends Controller
             'time' => 'required|integer',
             'workshop_id' => 'required',
             'price' => 'required',
+            'lq_video' => 'nullable',
         ]);
         $filename;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filename = Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
-            $path = $request->image->storeAs('public/course-image', $filename);
+            $filename = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
+            $request->image->storeAs('public/course-image', $filename);
         }
 
         if ($request->hasFile('video')) {
             $extension = $request->file('video')->getClientOriginalExtension();
-            $videoFile =  Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
-           
-            $path = $request->video->storeAs('course-video', $videoFile, 'videos');
-            $workshop->video = $videoFile;
+            $videoFile = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
+
+            $request->video->storeAs('course-video', $videoFile, 'videos');
+            $course->video = $videoFile;
+        }
+
+        if ($request->hasFile('lq_video')) {
+            $extension = $request->file('lq_video')->getClientOriginalExtension();
+            $videoLq = Str::slug(strtolower($request->title)) . '_lq_' . time() . '.' . $extension;
+
+            $request->lq_video->storeAs('course-video', $videoLq, 'videos');
+            $course->lq_video = $videoLq;
         }
 
         $course->image = $filename;
@@ -118,6 +127,7 @@ class AdminCourseController extends Controller
             'description' => 'required',
             'image' => 'nullable',
             'video' => 'nullable',
+            'lq_video' => 'nullable',
             'time' => 'required|integer',
             'price' => 'required',
         ]);
@@ -125,16 +135,23 @@ class AdminCourseController extends Controller
         $filename;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filename =  Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
-            $path = $request->image->storeAs('public/course-image', $filename);
+            $filename = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
+            $request->image->storeAs('public/course-image', $filename);
             $course->image = $filename;
-        }   
+        }
 
         if ($request->hasFile('video')) {
             $extension = $request->file('video')->getClientOriginalExtension();
-            $videoFile = Str::slug(strtolower($request->title)).'_'.time().'.'.$extension;
-            $path = $request->video->storeAs('course-video', $videoFile, 'videos');
+            $videoFile = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
+            $request->video->storeAs('course-video', $videoFile, 'videos');
             $course->video = $videoFile;
+        }
+        if ($request->hasFile('lq_video')) {
+            $extension = $request->file('lq_video')->getClientOriginalExtension();
+            $videoLq = Str::slug(strtolower($request->title)) . '_lq_' . time() . '.' . $extension;
+
+            $request->lq_video->storeAs('course-video', $videoLq, 'videos');
+            $course->lq_video = $videoLq;
         }
 
         $course->title = $request->title;
@@ -156,7 +173,7 @@ class AdminCourseController extends Controller
     public function destroy($id)
     {
         Course::find($id)->delete();
-      
+
         return redirect()->back();
     }
 }

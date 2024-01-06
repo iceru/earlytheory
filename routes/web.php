@@ -115,7 +115,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout/{id}/payment-success', [SalesController::class, 'success'])->name('sales.success');
 
     Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course');
-    Route::get('/course/video/{slug}', [CourseController::class, 'showVideo'])->name('course.video');
 });
 
 // Route::get('/checkout/detail', function(){
@@ -145,6 +144,8 @@ Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/course/video/{slug}', [CourseController::class, 'showVideo'])->name('course.video');
+    Route::get('/course/video/lq/{slug}', [CourseController::class, 'showVideoLq'])->name('course.video.lq');
 
     Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
 
@@ -234,4 +235,4 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::post('/admin/user/update', [AdminUserController::class, 'update'])->name('admin.users.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

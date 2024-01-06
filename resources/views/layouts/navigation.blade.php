@@ -54,7 +54,7 @@
     <nav class="navbar align-items-center row d-none d-lg-flex pt-4">
         <div class="col-4 nav-links">
             <a class="{{ request()->is('/tarot') ? 'active' : '' }}" href="{{ route('tarot') }}">Ramalan</a>
-            <a class="{{ request()->is('/workshop') ? 'active' : '' }}" href="{{ route('workshops') }}">Workshop</a>
+            <a class="{{ request()->is('/workshop') ? 'active' : '' }}" href="{{ route('workshops') }}">Kelas Mejik</a>
             <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" target="_blank">Toko Mejik</a>
         </div>
         <div class="col-4 logo-lg text-center">
@@ -96,8 +96,8 @@
             <a class="{{ request()->is('/tarot') ? 'active' : '' }}" href="{{ route('tarot') }}">Order Ramalan</a>
         </li>
         <li>
-            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('workshops') }}">Kelas &
-                Workshop</a>
+            <a class="{{ request()->is('contact-us') ? 'active' : '' }}" href="{{ route('workshops') }}">Kelas
+                Mejik</a>
         </li>
         <li>
             <a class="{{ request()->is('contact-us') ? 'active' : '' }}"
