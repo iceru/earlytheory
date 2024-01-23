@@ -135,7 +135,6 @@
                             }
                         })
                         response(results.slice(0, 10));
-                        console.log(results.slice(0, 10));
                     },
                 });
             },

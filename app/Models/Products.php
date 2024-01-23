@@ -18,4 +18,9 @@ class Products extends Model
     {
         return $this->belongsToMany(Discount::class, 'discount_products', 'product_id', 'discount_id');
     }
+
+    public function estimate()
+    {
+        return $this->belongsTo(Estimate::class, 'estimate_id', 'id');
+    }
 }

@@ -34,11 +34,11 @@
                     <div class="row birth-date">
                         <div class="col-4">
                             {{ \Carbon\Carbon::parse($horoscope->data['profile']['birthdate']['date'])->format('j M
-                                                                                                                Y') }}
+                                                                                                                                            Y') }}
                         </div>
                         <div class="col-4">
                             {{ \Carbon\Carbon::parse($horoscope->data['profile']['birthdate']['date'])->format('g:i
-                                                                                                                A') }}
+                                                                                                                                            A') }}
                         </div>
                         <div class="col-4">
                             <p>{{ $horoscope->data['profile']['cityName'] }}</p>
@@ -414,7 +414,6 @@
                 success: function(response) {
                     // const obj = JSON.parse(response);
                     const uid = Date.now().toString(36) + Math.random().toString(36).substr(2);
-                    // console.log(obj);
                     storeHoroscope(uid, response, name, email)
                 },
                 always: function() {

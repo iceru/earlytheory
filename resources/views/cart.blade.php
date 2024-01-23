@@ -60,6 +60,9 @@
                                         <div class="cartItem__total">idr
                                             {{ number_format($item->price * $item->quantity) }}
                                         </div>
+                                        <p class="text-bold mt-2">
+                                            {{ $item->associatedModel->estimate->estimate }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="cartItem__qty">

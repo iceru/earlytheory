@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estimate;
 use App\Models\Products;
 use App\Models\SKUs;
 use App\Models\Options;
@@ -17,10 +18,11 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = Products::where('category', 'product')->orderBy('ordernumber')->get();
-        $services = Products::where('category', 'service')->orderBy('ordernumber')->get();
+        $products = Products::where('category', 'product')->with('estimate')->orderBy('ordernumber')->get();
+        $services = Products::where('category', 'service')->with('estimate')->orderBy('ordernumber')->get();
         $skus = SKUs::all();
         $options = Options::all();
+        $estimates = Estimate::all();
 
         foreach ($skus as $key => $sku) {
             foreach ($products as $key => $product) {
@@ -40,7 +42,7 @@ class AdminProductsController extends Controller
             }
         }
 
-        return view('admin.products.index', compact('products', 'skus', 'options', 'services'));
+        return view('admin.products.index', compact('products', 'skus', 'options', 'services', 'estimates'));
     }
 
     /**
@@ -79,6 +81,7 @@ class AdminProductsController extends Controller
             'inputQuestion' => 'nullable',
             'inputQuestionTitle' => 'nullable',
             'inputAdditional' => 'nullable',
+            'estimate' => 'nullable',
         ]);
 
         if ($request->hasFile('inputImage')) {
@@ -119,6 +122,7 @@ class AdminProductsController extends Controller
         $product->question = $request->inputQuestion;
         $product->additional_question = $request->inputAdditional;
         $product->question_title = $request->inputQuestionTitle;
+        $product->estimate_id = $request->estimate;
 
         $product->save();
 
@@ -177,8 +181,9 @@ class AdminProductsController extends Controller
     public function edit($id)
     {
         $product = Products::findOrFail($id);
+        $estimates = Estimate::all();
 
-        return view('admin.products.edit', compact('product'));
+        return view('admin.products.edit', compact('product', 'estimates'));
     }
 
     /**
@@ -207,6 +212,7 @@ class AdminProductsController extends Controller
             'updateStock' => 'required',
             'updateQuestion' => 'nullable',
             'updateQuestionTitle' => 'nullable',
+            'estimate' => 'nullable'
         ]);
 
         if ($request->hasFile('updateImage')) {
@@ -253,6 +259,7 @@ class AdminProductsController extends Controller
         $product->stock = $request->updateStock;
         $product->question = $request->updateQuestion;
         $product->question_title = $request->updateQuestionTitle;
+        $product->estimate_id = $request->estimate;
 
         $product->save();
 

@@ -217,12 +217,15 @@
                                                 @endforeach
                                             </div>
                                             <div class="product-info">
-                                                <div class="product-title ">
+                                                <div class="product-title evogria">
                                                     <h5>{{ $item->products->title }}</h5>
                                                 </div>
-                                                <div class="product-price ">
+                                                <div class="product-price text-sm">
                                                     <p>IDR {{ number_format($item->price) }}</p>
                                                 </div>
+                                                <p class="text-bold">
+                                                    {{ $item->products->estimate->estimate }}
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="row g-0">

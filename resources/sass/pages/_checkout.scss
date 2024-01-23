@@ -77,12 +77,14 @@
             width: 25px;
             height: 25px;
             border-radius: 50%;
-            background-color: #C614CC;
-            opacity: 0.2;
+            background-color: $darkGrey;
+            border: 2px solid $darkGrey;
+
 
             &.active {
                 opacity: 1;
-                background-color: #4A2984;
+                background-color: $green;
+                border: 2px solid $darkGrey;
             }
         }
 
@@ -90,7 +92,7 @@
             content: '';
             width: 50px;
             height: 6px;
-            background-color: $background-secondary;
+            background-color: lightgray;
         }
     }
 
@@ -175,7 +177,7 @@
                 margin-bottom: .5rem;
 
                 @include breakpoint(large) {
-                    font-size: 1.25rem;
+                    font-size: 1rem;
                 }
             }
 

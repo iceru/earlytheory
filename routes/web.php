@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EstimateController;
 use App\Models\Sales;
 use App\Mail\UserTransaction;
 use Illuminate\Support\Facades\Mail;
@@ -115,7 +116,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout/{id}/payment-success', [SalesController::class, 'success'])->name('sales.success');
 
     Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course');
-    Route::get('/course/video/{slug}', [CourseController::class, 'showVideo'])->name('course.video');
 });
 
 // Route::get('/checkout/detail', function(){
@@ -145,6 +145,8 @@ Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/course/video/{slug}', [CourseController::class, 'showVideo'])->name('course.video');
+    Route::get('/course/video/lq/{slug}', [CourseController::class, 'showVideoLq'])->name('course.video.lq');
 
     Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
 
@@ -229,9 +231,15 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::post('/admin/discount/store', [AdminDiscountController::class, 'store'])->name('admin.discount.store');
     Route::get('/admin/discount/delete/{id}', [AdminDiscountController::class, 'destroy'])->name('admin.discount.destroy');
 
+    Route::get('/admin/estimate', [EstimateController::class, 'index'])->name('admin.estimate');
+    Route::get('/admin/estimate/edit/{id}', [EstimateController::class, 'edit'])->name('admin.estimate.edit');
+    Route::post('/admin/estimate/update', [EstimateController::class, 'update'])->name('admin.estimate.update');
+    Route::post('/admin/estimate/store', [EstimateController::class, 'store'])->name('admin.estimate.store');
+    Route::get('/admin/estimate/delete/{id}', [EstimateController::class, 'destroy'])->name('admin.estimate.destroy');
+
     Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.users');
     Route::get('/admin/user/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.users.edit');
     Route::post('/admin/user/update', [AdminUserController::class, 'update'])->name('admin.users.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

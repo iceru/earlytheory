@@ -56,6 +56,13 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Low Quality Video (480p)</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="lq_video" name="lq_video"
+                            accept="video/mp4,video/x-m4v,video/*">
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Time to Learn (in minutes)</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" id="time" name="time" placeholder="ex: 5">
@@ -101,9 +108,9 @@
                                 </div>
                             </td>
                             <td>
-                                @if (isset($course->video))
-                                    <div class="ratio ratio-1x1">
-                                        <video src="{{ Storage::url('public/course-video/' . $course->video) }}">
+                                @if ($course->video)
+                                    <div>
+                                        <video controls width="200" src="{{ route('course.video', $course->slug) }}">
                                     </div>
                                 @else
                                     -

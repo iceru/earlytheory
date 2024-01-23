@@ -56,13 +56,28 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                             <div class="mb-2">
-                                <video src="{{ Storage::url('course-video/' . $course->video) }}" controls>
+                                <video width="400" src="{{ route('course.video', $course->slug) }}" controls>
                             </div>
                         </div>
                     @endif
                     <label class="col-sm-2 col-form-label">Video</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="video" name="video"
+                            accept="video/mp4,video/x-m4v,video/*">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    @if ($course->lq_video)
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-10">
+                            <div class="mb-2">
+                                <video width="400" src="{{ route('course.video.lq', $course->slug) }}" controls>
+                            </div>
+                        </div>
+                    @endif
+                    <label class="col-sm-2 col-form-label">Low Quality Video (480p)</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="lq_video" name="lq_video"
                             accept="video/mp4,video/x-m4v,video/*">
                     </div>
                 </div>

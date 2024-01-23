@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class CourseController extends Controller {
+class CourseController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         //
     }
 
@@ -23,7 +25,8 @@ class CourseController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         //
     }
 
@@ -33,7 +36,8 @@ class CourseController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         //
     }
 
@@ -43,16 +47,17 @@ class CourseController extends Controller {
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show($slug) {
+    public function show($slug)
+    {
         $course = Course::where('slug', $slug)->firstOrFail();
         $workshop = Workshop::where('id', $course->workshop_id)->firstOrFail();
         $paid = false;
-        foreach($course->sales as $courseSale) {
-            if($courseSale->status === 'settlement') {
+        foreach ($course->sales as $courseSale) {
+            if ($courseSale->status === 'settlement') {
                 $paid = true;
             }
         }
-        if(!$paid) {
+        if (!$paid) {
             return redirect()->route('workshop.detail', $workshop->slug);
         }
         $coIndex = $workshop->course->search(function ($co) use ($course) {
@@ -64,16 +69,16 @@ class CourseController extends Controller {
         $prevCourse = null;
         $enableNext = false;
 
-        foreach($workshop->course as $key => $item) {
-            if($key === $coIndex) {
-                foreach($item->sales as $saleNext) {
-                    if($saleNext->status === 'settlement') {
+        foreach ($workshop->course as $key => $item) {
+            if ($key === $coIndex) {
+                foreach ($item->sales as $saleNext) {
+                    if ($saleNext->status === 'settlement') {
                         $enableNext = true;
                         $nextCourse = $item;
                     }
                 }
             }
-            if($coIndex > 1 && $key === $coIndex - 2) {
+            if ($coIndex > 1 && $key === $coIndex - 2) {
                 $prevCourse = $item;
             }
         }
@@ -86,7 +91,8 @@ class CourseController extends Controller {
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course) {
+    public function edit(Course $course)
+    {
         //
     }
 
@@ -97,7 +103,8 @@ class CourseController extends Controller {
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course) {
+    public function update(Request $request, Course $course)
+    {
         //
     }
 
@@ -107,19 +114,31 @@ class CourseController extends Controller {
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course) {
+    public function destroy(Course $course)
+    {
         //
     }
 
-    public function showVideo($slug) {
+    public function showVideo($slug)
+    {
         /**
          *Make sure the @param $file has a dot
          * Then check if the user has Admin Role. If true serve else
          */
         $course = Course::where('slug', $slug)->first();
-        if($course->video && $course->sales) {
-            foreach($course->sales as $sale) {
-                if($sale->status === 'settlement') {
+        if ($course->price === 0) {
+            try {
+                $video = Storage::disk('videos')->get("course-video/$course->video");
+                $response = \Response::make($video, 200);
+                $response->header('Content-Type', 'video/mp4');
+                return $response;
+            } catch (Exception $e) {
+                echo $e;
+            }
+        }
+        if ($course->video && $course->sales) {
+            foreach ($course->sales as $sale) {
+                if ($sale->status === 'settlement') {
                     try {
                         $video = Storage::disk('videos')->get("course-video/$course->video");
                         $response = \Response::make($video, 200);
@@ -129,7 +148,44 @@ class CourseController extends Controller {
                         echo $e;
                     }
                 } else {
-                    // return redirect()->route('index');
+                    return redirect()->route('index');
+                }
+            }
+        } else {
+            return redirect()->route('index');
+        }
+    }
+
+    public function showVideoLq($slug)
+    {
+        /**
+         *Make sure the @param $file has a dot
+         * Then check if the user has Admin Role. If true serve else
+         */
+        $course = Course::where('slug', $slug)->first();
+        if ($course->price === 0) {
+            try {
+                $video = Storage::disk('videos')->get("course-video/$course->lq_video");
+                $response = \Response::make($video, 200);
+                $response->header('Content-Type', 'video/mp4');
+                return $response;
+            } catch (Exception $e) {
+                echo $e;
+            }
+        }
+        if ($course->lq_video && $course->sales) {
+            foreach ($course->sales as $sale) {
+                if ($sale->status === 'settlement') {
+                    try {
+                        $video = Storage::disk('videos')->get("course-video/$course->lq_video");
+                        $response = \Response::make($video, 200);
+                        $response->header('Content-Type', 'video/mp4');
+                        return $response;
+                    } catch (Exception $e) {
+                        echo $e;
+                    }
+                } else {
+                    return redirect()->route('index');
                 }
             }
         } else {
