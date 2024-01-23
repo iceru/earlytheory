@@ -15,13 +15,13 @@
     }
 
     &.primary {
-        background-color: $primary;
-        color: white;
+        background-color: $yellow;
+        color: black;
         transition: .2s all ease-in;
-        border: 1px solid $primary;
+        border: 1px solid $yellow;
 
         &:hover {
-            background-color: lighten($primary, 10%);
+            background-color: lighten($yellow, 10%);
             transition: .2s all ease-in;
         }
     }

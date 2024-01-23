@@ -52,6 +52,10 @@
             <li class="{{ request()->is('admin/users') ? 'active' : '' }}"><i class="fa fa-users fa-fw"
                     aria-hidden="true"></i> &nbsp; Users</li>
         </a>
+        <a href="{{ route('admin.estimate') }}">
+            <li class="{{ request()->is('admin/estimate') ? 'active' : '' }}"><i class="fa fa-clock fa-fw"
+                    aria-hidden="true"></i> &nbsp; Estimate</li>
+        </a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <a href="{{ route('logout') }}"

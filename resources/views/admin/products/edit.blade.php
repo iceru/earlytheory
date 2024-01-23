@@ -180,6 +180,20 @@
                             min="0" value="{{ $product->stock }}">
                     </div>
                 </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Estimate Category</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" aria-label="Select Estimate Category" name="estimate">
+                            <option selected disabled>Select Estimate Category</option>
+                            @foreach ($estimates as $est)
+                                <option value="{{ $est->id }}"
+                                    {{ $est->id === $product->estimate_id ? 'selected' : '' }}>{{ $est->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="button primary">Update</button>
             </form>
         </div>

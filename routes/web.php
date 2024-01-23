@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EstimateController;
 use App\Models\Sales;
 use App\Mail\UserTransaction;
 use Illuminate\Support\Facades\Mail;
@@ -229,6 +230,12 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::post('/admin/discount/update', [AdminDiscountController::class, 'update'])->name('admin.discount.update');
     Route::post('/admin/discount/store', [AdminDiscountController::class, 'store'])->name('admin.discount.store');
     Route::get('/admin/discount/delete/{id}', [AdminDiscountController::class, 'destroy'])->name('admin.discount.destroy');
+
+    Route::get('/admin/estimate', [EstimateController::class, 'index'])->name('admin.estimate');
+    Route::get('/admin/estimate/edit/{id}', [EstimateController::class, 'edit'])->name('admin.estimate.edit');
+    Route::post('/admin/estimate/update', [EstimateController::class, 'update'])->name('admin.estimate.update');
+    Route::post('/admin/estimate/store', [EstimateController::class, 'store'])->name('admin.estimate.store');
+    Route::get('/admin/estimate/delete/{id}', [EstimateController::class, 'destroy'])->name('admin.estimate.destroy');
 
     Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.users');
     Route::get('/admin/user/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.users.edit');

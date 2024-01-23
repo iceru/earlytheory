@@ -847,17 +847,17 @@ class SalesController extends Controller
                     $sku->save();
                 }
 
-                Mail::send(new UserTransaction($sales));
-                Mail::send(new AdminNotification($sales));
+                // Mail::send(new UserTransaction($sales));
+                // Mail::send(new AdminNotification($sales));
 
-                if ($additional) {
-                    if ($is_astro) {
-                        Mail::send(new AstrologiQuestion($additional));
-                    }
-                    if ($is_spiritual) {
-                        Mail::send(new SpiritualQuestion($additional));
-                    }
-                }
+                // if ($additional) {
+                //     if ($is_astro) {
+                //         Mail::send(new AstrologiQuestion($additional));
+                //     }
+                //     if ($is_spiritual) {
+                //         Mail::send(new SpiritualQuestion($additional));
+                //     }
+                // }
 
                 // //get city name
                 // if($sales->shippingAddress) {
@@ -904,11 +904,16 @@ class SalesController extends Controller
     {
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
+        $workshops = array();
+        foreach($sales->course as $course) {
+            array_push($workshops, $course->workshop);
+        }
+        $workshops = array_unique($workshops);
 
         if ($user->id == $sales->user_id) {
             \Cart::clear();
 
-            return view('checkout.payment-success', compact('sales'));
+            return view('checkout.payment-success', compact('sales', 'workshops'));
         } else {
             return redirect('/');
         }
