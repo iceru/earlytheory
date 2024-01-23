@@ -72,7 +72,6 @@
     <script>
         $(document).ready(function() {
             $('.qualitypick').change(function() {
-                debugger;
                 const video = $('#video')[0];
                 const currTime = video.currentTime;
 
