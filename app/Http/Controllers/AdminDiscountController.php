@@ -11,7 +11,7 @@ class AdminDiscountController extends Controller
     public function index()
     {
         $discount = Discount::all();
-        $products = Products::all();
+        $products = Products::where('category', 'service')->get();
     
         return view('admin.discount.index', compact('discount', 'products'));
     }
@@ -23,30 +23,52 @@ class AdminDiscountController extends Controller
         $request->validate([
             'inputCode' => 'required',
             'inputNominal' => 'required|integer',
-            'inputMin' => 'required|integer'
+            'inputMin' => 'required|integer',
+            'quotaRedeem' => 'required|integer'
         ]);
 
-        if($request->inputProduct == "0") {
-            $request->inputProduct = NULL;
+        if($request->products == "0") {
+            $request->products = NULL;
         }
 
-        $discount->code = strtoupper($request->inputCode);
-        $discount->nominal = $request->inputNominal;
-        $discount->min_total = $request->inputMin;
+        if($request->bulk && $request->bulk < 50) {
+            for($x = 1; $x <= $request->bulk; $x++) {
+                $discount = new Discount;
+                $discount->code = strtoupper($request->inputCode).$x;
+                $discount->nominal = $request->inputNominal;
+                $discount->min_total = $request->inputMin;
+                $discount->quota_redeem = $request->quotaRedeem;
 
-        $savediscount = $discount->save();
+                $discount->save();
 
-        $request->inputProduct = substr($request->inputProduct, 0, -1);
-        $productsArray = explode(', ', strtolower($request->inputProduct));
-        $products = array();
+                foreach($request->products as $discountProduct) {
+                    $product = Products::where('id', $discountProduct)->first();
 
-        foreach($productsArray as $discountProduct) {
-            $product = Products::where('title', $discountProduct)->first();
+                    $products[$product->id] = ['discount_id' => $discount->id];
+                }
 
-            $products[$product->id] = ['discount_id' => $discount->id];
+                $discount->products()->attach($products);
+            }
+        } else {
+            
+            $discount->code = strtoupper($request->inputCode);
+            $discount->nominal = $request->inputNominal;
+            $discount->min_total = $request->inputMin;
+            $discount->quota_redeem = $request->quotaRedeem;
+            $discount->status = $request->quotaRedeem || 10000;
+    
+            $discount->save();
+    
+            foreach($request->products as $discountProduct) {
+                $product = Products::where('id', $discountProduct)->first();
+    
+                $products[$product->id] = ['discount_id' => $discount->id];
+            }
+    
+            $discount->products()->attach($products);
+    
         }
 
-        $discount->products()->attach($products);
 
         return redirect('/admin/discount');
     }

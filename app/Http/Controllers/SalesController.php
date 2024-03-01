@@ -678,14 +678,18 @@ class SalesController extends Controller
                 $disc_code = strtoupper($request->inputDiscount);
                 $discount = Discount::where('code', $disc_code)->first();
 
-                if ($discount && $discount->products->count() < 1) {
+                if($discount->quota_redeem < 1) {
+                    return redirect()->back()->with('error', 'Discount Habis!');
+                }
+
+                if ($discount && $discount->products->count() < 1 ) {
                     if ($sales->total_price >= $discount->min_total) {
                         $nominal = $discount->nominal;
 
                         $sales->discount = $nominal;
                         $sales->save();
 
-                        return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "' . $disc_code . '" applied (- idr ' . number_format($nominal) . ')!');
+                        return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "' . $disc_code . '" applied (- idr ' . number_format($nominal) . ')!')->withCookie(cookie('discount', $disc_code, '1000'));
                     } else {
                         return redirect()->back()->with('error', 'Minimum idr ' . number_format($discount->min_total) . ' to use discount code!');
                     }
@@ -699,7 +703,7 @@ class SalesController extends Controller
                                     $sales->discount = $nominal;
                                     $sales->save();
 
-                                    return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "' . $disc_code . '" applied (- idr ' . number_format($nominal) . ')!');
+                                    return redirect()->route('sales.paymentmethods', ['id' => $sales->sales_no])->with('status', 'Discount code "' . $disc_code . '" applied (- idr ' . number_format($nominal) . ')!')->withCookie(cookie('discount', $disc_code, '1000'));
                                 }
                             } else {
                                 $discproduct = 0;
@@ -820,7 +824,7 @@ class SalesController extends Controller
                 if ($request->hasFile('inputPayment')) {
                     $extension = $request->file('inputPayment')->getClientOriginalExtension();
                     $filename = $sales->sales_no . '_' . time() . '.' . $extension;
-                    $path = $request->inputPayment->storeAs('public/payment-proof', $filename);
+                    $request->inputPayment->storeAs('public/payment-proof', $filename);
                     $sales->payment = $filename;
                 }
 
@@ -833,6 +837,27 @@ class SalesController extends Controller
                 // $sales->save();
                 $is_astro = false;
                 $is_spiritual = false;
+
+                $disc_code = $request->cookie('discount');
+                $discount = Discount::where('code', $disc_code)->first();
+
+                if ($discount && $discount->products->count() < 1) {
+                    if($discount->quota_redeem < 10000 && $discount->quota_redeem > 0) {
+                        $discount->quota_redeem -= 1;
+                        $discount->save();
+                    }
+                } elseif ($discount && $discount->products->count() >= 1) {
+                    foreach ($sales->skus as $item) {
+                        foreach ($discount->products as $disc_product) {
+                            if ($item->products->id == $disc_product->id) {
+                                if($discount->quota_redeem < 10000 && $discount->quota_redeem > 0) {
+                                    $discount->quota_redeem -= 1;
+                                    $discount->save();
+                                }
+                            }
+                        }
+                    }
+                }
 
                 foreach ($sales->skus as $item) {
                     if (str_contains(strtolower($item->products->slug), 'ramal')) {
@@ -890,8 +915,8 @@ class SalesController extends Controller
 
                 //     $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
                 // }
-
-                return redirect()->route('sales.success', ['id' => $sales->sales_no]);
+                
+                return redirect()->route('sales.success', ['id' => $sales->sales_no])->withCookie(cookie('discount', null, 10));
             } elseif ($is_soldout === 1) {
                 return redirect()->back()->with('soldout');
             }
