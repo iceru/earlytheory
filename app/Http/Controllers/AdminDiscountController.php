@@ -31,10 +31,10 @@ class AdminDiscountController extends Controller
             $request->products = NULL;
         }
 
-        if($request->bulk && $request->bulk < 50) {
+        if($request->bulk && $request->bulk < 300) {
             for($x = 1; $x <= $request->bulk; $x++) {
                 $discount = new Discount;
-                $discount->code = strtoupper($request->inputCode).$x;
+                $discount->code = strtoupper($request->inputCode).str_pad($x, 3, '0', STR_PAD_LEFT);
                 $discount->nominal = $request->inputNominal;
                 $discount->min_total = $request->inputMin;
                 $discount->quota_redeem = $request->quotaRedeem;
@@ -50,7 +50,6 @@ class AdminDiscountController extends Controller
                 $discount->products()->attach($products);
             }
         } else {
-            
             $discount->code = strtoupper($request->inputCode);
             $discount->nominal = $request->inputNominal;
             $discount->min_total = $request->inputMin;
@@ -76,9 +75,15 @@ class AdminDiscountController extends Controller
     public function edit($id)
     {
         $discount = Discount::findOrFail($id);
-        $products = Products::all();
+        $productIds = array();
+        if($discount->products->count() > 0) {
+            foreach($discount->products as $product) {
+                array_push($productIds, $product->id);
+            } 
+        }
+        $products = Products::where('category', 'service')->get();
 
-        return view('admin.discount.edit', compact('discount', 'products'));
+        return view('admin.discount.edit', compact('discount', 'products', 'productIds'));
     }
 
     public function update(Request $request)

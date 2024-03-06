@@ -16,7 +16,6 @@ class AddQuotaToDiscount extends Migration
         Schema::table('discount', function (Blueprint $table) {
             $table->integer('quota_redeem')->nullable();
             $table->integer('bulk')->nullable();
-            $table->integer('status');
         });
     }
 
@@ -30,7 +29,6 @@ class AddQuotaToDiscount extends Migration
         Schema::table('discount', function (Blueprint $table) {
             $table->dropColumn('quota_redeem');
             $table->dropColumn('bulk');
-            $table->dropColumn('status');
         });
     }
 }
