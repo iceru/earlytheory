@@ -257,6 +257,7 @@
                                                     class="fas fa-eye me-1" aria-hidden="true"></i> Unhide (Show)</a>
                                         @endif
                                         <a class="btn btn-danger btn-small d-flex align-items-center justify-content-center"
+                                            onclick="return confirm('Are you sure you want to delete this item?');"
                                             href="/admin/products/delete/{{ $service->id }}"><i
                                                 class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a>
                                     </td>

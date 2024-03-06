@@ -4,20 +4,20 @@
     @endsection
 
     @if (count($errors) > 0)
-    <div class="alert alert-danger mt-3">
-        <strong>Sorry !</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+        <div class="alert alert-danger mt-3">
+            <strong>Sorry !</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
 
     <div class="py-12">
@@ -78,22 +78,26 @@
                 </thead>
                 <tbody>
                     @foreach ($sliders as $slider)
-                    <tr>
-                        {{-- <td scope="row">{{$loop->iteration}}</td> --}}
-                        <td>{{ $slider->ordernumber }}</td>
-                        <td>
-                            <div class="ratio ratio-16x9">
-                                <img src="{{Storage::url('sliders-image/'.$slider->image)}}" alt="No Image" width="100">
-                            </div>
-                        </td>
-                        <td>{{ $slider->link }}</td>
-                        <td>{{ $slider->category }}</td>
-                        <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
-                            href="/admin/sliders/edit/{{$slider->id}}"><i class="fas fa-edit me-1"></i> Edit</a>
-                        <a href="/admin/sliders/delete/{{$slider->id}}"
-                            class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
-                                class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a></td>
-                    </tr>
+                        <tr>
+                            {{-- <td scope="row">{{$loop->iteration}}</td> --}}
+                            <td>{{ $slider->ordernumber }}</td>
+                            <td>
+                                <div class="ratio ratio-16x9">
+                                    <img src="{{ Storage::url('sliders-image/' . $slider->image) }}" alt="No Image"
+                                        width="100">
+                                </div>
+                            </td>
+                            <td>{{ $slider->link }}</td>
+                            <td>{{ $slider->category }}</td>
+                            <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
+                                    href="/admin/sliders/edit/{{ $slider->id }}"><i class="fas fa-edit me-1"></i>
+                                    Edit</a>
+                                <a href="/admin/sliders/delete/{{ $slider->id }}"
+                                    onclick="return confirm('Are you sure you want to delete this item?');"
+                                    class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
+                                        class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -101,11 +105,10 @@
     </div>
 
     @section('js')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        } );
-    </script>
+        <script>
+            $(document).ready(function() {
+                $('#table').DataTable();
+            });
+        </script>
     @endsection
 </x-admin-layout>
-
