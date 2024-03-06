@@ -76,6 +76,7 @@
                         dari link di instagram (otomatis dibuka menggunakan browser instagram yang banyak errornya).
                         Pastikan kamu buka website ini lewat browser utama kamu (Chrome , Safari, dsb.)
                     </p>
+                    <input type="text" name="discount" id="discount" hidden>
 
                     <div class="col-12 d-grid gap-2">
                         <button type="submit"

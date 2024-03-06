@@ -223,9 +223,11 @@
                                                 <div class="product-price text-sm">
                                                     <p>IDR {{ number_format($item->price) }}</p>
                                                 </div>
-                                                <p class="text-bold">
-                                                    {{ $item->products->estimate->estimate }}
-                                                </p>
+                                                @if ($item->products->estimate)
+                                                    <p class="text-bold">
+                                                        {{ $item->products->estimate->estimate }}
+                                                    </p>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row g-0">

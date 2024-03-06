@@ -47,14 +47,6 @@ body.no-scroll {
     height: 100vh;
 }
 
-// .print {
-//     display: none;
-
-//     @media print {
-//         display: block;
-//     }
-// }
-
 .no-print {
     @media print {
         display: none;
