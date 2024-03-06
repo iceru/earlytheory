@@ -77,9 +77,11 @@
                                         <div class="product-price">
                                             <p>idr {{ number_format($item->price) }}</p>
                                         </div>
-                                        <p class="text-bold">
-                                            {{ $item->products->estimate->estimate }}
-                                        </p>
+                                        @if ($item->products->estimate)
+                                            <p class="text-bold">
+                                                {{ $item->products->estimate->estimate }}
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-7 col-lg-9 product-question">
