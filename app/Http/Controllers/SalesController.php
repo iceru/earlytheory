@@ -853,17 +853,17 @@ class SalesController extends Controller
                     $sku->save();
                 }
 
-                // Mail::send(new UserTransaction($sales));
-                // Mail::send(new AdminNotification($sales));
+                Mail::send(new UserTransaction($sales));
+                Mail::send(new AdminNotification($sales));
 
-                // if ($additional) {
-                //     if ($is_astro) {
-                //         Mail::send(new AstrologiQuestion($additional));
-                //     }
-                //     if ($is_spiritual) {
-                //         Mail::send(new SpiritualQuestion($additional));
-                //     }
-                // }
+                if ($additional) {
+                     if ($is_astro) {
+                         Mail::send(new AstrologiQuestion($additional));
+                     }
+                     if ($is_spiritual) {
+                         Mail::send(new SpiritualQuestion($additional));
+                     }
+                }
 
                 // //get city name
                 // if($sales->shippingAddress) {
