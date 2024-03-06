@@ -54,7 +54,6 @@ class AdminDiscountController extends Controller
             $discount->nominal = $request->inputNominal;
             $discount->min_total = $request->inputMin;
             $discount->quota_redeem = $request->quotaRedeem;
-            $discount->status = $request->quotaRedeem || 10000;
     
             $discount->save();
     
