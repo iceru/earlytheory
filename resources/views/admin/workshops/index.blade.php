@@ -104,6 +104,7 @@
                                     href="/admin/courses/{{ $workshop->id }}"><i class="fas fa-list me-1"></i>
                                     Courses</a>
                                 <a href="/admin/workshops/delete/{{ $workshop->id }}"
+                                    onclick="return confirm('Are you sure you want to delete this item?');"
                                     class="btn btn-danger btn-small d-flex align-items-center justify-content-center"><i
                                         class="fa fa-trash me-1" aria-hidden="true"></i> Delete</a>
                             </td>
