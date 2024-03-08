@@ -6,7 +6,7 @@
         <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" class="popup-img">
             <div class="close" id="closePopup"> <i class="fas fa-times" aria-hidden="true"></i></div>
             <div class="ratio">
-                <img src="/images/banner-shopee.png" alt="">
+                <img src="/images/banner-altar.png" alt="">
             </div>
         </a>
     </div>
@@ -56,14 +56,11 @@
                     </h3>
                 </section>
             </a>
-            <a href="/articles-page">
+            <a href="https://shope.ee/3pzPWRt09j" target="_blank">
                 <section class="index-section index-article">
                     <div class="bg">
                         <img src="/images/Tes3.png" alt="">
                     </div>
-                    <h3 class="text-2xl">
-                        Artikel
-                    </h3>
                 </section>
             </a>
             <a target="_blank" href="https://www.youtube.com/channel/UCSmWL0opWxqbtO2qaQ1FUsg">
@@ -104,14 +101,11 @@
                 </a>
             </section>
             <section class="section-side">
-                <a href="/articles-page" class="index-small">
+                <a href="https://shope.ee/3pzPWRt09j" target="_blank" class="index-small">
                     <section class="index-section index-article">
                         <div class="bg">
                             <img src="/images/Tes3.png" alt="">
                         </div>
-                        <h3 class="text-2xl">
-                            Artikel
-                        </h3>
                     </section>
                 </a>
                 <a href="{{ route('workshops') }}" class="index-kelas">
