@@ -56,11 +56,14 @@
                     </h3>
                 </section>
             </a>
-            <a href="https://shope.ee/3pzPWRt09j" target="_blank">
+            <a href="/articles-page">
                 <section class="index-section index-article">
                     <div class="bg">
                         <img src="/images/Tes3.png" alt="">
                     </div>
+                    <h3 class="text-2xl">
+                        Artikel
+                    </h3>
                 </section>
             </a>
             <a target="_blank" href="https://www.youtube.com/channel/UCSmWL0opWxqbtO2qaQ1FUsg">
@@ -101,11 +104,14 @@
                 </a>
             </section>
             <section class="section-side">
-                <a href="https://shope.ee/3pzPWRt09j" target="_blank" class="index-small">
+                <a href="/articles-page" class="index-small">
                     <section class="index-section index-article">
                         <div class="bg">
                             <img src="/images/Tes3.png" alt="">
                         </div>
+                        <h3 class="text-2xl">
+                            Artikel
+                        </h3>
                     </section>
                 </a>
                 <a href="{{ route('workshops') }}" class="index-kelas">
