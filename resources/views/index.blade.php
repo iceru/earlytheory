@@ -3,7 +3,7 @@
         Early Theory - Homepage
     @endsection
     <div class="popupPage" id="popup">
-        <a href="https://shopee.co.id/tokomejik?smtt=0.775443230-1656594335.9" class="popup-img">
+        <a href="https://shope.ee/3pzPWRt09j" class="popup-img">
             <div class="close" id="closePopup"> <i class="fas fa-times" aria-hidden="true"></i></div>
             <div class="ratio">
                 <img src="/images/banner-altar.png" alt="">
