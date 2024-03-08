@@ -60,7 +60,8 @@
                     <div class="col-sm-10">
                         <div class="discountProduct">
                             <div>
-                                <input type="checkbox" name="products[]" id="all_item" value="0">
+                                <input type="checkbox" name="products[]" id="all_item"
+                                    {{ $productIds ? '' : 'checked' }} value="0">
                                 <label for="all_item">All Products</label>
                             </div>
                             @foreach ($products as $product)

@@ -40,14 +40,15 @@ class AdminDiscountController extends Controller
                 $discount->quota_redeem = $request->quotaRedeem;
 
                 $discount->save();
+                if($request->products[0] !== '0') {
+                    foreach($request->products as $discountProduct) {
+                        $product = Products::where('id', $discountProduct)->first();
+                        $products[$product->id] = ['discount_id' => $discount->id];
+                    }
 
-                foreach($request->products as $discountProduct) {
-                    $product = Products::where('id', $discountProduct)->first();
-
-                    $products[$product->id] = ['discount_id' => $discount->id];
+                    $discount->products()->attach($products);
                 }
 
-                $discount->products()->attach($products);
             }
         } else {
             $discount->code = strtoupper($request->inputCode);
@@ -56,14 +57,16 @@ class AdminDiscountController extends Controller
             $discount->quota_redeem = $request->quotaRedeem;
     
             $discount->save();
-    
-            foreach($request->products as $discountProduct) {
-                $product = Products::where('id', $discountProduct)->first();
-    
-                $products[$product->id] = ['discount_id' => $discount->id];
+            if($request->products[0] !== '0') {
+                foreach($request->products as $discountProduct) {
+                    $product = Products::where('id', $discountProduct)->first();
+        
+                    $products[$product->id] = ['discount_id' => $discount->id];
+                }
+        
+                $discount->products()->attach($products);
             }
-    
-            $discount->products()->attach($products);
+
     
         }
 
