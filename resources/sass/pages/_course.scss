@@ -76,5 +76,20 @@
             align-items: center;
             justify-content: space-between;
         }
+
+        .course__prev,
+        .course__next {
+            max-width: 50%;
+        }
+    }
+}
+
+.course__workshoptitle {
+    color: $body;
+    transition: all .2s ease;
+
+    &:hover {
+        opacity: 0.8;
+        color: $body;
     }
 }
