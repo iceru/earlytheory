@@ -65,8 +65,6 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us
 // Route::post('/birth-chart/natal', [HoroscopeController::class, 'natal'])->name('horoscope.natal');
 // Route::post('/birth-chart/store', [HoroscopeController::class, 'store'])->name('horoscope.store');
 
-Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
-Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
 
 Route::get('auth/google', [SocialLoginController::class, 'redirectToGoogle'])->name('google');
 Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallback'])->name('google.callback');
@@ -147,6 +145,8 @@ Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
+    Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
 
     Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
 
