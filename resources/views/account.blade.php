@@ -10,11 +10,12 @@
                     <h3>{{ $user->name }}</h3>
                     <p>Member sejak {{ \Carbon\Carbon::parse($user->created_at)->format('j M Y') }}</p>
                 </div>
-                <div>
-                    <a href="{{ route('logout') }}" class="btn btn-logout">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-logout">
                         Keluar
-                    </a>
-                </div>
+                    </button>
+                </form>
             </section>
             <section class="account__menu">
                 <a href="{{ route('user.orders') }}">
