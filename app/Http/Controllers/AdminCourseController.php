@@ -49,11 +49,9 @@ class AdminCourseController extends Controller
             'title' => 'required',
             'description' => 'required',
             'image' => 'required|image',
-            'video' => 'nullable',
             'time' => 'required|integer',
             'workshop_id' => 'required',
             'price' => 'required',
-            'lq_video' => 'nullable',
         ]);
         $filename;
         if ($request->hasFile('image')) {
