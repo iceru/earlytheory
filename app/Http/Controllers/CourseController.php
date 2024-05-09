@@ -126,6 +126,17 @@ class CourseController extends Controller
          * Then check if the user has Admin Role. If true serve else
          */
         $course = Course::where('slug', $slug)->first();
+        $admin = Auth::user()->hasRole('administrator');
+        if($admin) {
+            try {
+                $video = Storage::disk('videos')->get("course-video/$course->video");
+                $response = \Response::make($video, 200);
+                $response->header('Content-Type', 'video/mp4');
+                return $response;
+            } catch (Exception $e) {
+                echo $e;
+            }
+        }
         if ($course->price === 0) {
             try {
                 $video = Storage::disk('videos')->get("course-video/$course->video");
@@ -163,6 +174,17 @@ class CourseController extends Controller
          * Then check if the user has Admin Role. If true serve else
          */
         $course = Course::where('slug', $slug)->first();
+        $admin = Auth::user()->hasRole('administrator');
+        if($admin) {
+            try {
+                $video = Storage::disk('videos')->get("course-video/$course->lq_video");
+                $response = \Response::make($video, 200);
+                $response->header('Content-Type', 'video/mp4');
+                return $response;
+            } catch (Exception $e) {
+                echo $e;
+            }
+        }
         if ($course->price === 0) {
             try {
                 $video = Storage::disk('videos')->get("course-video/$course->lq_video");
