@@ -51,11 +51,15 @@ class CourseController extends Controller
     {
         $course = Course::where('slug', $slug)->firstOrFail();
         $workshop = Workshop::where('id', $course->workshop_id)->firstOrFail();
-        $paid = false;
+        $paid = false; 
+        $admin = Auth::user()->hasRole('administrator');
         foreach ($course->sales as $courseSale) {
             if ($courseSale->status === 'settlement') {
                 $paid = true;
             }
+        }
+        if($admin) {
+           $paid = true;
         }
         if (!$paid) {
             return redirect()->route('workshop.detail', $workshop->slug);

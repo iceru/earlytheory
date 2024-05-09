@@ -25,7 +25,9 @@
                         <div>Video Quality</div>
                         <select class='qualitypick' autocomplete='off'>
                             <option value="720p">720p</option>
-                            <option value="480p">480p</option>
+                            @if ($course->lq_video)
+                                <option value="480p">480p</option>
+                            @endif
                         </select>
                     </div>
                 @else
