@@ -8,9 +8,9 @@
             <div>
                 <img width="50" src="/images/Favicon.png" alt="">
             </div>
-            <div>
+            <a href="/workshop/{{ $workshop->slug }}" class="course__workshoptitle">
                 {{ $workshop->title }}
-            </div>
+            </a>
         </section>
 
         <div class="course__wrapper">
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="course__nav">
-                    <div>
+                    <div class="course__prev">
                         <a href="{{ $prevCourse ? route('course', $prevCourse->slug) : route('workshop.detail', $workshop->slug) }}"
                             class="button secondary">
                             <i class="fa fa-long-arrow-alt-left me-2"></i>
@@ -58,7 +58,7 @@
                             @endif
                         </a>
                     </div>
-                    <div>
+                    <div class="course__next">
                         @if ($enableNext && count($workshop->course) > $coIndex - 1)
                             <a href="{{ route('course', $nextCourse->slug) }}" class="button primary">
                                 {{ $nextCourse->title }}

@@ -76,7 +76,7 @@ class CourseController extends Controller
         foreach ($workshop->course as $key => $item) {
             if ($key === $coIndex) {
                 foreach ($item->sales as $saleNext) {
-                    if ($saleNext->status === 'settlement') {
+                    if ($saleNext->status === 'settlement' || $admin) {
                         $enableNext = true;
                         $nextCourse = $item;
                     }
