@@ -81,6 +81,11 @@ class CourseController extends Controller
                         $nextCourse = $item;
                     }
                 }
+
+                if($admin) {
+                    $enableNext = true;
+                    $nextCourse = $item;
+                 }
             }
             if ($coIndex > 1 && $key === $coIndex - 2) {
                 $prevCourse = $item;
