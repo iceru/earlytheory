@@ -6,6 +6,9 @@ use App\Models\Course;
 use App\Models\Workshop;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
+use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use Storage;
 
 class AdminCourseController extends Controller
 {
@@ -58,23 +61,6 @@ class AdminCourseController extends Controller
             $filename = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
             $request->image->storeAs('public/course-image', $filename);
         }
-
-        if ($request->hasFile('video')) {
-            $extension = $request->file('video')->getClientOriginalExtension();
-            $videoFile = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
-
-            $request->video->storeAs('course-video', $videoFile, 'videos');
-            $course->video = $videoFile;
-        }
-
-        if ($request->hasFile('lq_video')) {
-            $extension = $request->file('lq_video')->getClientOriginalExtension();
-            $videoLq = Str::slug(strtolower($request->title)) . '_lq_' . time() . '.' . $extension;
-
-            $request->lq_video->storeAs('course-video', $videoLq, 'videos');
-            $course->lq_video = $videoLq;
-        }
-
         $course->image = $filename;
         $course->title = $request->title;
         $course->slug = Str::slug(strtolower($request->title));
@@ -111,6 +97,20 @@ class AdminCourseController extends Controller
         return view('admin.courses.edit', compact('course'));
     }
 
+    public function addvideo($id)
+    {
+        $course = Course::find($id);
+
+        return view('admin.courses.upload-video', compact('course'));
+    }
+    public function addvideolq($id)
+    {
+        $course = Course::find($id);
+
+        return view('admin.courses.upload-video-lq', compact('course'));
+    }
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -126,32 +126,15 @@ class AdminCourseController extends Controller
             'title' => 'required',
             'description' => 'required',
             'image' => 'nullable',
-            'video' => 'nullable',
-            'lq_video' => 'nullable',
             'time' => 'required|integer',
             'price' => 'required',
         ]);
 
-        $filename;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
             $request->image->storeAs('public/course-image', $filename);
             $course->image = $filename;
-        }
-
-        if ($request->hasFile('video')) {
-            $extension = $request->file('video')->getClientOriginalExtension();
-            $videoFile = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;
-            $request->video->storeAs('course-video', $videoFile, 'videos');
-            $course->video = $videoFile;
-        }
-        if ($request->hasFile('lq_video')) {
-            $extension = $request->file('lq_video')->getClientOriginalExtension();
-            $videoLq = Str::slug(strtolower($request->title)) . '_lq_' . time() . '.' . $extension;
-
-            $request->lq_video->storeAs('course-video', $videoLq, 'videos');
-            $course->lq_video = $videoLq;
         }
 
         $course->title = $request->title;
@@ -175,5 +158,79 @@ class AdminCourseController extends Controller
         Course::find($id)->delete();
 
         return redirect()->back();
+    }
+
+    public function video(Request $request, $id)
+    {
+        $course = Course::where('id', $id)->first();
+
+        $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+
+        if (!$receiver->isUploaded()) {
+            // file not uploaded
+        }
+    
+        $fileReceived = $receiver->receive(); // receive file
+        if ($fileReceived->isFinished()) { // file uploading is complete / all chunks are uploaded
+            $file = $fileReceived->getFile(); // get file
+            $extension = $file->getClientOriginalExtension();
+            $fileName = str_replace('.'.$extension, '', $file->getClientOriginalName()); //file name without extenstion
+            $fileName .= '_' . md5(time()) . '.' . $extension; // a unique file name
+    
+            $disk = Storage::disk(config('filesystems.default'));
+            $path = $disk->putFileAs('videos/course-video', $file, $fileName);
+            $course->video = $fileName;
+            $course->save();
+    
+            // delete chunked file
+            unlink($file->getPathname());
+            return [
+                'success' => true
+            ];
+        }
+    
+        // otherwise return percentage information
+        $handler = $fileReceived->handler();
+        return [
+            'done' => $handler->getPercentageDone(),
+            'status' => true
+        ];
+    }
+
+    public function videolq(Request $request, $id)
+    {
+        $course = Course::where('id', $id)->first();
+
+        $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
+
+        if (!$receiver->isUploaded()) {
+            // file not uploaded
+        }
+    
+        $fileReceived = $receiver->receive(); // receive file
+        if ($fileReceived->isFinished()) { // file uploading is complete / all chunks are uploaded
+            $file = $fileReceived->getFile(); // get file
+            $extension = $file->getClientOriginalExtension();
+            $fileName = str_replace('.'.$extension, '', $file->getClientOriginalName()); //file name without extenstion
+            $fileName .= '_lq_' . md5(time()) . '.' . $extension; // a unique file name
+    
+            $disk = Storage::disk(config('filesystems.default'));
+            $path = $disk->putFileAs('videos/course-video', $file, $fileName);
+            $course->lq_video = $fileName;
+            $course->save();
+    
+            // delete chunked file
+            unlink($file->getPathname());
+            return [
+                'success' => true
+            ];
+        }
+    
+        // otherwise return percentage information
+        $handler = $fileReceived->handler();
+        return [
+            'done' => $handler->getPercentageDone(),
+            'status' => true
+        ];
     }
 }

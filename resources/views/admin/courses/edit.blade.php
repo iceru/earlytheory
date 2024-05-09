@@ -18,12 +18,18 @@
     @endif
 
     <div class="py-12">
-        <h3 class="evogria">Update Course</h3>
+        <h3 class="evogria mb-3">Update Course</h3>
+        <div class="d-flex">
+            <a href="{{ route('admin.courses.add.video', $course->id) }}" class="button secondary me-3">Upload Video</a>
+            <a href="{{ route('admin.courses.add.video.lq', $course->id) }}" class="button secondary">Upload Video Low
+                Quality</a>
+        </div>
     </div>
 
     <div class="py-12 my-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.courses.update', $course->id) }}">
+            <form method="POST" enctype="multipart/form-data"
+                action="{{ route('admin.courses.update', $course->id) }}">
                 @csrf
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Title</label>
@@ -49,36 +55,6 @@
                     <label class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    @if ($course->video)
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-10">
-                            <div class="mb-2">
-                                <video width="400" src="{{ route('course.video', $course->slug) }}" controls>
-                            </div>
-                        </div>
-                    @endif
-                    <label class="col-sm-2 col-form-label">Video</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" id="video" name="video"
-                            accept="video/mp4,video/x-m4v,video/*">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    @if ($course->lq_video)
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-10">
-                            <div class="mb-2">
-                                <video width="400" src="{{ route('course.video.lq', $course->slug) }}" controls>
-                            </div>
-                        </div>
-                    @endif
-                    <label class="col-sm-2 col-form-label">Low Quality Video (480p)</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" id="lq_video" name="lq_video"
-                            accept="video/mp4,video/x-m4v,video/*">
                     </div>
                 </div>
                 <div class="mb-3 row">

@@ -116,6 +116,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout/{id}/payment-success', [SalesController::class, 'success'])->name('sales.success');
 
     Route::get('/course/{slug}', [CourseController::class, 'show'])->name('course');
+    Route::get('/course/video/{slug}', [CourseController::class, 'showVideo'])->name('course.video');
+    Route::get('/course/video/lq/{slug}', [CourseController::class, 'showVideoLq'])->name('course.video.lq');
 });
 
 // Route::get('/checkout/detail', function(){
@@ -145,8 +147,6 @@ Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/course/video/{slug}', [CourseController::class, 'showVideo'])->name('course.video');
-    Route::get('/course/video/lq/{slug}', [CourseController::class, 'showVideoLq'])->name('course.video.lq');
 
     Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
 
@@ -167,6 +167,10 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin/course/edit/{id}', [AdminCourseController::class, 'edit'])->name('admin.courses.edit');
     Route::post('/admin/courses/update/{id}', [AdminCourseController::class, 'update'])->name('admin.courses.update');
     Route::get('/admin/courses/delete/{id}', [AdminCourseController::class, 'destroy'])->name('admin.courses.destroy');
+    Route::post('/admin/courses/video/{id}', [AdminCourseController::class, 'video'])->name('admin.courses.video');
+    Route::post('/admin/courses/video/lq/{id}', [AdminCourseController::class, 'videolq'])->name('admin.courses.video.lq');
+    Route::get('/admin/courses/add/video/{id}', [AdminCourseController::class, 'addvideo'])->name('admin.courses.add.video');
+    Route::get('/admin/courses/add/video/lq/{id}', [AdminCourseController::class, 'addvideolq'])->name('admin.courses.add.video.lq');
 
     Route::get('/admin/tags', [AdminTagsController::class, 'index'])->name('admin.tags');
     Route::post('/admin/tags/store', [AdminTagsController::class, 'store'])->name('admin.tags.store');
