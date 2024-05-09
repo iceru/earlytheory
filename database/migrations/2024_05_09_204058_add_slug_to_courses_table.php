@@ -14,7 +14,7 @@ class AddSlugToCoursesTable extends Migration
     public function up()
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->string('lq_video')->nullable();
+            $table->string('slug')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddSlugToCoursesTable extends Migration
     public function down()
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->dropColumn('lq_video');
+            $table->dropColumn('slug');
         });
     }
 }
