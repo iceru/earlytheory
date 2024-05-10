@@ -16,7 +16,7 @@
         <div class="course__wrapper">
 
             <div>
-                @if ($course->video)
+                @if ($course->video || $course->lq_video)
                     <div class="course__video" oncontextmenu="return false;">
                         <video controlsList="nodownload" controls alt="" id="video"
                             src="{{ route('course.video', $course->slug) }}" />
@@ -24,9 +24,11 @@
                     <div class="course__video-quality">
                         <div>Video Quality</div>
                         <select class='qualitypick' autocomplete='off'>
-                            <option value="720p">720p</option>
                             @if ($course->lq_video)
                                 <option value="480p">480p</option>
+                            @endif
+                            @if ($course->video)
+                                <option value="720p">720p</option>
                             @endif
                         </select>
                     </div>
