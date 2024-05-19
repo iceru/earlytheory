@@ -61,6 +61,13 @@
                             placeholder="ex: 150000">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Youtube</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="youtube" name="youtube"
+                            placeholder="ex: https://www.youtube.com/embed/dCq1zgcVfAc?si=NtO-zy5YGrWR28kQ">
+                    </div>
+                </div>
                 <button type="submit" class="button primary">Submit</button>
             </form>
         </div>

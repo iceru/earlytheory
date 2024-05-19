@@ -63,3 +63,9 @@ body.no-scroll {
     top: 55%;
     transform: translateY(-50%);
 }
+
+.swal2-popup.swal2-toast {
+    @include breakpoint-down('medium') {
+        width: 100vw !important;
+    }
+}

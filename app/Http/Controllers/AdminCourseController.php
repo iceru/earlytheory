@@ -52,6 +52,7 @@ class AdminCourseController extends Controller
             'time' => 'required|integer',
             'workshop_id' => 'required',
             'price' => 'required',
+            'youtube' => 'nullable',
         ]);
         $filename;
         if ($request->hasFile('image')) {
@@ -66,6 +67,7 @@ class AdminCourseController extends Controller
         $course->time = $request->time;
         $course->workshop_id = $request->workshop_id;
         $course->price = $request->price;
+        $course->youtube = $request->youtube;
         $course->save();
 
         return redirect()->route('admin.courses', $request->workshop_id);
@@ -126,6 +128,7 @@ class AdminCourseController extends Controller
             'image' => 'nullable',
             'time' => 'required|integer',
             'price' => 'required',
+            'youtube' => 'nullable',
         ]);
 
         if ($request->hasFile('image')) {
@@ -140,6 +143,7 @@ class AdminCourseController extends Controller
         $course->description = $request->description;
         $course->time = $request->time;
         $course->price = $request->price;
+        $course->youtube = $request->youtube;
         $course->save();
 
         return redirect()->route('admin.courses', $course->workshop_id);

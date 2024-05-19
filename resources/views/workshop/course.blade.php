@@ -16,27 +16,36 @@
         <div class="course__wrapper">
 
             <div>
-                @if ($course->video || $course->lq_video)
-                    <div class="course__video" oncontextmenu="return false;">
-                        <video controlsList="nodownload" controls alt="" id="video"
-                            src="{{ route('course.video', $course->slug) }}" />
-                    </div>
-                    <div class="course__video-quality">
-                        <div>Video Quality</div>
-                        <select class='qualitypick' autocomplete='off'>
-                            @if ($course->lq_video)
-                                <option value="480p">480p</option>
-                            @endif
-                            @if ($course->video)
-                                <option value="720p">720p</option>
-                            @endif
-                        </select>
+                @if ($course->youtube)
+                    <div class="ratio ratio-16x9">
+                        <iframe width="100%" src="{{ $course->youtube }}" title="Early Theory" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 @else
-                    <div class="course__image">
-                        <img src="{{ Storage::url('course-image/' . $course->image) }}" alt="">
-                    </div>
+                    @if ($course->video || $course->lq_video)
+                        <div class="course__video" oncontextmenu="return false;">
+                            <video controlsList="nodownload" controls alt="" id="video"
+                                src="{{ route('course.video', $course->slug) }}" />
+                        </div>
+                        <div class="course__video-quality">
+                            <div>Video Quality</div>
+                            <select class='qualitypick' autocomplete='off'>
+                                @if ($course->lq_video)
+                                    <option value="480p">480p</option>
+                                @endif
+                                @if ($course->video)
+                                    <option value="720p">720p</option>
+                                @endif
+                            </select>
+                        </div>
+                    @else
+                        <div class="course__image">
+                            <img src="{{ Storage::url('course-image/' . $course->image) }}" alt="">
+                        </div>
+                    @endif
                 @endif
+
             </div>
             <div>
                 <p class="course__bab">Bab {{ $coIndex }}</p>
