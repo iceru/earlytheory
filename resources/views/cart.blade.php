@@ -55,7 +55,14 @@
                                             </div>
                                         </a>
                                         @if ($item->attributes->values)
-                                            <p class="mb-1">Variant: {{ $item->attributes->values }}</p>
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <p>Variant: <strong>{{ $item->attributes->values }}</strong></p>
+                                                <button type="button" id="changeVariant" data-id="{{ $item->id }}"
+                                                    data-slug={{ $item->associatedModel->slug }}
+                                                    class="cartItem__changeVariant">
+                                                    Ubah Variant
+                                                </button>
+                                            </div>
                                         @endif
                                         <div class="cartItem__total">idr
                                             {{ number_format($item->price * $item->quantity) }}
@@ -208,6 +215,26 @@
                     arrows: false,
                     autoplay: true,
                     autoplaySpeed: 5000,
+                });
+
+                $('#changeVariant').click(function(e) {
+                    e.preventDefault();
+                    const id = $(this).attr('data-id');
+                    const slug = $(this).attr('data-slug');
+
+                    const userConfirmed = confirm(
+                        "Are you sure you want to change the variant? This will remove the item from your cart."
+                    );
+
+                    if (userConfirmed) {
+                        $.ajax({
+                            type: "GET",
+                            url: `/cart/remove/${id}`,
+                            success: function(response) {
+                                window.location.pathname = `/product/${slug}`
+                            }
+                        });
+                    }
                 });
             });
         </script>

@@ -67,8 +67,16 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Price</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="price" name="price"
+                        <input type="text" class="form-control" id="price" name="price"
                             value="{{ $course->price }}">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Youtube</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="youtube" name="youtube"
+                            value="{{ $course->youtube }}">
                     </div>
                 </div>
                 <button type="submit" class="button primary">Update</button>

@@ -46,8 +46,10 @@ class AdminWorkshopController extends Controller
             'video' => 'nullable',
             'time' => 'required|integer',
             'discount' => 'nullable',
+            'sliders' => 'nullable',
+            'sliders.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $filename;
+        $filename = '';
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = $request->title.'_'.time().'.'.$extension;
@@ -60,6 +62,19 @@ class AdminWorkshopController extends Controller
             $path = $request->video->storeAs('public/workshop-video', $videoFile);
             $workshop->video = $videoFile;
         }
+
+        if ($request->hasFile('sliders')) {
+            $sliders = $request->file('sliders');
+
+            foreach ($sliders as $slider) {
+                $extension = $slider->getClientOriginalExtension();
+                $sliderName = $request->title.'_sliders_'.time().'.'.$extension;
+                $path = $slider->storeAs('public/workshop-image', $sliderName);
+                $data[] = $sliderName;
+            }
+            $workshop->sliders = json_encode($data);
+        }
+
 
         $workshop->image = $filename;
         $workshop->title = $request->title;
@@ -114,9 +129,11 @@ class AdminWorkshopController extends Controller
             'video' => 'nullable',
             'time' => 'required|integer',
             'discount' => 'nullable',
+            'sliders' => 'nullable',
+            'sliders.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $filename;
+        $filename = '';
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = $request->title.'_'.time().'.'.$extension;
@@ -129,6 +146,19 @@ class AdminWorkshopController extends Controller
             $videoFile = $request->title.'_'.time().'.'.$extension;
             $path = $request->video->storeAs('public/workshop-video', $videoFile);
             $workshop->video = $videoFile;
+        }
+
+        if ($request->hasFile('sliders')) {
+            $sliders = $request->file('sliders');
+            $x = 1;
+            foreach ($sliders as $slider) {
+                $extension = $slider->getClientOriginalExtension();
+                $sliderName = $request->title.'_sliders_'.$x.'_'.time().'.'.$extension;
+                $path = $slider->storeAs('public/workshop-image', $sliderName);
+                $data[] = $sliderName;
+                $x++;
+            }
+            $workshop->sliders = json_encode($data);
         }
 
         $workshop->title = $request->title;

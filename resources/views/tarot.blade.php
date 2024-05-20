@@ -317,7 +317,6 @@
             }
 
             $(window).scroll(function() {
-                ;
                 w = Math.floor($(window).scrollTop());
                 $('.tab').removeClass('active');
                 if (w <= $('#products').offset().top) {
@@ -384,7 +383,7 @@
                 //     ActivePage('articles');
                 // }
 
-                sameDiv();
+                // sameDiv();
             });
 
             function ReinitSliders(page) {

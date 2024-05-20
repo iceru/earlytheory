@@ -14,15 +14,23 @@
         <section class="workshop">
             <div class="workshop-content">
                 <div class="workshop-info">
-                    <div class="workshop-media">
+                    {{-- <div class="workshop-media">
                         <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}" alt="">
-                    </div>
-                    <h1>
+                    </div> --}}
+                    <h1 class="workshop-title">
                         {{ $workshop->title }}
                     </h1>
                     <h6>{{ $workshop->course->count() }} Bab Materi - {{ $workshop->time }} Menit</h6>
                     <div>
                         {!! $workshop->description !!}
+                    </div>
+                    <div class="workshop-sliders">
+                        @foreach (json_decode($workshop->sliders) as $slider)
+                            <div>
+                                <img class="slider-image" src="{{ Storage::url('workshop-image/' . $slider) }}"
+                                    alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="package">
@@ -52,7 +60,7 @@
                                     <div>
                                         <a href="{{ route('course', $item->slug) }}"
                                             class="button button-buy text-dark">
-                                            Pelajari
+                                            Watch Now
                                         </a>
                                     </div>
                                 @else
@@ -60,7 +68,7 @@
                                         @if ($item->price == 0)
                                             <a href="{{ route('course', $item->slug) }}"
                                                 class="button button-buy text-dark">
-                                                Pelajari
+                                                Gratis
                                             </a>
                                         @else
                                             <div>
@@ -88,6 +96,19 @@
     </div>
 
     <script>
+        $(document).ready(function() {
+            function options() {
+                return {
+                    dots: false,
+                    arrows: false,
+                    autoplay: true,
+                    autoplaySpeed: 5000,
+                    pauseOnHover: false,
+                }
+            }
+
+            $('.workshop-sliders').slick(options());
+        });
         $('.button-cart').on('click', function() {
             const id = $(this).attr('data-id');
 

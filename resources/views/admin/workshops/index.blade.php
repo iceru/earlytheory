@@ -62,6 +62,27 @@
                         <input type="file" class="form-control" id="video" name="video" accept="video/*">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Sliders</label>
+                    <div class="col-sm-10">
+                        <div class="input-group control-group increment">
+                            <input type="file" name="sliders[]" class="form-control">
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="button"><i class="fas fa-plus    "></i>
+                                    Add</button>
+                            </div>
+                        </div>
+                        <div class="clone hide">
+                            <div class="control-group input-group" style="margin-top:10px">
+                                <input type="file" name="sliders[]" class="form-control">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-danger" type="button"><i class="fas fa-times    "></i>
+                                        Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button type="submit" class="button primary">Submit</button>
             </form>
         </div>
@@ -78,7 +99,7 @@
                         <th>Description</th>
                         <th>Discount</th>
                         <th>Time to Learn</th>
-                        <th>Accent Color</th>
+                        <th>Sliders</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -96,7 +117,13 @@
                             <td class="tab-article-desc">{!! substr($workshop->description, 0, 200) !!}</td>
                             <td>{{ $workshop->discount }}</td>
                             <td>{{ $workshop->time }}</td>
-                            <td style="color: {{ $workshop->color }}">{{ $workshop->color }}</td>
+                            @if ($workshop->sliders)
+                                <td><img src="{{ Storage::url('public/workshop-image/' . json_decode($workshop->sliders)[0]) }}"
+                                        width="100" alt="">
+                                </td>
+                            @else
+                                <td>-</td>
+                            @endif
                             <td><a class="btn btn-primary btn-small d-flex align-items-center justify-content-center mb-2"
                                     href="/admin/workshops/edit/{{ $workshop->id }}"><i class="fas fa-edit me-1"></i>
                                     Edit</a>
@@ -114,4 +141,17 @@
             </table>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".btn-success").click(function() {
+                var html = $(".clone").html();
+                $(".clone").after(html);
+            });
+
+            $('body').on("click", ".btn-danger", function() {
+                $(this).parents(".control-group").remove();
+            });
+        });
+    </script>
 </x-admin-layout>
