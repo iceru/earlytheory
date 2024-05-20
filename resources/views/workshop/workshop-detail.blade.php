@@ -24,14 +24,16 @@
                     <div>
                         {!! $workshop->description !!}
                     </div>
-                    <div class="workshop-sliders">
-                        @foreach (json_decode($workshop->sliders) as $slider)
-                            <div>
-                                <img class="slider-image" src="{{ Storage::url('workshop-image/' . $slider) }}"
-                                    alt="">
-                            </div>
-                        @endforeach
-                    </div>
+                    @if ($workshop->sliders)
+                        <div class="workshop-sliders">
+                            @foreach (json_decode($workshop->sliders) as $slider)
+                                <div>
+                                    <img class="slider-image" src="{{ Storage::url('workshop-image/' . $slider) }}"
+                                        alt="">
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
                 <div class="package">
                     @if (!$alreadyBuy)
