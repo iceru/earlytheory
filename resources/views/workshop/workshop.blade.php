@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title')
-        Workshop
+        Kelas Mejik
     @endsection
     <div class="workshop__wrapper">
         @if (count($workshops) > 0)
@@ -9,7 +9,7 @@
                     <img src="/images/Favicon.png" width="50" alt="">
                 </div>
                 <div class="page__titleText">
-                    Workshop
+                    Kelas Mejik
                 </div>
             </div>
             <div class="workshop__titlePage">
@@ -27,8 +27,8 @@
                         <div class="workshop__desc">
                             {!! $workshop->description !!}
                         </div>
-                        <a href="{{ route('workshop.detail', $workshop->slug) }}"
-                            class="button button-white">Telusuri</a>
+                        <a href="{{ route('workshop.detail', $workshop->slug) }}" class="button button-white">Explore
+                            Now</a>
                     </div>
                 @endforeach
             </div>

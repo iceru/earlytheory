@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title')
-        Workshop - {{ $workshop->title }}
+        Kelas Mejik - {{ $workshop->title }}
     @endsection
     <div class="workshop-container container">
         <section class="header-page">
@@ -8,7 +8,7 @@
                 <img width="50" src="/images/Favicon.png" alt="">
             </div>
             <div>
-                Kelas & Workshop
+                Kelas Mejik
             </div>
         </section>
         <section class="workshop">
@@ -25,7 +25,7 @@
                         {!! $workshop->description !!}
                     </div>
                     @if ($workshop->sliders)
-                        <div class="workshop-sliders">
+                        <div class="workshop-sliders mt-4">
                             @foreach (json_decode($workshop->sliders) as $slider)
                                 <div>
                                     <img class="slider-image" src="{{ Storage::url('workshop-image/' . $slider) }}"
@@ -39,7 +39,7 @@
                     @if (!$alreadyBuy)
                         <div class="buy-package">
                             <div>
-                                <h5>Paket Full Program</h5>
+                                <h5>BELI FULL PROGRAM</h5>
                                 <p>Rp {{ number_format($fullPrice) }}
                                     {{ $workshop->discount ? '(' . $workshop->discount . '% OFF)' : '' }}</p>
                             </div>
@@ -51,11 +51,11 @@
                         </div>
                     @endif
                     <div class="list-bab">
-                        <h4>Daftar Bab</h4>
+                        <h4>Daftar Module</h4>
                         @foreach ($workshop->course as $key => $item)
                             <div class="item-bab">
                                 <p>
-                                    Bab {{ $key + 1 }} <br />
+                                    MODULE {{ $key + 1 }} - {{ $item->time }} Menit <br />
                                     {{ $item->title }}
                                 </p>
                                 @if (count($item->sales) > 0 && $item->status === 'active')
