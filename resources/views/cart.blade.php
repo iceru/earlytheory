@@ -113,7 +113,7 @@
                         <div class="mb-5">
                             <div class="detail__workshopContainer">
                                 <div class="detail__workshopImage">
-                                    <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}" alt="">
+                                    <img src="/images/FaviconModulKelasMejik.png" alt="">
                                 </div>
                                 <div>
                                     <h3 class="detail__workshopTitle">{{ $workshop->title }}</h3>

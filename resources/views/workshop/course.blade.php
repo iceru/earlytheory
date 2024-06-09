@@ -18,8 +18,10 @@
             <div>
                 @if ($course->youtube)
                     <div class="ratio ratio-16x9">
-                        <iframe width="100%" src="{{ $course->youtube }}" title="Early Theory" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        <iframe width="100%" src="{{ $course->youtube }}&modestbranding=1" title="Early Theory"
+                            frameborder="0"
+                            sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 @else
