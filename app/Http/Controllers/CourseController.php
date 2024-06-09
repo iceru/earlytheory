@@ -53,8 +53,9 @@ class CourseController extends Controller
         $workshop = Workshop::where('id', $course->workshop_id)->firstOrFail();
         $paid = false; 
         $admin = Auth::user()->hasRole('administrator');
+        $user = Auth::user();
         foreach ($course->sales as $courseSale) {
-            if ($courseSale->status === 'settlement') {
+            if (($courseSale->status === 'settlement' && $user->id === $courseSale->user_id) || $course->price === 0) {
                 $paid = true;
             }
         }
@@ -76,7 +77,7 @@ class CourseController extends Controller
         foreach ($workshop->course as $key => $item) {
             if ($key === $coIndex) {
                 foreach ($item->sales as $saleNext) {
-                    if ($saleNext->status === 'settlement' || $admin) {
+                    if (($saleNext->status === 'settlement' && $user->id === $courseSale->user_id) || $admin) {
                         $enableNext = true;
                         $nextCourse = $item;
                     }

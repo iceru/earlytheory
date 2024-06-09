@@ -6,6 +6,7 @@ use App\Models\Sales;
 use App\Models\Course;
 use App\Models\Workshop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WorkshopController extends Controller {
     /**
@@ -47,18 +48,20 @@ class WorkshopController extends Controller {
         $workshop = Workshop::where('slug', $slug)->firstOrFail();
         $fullPrice = 0;
         $discountPrice = null;
+        $auth = Auth::user();
 
         $alreadyBuy = false;
         foreach($workshop->course as $course) {
             $fullPrice = $course->price + $fullPrice;
 
             foreach($course->sales as $sale) {
-                if($sale->status == 'settlement') {
+                if($sale->status == 'settlement' && $sale->user_id === $auth->id) {
                     $alreadyBuy = true;
                     $course->status = 'active';
                 }
             }
         }
+
         if($workshop->discount) {
             $fullPrice = $fullPrice - ($fullPrice * $workshop->discount / 100);
         }
