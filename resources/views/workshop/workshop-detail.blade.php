@@ -152,48 +152,50 @@
             }
         });
 
-        $('#buy-all').on('click', function() {
-            // const courses = $('.button-cart').attr('data-id');
+        $('#buy-all').on('click', async function() {
             const courses = document.querySelectorAll('.button-cart');
-            courses.forEach((element, index) => {
-                $.ajax({
-                    url: "/cart/add/course/" + $(element).attr('data-id'),
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        discount: true,
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        $('#cartcount').html(data.count);
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top',
-                            showConfirmButton: false,
-                            timer: 4000,
-                            timerProgressBar: true,
-                        })
-
-                        if ($.isEmptyObject(data.error) && index + 1 === courses.length) {
-                            Toast.fire({
-                                icon: 'success',
-                                title: data.success + '&nbsp; | &nbsp;' +
-                                    '<a style="color:#4A2984;" href="/cart">Go to Cart</a> '
-                            })
-                        }
-                    },
-                    error: function(jqXHR, exepection) {
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Terjadi kesalahan'
-                        })
-                    }
-                });
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
             });
-        })
+
+            for (let index = 0; index < courses.length; index++) {
+                const element = courses[index];
+                try {
+                    const response = await $.ajax({
+                        url: "/cart/add/course/" + $(element).attr('data-id'),
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        data: {
+                            discount: true,
+                        },
+                        dataType: "json"
+                    });
+
+                    $('#cartcount').html(response.count);
+
+                    if ($.isEmptyObject(response.error) && index + 1 === courses.length) {
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.success + '&nbsp; | &nbsp;' +
+                                '<a style="color:#4A2984;" href="/cart">Go to Cart</a> '
+                        });
+                    }
+                } catch (error) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Terjadi kesalahan'
+                    });
+                }
+            }
+        });
     </script>
 
 </x-app-layout>
