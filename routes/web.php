@@ -83,6 +83,9 @@ Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
+    Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
+
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
@@ -145,9 +148,6 @@ Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
-    Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
-
     Route::post('/upload/image', [AdminArticleController::class, 'upload'])->name('admin.upload.image');
 
     Route::get('/admin/articles', [AdminArticleController::class, 'index'])->name('admin.articles');
