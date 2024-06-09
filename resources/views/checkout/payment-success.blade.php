@@ -12,6 +12,12 @@
                     <img src="/images/pay.svg" alt="">
                     <h5>Kami akan konfirmasi orderanmu lewat Whatsapp!</h5>
                     {{-- <p>Pengiriman file dalam waktu 2-3 hari kerja</p> --}}
+                    @if (count($workshops) > 0)
+                        <h5 class="mt-2">
+                            Akses course yang telah kamu beli akan tersedia setelah kami validasi pembayaran dalam
+                            waktu max. 24jam
+                        </h5>
+                    @endif
                 </div>
                 <hr>
 
