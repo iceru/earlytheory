@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WorkshopEmail;
 use Carbon\Carbon;
 use App\Models\SKUs;
 use App\Models\Sales;
@@ -878,17 +879,29 @@ class SalesController extends Controller
                     $sku->save();
                 }
 
-                // Mail::send(new UserTransaction($sales));
-                // Mail::send(new AdminNotification($sales));
+                Mail::send(new UserTransaction($sales));
+                Mail::send(new AdminNotification($sales));
+                
 
-                // if ($additional) {
-                //     if ($is_astro) {
-                //         Mail::send(new AstrologiQuestion($additional));
-                //     }
-                //     if ($is_spiritual) {
-                //         Mail::send(new SpiritualQuestion($additional));
-                //     }
-                // }
+                if ($additional) {
+                    if ($is_astro) {
+                        Mail::send(new AstrologiQuestion($additional));
+                    }
+                    if ($is_spiritual) {
+                        Mail::send(new SpiritualQuestion($additional));
+                    }
+                }
+
+                $workshops = array();
+                foreach($sales->course as $course) {
+                    array_push($workshops, $course->workshop);
+                }
+                $workshops = array_unique($workshops);
+
+                if(count($workshops) > 0) { 
+                    Mail::send(new WorkshopEmail($sales, $workshops));
+                }
+ 
 
                 // //get city name
                 // if($sales->shippingAddress) {
