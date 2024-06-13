@@ -107,7 +107,7 @@
                                       <th class="expander"></th>
                                     </tr>
                                   </table>
-                                  <h4>Order Details</h4>
+                                  {{-- <h4>Order Details</h4>
                                   <table>
                                     <tr>
                                       <th>Item</th>
@@ -127,7 +127,7 @@
                                       <td>IDR {{ $sales->total_price }}</td>
                                     </tr>
                                   </table>
-                                  <hr>
+                                  <hr> --}}
                                 </th>
                               </tr>
                             </table>
