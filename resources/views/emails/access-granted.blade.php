@@ -66,7 +66,7 @@
                             <table>
                               <tr>
                                 <th>
-                                 <img class="order-img" src="https://earlytheory.com/images/EMAILGRANTACCESS.jpg" alt="Access Granted">
+                                 <img class="order-img" src="https://earlytheory.com/images/EMAILGRANTACCESS.jpg" width="800" alt="Access Granted">
                                   <table class="spacer">
                                     <tbody>
                                       <tr>
