@@ -52,16 +52,16 @@ class CourseController extends Controller
         $course = Course::where('slug', $slug)->firstOrFail();
         $workshop = Workshop::where('id', $course->workshop_id)->firstOrFail();
         $paid = false; 
-        $admin = Auth::user()->hasRole('administrator');
+        // $admin = Auth::user()->hasRole('administrator');
         $user = Auth::user();
         foreach ($course->sales as $courseSale) {
             if (($courseSale->status === 'settlement' && $user->id === $courseSale->user_id) || $course->price === 0) {
                 $paid = true;
             }
         }
-        if($admin) {
-           $paid = true;
-        }
+        // if($admin) {
+        //    $paid = true;
+        // }
         if (!$paid) {
             return redirect()->route('workshop.detail', $workshop->slug);
         }
@@ -77,16 +77,16 @@ class CourseController extends Controller
         foreach ($workshop->course as $key => $item) {
             if ($key === $coIndex) {
                 foreach ($item->sales as $saleNext) {
-                    if (($saleNext->status === 'settlement' && $user->id === $courseSale->user_id) || $admin) {
+                    if (($saleNext->status === 'settlement' && $user->id === $saleNext->user_id)) {
                         $enableNext = true;
                         $nextCourse = $item;
                     }
                 }
 
-                if($admin) {
-                    $enableNext = true;
-                    $nextCourse = $item;
-                 }
+                // if($admin) {
+                //     $enableNext = true;
+                //     $nextCourse = $item;
+                //  }
             }
             if ($coIndex > 1 && $key === $coIndex - 2) {
                 $prevCourse = $item;
@@ -136,17 +136,17 @@ class CourseController extends Controller
          * Then check if the user has Admin Role. If true serve else
          */
         $course = Course::where('slug', $slug)->first();
-        $admin = Auth::user()->hasRole('administrator');
-        if($admin) {
-            try {
-                $video = Storage::disk('videos')->get("course-video/$course->video");
-                $response = \Response::make($video, 200);
-                $response->header('Content-Type', 'video/mp4');
-                return $response;
-            } catch (Exception $e) {
-                echo $e;
-            }
-        }
+        // $admin = Auth::user()->hasRole('administrator');
+        // if($admin) {
+        //     try {
+        //         $video = Storage::disk('videos')->get("course-video/$course->video");
+        //         $response = \Response::make($video, 200);
+        //         $response->header('Content-Type', 'video/mp4');
+        //         return $response;
+        //     } catch (Exception $e) {
+        //         echo $e;
+        //     }
+        // }
         if ($course->price === 0) {
             try {
                 $video = Storage::disk('videos')->get("course-video/$course->video");
@@ -184,17 +184,17 @@ class CourseController extends Controller
          * Then check if the user has Admin Role. If true serve else
          */
         $course = Course::where('slug', $slug)->first();
-        $admin = Auth::user()->hasRole('administrator');
-        if($admin) {
-            try {
-                $video = Storage::disk('videos')->get("course-video/$course->lq_video");
-                $response = \Response::make($video, 200);
-                $response->header('Content-Type', 'video/mp4');
-                return $response;
-            } catch (Exception $e) {
-                echo $e;
-            }
-        }
+        // $admin = Auth::user()->hasRole('administrator');
+        // if($admin) {
+        //     try {
+        //         $video = Storage::disk('videos')->get("course-video/$course->lq_video");
+        //         $response = \Response::make($video, 200);
+        //         $response->header('Content-Type', 'video/mp4');
+        //         return $response;
+        //     } catch (Exception $e) {
+        //         echo $e;
+        //     }
+        // }
         if ($course->price === 0) {
             try {
                 $video = Storage::disk('videos')->get("course-video/$course->lq_video");
