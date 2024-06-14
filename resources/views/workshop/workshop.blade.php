@@ -18,9 +18,11 @@
             <div class="workshop__lists">
                 @foreach ($workshops as $workshop)
                     <div class="workshop__item">
-                        <div class="workshop__image">
-                            <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}" alt="">
-                        </div>
+                        <a href="{{ route('workshop.detail', $workshop->slug) }}">
+                            <div class="workshop__image">
+                                <img src="{{ Storage::url('workshop-image/' . $workshop->image) }}" alt="">
+                            </div>
+                        </a>
                         <h3 class="workshop__title">
                             {{ $workshop->title }}
                         </h3>
