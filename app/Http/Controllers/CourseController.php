@@ -55,9 +55,13 @@ class CourseController extends Controller
         // $admin = Auth::user()->hasRole('administrator');
         $user = Auth::user();
         foreach ($course->sales as $courseSale) {
-            if (($courseSale->status === 'settlement' && $user->id === $courseSale->user_id) || $course->price === 0) {
+            if ($courseSale->status === 'settlement' && $user->id === $courseSale->user_id) {
                 $paid = true;
             }
+        }
+
+        if($course->price === 0) {
+            $paid = true;
         }
         // if($admin) {
         //    $paid = true;
@@ -81,6 +85,11 @@ class CourseController extends Controller
                         $enableNext = true;
                         $nextCourse = $item;
                     }
+                }
+
+                if($item->price === 0) {
+                    $enableNext = true;
+                    $nextCourse = $item;
                 }
 
                 // if($admin) {
