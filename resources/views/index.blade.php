@@ -3,10 +3,10 @@
         Early Theory - Homepage
     @endsection
     <div class="popupPage" id="popup">
-        <a href="https://shope.ee/3pzPWRt09j" class="popup-img">
+        <a href="https://earlytheory.com/workshops" class="popup-img">
             <div class="close" id="closePopup"> <i class="fas fa-times" aria-hidden="true"></i></div>
             <div class="ratio">
-                <img src="/images/banner-altar.png" alt="">
+                <img src="/images/banner-mejik.png" alt="">
             </div>
         </a>
     </div>

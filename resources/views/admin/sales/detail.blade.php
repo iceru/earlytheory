@@ -9,7 +9,7 @@
     @endsection
 
     <div class="py-12">
-        <h3 class="evogria">Detail of Sales #{{$sales->sales_no}}</h3>
+        <h3 class="evogria">Detail of Sales #{{ $sales->sales_no }}</h3>
     </div>
 
     <div class="py-12 my-4">
@@ -18,75 +18,87 @@
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Total Price</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->total_price-$sales->discount+$sales->ship_cost)}}" readonly>
+            <input type="text" class="form-control-plaintext"
+                value="IDR {{ number_format($sales->total_price - $sales->discount + $sales->ship_cost) }}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Discount</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->discount)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{ number_format($sales->discount) }}"
+                readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Shipping Cost</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->ship_cost)}}" readonly>
+            <input type="text" class="form-control-plaintext" value="IDR {{ number_format($sales->ship_cost) }}"
+                readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Total Price (After Discount + Shipping)</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" value="IDR {{number_format($sales->total_price-$sales->discount)}}" readonly>
+            <input type="text" class="form-control-plaintext"
+                value="IDR {{ number_format($sales->total_price - $sales->discount) }}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Name</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{$sales->user->name}}" @else value="{{$sales->name}}" @endif readonly>
+            <input type="text" class="form-control-plaintext"
+                @if ($sales->user) value="{{ $sales->user->name }}" @else value="{{ $sales->name }}" @endif
+                readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Email</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext"@if ($sales->user) value="{{$sales->user->email}}" @else value="{{$sales->email}}" @endif readonly>
+            <input type="text"
+                class="form-control-plaintext"@if ($sales->user) value="{{ $sales->user->email }}" @else value="{{ $sales->email }}" @endif
+                readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Phone Number</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" @if ($sales->user) value="{{$sales->user->phone}}" @else value="{{$sales->phone}}" @endif readonly>
+            <input type="text" class="form-control-plaintext"
+                @if ($sales->user) value="{{ $sales->user->phone }}" @else value="{{ $sales->phone }}" @endif
+                readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Date of Birth</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" @if ($sales->user && strtotime($sales->user->birthdate) !== false) value="{{\Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString()}}" @elseif($sales->birthdate && strtotime($sales->birthdate) !== false) value="{{\Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString()}}" @else - @endif  readonly>
+            <input type="text" class="form-control-plaintext"
+                @if ($sales->user && strtotime($sales->user->birthdate) !== false) value="{{ \Carbon\Carbon::parse($sales->user->birthdate)->toFormattedDateString() }}" @elseif($sales->birthdate && strtotime($sales->birthdate) !== false) value="{{ \Carbon\Carbon::parse($sales->birthdate)->toFormattedDateString() }}" @else - @endif
+                readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Payment Type</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext" @if ($sales->paymentmethods)
-            value="{{$sales->paymentMethods->name}}"
-            @endif readonly>
+            <input type="text" class="form-control-plaintext"
+                @if ($sales->paymentmethods) value="{{ $sales->paymentMethods->name }}" @endif readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Status Relationship</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->relationship}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{ $sales->relationship }}"
+                readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Status Pekerjaan</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->job}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{ $sales->job }}" readonly>
         </div>
     </div>
     <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Jenis Kelamin</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->gender}}" readonly>
+            <input type="text" class="form-control-plaintext text-capitalize" value="{{ $sales->gender }}" readonly>
         </div>
     </div>
     {{-- <div class="mb-1 row">
@@ -99,25 +111,28 @@
         <label class="col-sm-3 col-form-label fw-bolder">Proof of Payment</label>
         <div class="col-sm-9">
             @if ($sales->payment)
-                <img width=150 src="{{Storage::url('payment-proof/'.$sales->payment)}}" alt="Payment">
+                <img width=150 src="{{ Storage::url('payment-proof/' . $sales->payment) }}" alt="Payment">
             @else
                 -
             @endif
         </div>
     </div>
     @if ($sales->address_id)
-    <div class="mb-1 row">
-        <label class="col-sm-3 col-form-label fw-bolder">Shipping Address</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->shippingAddress->ship_address.', '.$sales->shippingAddress->city.', '.$sales->shippingAddress->province.' '.$sales->shippingAddress->ship_zip}}" alt="-" readonly>
+        <div class="mb-1 row">
+            <label class="col-sm-3 col-form-label fw-bolder">Shipping Address</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control-plaintext text-capitalize"
+                    value="{{ $sales->shippingAddress->ship_address . ', ' . $sales->shippingAddress->city . ', ' . $sales->shippingAddress->province . ' ' . $sales->shippingAddress->ship_zip }}"
+                    alt="-" readonly>
+            </div>
         </div>
-    </div>
-    <div class="mb-1 row">
-        <label class="col-sm-3 col-form-label fw-bolder">Shipping Method</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext text-capitalize" value="{{$sales->ship_method}}" alt="-" readonly>
+        <div class="mb-1 row">
+            <label class="col-sm-3 col-form-label fw-bolder">Shipping Method</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control-plaintext text-capitalize" value="{{ $sales->ship_method }}"
+                    alt="-" readonly>
+            </div>
         </div>
-    </div>
     @endif
 
     <h5 class="mb-2 mt-5">Product Sales</h5>
@@ -138,65 +153,77 @@
                 </thead>
                 <tbody>
                     {{-- cek created_at order sebelum perubahan dari products ke skus --}}
-                    @if($sales->created_at >= '2021-11-20 10:00:00')
+                    @if ($sales->created_at >= '2021-11-20 10:00:00')
                         @foreach ($sales->skus as $item)
-                        <tr>
-                            <td scope="row">{{$loop->iteration}}</td>
-                            <td>
-                                @foreach ((array)json_decode($item->products->image) as $image)
-                                    <img class="mb-1" src="{{Storage::url('product-image/'.$image)}}" alt="Image" width="100">
-                                @endforeach
-                            </td>
-                            <td>{{$item->products->title}}</td>
-                            <td>idr {{number_format($item->price)}}</td>
-                            <td>{{$item->pivot->qty}}</td>
-                            <td>
-                                @if ($item->products->duration > 0)
-                                    {{$item->products->duration}} menit
-                                @else
-                                    -
-                                @endif
-                            </td>
-                            <td>{{$item->products->description_short}}</td>
-                            <td>{{$item->pivot->question}}</td>
-                        </tr>
+                            <tr>
+                                <td scope="row">{{ $loop->iteration }}</td>
+                                <td>
+                                    @foreach ((array) json_decode($item->products->image) as $image)
+                                        <img class="mb-1" src="{{ Storage::url('product-image/' . $image) }}"
+                                            alt="Image" width="100">
+                                    @endforeach
+                                </td>
+                                <td>{{ $item->products->title }}</td>
+                                <td>idr {{ number_format($item->price) }}</td>
+                                <td>{{ $item->pivot->qty }}</td>
+                                <td>
+                                    @if ($item->products->duration > 0)
+                                        {{ $item->products->duration }} menit
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>{{ $item->products->description_short }}</td>
+                                <td>{{ $item->pivot->question }}</td>
+                            </tr>
                         @endforeach
                     @else
                         @foreach ($sales->products as $product)
-                        <tr>
-                            <td scope="row">{{$loop->iteration}}</td>
-                            <td>
-                                @foreach ((array)json_decode($product->image) as $item)
-                                    <img class="mb-1" src="{{Storage::url('product-image/'.$item)}}" alt="Image" width="100">
-                                @endforeach
-                            </td>
-                            <td>{{$product->title}}</td>
-                            <td>idr {{number_format($product->price)}}</td>
-                            <td>{{$product->pivot->qty}}</td>
-                            <td>
-                                @if ($product->duration > 0)
-                                    {{$product->duration}} menit
-                                @else
-                                    -
-                                @endif
-                            </td>
-                            <td>{{$product->description_short}}</td>
-                            <td>{{$product->pivot->question}}</td>
-                        </tr>
+                            <tr>
+                                <td scope="row">{{ $loop->iteration }}</td>
+                                <td>
+                                    @foreach ((array) json_decode($product->image) as $item)
+                                        <img class="mb-1" src="{{ Storage::url('product-image/' . $item) }}"
+                                            alt="Image" width="100">
+                                    @endforeach
+                                </td>
+                                <td>{{ $product->title }}</td>
+                                <td>idr {{ number_format($product->price) }}</td>
+                                <td>{{ $product->pivot->qty }}</td>
+                                <td>
+                                    @if ($product->duration > 0)
+                                        {{ $product->duration }} menit
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>{{ $product->description_short }}</td>
+                                <td>{{ $product->pivot->question }}</td>
+                            </tr>
                         @endforeach
 
                     @endif
+                    @foreach ($workshops as $item)
+                        <tr>
+                            <td scope="row">{{ $loop->iteration }}</td>
+                            <td>
+                                <img width="50" src="/images/FaviconModulKelasMejik.png" alt="">
+                            </td>
+                            <td>{{ $item->title }}</td>
+                            <td>idr {{ number_format($item->price) }}</td>
+                            <td>1</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
     @section('js')
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        } );
-    </script>
+        <script>
+            $(document).ready(function() {
+                $('#table').DataTable();
+            });
+        </script>
     @endsection
 </x-admin-layout>
-

@@ -63,6 +63,11 @@ class AdminSalesController extends Controller
     {
         $sales = Sales::findOrFail($id);
 
+        $workshops = array();
+        foreach($sales->course as $course) {
+            array_push($workshops, $course);
+        }
+        $workshops = array_unique($workshops);
         if ($sales->address_id) {
             // foreach($sales as $s) {
             if (Cache::has('address_' . $sales->shippingAddress->ship_city . '_' . $sales->shippingAddress->ship_province)) {
@@ -97,7 +102,7 @@ class AdminSalesController extends Controller
             // }
         }
 
-        return view('admin.sales.detail', compact('sales'));
+        return view('admin.sales.detail', compact('sales', 'workshops'));
     }
 
     public function edit($id)
