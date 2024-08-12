@@ -8,7 +8,7 @@
     <div class="py-12 dashboard">
         <h3 class="evogria mb-3">Dashboard</h3>
 
-        <div class="row ">
+        {{-- <div class="row ">
             <div class="col-6">
                 <h5 class="mb-3 mt-2">Analytics for the last <span id="timeText"></span></h5>
             </div>
@@ -16,11 +16,11 @@
                 <select class="form-select mb-3" aria-label="Filter">
                     <option value="7day" selected>7 Day</option>
                     <option value="1month">1 Months</option>
-                    {{-- <option value="3months">3 Months</option> --}}
+                    <option value="3months">3 Months</option>
                 </select>
             </div>
             <hr>
-            {{-- <div class="3months charts">
+            <div class="3months charts">
                 <div class="row align-items-center">
                     <div class="col-12 col-lg-5 mb-5">
                         <div class="chart">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
             <div class="1month charts">
                 <div class="row align-items-center">
@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> --}}
 
         <div class="mt-3">
             <a class="button primary align-items-center" href="https://www.analytics.google.com">
