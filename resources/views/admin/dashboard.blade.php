@@ -96,7 +96,7 @@
     </div>
 
     @section('js')
-        <script>
+        {{-- <script>
             $(document).ready(function() {
                 $(".form-select").change(function() {
                     $(this).find("option:selected").each(function() {
@@ -300,6 +300,6 @@
             window.onload = function() {
 
             };
-        </script>
+        </script> --}}
     @endsection
 </x-admin-layout>
