@@ -36,7 +36,7 @@
                         <tr>
                             <td scope="row">{{ $loop->iteration }}</td>
                             <td>{{ $sale->sales_no }}</td>
-                            <td>{{ date_format($sale->created_at, 'd F Y H:i:s') }}</td>
+                            <td>{{ date_format($sale->updated_at, 'd F Y H:i:s') }}</td>
                             <td>{{ number_format($sale->total_price - $sale->discount) }}</td>
                             <td>
                                 @if ($sale->user)
