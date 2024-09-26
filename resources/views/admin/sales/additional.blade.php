@@ -28,7 +28,7 @@
                     <label class="col-sm-3 col-form-label fw-bolder">Tanggal Lahir</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext"
-                            value="{{ \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() }}"
+                            value="{{ $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : null }}"
                             readonly>
                     </div>
                 </div>
