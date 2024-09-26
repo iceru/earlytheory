@@ -23,12 +23,12 @@
                     <input type="text" class="form-control-plaintext" value="{{ $additional->name }}" readonly>
                 </div>
             </div>
-            @if ($additional->birthdate)
+            @if ($additional->birthdate && strtotime($additional->birthdate) !== false)
                 <div class="mb-1 row">
                     <label class="col-sm-3 col-form-label fw-bolder">Tanggal Lahir</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control-plaintext"
-                            value="{{ $additional->birthdate ? \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() : null }}"
+                            value="{{ \Carbon\Carbon::parse($additional->birthdate)->toFormattedDateString() }}"
                             readonly>
                     </div>
                 </div>
