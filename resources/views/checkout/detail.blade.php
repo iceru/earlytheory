@@ -259,7 +259,7 @@
                                                         @if (strtolower($item->products->title) === 'mencari jodoh') required @endif novalidate>
                                                 </div>
                                                 <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                    <label class="form-label">Kamu</label>
+                                                    <label class="form-label fw-bold">Kamu Mencari..</label>
                                                     <select class="form-select" name="genderQuestion[]"
                                                         id="genderQuestion"
                                                         @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
@@ -270,7 +270,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                    <label class="form-label">Mencari</label>
+                                                    <label class="form-label fw-bold">Mencari Seorang..</label>
                                                     <select class="form-select" name="genderQuestion2[]"
                                                         id="genderQuestion"
                                                         @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif

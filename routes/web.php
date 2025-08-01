@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPerfumeController;
 use App\Http\Controllers\EstimateController;
 use App\Models\Sales;
 use App\Mail\UserTransaction;
@@ -244,6 +245,13 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.users');
     Route::get('/admin/user/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.users.edit');
     Route::post('/admin/user/update', [AdminUserController::class, 'update'])->name('admin.users.update');
+
+    
+    Route::get('/admin/perfume', [AdminPerfumeController::class, 'index'])->name('admin.perfume');
+    Route::get('/admin/perfume/edit/{id}', [AdminPerfumeController::class, 'edit'])->name('admin.perfume.edit');
+    Route::post('/admin/perfume/store', [AdminPerfumeController::class, 'store'])->name('admin.perfume.store');
+    Route::post('/admin/perfume/update', [AdminPerfumeController::class, 'update'])->name('admin.perfume.update');
+    Route::get('/admin/perfume/delete/{id}', [AdminPerfumeController::class, 'delete'])->name('admin.perfume.delete');
 });
 
 require __DIR__ . '/auth.php';

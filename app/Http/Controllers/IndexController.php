@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Perfume;
 use Newsletter;
 use App\Models\SKUs;
 use App\Models\Sliders;
@@ -17,7 +18,8 @@ class IndexController extends Controller
 {
     public function homepage(Request $request)
     {
-        return view('index');
+        $perfume = Perfume::first();
+        return view('index', compact('perfume'));
     }
     /**
      * Display a listing of the resource.

@@ -32,6 +32,10 @@
             <li class="{{ request()->is('admin/sliders') ? 'active' : '' }}"><i class="fas fa-images fa-fw"></i>
                 &nbsp; Sliders Image</li>
         </a>
+         <a href="{{ route('admin.perfume') }}">
+            <li class="{{ request()->is('admin/perfume') ? 'active' : '' }}"><i class="fas fa-image fa-fw"></i>
+                &nbsp; Perfume Altar Image</li>
+        </a>
         <a href="{{ route('admin.paymentMethods') }}">
             <li class="{{ request()->is('admin/paymentMethods') ? 'active' : '' }}"><i
                     class="fas fa-credit-card fa-fw"></i> &nbsp; Payment Methods</li>

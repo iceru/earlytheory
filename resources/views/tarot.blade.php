@@ -351,7 +351,7 @@
                 });
 
                 $('.sliders-index').slick({
-                    dots: true,
+                    dots: false,
                     autoplay: true,
                     autoplaySpeed: 5000,
                     pauseOnHover: false,
