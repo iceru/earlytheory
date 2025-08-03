@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPerfumeController;
+use App\Http\Controllers\AdminScheduleController;
 use App\Http\Controllers\EstimateController;
 use App\Models\Sales;
 use App\Mail\UserTransaction;
@@ -81,11 +82,11 @@ Route::get('google/callback', [SocialLoginController::class, 'handleGoogleCallba
 Route::get('/faq', [AdminFaqController::class, 'display'])->name('faq');
 
 Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
+Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
+Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
-    Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
 
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
@@ -225,7 +226,10 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin/additional/{id}', [AdminSalesController::class, 'additional'])->name('admin.sales.additional');
 
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
-    Route::get('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
+    Route::post('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
+
+    Route::get('/admin/schedule', [AdminScheduleController::class, 'index'])->name('admin.schedule.index');
+    Route::get('/admin/schedule/{id}/confirm', [AdminScheduleController::class, 'confirm'])->name('admin.schedule.confirm');
 
     Route::get('/admin/shipping', [AdminTrackingController::class, 'index'])->name('admin.tracking');
     Route::get('/admin/shipping/update/{id}', [AdminTrackingController::class, 'update'])->name('admin.tracking.update');

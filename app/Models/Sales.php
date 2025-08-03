@@ -11,7 +11,14 @@ class Sales extends Model
     protected $table = 'sales';
     protected $fillable = [
         'birthdate',
-        'user_id'
+        'user_id',
+        'start_date',
+        'end_date',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     public function products()

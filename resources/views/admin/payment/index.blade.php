@@ -6,6 +6,8 @@
     </x-slot>
     @section('css')
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+        <!-- Bootstrap Datepicker CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
     @endsection
 
     <div class="py-12">
@@ -68,9 +70,9 @@
                                 <a href="/admin/sales/{{ $sale->id }}"
                                     class="btn btn-primary justify-content-center d-flex align-items-center  btn-sm mb-2">
                                     <i class="fa fa-info-circle me-1" aria-hidden="true"></i> Detail</a>
-                                <a class="btn btn-success d-flex align-items-center justify-content-center mb-2 btn-sm"
-                                    href="/admin/confirm-payment/{{ $sale->id }}/confirm"><i
-                                        class="fa fa-check me-1" aria-hidden="true"></i> Confirm</a>
+                                <button onclick="showScheduleModal({{ $sale->id }})"
+                                    class="btn btn-success d-flex align-items-center justify-content-center mb-2 btn-sm">
+                                    <i class="fa fa-check me-1" aria-hidden="true"></i> Confirm</button>
                                 <button onclick="deleteConfirmation({{ $sale->id }})"
                                     class="btn btn-danger d-flex align-items-center btn-sm"><i
                                         class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button>
@@ -82,11 +84,173 @@
         </div>
     </div>
 
+    <!-- Schedule Confirmation Modal -->
+    <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title evogria" id="scheduleModalLabel">
+                        <i class="fa fa-calendar me-2"></i>Confirm Schedule
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="scheduleForm" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="start_date" class="form-label">
+                                        <i class="fa fa-calendar-plus me-1"></i>Start Date
+                                    </label>
+                                    <input type="text" class="form-control datepicker" id="start_date" name="start_date" 
+                                           placeholder="Select start date" readonly required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="end_date" class="form-label">
+                                        <i class="fa fa-calendar-minus me-1"></i>End Date
+                                    </label>
+                                    <input type="text" class="form-control datepicker" id="end_date" name="end_date" 
+                                           placeholder="Select end date" readonly required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="fa fa-info-circle me-2"></i>
+                            Please select the schedule period for this confirmation.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fa fa-times me-1"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check me-1"></i>Confirm Schedule
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     @section('js')
+        <!-- Bootstrap Datepicker JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+        
         <script>
             $(document).ready(function() {
                 $('#table').DataTable();
+                
+                // Initialize datepickers
+                $('.datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    todayBtn: 'linked',
+                    clearBtn: true,
+                    autoclose: true,
+                    todayHighlight: true,
+                });
+
+                // Handle date range validation
+                $('#start_date').on('changeDate', function(selected) {
+                    var startDate = new Date(selected.date.valueOf());
+                    $('#end_date').datepicker('setStartDate', startDate);
+                });
+
+                $('#end_date').on('changeDate', function(selected) {
+                    var endDate = new Date(selected.date.valueOf());
+                    $('#start_date').datepicker('setEndDate', endDate);
+                });
+
+                // Handle form submission
+                $('#scheduleForm').on('submit', function(e) {
+                    e.preventDefault();
+                    
+                    var startDate = $('#start_date').val();
+                    var endDate = $('#end_date').val();
+                    
+                    if (!startDate || !endDate) {
+                        Swal.fire({
+                            title: 'Validation Error',
+                            text: 'Please select both start and end dates',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+
+                    if (new Date(startDate) > new Date(endDate)) {
+                        Swal.fire({
+                            title: 'Validation Error',
+                            text: 'Start date cannot be later than end date',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
+
+                    // Show loading
+                    Swal.fire({
+                        title: 'Processing...',
+                        text: 'Confirming schedule',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Submit form
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        dataType: 'JSON',
+                        success: function(response) {
+                            Swal.close();
+                            $('#scheduleModal').modal('hide');
+                            
+                            Swal.fire({
+                                title: 'Success!',
+                                text: response.message || 'Schedule confirmed successfully',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.close();
+                            
+                            var errorMessage = 'An error occurred while confirming the schedule';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMessage = xhr.responseJSON.message;
+                            }
+                            
+                            Swal.fire({
+                                title: 'Error!',
+                                text: errorMessage,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                });
             });
+
+            function showScheduleModal(saleId) {
+                // Set the form action URL
+                $('#scheduleForm').attr('action', '/admin/confirm-payment/' + saleId + '/confirm');
+                
+                // Clear previous values
+                $('#start_date').val('');
+                $('#end_date').val('');
+                $('.datepicker').datepicker('update');
+                
+                // Show the modal
+                $('#scheduleModal').modal('show');
+            }
 
             function deleteConfirmation(id) {
                 Swal.fire({
