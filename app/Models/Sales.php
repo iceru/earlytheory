@@ -33,7 +33,7 @@ class Sales extends Model
 
     public function skus()
     {
-        return $this->belongsToMany(SKUs::class, 'skus_sales', 'sales_id', 'sku_id')->withPivot('question', 'qty');
+        return $this->belongsToMany(SKUs::class, 'skus_sales', 'sales_id', 'sku_id')->withPivot('question', 'qty', 'relationship_status');
     }
 
     public function paymentMethods()

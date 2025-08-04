@@ -97,6 +97,23 @@
                                         $item->products->question != 'yes' ||
                                             $item->products->category == 'product' ||
                                             strtolower($item->products->title) === 'mencari jodoh') hidden @endif>
+                                        @if(strtolower($item->products->title) === 'dia & diriku')
+                                        @php
+                                            $statusMap = [
+                                                'crush' => 'Sekedar Crush',
+                                                'pdkt' => 'Sedang PDKT',
+                                                'pacaran' => 'Pacaran',
+                                                'menikah' => 'Menikah',
+                                                'mantan' => 'Mantan',
+                                            ];
+
+                                            $statusText = $statusMap[$item->pivot->relationship_status] ?? 'Tidak Diketahui';
+                                        @endphp
+                                        <div class="mb-2">
+                                            <h5>Status Hubungan Dengan Dia</h5>
+                                            <p>{{ $statusText }}</p>
+                                        </div>
+                                        @endif
                                         <h5>Pertanyaan</h5>
                                         <p>{{ nl2br($item->pivot->question) }}</p>
                                         <a style="color: black;" href="/checkout/{{ $sales->sales_no }}/detail">

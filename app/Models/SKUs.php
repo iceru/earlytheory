@@ -21,6 +21,24 @@ class SKUs extends Model
 
     public function sales()
     {
-        return $this->belongsToMany(Sales::class, 'skus_sales', 'sku_id', 'sales_id')->withPivot('question', 'qty');
+        return $this->belongsToMany(Sales::class, 'skus_sales', 'sku_id', 'sales_id')->withPivot('question', 'qty', 'relationship_status');
+    }
+
+    public function getMappedRelationshipStatusAttribute(string $status): string
+    {
+        switch ($status) {
+            case 'crush':
+                return 'Sekedar Crush';
+            case 'pdkt':
+                return 'Sedang PDKT';
+            case 'pacaran':
+                return 'Pacaran';
+            case 'menikah':
+                return 'Menikah';
+            case 'mantan':
+                return 'Mantan';
+            default:
+                return 'Tidak Diketahui';
+        }
     }
 }
