@@ -47,7 +47,7 @@ class UserController extends Controller
         foreach($workshops as $workshop) {
            foreach($workshop->course as $wcourse) {
                 foreach($wcourse->sales as $sale) {
-                    if($sale->status == 'settlement') {
+                    if($sale->status == 'settlement' && $sale->user_id === $user->id) {
                         array_push($ownedWorkshops, $workshop);
                     }
                 }
@@ -55,7 +55,7 @@ class UserController extends Controller
         }
 
         $ownedWorkshops = array_unique($ownedWorkshops);
-
+        
         return view('account-workshop', compact('user', 'ownedWorkshops'));
     }
 

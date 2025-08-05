@@ -881,6 +881,17 @@ class SalesController extends Controller
 
                 Mail::send(new UserTransaction($sales));
                 Mail::send(new AdminNotification($sales));
+<<<<<<< HEAD
+
+                if ($additional) {
+                     if ($is_astro) {
+                         Mail::send(new AstrologiQuestion($additional));
+                     }
+                     if ($is_spiritual) {
+                         Mail::send(new SpiritualQuestion($additional));
+                     }
+                }
+=======
                 
 
                 if ($additional) {
@@ -902,6 +913,7 @@ class SalesController extends Controller
                     Mail::send(new WorkshopEmail($sales, $workshops));
                 }
  
+>>>>>>> eb975d54ebf3b1ed93e099627635ad9a667c3ace
 
                 // //get city name
                 // if($sales->shippingAddress) {
