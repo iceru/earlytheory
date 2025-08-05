@@ -11,7 +11,14 @@ class Sales extends Model
     protected $table = 'sales';
     protected $fillable = [
         'birthdate',
-        'user_id'
+        'user_id',
+        'start_date',
+        'end_date',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     public function products()
@@ -26,7 +33,7 @@ class Sales extends Model
 
     public function skus()
     {
-        return $this->belongsToMany(SKUs::class, 'skus_sales', 'sales_id', 'sku_id')->withPivot('question', 'qty');
+        return $this->belongsToMany(SKUs::class, 'skus_sales', 'sales_id', 'sku_id')->withPivot('question', 'qty', 'relationship_status');
     }
 
     public function paymentMethods()

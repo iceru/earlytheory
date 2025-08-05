@@ -6,6 +6,7 @@ use App\Models\Products;
 use App\Models\Sales;
 use App\Models\PaymentMethods;
 use Illuminate\Http\Request;
+use Validator;
 
 class AdminPaymentController extends Controller
 {
@@ -17,14 +18,81 @@ class AdminPaymentController extends Controller
         return view('admin.payment.index', compact('sales'));
     }
 
-    public function confirm($id)
+    public function confirm(Request $request, $id)
     {
-        $sales = Sales::find($id);
 
-        $sales->status = 'settlement';
-        $sales->save();
+         try {
+            // Validate the request
+            $validator = Validator::make($request->all(), [
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+            ], [
+                'start_date.required' => 'Start date is required',
+                'start_date.date' => 'Start date must be a valid date',
+                'end_date.required' => 'End date is required',
+                'end_date.date' => 'End date must be a valid date',
+                'end_date.after_or_equal' => 'End date must be after or equal to start date',
+            ]);
 
-        return redirect('/admin/confirm-payment');
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $validator->errors()->first()
+                ], 422);
+            }
+
+            // Find the sales record
+            $sales = Sales::find($id);
+            
+            if (!$sales) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sales record not found'
+                ], 404);
+            }
+
+            // Update sales with schedule dates and status
+            $sales->status = 'schedule';
+            $sales->start_date = $request->start_date;
+            $sales->end_date = $request->end_date;
+            $sales->save();
+
+            // Return success response for AJAX
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Payment confirmed and schedule set successfully',
+                    'data' => [
+                        'sales_id' => $sales->id,
+                        'sales_no' => $sales->sales_no,
+                        'status' => $sales->status,
+                        'start_date' => $sales->start_date,
+                        'end_date' => $sales->end_date
+                    ]
+                ]);
+            }
+
+            // Return redirect for non-AJAX requests
+            return redirect('/admin/confirm-payment')
+                ->with('success', 'Payment confirmed and schedule set successfully');
+
+        } catch (\Exception $e) {
+            \Log::error('Error confirming payment with schedule', [
+                'sales_id' => $id,
+                'error' => $e->getMessage()
+            ]);
+
+            if ($request->expectsJson()) {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+
+            return redirect('/admin/confirm-payment')
+                ->with('error', 'An error occurred while confirming the payment. Please try again.');
+        }
     }
 
     public function deleteAll()

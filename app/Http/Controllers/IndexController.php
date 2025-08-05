@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Perfume;
 use Newsletter;
 use App\Models\SKUs;
 use App\Models\Sliders;
@@ -17,7 +18,8 @@ class IndexController extends Controller
 {
     public function homepage(Request $request)
     {
-        return view('index');
+        $perfume = Perfume::first();
+        return view('index', compact('perfume'));
     }
     /**
      * Display a listing of the resource.
@@ -60,20 +62,7 @@ class IndexController extends Controller
             }
         }
 
-        $array = $product_ids;
-        $key = 'product_id';
-
-        $temp_array = array();
-        $i = 0;
-        $key_array = array();
-
-        foreach ($array as $val) {
-            if (!in_array($val[$key], $key_array)) {
-                $key_array[$i] = $val[$key];
-                $temp_array[$i] = $val;
-            }
-            $i++;
-        }
+        $temp_array = $product_ids;
 
         $values_name = array();
 
