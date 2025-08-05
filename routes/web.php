@@ -85,10 +85,7 @@ Route::get('/tag/{id}', [AdminTagsController::class, 'show'])->name('tag.show');
 Route::get('/workshops', [WorkshopController::class, 'index'])->name('workshops');
 Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
 
-
 Route::middleware(['auth'])->group(function () {
-
-    Route::get('/workshop/{slug}', [WorkshopController::class, 'show'])->name('workshop.detail');
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
     Route::get('/account/edit', [UserController::class, 'accountEdit'])->name('user.account-edit');
     Route::post('/account/update', [UserController::class, 'accountUpdate'])->name('user.account-update');
