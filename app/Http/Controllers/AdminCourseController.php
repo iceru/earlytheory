@@ -54,7 +54,6 @@ class AdminCourseController extends Controller
             'price' => 'required',
             'youtube' => 'nullable',
         ]);
-        $filename;
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $filename = Str::slug(strtolower($request->title)) . '_' . time() . '.' . $extension;

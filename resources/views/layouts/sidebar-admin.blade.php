@@ -8,6 +8,18 @@
             <li class="{{ request()->is('admin/products') ? 'active' : '' }}"> <i class="fas fa-box fa-fw"></i> &nbsp;
                 Products</li>
         </a>
+        <a href="{{ route('admin.sales') }}">
+            <li class="{{ request()->is('admin/sales') ? 'active' : '' }}"><i class="fas fa-money-bill-wave fa-fw"></i>
+                &nbsp; Sales</li>
+        </a>
+        <a href="{{ route('admin.schedule.index') }}">
+            <li class="{{ request()->is('admin/schedule') ? 'active' : '' }}"><i class="fas fa-stopwatch fa-fw"></i>
+                &nbsp; Schedule</li>
+        </a>
+        <a href="{{ route('admin.confirm-payment') }}">
+            <li class="{{ request()->is('admin/confirm-payment') ? 'active' : '' }}"><i
+                    class="fas fa-receipt fa-fw"></i> &nbsp; Payment Confirmation</li>
+        </a>
         <a href="{{ route('admin.workshops') }}">
             <li class="{{ request()->is('admin/workshops') ? 'active' : '' }}"> <i class="fas fa-tasks fa-fw"></i>
                 &nbsp; Workshops</li>
@@ -16,14 +28,6 @@
             <li class="{{ request()->is('admin/articles') ? 'active' : '' }}"><i class="fas fa-newspaper fa-fw"></i>
                 &nbsp; Articles</li>
         </a>
-        <a href="{{ route('admin.sales') }}">
-            <li class="{{ request()->is('admin/sales') ? 'active' : '' }}"><i class="fas fa-money-bill-wave fa-fw"></i>
-                &nbsp; Sales</li>
-        </a>
-        <a href="{{ route('admin.confirm-payment') }}">
-            <li class="{{ request()->is('admin/confirm-payment') ? 'active' : '' }}"><i
-                    class="fas fa-receipt fa-fw"></i> &nbsp; Payment Confirmation</li>
-        </a>
         <a href="{{ route('admin.tracking') }}">
             <li class="{{ request()->is('admin/shipping') ? 'active' : '' }}"><i class="fas fa-truck-moving fa-fw"></i>
                 &nbsp; Shipping</li>
@@ -31,6 +35,10 @@
         <a href="{{ route('admin.sliders') }}">
             <li class="{{ request()->is('admin/sliders') ? 'active' : '' }}"><i class="fas fa-images fa-fw"></i>
                 &nbsp; Sliders Image</li>
+        </a>
+         <a href="{{ route('admin.perfume') }}">
+            <li class="{{ request()->is('admin/perfume') ? 'active' : '' }}"><i class="fas fa-image fa-fw"></i>
+                &nbsp; Perfume Altar Image</li>
         </a>
         <a href="{{ route('admin.paymentMethods') }}">
             <li class="{{ request()->is('admin/paymentMethods') ? 'active' : '' }}"><i

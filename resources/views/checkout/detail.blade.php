@@ -231,6 +231,22 @@
                                             </div>
                                         </div>
                                         <div class="row g-0">
+                                            @if(strtolower($item->products->title) == 'dia & diriku')
+                                                <div class="mb-4">
+                                                    <label class="form-label fw-bold">Status Hubungan Dengan Dia</label>
+                                                    <select class="form-select" name="relationshipStatus[]"
+                                                        id="relationshipStatus"
+                                                        @if (strtolower($item->products->title) === 'dia & diriku') required @endif
+                                                        >
+                                                        <option value="" disabled selected>Pilih</option>
+                                                        <option value="crush">Sekedar Crush</option>
+                                                        <option value="pdkt">Sedang PDKT</option>
+                                                        <option value="pacaran">Pacaran</option>
+                                                        <option value="menikah">Menikah</option>
+                                                        <option value="mantan">Mantan</option>
+                                                    </select>
+                                                </div>
+                                            @endif
                                             @if ($item->products->question === 'yes' && strtolower($item->products->title) !== 'mencari jodoh')
                                                 <h6 class="mb-2">
                                                     {{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}
@@ -259,7 +275,7 @@
                                                         @if (strtolower($item->products->title) === 'mencari jodoh') required @endif novalidate>
                                                 </div>
                                                 <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                    <label class="form-label">Kamu</label>
+                                                    <label class="form-label fw-bold">Kamu Mencari..</label>
                                                     <select class="form-select" name="genderQuestion[]"
                                                         id="genderQuestion"
                                                         @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif
@@ -270,7 +286,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
-                                                    <label class="form-label">Mencari</label>
+                                                    <label class="form-label fw-bold">Mencari Seorang..</label>
                                                     <select class="form-select" name="genderQuestion2[]"
                                                         id="genderQuestion"
                                                         @if (strtolower($item->products->title) === 'mencari jodoh') @if (strtolower($item->products->title) === 'mencari jodoh') required @endif

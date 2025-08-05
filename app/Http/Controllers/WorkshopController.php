@@ -49,15 +49,19 @@ class WorkshopController extends Controller {
         $fullPrice = 0;
         $discountPrice = null;
         $auth = Auth::user();
-
+        
         $alreadyBuy = false;
+        
         foreach($workshop->course as $course) {
             $fullPrice = $course->price + $fullPrice;
 
-            foreach($course->sales as $sale) {
-                if($sale->status == 'settlement' && $sale->user_id === $auth->id) {
-                    $alreadyBuy = true;
-                    $course->status = 'active';
+            // Only check if user is authenticated
+            if($auth) {
+                foreach($course->sales as $sale) {
+                    if($sale->status == 'settlement' && $sale->user_id === $auth->id) {
+                        $alreadyBuy = true;
+                        $course->status = 'active';
+                    }
                 }
             }
         }
@@ -65,6 +69,7 @@ class WorkshopController extends Controller {
         if($workshop->discount) {
             $fullPrice = $fullPrice - ($fullPrice * $workshop->discount / 100);
         }
+        
         return view('workshop/workshop-detail', compact('workshop', 'fullPrice', 'alreadyBuy'));
     }
 

@@ -234,6 +234,9 @@ class SalesController extends Controller
                     if ($sku) {
                         if (strtolower($sku->products->title) != 'mencari jodoh') {
                             $sku->sales()->updateExistingPivot($sales, ['question' => $item_question[$key]]);
+                            if (strtolower($sku->products->title) == 'dia & diriku') {
+                                $sku->sales()->updateExistingPivot($sales, ['relationship_status' => $request->relationshipStatus[0]]);
+                            }
                         } else {
                             $sku->sales()->updateExistingPivot($sales, ['question' => $item_genderquestion]);
                         }

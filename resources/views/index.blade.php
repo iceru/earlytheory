@@ -59,7 +59,7 @@
             <a href="https://shope.ee/3pzPWRt09j" target="_blank">
                 <section class="index-section index-article">
                     <div class="bg">
-                        <img src="/images/Tes3.png" alt="">
+                        <img src={{ Storage::url('perfume-image/'.$perfume->image) }} alt="">
                     </div>
                 </section>
             </a>

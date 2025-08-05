@@ -54,7 +54,7 @@
                                                 <h3>{{ $item->associatedModel->title }}</h3>
                                             </div>
                                         </a>
-                                        @if ($item->attributes->values)
+                                        @if ($item->attributes->values && is_string($item->attributes->values))
                                             <div class="d-flex align-items-center gap-2 mb-2">
                                                 <p>Variant: <strong>{{ $item->attributes->values }}</strong></p>
                                                 <button type="button" id="changeVariant" data-id="{{ $item->id }}"
