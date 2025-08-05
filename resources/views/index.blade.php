@@ -59,7 +59,9 @@
             <a href="https://shope.ee/3pzPWRt09j" target="_blank">
                 <section class="index-section index-article">
                     <div class="bg">
-                        <img src={{ Storage::url('perfume-image/'.$perfume->image) }} alt="">
+                        @if ($perfume && $perfume->image)
+                            <img src={{ Storage::url('perfume-image/'.$perfume->image) }} alt="">
+                        @endif
                     </div>
                 </section>
             </a>
