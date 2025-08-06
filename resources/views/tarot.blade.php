@@ -11,6 +11,7 @@
                 <button class="sku-popup-close" onclick="closeSkuPopup()">&times;</button>
             </div>
             <div class="sku-popup-content">
+                <h4 class="mb-2">Pilih Area Ketemu</h4>
                 <div id="skuVariants" class="sku-variants">
                     <!-- SKU variants will be populated here -->
                 </div>
