@@ -228,6 +228,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
 
     Route::get('/admin/schedule', [AdminScheduleController::class, 'index'])->name('admin.schedule.index');
     Route::get('/admin/schedule/{id}/confirm', [AdminScheduleController::class, 'confirm'])->name('admin.schedule.confirm');
+    Route::get('/admin/schedule/{id}/delete', [AdminScheduleController::class, 'delete'])->name('admin.schedule.delete');
 
     Route::get('/admin/shipping', [AdminTrackingController::class, 'index'])->name('admin.tracking');
     Route::get('/admin/shipping/update/{id}', [AdminTrackingController::class, 'update'])->name('admin.tracking.update');

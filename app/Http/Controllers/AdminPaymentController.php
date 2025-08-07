@@ -24,14 +24,10 @@ class AdminPaymentController extends Controller
          try {
             // Validate the request
             $validator = Validator::make($request->all(), [
-                'start_date' => 'required|date',
-                'end_date' => 'required|date|after_or_equal:start_date',
+                'start_date' => 'required|date'
             ], [
                 'start_date.required' => 'Start date is required',
                 'start_date.date' => 'Start date must be a valid date',
-                'end_date.required' => 'End date is required',
-                'end_date.date' => 'End date must be a valid date',
-                'end_date.after_or_equal' => 'End date must be after or equal to start date',
             ]);
 
             if ($validator->fails()) {
@@ -54,7 +50,6 @@ class AdminPaymentController extends Controller
             // Update sales with schedule dates and status
             $sales->status = 'schedule';
             $sales->start_date = $request->start_date;
-            $sales->end_date = $request->end_date;
             $sales->save();
 
             // Return success response for AJAX
@@ -67,7 +62,6 @@ class AdminPaymentController extends Controller
                         'sales_no' => $sales->sales_no,
                         'status' => $sales->status,
                         'start_date' => $sales->start_date,
-                        'end_date' => $sales->end_date
                     ]
                 ]);
             }

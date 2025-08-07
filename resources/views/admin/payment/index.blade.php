@@ -98,22 +98,13 @@
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="start_date" class="form-label">
-                                        <i class="fa fa-calendar-plus me-1"></i>Start Date
+                                        <i class="fa fa-calendar-plus me-1"></i>Schedule Date
                                     </label>
                                     <input type="text" class="form-control datepicker" id="start_date" name="start_date" 
-                                           placeholder="Select start date" readonly required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="end_date" class="form-label">
-                                        <i class="fa fa-calendar-minus me-1"></i>End Date
-                                    </label>
-                                    <input type="text" class="form-control datepicker" id="end_date" name="end_date" 
-                                           placeholder="Select end date" readonly required>
+                                           placeholder="Select schedule date" readonly required>
                                 </div>
                             </div>
                         </div>
@@ -158,32 +149,16 @@
                     $('#end_date').datepicker('setStartDate', startDate);
                 });
 
-                $('#end_date').on('changeDate', function(selected) {
-                    var endDate = new Date(selected.date.valueOf());
-                    $('#start_date').datepicker('setEndDate', endDate);
-                });
-
                 // Handle form submission
                 $('#scheduleForm').on('submit', function(e) {
                     e.preventDefault();
                     
                     var startDate = $('#start_date').val();
-                    var endDate = $('#end_date').val();
                     
-                    if (!startDate || !endDate) {
+                    if (!startDate) {
                         Swal.fire({
                             title: 'Validation Error',
-                            text: 'Please select both start and end dates',
-                            icon: 'warning',
-                            confirmButtonText: 'OK'
-                        });
-                        return;
-                    }
-
-                    if (new Date(startDate) > new Date(endDate)) {
-                        Swal.fire({
-                            title: 'Validation Error',
-                            text: 'Start date cannot be later than end date',
+                            text: 'Please select schedule date',
                             icon: 'warning',
                             confirmButtonText: 'OK'
                         });

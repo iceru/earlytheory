@@ -24,4 +24,14 @@ class AdminScheduleController extends Controller
 
         return redirect('/admin/schedule');
     }
+
+    public function delete($id)
+    {
+        $sales = Sales::find($id);
+
+        $sales->status = 'paid';
+        $sales->save();
+
+        return redirect('/admin/schedule');
+    }
 }
