@@ -105,9 +105,11 @@
             <section class="section-side">
                 <a href="https://shope.ee/3pzPWRt09j" target="_blank" class="index-small">
                     <section class="index-section index-article">
-                        @if ($perfume && $perfume->image)
-                            <img src={{ Storage::url('perfume-image/'.$perfume->image) }} alt="">
-                        @endif
+                        <div class="bg">
+                            @if ($perfume && $perfume->image)
+                                <img src={{ Storage::url('perfume-image/'.$perfume->image) }} alt="">
+                            @endif
+                        </div>
                     </section>
                 </a>
                 <a href="{{ route('workshops') }}" class="index-kelas">
