@@ -12,9 +12,11 @@ class AdminPaymentController extends Controller
 {
     public function index()
     {
-        $sales = Sales::where('status', 'paid')->with('additional')
+        $sales = Sales::where('status', 'paid')->with(['additional', 'course'])
             ->orderBy('created_at', 'desc')->get();
-
+        foreach ($sales as $sale) {
+            $sale->isCourse = $sale->course->isNotEmpty();
+        }
         return view('admin.payment.index', compact('sales'));
     }
 
@@ -87,6 +89,17 @@ class AdminPaymentController extends Controller
             return redirect('/admin/confirm-payment')
                 ->with('error', 'An error occurred while confirming the payment. Please try again.');
         }
+    }
+
+    public function course($id)
+    {
+        $sales = Sales::find($id);
+
+        $sales->status = 'settlement';
+        $sales->save();
+
+        return redirect('/admin/confirm-payment')
+            ->with('success', 'Course confirmed successfully');
     }
 
     public function deleteAll()

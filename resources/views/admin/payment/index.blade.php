@@ -60,6 +60,16 @@
                                 <td>-</td>
                             @endif
                             <td>
+                                @if($sale->isCourse)
+                                  <a href="/admin/confirm-payment/{{ $sale->id }}/confirm/course"
+                                    class="btn btn-success d-flex align-items-center justify-content-center mb-2 btn-sm">
+                                     <i class="fa fa-check me-1" aria-hidden="true"></i> Confirm
+                                  </a>
+                                @else
+                                <button onclick="showScheduleModal({{ $sale->id }})"
+                                    class="btn btn-success d-flex align-items-center justify-content-center mb-2 btn-sm">
+                                    <i class="fa fa-check me-1" aria-hidden="true"></i> Confirm
+                                </button>
                                 @if (!$sale->additional->isEmpty())
                                     <a href="/admin/additional/{{ $sale->id }}"
                                         class="button secondary d-flex align-items-center btn-sm justify-content-center mb-2"><i
@@ -68,14 +78,12 @@
                                 @endif
 
                                 <a href="/admin/sales/{{ $sale->id }}"
-                                    class="btn btn-primary justify-content-center d-flex align-items-center  btn-sm mb-2">
+                                    class="btn btn-primary justify-content-center d-flex align-items-center btn-sm mb-2">
                                     <i class="fa fa-info-circle me-1" aria-hidden="true"></i> Detail</a>
-                                <button onclick="showScheduleModal({{ $sale->id }})"
-                                    class="btn btn-success d-flex align-items-center justify-content-center mb-2 btn-sm">
-                                    <i class="fa fa-check me-1" aria-hidden="true"></i> Confirm</button>
+                                @endif
                                 <button onclick="deleteConfirmation({{ $sale->id }})"
-                                    class="btn btn-danger d-flex align-items-center btn-sm"><i
-                                        class="fas fa-trash    "></i> <span class="ms-1">Delete</span></button>
+                                    class="btn btn-danger justify-content-center d-flex align-items-center btn-sm mb-2 w-100"><i
+                                        class="fas fa-trash"></i> <span class="ms-1">Delete</span></button>
                             </td>
                         </tr>
                     @endforeach
@@ -214,7 +222,7 @@
                 });
             });
 
-            function showScheduleModal(saleId) {
+            function showScheduleModal(saleId, isCourse) {
                 // Set the form action URL
                 $('#scheduleForm').attr('action', '/admin/confirm-payment/' + saleId + '/confirm');
                 

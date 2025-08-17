@@ -225,6 +225,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
 
     Route::get('/admin/confirm-payment', [AdminPaymentController::class, 'index'])->name('admin.confirm-payment');
     Route::post('/admin/confirm-payment/{id}/confirm', [AdminPaymentController::class, 'confirm'])->name('admin.confirm-payment.confirm');
+    Route::get('/admin/confirm-payment/{id}/confirm/course', [AdminPaymentController::class, 'course'])->name('admin.confirm-payment.course');
 
     Route::get('/admin/schedule', [AdminScheduleController::class, 'index'])->name('admin.schedule.index');
     Route::get('/admin/schedule/{id}/confirm', [AdminScheduleController::class, 'confirm'])->name('admin.schedule.confirm');
