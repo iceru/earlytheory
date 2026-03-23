@@ -3,9 +3,6 @@
 use App\Http\Controllers\AdminPerfumeController;
 use App\Http\Controllers\AdminScheduleController;
 use App\Http\Controllers\EstimateController;
-use App\Models\Sales;
-use App\Mail\UserTransaction;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
@@ -21,7 +18,6 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\WorkshopController;
 use App\Http\Controllers\AdminTagsController;
 use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\HoroscopeController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\SocialLoginController;
@@ -250,7 +246,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/admin/user/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.users.edit');
     Route::post('/admin/user/update', [AdminUserController::class, 'update'])->name('admin.users.update');
 
-    
+
     Route::get('/admin/perfume', [AdminPerfumeController::class, 'index'])->name('admin.perfume');
     Route::get('/admin/perfume/edit/{id}', [AdminPerfumeController::class, 'edit'])->name('admin.perfume.edit');
     Route::post('/admin/perfume/store', [AdminPerfumeController::class, 'store'])->name('admin.perfume.store');

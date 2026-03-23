@@ -239,3 +239,17 @@
         }
     }
 }
+
+.account__emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 1rem;
+    border: 2px dashed #ddd;
+
+    p {
+        margin-bottom: 1.5rem;
+        font-size: 1.125rem;
+        color: #666;
+    }
+}

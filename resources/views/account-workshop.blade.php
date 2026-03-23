@@ -13,7 +13,7 @@
 
         <div class="account-content">
             <div class="account__workshopWrapper">
-                @foreach ($ownedWorkshops as $item)
+                @forelse ($ownedWorkshops as $item)
                     <div class="account__workshopItem">
                         <div class="d-flex align-items-center">
                             <div class="account__workshopImage">
@@ -27,7 +27,14 @@
                             </a>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="account__emptyState">
+                        <p>Anda belum memiliki kelas atau workshop.</p>
+                        <a class="button" href="{{ route('workshops') }}">
+                            Cari Kelas & Workshop
+                        </a>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
