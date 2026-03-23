@@ -77,12 +77,14 @@
                             Sales Number</p>
                           <p
                             style="margin:0 0 16px 0;font-family:Georgia,serif;font-size:15px;color:#e6ff19;font-weight:bold;">
-                            {{ $sales->sales_no }}</p>
+                            {{ $sales->sales_no }}
+                          </p>
                           <p
                             style="margin:0 0 4px 0;font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9b7dca;">
                             Full Name</p>
                           <p style="margin:0;font-family:Georgia,serif;font-size:15px;color:#ffffff;">
-                            {{ $sales->user->name }}</p>
+                            {{ $sales->user->name }}
+                          </p>
                         </td>
                       </tr>
                     </table>
@@ -95,13 +97,16 @@
                           <p
                             style="margin:0 0 4px 0;font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9b7dca;">
                             Email Address</p>
-                          <p style="margin:0 0 16px 0;font-family:Georgia,serif;font-size:15px;color:#ffffff;">
-                            {{ $sales->user->email }}</p>
+                          <p
+                            style="margin:0 0 16px 0;font-family:Georgia,serif;font-size:15px;color:#ffffff !important;">
+                            {{ $sales->user->email }}
+                          </p>
                           <p
                             style="margin:0 0 4px 0;font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9b7dca;">
                             Phone Number</p>
                           <p style="margin:0;font-family:Georgia,serif;font-size:15px;color:#ffffff;">
-                            {{ $sales->user->phone }}</p>
+                            {{ $sales->user->phone }}
+                          </p>
                         </td>
                       </tr>
                     </table>
@@ -114,12 +119,9 @@
 
           <!-- Footer -->
           <tr>
-            <td style="padding:32px 40px 40px 40px;text-align:center;background:#1a0f2e;border-top:1px solid #2d1a52;">
+            <td style="padding:32px 40px 40px 40px;text-align:center;background:#e6ff19;border-top:1px solid #2d1a52;">
               <img src="https://earlytheory.com/images/MainLogo.png" alt="Early Theory" width="160"
                 style="display:inline-block;max-width:160px;">
-              <p
-                style="margin:16px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#6b4fa8;letter-spacing:1px;">
-                Questions? Reply to this email and we'll be happy to help.</p>
             </td>
           </tr>
 

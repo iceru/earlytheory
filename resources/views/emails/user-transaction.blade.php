@@ -130,6 +130,9 @@
                       style="padding:12px 16px;text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#e8dff7;font-weight:normal;border-radius:8px 0 0 0;">
                       Item</th>
                     <th
+                      style="padding:12px 16px;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#e8dff7;font-weight:normal;">
+                      Qty</th>
+                    <th
                       style="padding:12px 16px;text-align:right;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#e8dff7;font-weight:normal;border-radius:0 8px 0 0;">
                       Price</th>
                   </tr>
@@ -139,6 +142,10 @@
                     <tr style="border-bottom:1px solid #ede9f5;">
                       <td style="padding:14px 16px;font-family:Georgia,serif;font-size:15px;color:#2d1a52;">
                         {{ $product->title }}
+                      </td>
+                      <td
+                        style="padding:14px 16px;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#6b4fa8;">
+                        {{ $product->pivot->qty }}
                       </td>
                       <td
                         style="padding:14px 16px;text-align:right;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#2d1a52;">
