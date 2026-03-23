@@ -23,7 +23,7 @@ class LaratrustSeeder extends Seeder
         if ($config === null) {
             $this->command->error("The configuration has not been published. Did you run `php artisan vendor:publish --tag=\"laratrust-seeder\"`");
             $this->command->line('');
-            return false;
+            return;
         }
 
         $mapPermission = collect(config('laratrust_seeder.permissions_map'));
@@ -68,7 +68,7 @@ class LaratrustSeeder extends Seeder
                     'email' => $key.'@app.com',
                     'password' => bcrypt('password')
                 ]);
-                $user->attachRole($role);
+                $user->addRole($role);
             }
 
         }
