@@ -12,11 +12,6 @@
         <h3 class="account__titlePage">Edit Profile</h3>
 
         <div class="account-content">
-            @if (session('success'))
-                <div class="alert alert-success my-3">
-                    {{ session('success') }}
-                </div>
-            @endif
             <form action="{{ route('user.account-update') }}" method="POST">
                 @csrf
                 <div class="account_editWrapper">
@@ -53,8 +48,8 @@
 
                         <div class="form-group">
                             <label for="inputPhone">Nomor Telepon</label>
-                            <input type="tel" class="form-control"
-                                value="{{ old('phone', optional($user)->phone) }}" name="phone" required>
+                            <input type="tel" class="form-control" value="{{ old('phone', optional($user)->phone) }}"
+                                name="phone" required>
                         </div>
 
                         <div class="form-group ">
@@ -80,7 +75,7 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#datepicker").datepicker({
                 changeMonth: true,
                 changeYear: true,

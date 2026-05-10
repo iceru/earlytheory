@@ -32,18 +32,20 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        $normalizedPhone = preg_replace('/\D+/', '', (string) $request->phone);
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'nullable|string|email|max:255|unique:users,email',
             'password' => 'required|string|confirmed|min:8',
-            'phone' => 'required|string',
+            'phone' => 'required|string|unique:users,phone',
         ]);
 
         Auth::login($user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'phone' => $request->phone,
+            'phone' => $normalizedPhone,
         ]));
         $user->addRole('user');
 

@@ -1,8 +1,8 @@
 <x-app-layout>
     @section('title')
-    Login
+        Login
     @endsection
-    
+
     <x-auth-card>
         <h5 class="evogria mb-4 text-center">Login</h5>
 
@@ -19,30 +19,30 @@
         <form method="POST" action="{{ route('login') }}" class="container">
             @csrf
 
-            <!-- Email Address -->
+            <!-- Email or Phone -->
             <div class="row align-items-center me-0">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="login" :value="__('Phone or Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required
+                    autofocus />
             </div>
 
             <!-- Password -->
             <div class="row mt-2 me-0 align-items-center">
                 <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="current-password" />
             </div>
 
             <!-- Remember Me -->
-           <div class="row mt-3 me-0">
+            <div class="row mt-3 me-0">
                 <label for="remember_me" class="d-flex align-items-center">
-                    <input id="remember_me" type="checkbox" class="rounded pr-2" name="remember" style="margin-right: .5rem">
+                    <input id="remember_me" type="checkbox" class="rounded pr-2" name="remember"
+                        style="margin-right: .5rem">
                     <span class="pl-2 ">{{ __('Remember me') }}</span>
                 </label>
-           </div>
+            </div>
 
             <div class="row align-items-center mt-3 me-0 ">
                 @if (Route::has('password.request'))
