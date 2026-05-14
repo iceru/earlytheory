@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="email" class="form-label">Alamat Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="" type="email" value="{{ $user->email }}" required value="{{ $additional && $additional->email ? $additional->email : '' }}">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="" type="email" value="{{ $user->email }}" value="{{ $additional && $additional->email ? $additional->email : '' }}">
                                 </div>
                                 @if (str_contains(strtolower($item->products->slug), 'jam-lahir'))
                                 <div class="note">

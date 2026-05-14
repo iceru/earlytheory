@@ -79,7 +79,9 @@ class AdminTrackingController extends Controller
         $sales->tracking_no = $request->tracking_no;
         $sales->save();
 
-        Mail::send(new TrackingNumber($sales));
+        if (!empty(optional($sales->user)->email)) {
+            Mail::send(new TrackingNumber($sales));
+        }
 
         return redirect()->route('admin.tracking');
     }

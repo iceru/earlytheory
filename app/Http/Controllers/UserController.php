@@ -65,7 +65,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'nullable|email',
             'phone' => 'required',
             'birthdate' => 'required|before:12/30/2012',
         ]);
@@ -195,7 +195,9 @@ class UserController extends Controller
                 $sku->save();
             }
 
-            Mail::send(new UserTransaction($sales));
+            if (!empty($sales->user->email)) {
+                Mail::send(new UserTransaction($sales));
+            }
             Mail::send(new AdminNotification($sales));
 
             if ($additional) {

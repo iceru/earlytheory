@@ -882,7 +882,9 @@ class SalesController extends Controller
                     $sku->save();
                 }
 
-                Mail::send(new UserTransaction($sales));
+                if (!empty($sales->user->email)) {
+                    Mail::send(new UserTransaction($sales));
+                }
                 Mail::send(new AdminNotification($sales));
                 
 
@@ -901,7 +903,7 @@ class SalesController extends Controller
                 }
                 $workshops = array_unique($workshops);
 
-                if(count($workshops) > 0) { 
+                if (count($workshops) > 0 && !empty($sales->user->email)) {
                     Mail::send(new WorkshopEmail($sales, $workshops));
                 }
  
