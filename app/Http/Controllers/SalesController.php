@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\WorkshopEmail;
-use Carbon\Carbon;
 use App\Models\SKUs;
 use App\Models\Sales;
 use App\Models\Course;
+use App\Support\PhoneNumber;
 use App\Models\Discount;
 use App\Models\Products;
 use App\Models\SKUvalues;
@@ -48,7 +48,7 @@ class SalesController extends Controller
                 // $product->save();
                 // $product = Products::find($item->attributes->product_id);
                 // $product->stock = $product->stock-$item->quantity;
-                if($item->attributes->type === 'course') {
+                if ($item->attributes->type === 'course') {
                     $course = Course::find($item->id);
                     $course->sales()->attach($sales, ['created_at' => date("Y-m-d h:i:s")]);
                     $course->save();
@@ -95,11 +95,11 @@ class SalesController extends Controller
             }
         }
         $workshops = array();
-        foreach($sales->course as $course) {
+        foreach ($sales->course as $course) {
             array_push($workshops, $course->workshop);
         }
         $workshops = array_unique($workshops);
-    
+
         if ($user->id == $sales->user_id) {
             if ($is_product > 0) {
                 $address = ShippingAddress::where('user_id', $user->id)->get();
@@ -200,7 +200,7 @@ class SalesController extends Controller
         if ($user->id == $sales->user_id) {
             $request->validate([
                 'inputRelationship' => 'nullable',
-                'inputPhone' => 'nullable',
+                'inputPhone' => 'nullable|string|max:32',
                 'inputBirthdate' => 'nullable|before:12/30/2012',
                 'inputPekerjaan' => 'nullable',
                 'inputGender' => 'nullable|in:laki-laki,perempuan',
@@ -210,7 +210,12 @@ class SalesController extends Controller
 
             if ($user->phone == '' || $user->birthdate == '') {
                 if ($user->phone == '') {
-                    $user->phone = $request->inputPhone;
+                    $phoneRegion = $request->input('inputPhone_region', 'ID');
+                    if (!PhoneNumber::isValid($request->inputPhone, $phoneRegion)) {
+                        return back()->withErrors(['inputPhone' => 'Enter a valid phone number for the selected country.'])
+                            ->withInput();
+                    }
+                    $user->phone = PhoneNumber::normalize($request->inputPhone, $phoneRegion);
                 }
                 if ($user->birthdate == '') {
                     $user->birthdate = $request->inputBirthdate;
@@ -228,7 +233,7 @@ class SalesController extends Controller
                 $item_genderquestion = 'Saya cenderung mencari yang etnis / agamanya ' . ucfirst($request->genderQuestion3[0]) . '. 
                 Saya ' . ucfirst($request->genderQuestion[0]) . ', mencari ' . ucfirst($request->genderQuestion2[0]);
             }
-            if(is_array($item_id)) {
+            if (is_array($item_id)) {
                 foreach ($item_id as $key => $i) {
                     $sku = SKUs::find($item_id[$key]);
                     if ($sku) {
@@ -317,7 +322,7 @@ class SalesController extends Controller
             if (!$additional) {
                 $additional = new AdditionalQuestion;
             }
-           
+
             $request->validate([
                 'name' => 'nullable',
                 'birthdate' => 'nullable|before:12/30/2012',
@@ -325,7 +330,7 @@ class SalesController extends Controller
                 'age' => 'nullable',
                 'birthtime' => 'nullable',
                 'checkbirthtime' => 'nullable',
-                'phone' => 'nullable',
+                'phone' => 'nullable|string|max:32',
                 'email' => 'nullable',
                 'topikasmara' => 'nullable',
                 'jabatan' => 'nullable',
@@ -342,6 +347,12 @@ class SalesController extends Controller
                 'nama_orang' => 'nullable',
                 'siapa_dia' => 'nullable',
             ]);
+
+            $phoneRegion = $request->input('phone_region', 'ID');
+            if ($request->filled('phone') && !PhoneNumber::isValid($request->phone, $phoneRegion)) {
+                return back()->withErrors(['phone' => 'Enter a valid phone number for the selected country.'])
+                    ->withInput();
+            }
 
             foreach ($sales->skus as $item) {
                 if ($item->products->additional_question === 'spiritual') {
@@ -394,7 +405,7 @@ class SalesController extends Controller
             $additional->age = $request->age;
             $additional->birthtime = $request->birthtime;
             $additional->checkbirthtime = $request->checkbirthtime;
-            $additional->phone = $request->phone;
+            $additional->phone = PhoneNumber::normalize($request->phone, $phoneRegion);
             $additional->email = $request->email;
             $additional->topikasmara = $request->topikasmara;
             $additional->jabatan = $request->jabatan;
@@ -422,7 +433,7 @@ class SalesController extends Controller
 
             $additional->save();
 
-            return redirect()->route('sales.summary',  ['id' => $sales->sales_no]);
+            return redirect()->route('sales.summary', ['id' => $sales->sales_no]);
         } else {
             return redirect('/');
         }
@@ -647,7 +658,7 @@ class SalesController extends Controller
                 }
             }
             $workshops = array();
-            foreach($sales->course as $course) {
+            foreach ($sales->course as $course) {
                 array_push($workshops, $course->workshop);
             }
             $workshops = array_unique($workshops);
@@ -688,11 +699,11 @@ class SalesController extends Controller
                 $disc_code = strtoupper($request->inputDiscount);
                 $discount = Discount::where('code', $disc_code)->first();
 
-                if($discount->quota_redeem < 1) {
+                if ($discount->quota_redeem < 1) {
                     return redirect()->back()->with('error', 'Discount Habis!');
                 }
 
-                if ($discount && $discount->products->count() < 1 ) {
+                if ($discount && $discount->products->count() < 1) {
                     if ($sales->total_price >= $discount->min_total) {
                         $nominal = $discount->nominal;
 
@@ -852,7 +863,7 @@ class SalesController extends Controller
                 $discount = Discount::where('code', $disc_code)->first();
 
                 if ($discount && $discount->products->count() < 1) {
-                    if($discount->quota_redeem < 10000 && $discount->quota_redeem > 0) {
+                    if ($discount->quota_redeem < 10000 && $discount->quota_redeem > 0) {
                         $discount->quota_redeem -= 1;
                         $discount->save();
                     }
@@ -860,7 +871,7 @@ class SalesController extends Controller
                     foreach ($sales->skus as $item) {
                         foreach ($discount->products as $disc_product) {
                             if ($item->products->id == $disc_product->id) {
-                                if($discount->quota_redeem < 10000 && $discount->quota_redeem > 0) {
+                                if ($discount->quota_redeem < 10000 && $discount->quota_redeem > 0) {
                                     $discount->quota_redeem -= 1;
                                     $discount->save();
                                 }
@@ -886,7 +897,7 @@ class SalesController extends Controller
                     Mail::send(new UserTransaction($sales));
                 }
                 Mail::send(new AdminNotification($sales));
-                
+
 
                 if ($additional) {
                     if ($is_astro) {
@@ -898,7 +909,7 @@ class SalesController extends Controller
                 }
 
                 $workshops = array();
-                foreach($sales->course as $course) {
+                foreach ($sales->course as $course) {
                     array_push($workshops, $course->workshop);
                 }
                 $workshops = array_unique($workshops);
@@ -906,7 +917,7 @@ class SalesController extends Controller
                 if (count($workshops) > 0 && !empty($sales->user->email)) {
                     Mail::send(new WorkshopEmail($sales, $workshops));
                 }
- 
+
 
                 // //get city name
                 // if($sales->shippingAddress) {
@@ -939,7 +950,7 @@ class SalesController extends Controller
 
                 //     $sales->shippingAddress->city = $result->rajaongkir->results->type." ".$result->rajaongkir->results->city_name;
                 // }
-                
+
                 return redirect()->route('sales.success', ['id' => $sales->sales_no])->withCookie(cookie('discount', null, 10));
             } elseif ($is_soldout === 1) {
                 return redirect()->back()->with('soldout');
@@ -954,7 +965,7 @@ class SalesController extends Controller
         $user = Auth::user();
         $sales = Sales::where('sales_no', $id)->firstOrFail();
         $workshops = array();
-        foreach($sales->course as $course) {
+        foreach ($sales->course as $course) {
             array_push($workshops, $course->workshop);
         }
         $workshops = array_unique($workshops);

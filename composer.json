@@ -11,6 +11,7 @@
         "php": "^8.2",
         "darryldecode/cart": "^4.2",
         "drewm/mailchimp-api": "^2.5",
+        "giggsey/libphonenumber-for-php": "^9.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
         "laravel/framework": "^12.0",

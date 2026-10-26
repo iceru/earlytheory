@@ -17,6 +17,58 @@
     }
 }
 
+.auth-card.register-auth-card {
+    box-sizing: border-box;
+    width: min(100% - 2rem, 32rem);
+    padding: 2rem;
+
+    @include breakpoint(large) {
+        width: min(100% - 2rem, 32rem);
+    }
+}
+
+.register-auth-card {
+    .register-google img {
+        display: block;
+        width: 100%;
+        max-width: 240px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .register-fields {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .register-field label {
+        display: block;
+        margin: 0 0 .4rem;
+        font-weight: 600;
+    }
+
+    .register-field input.form-input {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-height: 2.8rem;
+        border-radius: .4rem;
+    }
+
+    .register-field .iti {
+        display: block;
+        width: 100%;
+    }
+
+    .register-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: .25rem;
+    }
+}
+
 .logo-login {
     a img {
         width: 60%;

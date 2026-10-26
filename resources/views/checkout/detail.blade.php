@@ -132,7 +132,8 @@
                         @if (empty($sales->user->phone))
                             <div class="form-group col-12 col-lg-6">
                                 <label for="inputPhone">No. Telepon</label>
-                                <input class="form-control" type="text" id="inputPhone" name="inputPhone" required>
+                                <x-international-phone-input id="inputPhone" name="inputPhone"
+                                    :value="old('inputPhone')" class="form-control" required />
                             </div>
                         @endif
                         @if (empty($sales->user->birthdate))

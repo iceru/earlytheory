@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Carbon\Carbon;
-use App\Models\SKUs;
+use App\Support\PhoneNumber;
 use App\Models\Sales;
-use App\Models\Products;
 use Illuminate\Http\Request;
-use App\Models\PaymentMethods;
-use App\Models\ShippingAddress;
 use App\Models\AdditionalQuestion;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Cache;
@@ -64,7 +61,7 @@ class AdminSalesController extends Controller
         $sales = Sales::findOrFail($id);
 
         $workshops = array();
-        foreach($sales->course as $course) {
+        foreach ($sales->course as $course) {
             array_push($workshops, $course);
         }
         $workshops = array_unique($workshops);
@@ -123,9 +120,23 @@ class AdminSalesController extends Controller
         $user_id = $sales->user_id;
         $user = User::find($user_id);
 
+        $phoneRegion = $request->input('updatePhone_region', 'ID');
+        if (!PhoneNumber::isValid($request->updatePhone, $phoneRegion)) {
+            return back()->withErrors(['updatePhone' => 'Enter a valid phone number for the selected country.'])
+                ->withInput();
+        }
+
+        if (
+            User::whereIn('phone', PhoneNumber::lookupCandidates($request->updatePhone, $phoneRegion))
+                ->where('id', '!=', $user->id)->exists()
+        ) {
+            return back()->withErrors(['updatePhone' => __('validation.unique', ['attribute' => 'phone'])])
+                ->withInput();
+        }
+
         $user->name = $request->updateName;
         $user->email = $request->updateEmail;
-        $user->phone = $request->updatePhone;
+        $user->phone = PhoneNumber::normalize($request->updatePhone, $phoneRegion);
         $user->birthdate = Carbon::parse($request->updateBirthdate)->format('Y-m-d');
 
         $user->save();

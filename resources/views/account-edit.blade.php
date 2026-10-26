@@ -41,15 +41,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="inputEmail">Email</label>
+                            <label for="inputEmail">Email (Optional)</label>
                             <input type="email" name="email" value="{{ old('email', optional($user)->email) }}"
-                                class="form-control" required>
+                                class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label for="inputPhone">Nomor Telepon</label>
-                            <input type="tel" class="form-control" value="{{ old('phone', optional($user)->phone) }}"
-                                name="phone" required>
+                            <x-international-phone-input id="inputPhone" name="phone"
+                                :value="old('phone', optional($user)->phone)" class="form-control" required />
                         </div>
 
                         <div class="form-group ">

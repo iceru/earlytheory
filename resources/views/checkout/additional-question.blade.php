@@ -48,9 +48,6 @@
 
                     </div>
                     <div class="col-12 mb-3" hidden>
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="" type="tel" value="{{ $user->phone }}">
-                    </div>
-                    <div class="col-12 mb-3" hidden>
                         <input type="email" class="form-control" name="email" id="email" placeholder="" type="email" value="{{ $user->email }}">
                     </div>
                     <input type="text" value="{{ $sales->id }}" name="salesId" hidden>
@@ -119,10 +116,14 @@
                                     </div>
                                 </div>
                                 @endif
-                                <div class="col-12 mb-3">
-                                    <label for="phone" class="form-label">Nomor Telepon</label>
-                                    <input type="tel" minlength="8" class="form-control" name="phone" id="phone" placeholder="" type="tel" value="{{ $user->phone }}" required value="{{ $additional && $additional->phone ? $additional->phone : '' }}">
-                                </div>
+                                @if ($loop->first)
+                                    <div class="col-12 mb-3">
+                                        <label for="phone-{{ $item->id }}" class="form-label">Nomor Telepon</label>
+                                        <x-international-phone-input id="phone-{{ $item->id }}" name="phone"
+                                            :value="old('phone', $additional && $additional->phone ? $additional->phone : $user->phone)"
+                                            class="form-control" required />
+                                    </div>
+                                @endif
                                 <div class="col-12 mb-3">
                                     <label for="email" class="form-label">Alamat Email</label>
                                     <input type="email" class="form-control" name="email" id="email" placeholder="" type="email" value="{{ $user->email }}" value="{{ $additional && $additional->email ? $additional->email : '' }}">

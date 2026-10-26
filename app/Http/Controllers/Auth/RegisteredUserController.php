@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
+use App\Support\PhoneNumber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,14 +32,23 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $normalizedPhone = preg_replace('/\D+/', '', (string) $request->phone);
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'nullable|string|email|max:255|unique:users,email',
             'password' => 'required|string|confirmed|min:8',
-            'phone' => 'required|string|unique:users,phone',
+            'phone' => 'required|string|max:32',
+            'whatsapp_phone_confirmed' => 'accepted',
         ]);
+
+        $phoneRegion = $request->input('phone_region', 'ID');
+        if (!PhoneNumber::isValid($request->phone, $phoneRegion)) {
+            return back()->withErrors(['phone' => 'Enter a valid phone number for the selected country.'])->withInput();
+        }
+
+        $normalizedPhone = PhoneNumber::normalize($request->phone, $phoneRegion);
+        if (User::whereIn('phone', PhoneNumber::lookupCandidates($request->phone, $phoneRegion))->exists()) {
+            return back()->withErrors(['phone' => __('validation.unique', ['attribute' => 'phone'])])->withInput();
+        }
 
         Auth::login($user = User::create([
             'name' => $request->name,

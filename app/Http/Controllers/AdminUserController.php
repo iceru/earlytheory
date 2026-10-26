@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Support\PhoneNumber;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminUserController extends Controller
 {
@@ -76,14 +78,24 @@ class AdminUserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => ['nullable', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             'phone' => 'required',
             'birthdate' => 'required',
         ]);
 
+        $phoneRegion = $request->input('phone_region', 'ID');
+        if (!PhoneNumber::isValid($request->phone, $phoneRegion)) {
+            return back()->withErrors(['phone' => 'Enter a valid phone number for the selected country.'])->withInput();
+        }
+
+        if (User::whereIn('phone', PhoneNumber::lookupCandidates($request->phone, $phoneRegion))
+            ->where('id', '!=', $user->id)->exists()) {
+            return back()->withErrors(['phone' => __('validation.unique', ['attribute' => 'phone'])])->withInput();
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone;
+        $user->phone = PhoneNumber::normalize($request->phone, $phoneRegion);
         $user->birthdate = $request->birthdate;
 
         $user->save();

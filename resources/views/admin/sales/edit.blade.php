@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Email</label>
+                    <label class="col-sm-2 col-form-label">Email (Optional)</label>
                     <div class="col-sm-10">
                         <input type="email" class="form-control" id="updateEmail" name="updateEmail"
                             value="{{ $sales->user->email }}">
@@ -41,8 +41,8 @@
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Phone Number</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="updatePhone" name="updatePhone"
-                            value="{{ $sales->user->phone }}">
+                        <x-international-phone-input id="updatePhone" name="updatePhone"
+                            :value="$sales->user->phone" class="form-control" />
                     </div>
                 </div>
                 <div class="mb-3 row">

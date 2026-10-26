@@ -3,7 +3,7 @@
         {{ $logo }}
     </div> --}}
 
-    <div class="auth-card">
+<div {{ $attributes->merge(['class' => 'auth-card']) }}>
         {{ $slot }}
     </div>
 </div>

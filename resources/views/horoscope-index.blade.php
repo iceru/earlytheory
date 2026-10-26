@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-12 col-lg-6 mb-3">
                     <div>
-                        <label for="" class="form-label">Email</label>
+                                <label for="" class="form-label">Email (Optional)</label>
                         <input type="email" class="form-control" name="email" id="email" placeholder=""
                             value="{{ $user ? $user->email : '' }}">
                     </div>
@@ -158,7 +158,7 @@
         var birthdate = $('#datepicker').val();
         var birthtime = $('#birthtime').val();
 
-        if (name === '' || email === '' || birthdate === '' || birthtime === '') {
+        if (name === '' || birthdate === '' || birthtime === '') {
             Swal.fire({
                 icon: "error",
                 title: "Isi form terlebih dahulu",

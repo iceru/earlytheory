@@ -4,6 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
 use App\Models\User;
+use App\Support\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -56,7 +57,7 @@ class LoginRequest extends FormRequest
                 'password' => $this->input('password'),
             ], $this->filled('remember'));
         } else {
-            $candidate = User::whereIn('phone', $this->phoneCandidates($login))->first();
+            $candidate = User::whereIn('phone', PhoneNumber::lookupCandidates($login))->first();
 
             if ($candidate && Hash::check($this->input('password'), $candidate->password)) {
                 Auth::login($candidate, $this->filled('remember'));
@@ -110,26 +111,4 @@ class LoginRequest extends FormRequest
         return Str::lower($this->input('login')).'|'.$this->ip();
     }
 
-    protected function phoneCandidates($phone)
-    {
-        $trimmed = trim((string) $phone);
-        $digits = preg_replace('/\D+/', '', $trimmed);
-
-        if ($digits === '') {
-            return [$trimmed];
-        }
-
-        $candidates = [$trimmed, $digits];
-
-        if (Str::startsWith($digits, '62')) {
-            $candidates[] = '0'.substr($digits, 2);
-        }
-
-        if (Str::startsWith($digits, '0')) {
-            $candidates[] = '62'.substr($digits, 1);
-            $candidates[] = '+62'.substr($digits, 1);
-        }
-
-        return array_values(array_unique(array_filter($candidates)));
-    }
 }

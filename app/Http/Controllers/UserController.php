@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Models\SKUs;
 use App\Models\User;
+use App\Support\PhoneNumber;
 use App\Models\Sales;
 use App\Models\Products;
 use App\Models\Workshop;
@@ -66,7 +67,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'nullable|email',
-            'phone' => 'required',
+            'phone' => 'required|string|max:32',
             'birthdate' => 'required|before:12/30/2012',
         ]);
 
@@ -76,10 +77,26 @@ class UserController extends Controller
                 ->withInput();
         };
 
+        $phoneRegion = $request->input('phone_region', 'ID');
+        if (!PhoneNumber::isValid($request->phone, $phoneRegion)) {
+            return redirect()->route('user.account-edit')
+                ->withErrors(['phone' => 'Enter a valid phone number for the selected country.'])
+                ->withInput();
+        }
+
+        $normalizedPhone = PhoneNumber::normalize($request->phone, $phoneRegion);
+
+        if (User::whereIn('phone', PhoneNumber::lookupCandidates($request->phone, $phoneRegion))
+            ->where('id', '!=', $user->id)->exists()) {
+            return redirect()->route('user.account-edit')
+                ->withErrors(['phone' => __('validation.unique', ['attribute' => 'phone'])])
+                ->withInput();
+        }
+
         $update = $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'phone' => $normalizedPhone,
             'birthdate' => $request->birthdate
         ])->save();
 
