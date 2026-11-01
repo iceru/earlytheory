@@ -31,7 +31,13 @@
                   </td>
                   <td style="vertical-align:middle;text-align:right;">
                     <p style="margin:0;color:#e8dff7;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Admin Notification</p>
-                    <p style="margin:4px 0 0 0;color:#e6ff19;font-family:Georgia,serif;font-size:20px;font-weight:normal;">New Order Received</p>
+                    <p style="margin:4px 0 0 0;color:#e6ff19;font-family:Georgia,serif;font-size:20px;font-weight:normal;">
+                      @if (count($notificationLabels) > 0)
+                        {{ implode(' / ', $notificationLabels) }} Order Received
+                      @else
+                        New Order Received
+                      @endif
+                    </p>
                   </td>
                 </tr>
               </table>

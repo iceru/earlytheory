@@ -313,6 +313,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-12 mb-3">
+                                    <label for="inputHasChildren" class="form-label">Status Anak</label>
+                                    <select class="form-select" name="inputHasChildren" id="inputHasChildren" required>
+                                        <option selected disabled value="">Select</option>
+                                        <option value="1" @selected($sales->has_children === true)>Punya Anak</option>
+                                        <option value="0" @selected($sales->has_children === false)>Tidak Punya Anak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-12 mb-3">
                                     <label for="inputGender" class="form-label">Jenis Kelamin</label>
                                     <select class="form-select" name="inputGender" id="inputGender" required>
                                         <option selected disabled value="">Select</option>

@@ -19,6 +19,7 @@ class Sales extends Model
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
+        'has_children' => 'boolean',
     ];
 
     public function products()

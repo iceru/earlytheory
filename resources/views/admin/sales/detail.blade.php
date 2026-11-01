@@ -96,6 +96,13 @@
         </div>
     </div>
     <div class="mb-1 row">
+        <label class="col-sm-3 col-form-label fw-bolder">Status Anak</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control-plaintext"
+                value="{{ is_null($sales->has_children) ? '-' : ($sales->has_children ? 'Punya Anak' : 'Tidak Punya Anak') }}" readonly>
+        </div>
+    </div>
+    <div class="mb-1 row">
         <label class="col-sm-3 col-form-label fw-bolder">Jenis Kelamin</label>
         <div class="col-sm-9">
             <input type="text" class="form-control-plaintext text-capitalize" value="{{ $sales->gender }}" readonly>

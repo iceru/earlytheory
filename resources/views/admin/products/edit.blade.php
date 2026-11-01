@@ -173,6 +173,17 @@
                             id="updateQuestionTitle" name="updateQuestionTitle">
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label" for="updateUrgent">Urgent Order</label>
+                    <div class="col-sm-10 d-flex align-items-center">
+                        <input type="hidden" name="updateUrgent" value="0">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="updateUrgent"
+                                name="updateUrgent" value="1" @checked(old('updateUrgent', $product->urgent))>
+                            <label class="form-check-label" for="updateUrgent">Show URGENT on admin email notifications</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="mb-3 row" hidden>
                     <label class="col-sm-2 col-form-label">Stock</label>
                     <div class="col-sm-10">

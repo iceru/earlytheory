@@ -9,6 +9,10 @@ class Products extends Model
 {
     protected $table = 'products';
 
+    protected $casts = [
+        'urgent' => 'boolean',
+    ];
+
     public function sales()
     {
         return $this->belongsToMany(Sales::class, 'products_sales', 'product_id', 'sales_id')->withPivot('question', 'qty');

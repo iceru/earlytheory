@@ -43,6 +43,30 @@
                 gap: 1rem;
             }
 
+            .login-register-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 2.75rem;
+                padding: .65rem 1rem;
+                border: 2px solid #4A2984;
+                border-radius: .35rem;
+                background-color: #4A2984;
+                color: #fff;
+                font-weight: 700;
+                line-height: 1.2;
+                text-align: center;
+                text-decoration: none;
+                transition: background-color .2s ease, color .2s ease;
+            }
+
+            .login-register-button:hover,
+            .login-register-button:focus {
+                background-color: #392067;
+                border-color: #392067;
+                color: #fff;
+            }
+
             .login-field .iti {
                 display: block;
                 width: 100%;
@@ -85,7 +109,7 @@
                     <label for="login_method_phone">
                         <input id="login_method_phone" type="radio" name="login_method" value="phone"
                             @checked(!filter_var(old('login', ''), FILTER_VALIDATE_EMAIL))>
-                        Telepon
+                        Phone
                     </label>
                     <label for="login_method_email">
                         <input id="login_method_email" type="radio" name="login_method" value="email"
@@ -95,7 +119,7 @@
                 </div>
 
                 <div class="login-field">
-                    <label for="login_phone">Nomor Telepon</label>
+                    <label for="login_phone">Phone Number</label>
                     <input id="login_phone" class="form-control" type="tel"
                         value="{{ filter_var(old('login', ''), FILTER_VALIDATE_EMAIL) ? '' : old('login') }}">
                 </div>
@@ -125,8 +149,8 @@
                 @endif
 
                 <div class="login-actions">
-                    <a class="primary-color fw-bold" href="{{ route('register') }}">
-                        Daftar sebagai pengguna baru
+                    <a class="login-register-button" href="{{ route('register') }}">
+                        Register as a New User
                     </a>
                     <x-button class="m-0">
                         {{ __('Login') }}

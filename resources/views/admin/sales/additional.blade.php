@@ -240,6 +240,15 @@
                                 </div>
                             </div>
                         @endif
+                        @if (!is_null($sales->has_children))
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 col-form-label fw-bolder">Status Anak</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control-plaintext"
+                                        value="{{ $sales->has_children ? 'Punya Anak' : 'Tidak Punya Anak' }}" readonly>
+                                </div>
+                            </div>
+                        @endif
                         @if ($sales->gender)
                             <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label fw-bolder">Jenis Kelamin</label>

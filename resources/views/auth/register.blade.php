@@ -62,6 +62,30 @@
                 margin-top: .25rem;
             }
 
+            .register-login-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 2.75rem;
+                padding: .65rem 1rem;
+                border: 2px solid #4A2984;
+                border-radius: .35rem;
+                background-color: #4A2984;
+                color: #fff;
+                font-weight: 700;
+                line-height: 1.2;
+                text-align: center;
+                text-decoration: none;
+                transition: background-color .2s ease, border-color .2s ease;
+            }
+
+            .register-login-button:hover,
+            .register-login-button:focus {
+                background-color: #392067;
+                border-color: #392067;
+                color: #fff;
+            }
+
             .register-whatsapp-confirmation {
                 display: flex;
                 align-items: flex-start;
@@ -129,11 +153,11 @@
                 <label class="register-whatsapp-confirmation" for="whatsapp_phone_confirmed">
                     <input id="whatsapp_phone_confirmed" type="checkbox" name="whatsapp_phone_confirmed" value="1"
                         required @checked(old('whatsapp_phone_confirmed'))>
-                    <span>Saya memastikan nomor telepon tersebut terdaftar di WhatsApp dan dapat dihubungi.</span>
+                    <span>I confirm that this phone number is registered on WhatsApp and can be contacted.</span>
                 </label>
 
                 <div class="register-actions">
-                    <a class="primary-color" href="{{ route('login') }}">{{ __('Already registered?') }}</a>
+                    <a class="register-login-button" href="{{ route('login') }}">Already registered?</a>
                     <x-button>{{ __('Register') }}</x-button>
                 </div>
             </div>

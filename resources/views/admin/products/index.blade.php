@@ -159,6 +159,18 @@
                 </div>
 
                 <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label" for="inputUrgent">Urgent Order</label>
+                    <div class="col-sm-10 d-flex align-items-center">
+                        <input type="hidden" name="inputUrgent" value="0">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="inputUrgent"
+                                name="inputUrgent" value="1" @checked(old('inputUrgent'))>
+                            <label class="form-check-label" for="inputUrgent">Show URGENT on admin email notifications</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Estimate Category</label>
                     <div class="col-sm-10">
                         <select class="form-select" aria-label="Select Estimate Category" name="estimate">
@@ -209,6 +221,7 @@
                                 <th>Category</th>
                                 <th>Additonal Quesiton</th>
                                 <th>Estimate</th>
+                                <th>Urgent</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -239,6 +252,7 @@
                                     <td>{{ ucfirst($service->category) }}</td>
                                     <td>{{ ucwords(str_replace('-', ' ', $service->additional_question)) }}</td>
                                     <td>{{ $service->estimate ? $service->estimate->title : '-' }}</td>
+                                    <td>{{ $service->urgent ? 'Yes' : 'No' }}</td>
                                     <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
                                             href="/admin/products/{{ $service->id }}/variant"><i
                                                 class="fas fa-list me-1"></i></i>
@@ -287,6 +301,7 @@
                                     <th>Description</th>
                                     <th>Category</th>
                                     <th>Additional Question</th>
+                                    <th>Urgent</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
@@ -314,6 +329,7 @@
                                         <td>{{ substr($product->description, 0, 100) . '...' }}</td>
                                         <td>{{ ucfirst($product->category) }}</td>
                                         <td>{{ ucfirst($product->additional_question) }}</td>
+                                        <td>{{ $product->urgent ? 'Yes' : 'No' }}</td>
                                         <td><a class="btn btn-secondary btn-small d-flex align-items-center justify-content-center mb-2"
                                                 href="/admin/products/{{ $product->id }}/variant"><i
                                                     class="fas fa-list me-1"></i></i>

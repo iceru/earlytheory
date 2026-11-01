@@ -180,6 +180,20 @@
                                 </select>
                             </div>
                             <div class="form-group col-12 col-lg-6">
+                                <label for="inputHasChildren">Status Anak</label>
+                                <select class="form-select" name="inputHasChildren" id="inputHasChildren" required>
+                                    <option selected disabled value="">Select</option>
+                                    <option value="1"
+                                        @selected((string) old('inputHasChildren', is_null($sales->has_children) ? '' : ($sales->has_children ? '1' : '0')) === '1')>
+                                        Punya Anak
+                                    </option>
+                                    <option value="0"
+                                        @selected((string) old('inputHasChildren', is_null($sales->has_children) ? '' : ($sales->has_children ? '1' : '0')) === '0')>
+                                        Tidak Punya Anak
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12 col-lg-6">
                                 <label for="inputGender">Jenis Kelamin</label>
                                 <select class="form-select" name="inputGender" id="inputGender" required>
                                     <option selected disabled value="">Select</option>
@@ -232,6 +246,20 @@
                                             </div>
                                         </div>
                                         <div class="row g-0">
+                                            @php
+                                                $questionTitle = $item->products->question_title ?: 'Jabarkan pertanyaanmu disini';
+                                                $normalizedQuestionTitle = strtolower($questionTitle);
+                                                $isChildStatusQuestion = (
+                                                    strpos($normalizedQuestionTitle, 'anak') !== false
+                                                    && (strpos($normalizedQuestionTitle, 'status') !== false
+                                                        || strpos($normalizedQuestionTitle, 'punya') !== false
+                                                        || strpos($normalizedQuestionTitle, 'memiliki') !== false)
+                                                ) || (
+                                                    strpos($normalizedQuestionTitle, 'child') !== false
+                                                    && (strpos($normalizedQuestionTitle, 'status') !== false
+                                                        || strpos($normalizedQuestionTitle, 'have') !== false)
+                                                );
+                                            @endphp
                                             @if(strtolower($item->products->title) == 'dia & diriku')
                                                 <div class="mb-4">
                                                     <label class="form-label fw-bold">Status Hubungan Dengan Dia</label>
@@ -248,9 +276,9 @@
                                                     </select>
                                                 </div>
                                             @endif
-                                            @if ($item->products->question === 'yes' && strtolower($item->products->title) !== 'mencari jodoh')
+                                            @if ($item->products->question === 'yes' && strtolower($item->products->title) !== 'mencari jodoh' && !$isChildStatusQuestion)
                                                 <h6 class="mb-2">
-                                                    {{ $item->products->question_title ? $item->products->question_title : 'Jabarkan pertanyaanmu disini' }}
+                                                    {{ $questionTitle }}
                                                 </h6>
                                             @endif
                                             <div class="col-12">
@@ -266,7 +294,8 @@
                                                     @if (
                                                         $item->products->question != 'yes' ||
                                                             strtolower($item->products->title) === 'mencari jodoh' ||
-                                                            $item->products->category == 'product') hidden @else required @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
+                                                             $item->products->category == 'product' ||
+                                                             $isChildStatusQuestion) hidden @else required @endif>{{ $item->pivot->question == ' ' ? '' : $item->pivot->question }}</textarea>
                                                 <div class="mb-2" @if (strtolower($item->products->title) != 'mencari jodoh') hidden @endif>
                                                     <label class="form-label">Kamu cenderung mencari yang etnis /
                                                         agamanya

@@ -12,6 +12,7 @@ class AdminNotification extends Mailable
 {
     use Queueable, SerializesModels;
     public $sales;
+    public $notificationLabels = [];
 
     /**
      * Create a new message instance.
@@ -30,9 +31,29 @@ class AdminNotification extends Mailable
      */
     public function build()
     {
+        $this->sales->loadMissing(['skus.products', 'user']);
+        $this->notificationLabels = $this->getNotificationLabels();
+
+        $labelPrefix = count($this->notificationLabels) > 0
+            ? '[' . implode(' / ', $this->notificationLabels) . '] '
+            : '';
+
         return $this->from('earlytheorytarot@gmail.com', 'Early Theory')
                     ->to('earlytheorytarot@gmail.com', 'Early Theory')
-                    ->subject('Order Masuk ' . $this->sales->sales_no . ' - a/n ' . $this->sales->user->name)
+                    ->subject($labelPrefix . 'Order Masuk ' . $this->sales->sales_no . ' - a/n ' . $this->sales->user->name)
                     ->view('emails.admin-notification');
+    }
+
+    private function getNotificationLabels()
+    {
+        foreach ($this->sales->skus as $sku) {
+            $product = $sku->products;
+
+            if ($product && $product->urgent) {
+                return ['URGENT'];
+            }
+        }
+
+        return [];
     }
 }

@@ -81,6 +81,7 @@ class AdminProductsController extends Controller
             'inputQuestion' => 'nullable',
             'inputQuestionTitle' => 'nullable',
             'inputAdditional' => 'nullable',
+            'inputUrgent' => 'required|boolean',
             'estimate' => 'nullable',
         ]);
 
@@ -122,6 +123,7 @@ class AdminProductsController extends Controller
         $product->question = $request->inputQuestion;
         $product->additional_question = $request->inputAdditional;
         $product->question_title = $request->inputQuestionTitle;
+        $product->urgent = $request->boolean('inputUrgent');
         $product->estimate_id = $request->estimate;
 
         $product->save();
@@ -212,6 +214,7 @@ class AdminProductsController extends Controller
             'updateStock' => 'required',
             'updateQuestion' => 'nullable',
             'updateQuestionTitle' => 'nullable',
+            'updateUrgent' => 'required|boolean',
             'estimate' => 'nullable'
         ]);
 
@@ -259,6 +262,7 @@ class AdminProductsController extends Controller
         $product->stock = $request->updateStock;
         $product->question = $request->updateQuestion;
         $product->question_title = $request->updateQuestionTitle;
+        $product->urgent = $request->boolean('updateUrgent');
         $product->estimate_id = $request->estimate;
 
         $product->save();

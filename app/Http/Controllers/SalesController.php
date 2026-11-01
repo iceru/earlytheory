@@ -204,6 +204,7 @@ class SalesController extends Controller
                 'inputBirthdate' => 'nullable|before:12/30/2012',
                 'inputPekerjaan' => 'nullable',
                 'inputGender' => 'nullable|in:laki-laki,perempuan',
+                'inputHasChildren' => 'nullable|boolean',
             ]);
 
             // $sales->paymethod_id = $request->inputPayType;
@@ -226,6 +227,7 @@ class SalesController extends Controller
             $sales->relationship = $request->inputRelationship;
             $sales->job = $request->inputPekerjaan;
             $sales->gender = $request->inputGender;
+            $sales->has_children = $request->inputHasChildren;
 
             $item_id = $request->id;
             $item_question = $request->question;
@@ -346,7 +348,13 @@ class SalesController extends Controller
                 'kepribadian' => 'nullable',
                 'nama_orang' => 'nullable',
                 'siapa_dia' => 'nullable',
+                'inputHasChildren' => 'nullable|boolean',
             ]);
+
+            if ($request->has('inputHasChildren')) {
+                $sales->has_children = $request->inputHasChildren;
+                $sales->save();
+            }
 
             $phoneRegion = $request->input('phone_region', 'ID');
             if ($request->filled('phone') && !PhoneNumber::isValid($request->phone, $phoneRegion)) {
